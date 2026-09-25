@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/cppmath.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 inline void ComputeInterpolationValues(const float value, const float scale,
@@ -44,7 +44,7 @@ inline void ComputeInterpolationValues(const float value, const float scale,
 }
 
 template <typename T>
-inline void ResizeBilinear(const tflite::ResizeBilinearParams& op_params,
+inline void ResizeBilinear(const tflite_micro::ResizeBilinearParams& op_params,
                            const RuntimeShape& unextended_input_shape,
                            const T* input_data,
                            const RuntimeShape& unextended_output_size_shape,
@@ -134,7 +134,7 @@ inline void ComputeInterpolationValuesInteger(
 // Same as above but doesn't use any floating-point for the resize
 template <typename T>
 inline void ResizeBilinearInteger(
-    const tflite::ResizeBilinearParams& op_params,
+    const tflite_micro::ResizeBilinearParams& op_params,
     const RuntimeShape& unextended_input_shape, const T* input_data,
     const RuntimeShape& unextended_output_size_shape,
     const int32_t* output_size_data,
@@ -228,6 +228,6 @@ inline void ResizeBilinearInteger(
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_RESIZE_BILINEAR_H_

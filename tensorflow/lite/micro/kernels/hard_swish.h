@@ -19,12 +19,12 @@ limitations under the License.
 #include "tensorflow/lite/c/builtin_op_data.h"
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 extern const int kHardSwishInputTensor;
 extern const int kHardSwishOutputTensor;
 
 TfLiteStatus HardSwishPrepare(TfLiteContext* context, TfLiteNode* node);
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_HARD_SWISH_H_

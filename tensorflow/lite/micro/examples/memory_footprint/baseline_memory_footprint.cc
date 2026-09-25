@@ -18,4 +18,4 @@ limitations under the License.
 // (interpreter, memory planner etc). This is used to measure the bare minimum
 // application code size of a specific target platform without the TFLM
 // Framework. Please see README.md for more information.
-int main(int argc, char** argv) { tflite::InitializeTarget(); }
+int main(int argc, char** argv) { tflite_micro::InitializeTarget(); }

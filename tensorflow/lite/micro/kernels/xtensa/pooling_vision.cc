@@ -25,7 +25,7 @@ limitations under the License.
 #define MAX_POOLING 0
 #define AVG_POOLING 1
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus PoolingPrepareVision(TfLiteContext* context, TfLiteNode* node,
                                   uint8_t pool_type) {
@@ -108,10 +108,10 @@ TfLiteStatus PoolEvalVision(TfLiteContext* context, TfLiteNode* node,
   const uint32_t output_size = NumElements(output->dims);
 
   xiPool(data.p_context, data.context_size,
-         const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input)),
-         input_size, tflite::micro::GetTensorData<int8_t>(output), output_size);
+         const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input)),
+         input_size, tflite_micro::micro::GetTensorData<int8_t>(output), output_size);
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // VISIONP6

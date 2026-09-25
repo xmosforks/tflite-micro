@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/kernels/op_macros.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 inline void Softmax(const SoftmaxParams& params,
@@ -228,6 +228,6 @@ inline void SoftmaxInt16(const SoftmaxParams& params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_SOFTMAX_H_

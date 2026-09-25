@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 struct OpDataMirrorPad {
@@ -107,12 +107,12 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       static_cast<const OpDataMirrorPad*>(node->user_data);
 
   const TfLiteEvalTensor* input_tensor =
-      tflite::micro::GetEvalInput(context, node, 0);
+      tflite_micro::micro::GetEvalInput(context, node, 0);
   const TfLiteEvalTensor* padding_matrix =
-      tflite::micro::GetEvalInput(context, node, 1);
+      tflite_micro::micro::GetEvalInput(context, node, 1);
 
   TfLiteEvalTensor* output_tensor =
-      tflite::micro::GetEvalOutput(context, node, 0);
+      tflite_micro::micro::GetEvalOutput(context, node, 0);
   const int input_dims = data->input_dims;
   const int output_size = data->output_size;
 
@@ -138,16 +138,16 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     case kTfLiteFloat32: {
       MirrorPad(padding_matrix, input_tensor->dims, output_dims_num_elements,
                 input_dims_num_elements,
-                tflite::micro::GetTensorData<float>(input_tensor),
-                tflite::micro::GetTensorData<float>(output_tensor),
+                tflite_micro::micro::GetTensorData<float>(input_tensor),
+                tflite_micro::micro::GetTensorData<float>(output_tensor),
                 data->offset, input_dims, output_size);
       break;
     }
     case kTfLiteInt8: {
       MirrorPad(padding_matrix, input_tensor->dims, output_dims_num_elements,
                 input_dims_num_elements,
-                tflite::micro::GetTensorData<int8_t>(input_tensor),
-                tflite::micro::GetTensorData<int8_t>(output_tensor),
+                tflite_micro::micro::GetTensorData<int8_t>(input_tensor),
+                tflite_micro::micro::GetTensorData<int8_t>(output_tensor),
                 data->offset, input_dims, output_size);
       break;
     }
@@ -209,7 +209,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_MIRROR_PAD() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -19,7 +19,7 @@ limitations under the License.
 #include "mli_api.h"  // NOLINT
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -73,6 +73,6 @@ static inline bool inside_arc_ccm(void* p) {
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_ARC_SCRATCH_BUFFERS_H_

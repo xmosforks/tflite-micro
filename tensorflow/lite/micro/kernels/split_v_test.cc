@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 template <int N>
@@ -97,7 +97,7 @@ void TestSplitVFloat(int* input_dims_data, const float* input_data,
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -121,7 +121,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_ThreeOutputs) {
   int output3_shape[] = {2, 2, 3};
   float output3_values[] = {7, 8, 9, 10, 11, 12};
 
-  tflite::testing::OutputTensors<3> output_tensors;
+  tflite_micro::testing::OutputTensors<3> output_tensors;
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
   output_tensors.data[2] = output3_data;
@@ -134,7 +134,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_ThreeOutputs) {
   output_tensors.expected_output_data[1] = output2_values;
   output_tensors.expected_output_data[2] = output3_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_values, split_shape, split_values,
                                    output_tensors);
 }
@@ -157,7 +157,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatAxis0) {
   int output2_shape[] = {4, 1, 2, 2, 2};
   float output2_values[] = {9, 10, 11, 12, 13, 14, 15, 16};
 
-  tflite::testing::OutputTensors<2> output_tensors;
+  tflite_micro::testing::OutputTensors<2> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -168,7 +168,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatAxis0) {
   output_tensors.expected_output_data[0] = output1_values;
   output_tensors.expected_output_data[1] = output2_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_values, split_shape, split_values,
                                    output_tensors);
 }
@@ -191,7 +191,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatAxis1) {
   int output2_shape[] = {4, 2, 1, 2, 2};
   float output2_values[] = {5, 6, 7, 8, 13, 14, 15, 16};
 
-  tflite::testing::OutputTensors<2> output_tensors;
+  tflite_micro::testing::OutputTensors<2> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -202,7 +202,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatAxis1) {
   output_tensors.expected_output_data[0] = output1_values;
   output_tensors.expected_output_data[1] = output2_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_values, split_shape, split_values,
                                    output_tensors);
 }
@@ -225,7 +225,7 @@ TF_LITE_MICRO_TEST(SPLIT_VFourDimensionalFloatAxis2) {
   int output2_shape[] = {4, 2, 2, 1, 2};
   float output2_values[] = {3, 4, 7, 8, 11, 12, 15, 16};
 
-  tflite::testing::OutputTensors<2> output_tensors;
+  tflite_micro::testing::OutputTensors<2> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -236,7 +236,7 @@ TF_LITE_MICRO_TEST(SPLIT_VFourDimensionalFloatAxis2) {
   output_tensors.expected_output_data[0] = output1_values;
   output_tensors.expected_output_data[1] = output2_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_values, split_shape, split_values,
                                    output_tensors);
 }
@@ -258,7 +258,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatAxis3) {
   int output2_shape[] = {4, 2, 2, 2, 1};
   float output2_values[] = {2, 4, 6, 8, 10, 12, 14, 16};
 
-  tflite::testing::OutputTensors<2> output_tensors;
+  tflite_micro::testing::OutputTensors<2> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -269,7 +269,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatAxis3) {
   output_tensors.expected_output_data[0] = output1_values;
   output_tensors.expected_output_data[1] = output2_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_values, split_shape, split_values,
                                    output_tensors);
 }
@@ -292,7 +292,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatNegativeAxis) {
   int output2_shape[] = {4, 1, 2, 2, 2};
   float output2_values[] = {9, 10, 11, 12, 13, 14, 15, 16};
 
-  tflite::testing::OutputTensors<2> output_tensors;
+  tflite_micro::testing::OutputTensors<2> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -303,7 +303,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_FourDimensionalFloatNegativeAxis) {
   output_tensors.expected_output_data[0] = output1_values;
   output_tensors.expected_output_data[1] = output2_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_values, split_shape, split_values,
                                    output_tensors);
 }
@@ -352,7 +352,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_OneDimensionalFloatAxis0) {
   int output8_shape[] = {1, 1};
   float output8_values[] = {8};
 
-  tflite::testing::OutputTensors<8> output_tensors;
+  tflite_micro::testing::OutputTensors<8> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -381,7 +381,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_OneDimensionalFloatAxis0) {
   output_tensors.expected_output_data[6] = output7_values;
   output_tensors.expected_output_data[7] = output8_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_value, split_size_shape, split,
                                    output_tensors);
 }
@@ -429,7 +429,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_OneDimensionalFloatTest2) {
   int output8_shape[] = {1, 0};
   float output8_values[1] = {};
 
-  tflite::testing::OutputTensors<8> output_tensors;
+  tflite_micro::testing::OutputTensors<8> output_tensors;
 
   output_tensors.data[0] = output1_data;
   output_tensors.data[1] = output2_data;
@@ -458,7 +458,7 @@ TF_LITE_MICRO_TEST(SPLIT_V_OneDimensionalFloatTest2) {
   output_tensors.expected_output_data[6] = output7_values;
   output_tensors.expected_output_data[7] = output8_values;
 
-  tflite::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
+  tflite_micro::testing::TestSplitVFloat(input_shape, input_values, axis_shape,
                                    axis_value, split_size_shape, split,
                                    output_tensors);
 }

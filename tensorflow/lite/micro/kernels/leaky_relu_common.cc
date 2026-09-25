@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/leaky_relu.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Input/output tensor index.
 const int kInputTensor = 0;
@@ -75,4 +75,4 @@ TfLiteStatus LeakyReluPrepare(TfLiteContext* context, TfLiteNode* node) {
   return CalculateOpDataLeakyRelu(context, node);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

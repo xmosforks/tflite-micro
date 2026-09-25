@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <cmath>
 
-namespace tflite {
+namespace tflite_micro {
 
 #if defined(TF_LITE_USE_GLOBAL_CMATH_FUNCTIONS) || \
     (defined(__ANDROID__) && !defined(__NDK_MAJOR__)) || defined(__ZEPHYR__)
@@ -35,6 +35,6 @@ namespace tflite {
 DECLARE_STD_GLOBAL_SWITCH1(TfLiteRound, round)
 DECLARE_STD_GLOBAL_SWITCH1(TfLiteExpm1, expm1)
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_CPPMATH_H_

@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -50,7 +50,7 @@ void ExecuteEmbeddingLookupTest(TfLiteTensor* tensors, int tensors_count) {
   int kOutputArrayData[] = {kNumOutputs, kOutputTensorIndex};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_EMBEDDING_LOOKUP();
+  const TFLMRegistration registration = tflite_micro::Register_EMBEDDING_LOOKUP();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -130,14 +130,14 @@ void TestEmbeddingLookup(int* input_dims_data[kNumInputs],
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(EmbeddingLookupOpTestSimpleFloat) {
   int kInputDims_0[] = {1, 3};
   int kInputDims_1[] = {3, 3, 2, 4};
-  int* kInputDims[tflite::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
+  int* kInputDims[tflite_micro::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
   int kOutputDims[] = {3, 3, 2, 4};
 
   constexpr int32_t kInput_0[] = {1, 0, 2};
@@ -154,14 +154,14 @@ TF_LITE_MICRO_TEST(EmbeddingLookupOpTestSimpleFloat) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestEmbeddingLookup(kInputDims, kInput_0, kInput_1,
+  tflite_micro::testing::TestEmbeddingLookup(kInputDims, kInput_0, kInput_1,
                                        kOutputDims, kExpect, output_data);
 }
 
 TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple2DTestInt8) {
   int kInputDims_0[] = {1, 3};
   int kInputDims_1[] = {2, 3, 8};
-  int* kInputDims[tflite::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
+  int* kInputDims[tflite_micro::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
   int kOutputDims[] = {2, 3, 8};
 
   constexpr int32_t kInput_0[] = {1, 0, 2};
@@ -179,12 +179,12 @@ TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple2DTestInt8) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestEmbeddingLookupParams<kInputCount_1> params = {};
+  tflite_micro::testing::TestEmbeddingLookupParams<kInputCount_1> params = {};
   auto minmax = std::minmax_element(std::begin(kInput_1), std::end(kInput_1));
   params.data_max = *minmax.second;
   params.data_min = *minmax.first;
 
-  tflite::testing::TestEmbeddingLookupQuantized(params, kInputDims, kInput_0,
+  tflite_micro::testing::TestEmbeddingLookupQuantized(params, kInputDims, kInput_0,
                                                 kInput_1, kOutputDims, kExpect,
                                                 output_data);
 }
@@ -192,7 +192,7 @@ TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple2DTestInt8) {
 TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple3DTestInt8) {
   int kInputDims_0[] = {1, 3};
   int kInputDims_1[] = {3, 3, 2, 4};
-  int* kInputDims[tflite::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
+  int* kInputDims[tflite_micro::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
   int kOutputDims[] = {3, 3, 2, 4};
 
   constexpr int32_t kInput_0[] = {1, 0, 2};
@@ -210,12 +210,12 @@ TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple3DTestInt8) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestEmbeddingLookupParams<kInputCount_1> params = {};
+  tflite_micro::testing::TestEmbeddingLookupParams<kInputCount_1> params = {};
   auto minmax = std::minmax_element(std::begin(kInput_1), std::end(kInput_1));
   params.data_max = *minmax.second;
   params.data_min = *minmax.first;
 
-  tflite::testing::TestEmbeddingLookupQuantized(params, kInputDims, kInput_0,
+  tflite_micro::testing::TestEmbeddingLookupQuantized(params, kInputDims, kInput_0,
                                                 kInput_1, kOutputDims, kExpect,
                                                 output_data);
 }
@@ -223,7 +223,7 @@ TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple3DTestInt8) {
 TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple4DTestInt8) {
   int kInputDims_0[] = {1, 3};
   int kInputDims_1[] = {4, 3, 2, 2, 2};
-  int* kInputDims[tflite::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
+  int* kInputDims[tflite_micro::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
   int kOutputDims[] = {4, 3, 2, 2, 2};
 
   constexpr int32_t kInput_0[] = {1, 0, 2};
@@ -241,12 +241,12 @@ TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple4DTestInt8) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestEmbeddingLookupParams<kInputCount_1> params = {};
+  tflite_micro::testing::TestEmbeddingLookupParams<kInputCount_1> params = {};
   auto minmax = std::minmax_element(std::begin(kInput_1), std::end(kInput_1));
   params.data_max = *minmax.second;
   params.data_min = *minmax.first;
 
-  tflite::testing::TestEmbeddingLookupQuantized(params, kInputDims, kInput_0,
+  tflite_micro::testing::TestEmbeddingLookupQuantized(params, kInputDims, kInput_0,
                                                 kInput_1, kOutputDims, kExpect,
                                                 output_data);
 }
@@ -254,7 +254,7 @@ TF_LITE_MICRO_TEST(HybridEmbeddingLookupHybridOpTestSimple4DTestInt8) {
 TF_LITE_MICRO_TEST(EmbeddingLookupOpTestSimpleInt8) {
   int kInputDims_0[] = {1, 3};
   int kInputDims_1[] = {3, 3, 2, 4};
-  int* kInputDims[tflite::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
+  int* kInputDims[tflite_micro::testing::kNumInputs] = {kInputDims_0, kInputDims_1};
   int kOutputDims[] = {3, 3, 2, 4};
 
   constexpr int32_t kInput_0[] = {1, 0, 2};
@@ -271,7 +271,7 @@ TF_LITE_MICRO_TEST(EmbeddingLookupOpTestSimpleInt8) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   int8_t output_data[kOutputCount];
 
-  tflite::testing::TestEmbeddingLookup(kInputDims, kInput_0, kInput_1,
+  tflite_micro::testing::TestEmbeddingLookup(kInputDims, kInput_0, kInput_1,
                                        kOutputDims, kExpect, output_data);
 }
 

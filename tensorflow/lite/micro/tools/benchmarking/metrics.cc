@@ -21,10 +21,10 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/tools/benchmarking/log_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void LogArenaAllocations(
-    const tflite::RecordingSingleArenaBufferAllocator* allocator,
+    const tflite_micro::RecordingSingleArenaBufferAllocator* allocator,
     const PrettyPrintType type) {
   constexpr int kArenaRows = 3;
   constexpr int kArenaCols = 3;
@@ -49,17 +49,17 @@ void LogArenaAllocations(
                                              "Arena");
 }
 
-void LogAllocations(const tflite::RecordingMicroAllocator& allocator,
+void LogAllocations(const tflite_micro::RecordingMicroAllocator& allocator,
                     const PrettyPrintType type) {
   constexpr int kAllocationTypes = 7;
-  tflite::RecordedAllocationType types[kAllocationTypes] = {
-      tflite::RecordedAllocationType::kTfLiteEvalTensorData,
-      tflite::RecordedAllocationType::kPersistentTfLiteTensorData,
-      tflite::RecordedAllocationType::kPersistentTfLiteTensorQuantizationData,
-      tflite::RecordedAllocationType::kPersistentBufferData,
-      tflite::RecordedAllocationType::kTfLiteTensorVariableBufferData,
-      tflite::RecordedAllocationType::kNodeAndRegistrationArray,
-      tflite::RecordedAllocationType::kOpData};
+  tflite_micro::RecordedAllocationType types[kAllocationTypes] = {
+      tflite_micro::RecordedAllocationType::kTfLiteEvalTensorData,
+      tflite_micro::RecordedAllocationType::kPersistentTfLiteTensorData,
+      tflite_micro::RecordedAllocationType::kPersistentTfLiteTensorQuantizationData,
+      tflite_micro::RecordedAllocationType::kPersistentBufferData,
+      tflite_micro::RecordedAllocationType::kTfLiteTensorVariableBufferData,
+      tflite_micro::RecordedAllocationType::kNodeAndRegistrationArray,
+      tflite_micro::RecordedAllocationType::kOpData};
 
   char titles[kAllocationTypes][kMaxStringLength] = {
       "Eval tensor data",
@@ -79,7 +79,7 @@ void LogAllocations(const tflite::RecordingMicroAllocator& allocator,
 
   char data[kColumns][kAllocationTypes][kMaxStringLength];
   for (int i = 0; i < kAllocationTypes; ++i) {
-    tflite::RecordedAllocation allocation =
+    tflite_micro::RecordedAllocation allocation =
         allocator.GetRecordedAllocation(types[i]);
     MicroStrcpy(data[0][i], titles[i]);
     FormatNumber<int32_t>(data[1][i], static_cast<int>(types[i]));
@@ -94,9 +94,9 @@ void LogAllocations(const tflite::RecordingMicroAllocator& allocator,
       headers, data, kAllocationTypes, type, "Allocations");
 }
 
-void LogAllocatorEvents(const tflite::RecordingMicroAllocator& allocator,
+void LogAllocatorEvents(const tflite_micro::RecordingMicroAllocator& allocator,
                         const PrettyPrintType type) {
   LogArenaAllocations(allocator.GetSimpleMemoryAllocator(), type);
   LogAllocations(allocator, type);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

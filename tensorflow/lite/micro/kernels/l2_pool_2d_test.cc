@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -55,7 +55,7 @@ void ExecuteL2Pool2DTest(const L2Pool2DTestParams& params,
   op_params.stride_height = params.stride_height;
   op_params.stride_width = params.stride_width;
 
-  const TFLMRegistration registration = tflite::Register_L2_POOL_2D();
+  const TFLMRegistration registration = tflite_micro::Register_L2_POOL_2D();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, static_cast<void*>(&op_params));
 
@@ -92,7 +92,7 @@ void TestL2Pool2D(L2Pool2DTestParams& params, int* input_dims_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -106,9 +106,9 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2Pool) {
   constexpr float kExpect[] = {3.5, 6.5};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 
@@ -122,10 +122,10 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2PoolActivationRelu) {
   constexpr float kExpect[] = {3.53553, 6.5};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
   params.activation = kTfLiteActRelu;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 
@@ -139,10 +139,10 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2PoolActivationRelu1) {
   constexpr float kExpect[] = {0.353553, 1.0};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
   params.activation = kTfLiteActReluN1To1;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 
@@ -156,10 +156,10 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2PoolActivationRelu6) {
   constexpr float kExpect[] = {0.353553, 6.0};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
   params.activation = kTfLiteActRelu6;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 
@@ -173,10 +173,10 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2PoolPaddingSame) {
   constexpr float kExpect[] = {3.5, 6.5};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
   params.padding = kTfLitePaddingSame;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 
@@ -191,13 +191,13 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2PoolPaddingSameStride1) {
                                2.54951, 7.2111, 8.63134, 7.0};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
   params.padding = kTfLitePaddingSame;
   params.compare_tolerance = 1e-4;
   params.stride_width = 1;
   params.stride_height = 1;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 
@@ -211,11 +211,11 @@ TF_LITE_MICRO_TEST(FloatPoolingOpTestL2PoolPaddingValidStride1) {
   constexpr float kExpect[] = {3.5, 6.0, 6.5};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::L2Pool2DTestParams params;
+  tflite_micro::testing::L2Pool2DTestParams params;
   params.stride_width = 1;
   params.stride_height = 1;
 
-  tflite::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
+  tflite_micro::testing::TestL2Pool2D(params, kInputDims, kInput, kExpectDims,
                                 kExpect, output_data);
 }
 

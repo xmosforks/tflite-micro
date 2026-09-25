@@ -22,11 +22,11 @@ namespace py = pybind11;
 PYBIND11_MODULE(flatbuffer_size_wrapper_pybind, m) {
   m.doc() = "FlatbufferSize";
 
-  py::class_<tflite::FlatbufferSizeWrapper>(m, "FlatbufferSize")
+  py::class_<tflite_micro::FlatbufferSizeWrapper>(m, "FlatbufferSize")
       .def(py::init([]() {
-        return std::unique_ptr<tflite::FlatbufferSizeWrapper>(
-            new tflite::FlatbufferSizeWrapper());
+        return std::unique_ptr<tflite_micro::FlatbufferSizeWrapper>(
+            new tflite_micro::FlatbufferSizeWrapper());
       }))
       .def("convertToJsonString",
-           &tflite::FlatbufferSizeWrapper::ConvertToJsonString);
+           &tflite_micro::FlatbufferSizeWrapper::ConvertToJsonString);
 }

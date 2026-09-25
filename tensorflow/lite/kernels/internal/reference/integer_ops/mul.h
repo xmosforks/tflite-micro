@@ -21,7 +21,7 @@ limitations under the License.
 #include "ruy/profiler/instrumentation.h"  // from @ruy
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 
 // Maximum dimension supported by the broadcast mul operation.
@@ -190,5 +190,5 @@ inline void BroadcastMul4DSlow(
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_MUL_H_

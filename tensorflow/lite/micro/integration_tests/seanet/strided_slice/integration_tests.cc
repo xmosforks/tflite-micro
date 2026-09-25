@@ -130,7 +130,7 @@ constexpr size_t kTensorArenaSize = 1024 * 100;
 uint8_t tensor_arena[kTensorArenaSize];
 bool print_log = false;
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 namespace {
 
@@ -158,7 +158,7 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
   TfLiteTensor* output_tensor = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(output_tensor->bytes, golden_size * sizeof(int16_t));
-  int16_t* output = ::tflite::GetTensorData<int16_t>(output_tensor);
+  int16_t* output = ::tflite_micro::GetTensorData<int16_t>(output_tensor);
   for (uint32_t i = 0; i < golden_size; i++) {
     // TODO(b/205046520): Better understand why TfLite and TFLM can sometimes be
     // off by 1.
@@ -168,12 +168,12 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
 }  // namespace
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(strided_slice0_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice0_model_data, g_strided_slice0_input0_int16_test_data,
       g_strided_slice0_input0_int16_test_data_size,
       g_strided_slice0_golden_int16_test_data,
@@ -181,7 +181,7 @@ TF_LITE_MICRO_TEST(strided_slice0_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice1_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice1_model_data, g_strided_slice1_input0_int16_test_data,
       g_strided_slice1_input0_int16_test_data_size,
       g_strided_slice1_golden_int16_test_data,
@@ -189,7 +189,7 @@ TF_LITE_MICRO_TEST(strided_slice1_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice2_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice2_model_data, g_strided_slice2_input0_int16_test_data,
       g_strided_slice2_input0_int16_test_data_size,
       g_strided_slice2_golden_int16_test_data,
@@ -197,7 +197,7 @@ TF_LITE_MICRO_TEST(strided_slice2_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice3_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice3_model_data, g_strided_slice3_input0_int16_test_data,
       g_strided_slice3_input0_int16_test_data_size,
       g_strided_slice3_golden_int16_test_data,
@@ -205,7 +205,7 @@ TF_LITE_MICRO_TEST(strided_slice3_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice4_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice4_model_data, g_strided_slice4_input0_int16_test_data,
       g_strided_slice4_input0_int16_test_data_size,
       g_strided_slice4_golden_int16_test_data,
@@ -213,7 +213,7 @@ TF_LITE_MICRO_TEST(strided_slice4_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice5_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice5_model_data, g_strided_slice5_input0_int16_test_data,
       g_strided_slice5_input0_int16_test_data_size,
       g_strided_slice5_golden_int16_test_data,
@@ -221,7 +221,7 @@ TF_LITE_MICRO_TEST(strided_slice5_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice6_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice6_model_data, g_strided_slice6_input0_int16_test_data,
       g_strided_slice6_input0_int16_test_data_size,
       g_strided_slice6_golden_int16_test_data,
@@ -229,7 +229,7 @@ TF_LITE_MICRO_TEST(strided_slice6_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice7_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice7_model_data, g_strided_slice7_input0_int16_test_data,
       g_strided_slice7_input0_int16_test_data_size,
       g_strided_slice7_golden_int16_test_data,
@@ -237,7 +237,7 @@ TF_LITE_MICRO_TEST(strided_slice7_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice8_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice8_model_data, g_strided_slice8_input0_int16_test_data,
       g_strided_slice8_input0_int16_test_data_size,
       g_strided_slice8_golden_int16_test_data,
@@ -245,7 +245,7 @@ TF_LITE_MICRO_TEST(strided_slice8_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice9_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice9_model_data, g_strided_slice9_input0_int16_test_data,
       g_strided_slice9_input0_int16_test_data_size,
       g_strided_slice9_golden_int16_test_data,
@@ -253,7 +253,7 @@ TF_LITE_MICRO_TEST(strided_slice9_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice10_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice10_model_data, g_strided_slice10_input0_int16_test_data,
       g_strided_slice10_input0_int16_test_data_size,
       g_strided_slice10_golden_int16_test_data,
@@ -261,7 +261,7 @@ TF_LITE_MICRO_TEST(strided_slice10_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice11_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice11_model_data, g_strided_slice11_input0_int16_test_data,
       g_strided_slice11_input0_int16_test_data_size,
       g_strided_slice11_golden_int16_test_data,
@@ -269,7 +269,7 @@ TF_LITE_MICRO_TEST(strided_slice11_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice12_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice12_model_data, g_strided_slice12_input0_int16_test_data,
       g_strided_slice12_input0_int16_test_data_size,
       g_strided_slice12_golden_int16_test_data,
@@ -277,7 +277,7 @@ TF_LITE_MICRO_TEST(strided_slice12_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice13_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice13_model_data, g_strided_slice13_input0_int16_test_data,
       g_strided_slice13_input0_int16_test_data_size,
       g_strided_slice13_golden_int16_test_data,
@@ -285,7 +285,7 @@ TF_LITE_MICRO_TEST(strided_slice13_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice14_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice14_model_data, g_strided_slice14_input0_int16_test_data,
       g_strided_slice14_input0_int16_test_data_size,
       g_strided_slice14_golden_int16_test_data,
@@ -293,7 +293,7 @@ TF_LITE_MICRO_TEST(strided_slice14_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice15_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice15_model_data, g_strided_slice15_input0_int16_test_data,
       g_strided_slice15_input0_int16_test_data_size,
       g_strided_slice15_golden_int16_test_data,
@@ -301,7 +301,7 @@ TF_LITE_MICRO_TEST(strided_slice15_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice16_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice16_model_data, g_strided_slice16_input0_int16_test_data,
       g_strided_slice16_input0_int16_test_data_size,
       g_strided_slice16_golden_int16_test_data,
@@ -309,7 +309,7 @@ TF_LITE_MICRO_TEST(strided_slice16_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice17_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice17_model_data, g_strided_slice17_input0_int16_test_data,
       g_strided_slice17_input0_int16_test_data_size,
       g_strided_slice17_golden_int16_test_data,
@@ -317,7 +317,7 @@ TF_LITE_MICRO_TEST(strided_slice17_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice18_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice18_model_data, g_strided_slice18_input0_int16_test_data,
       g_strided_slice18_input0_int16_test_data_size,
       g_strided_slice18_golden_int16_test_data,
@@ -325,7 +325,7 @@ TF_LITE_MICRO_TEST(strided_slice18_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice19_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice19_model_data, g_strided_slice19_input0_int16_test_data,
       g_strided_slice19_input0_int16_test_data_size,
       g_strided_slice19_golden_int16_test_data,
@@ -333,7 +333,7 @@ TF_LITE_MICRO_TEST(strided_slice19_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice20_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice20_model_data, g_strided_slice20_input0_int16_test_data,
       g_strided_slice20_input0_int16_test_data_size,
       g_strided_slice20_golden_int16_test_data,
@@ -341,7 +341,7 @@ TF_LITE_MICRO_TEST(strided_slice20_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice21_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice21_model_data, g_strided_slice21_input0_int16_test_data,
       g_strided_slice21_input0_int16_test_data_size,
       g_strided_slice21_golden_int16_test_data,
@@ -349,7 +349,7 @@ TF_LITE_MICRO_TEST(strided_slice21_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice22_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice22_model_data, g_strided_slice22_input0_int16_test_data,
       g_strided_slice22_input0_int16_test_data_size,
       g_strided_slice22_golden_int16_test_data,
@@ -357,7 +357,7 @@ TF_LITE_MICRO_TEST(strided_slice22_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice23_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice23_model_data, g_strided_slice23_input0_int16_test_data,
       g_strided_slice23_input0_int16_test_data_size,
       g_strided_slice23_golden_int16_test_data,
@@ -365,7 +365,7 @@ TF_LITE_MICRO_TEST(strided_slice23_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice24_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice24_model_data, g_strided_slice24_input0_int16_test_data,
       g_strided_slice24_input0_int16_test_data_size,
       g_strided_slice24_golden_int16_test_data,
@@ -373,7 +373,7 @@ TF_LITE_MICRO_TEST(strided_slice24_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice25_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice25_model_data, g_strided_slice25_input0_int16_test_data,
       g_strided_slice25_input0_int16_test_data_size,
       g_strided_slice25_golden_int16_test_data,
@@ -381,7 +381,7 @@ TF_LITE_MICRO_TEST(strided_slice25_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice26_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice26_model_data, g_strided_slice26_input0_int16_test_data,
       g_strided_slice26_input0_int16_test_data_size,
       g_strided_slice26_golden_int16_test_data,
@@ -389,7 +389,7 @@ TF_LITE_MICRO_TEST(strided_slice26_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice27_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice27_model_data, g_strided_slice27_input0_int16_test_data,
       g_strided_slice27_input0_int16_test_data_size,
       g_strided_slice27_golden_int16_test_data,
@@ -397,7 +397,7 @@ TF_LITE_MICRO_TEST(strided_slice27_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice28_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice28_model_data, g_strided_slice28_input0_int16_test_data,
       g_strided_slice28_input0_int16_test_data_size,
       g_strided_slice28_golden_int16_test_data,
@@ -405,7 +405,7 @@ TF_LITE_MICRO_TEST(strided_slice28_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice29_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice29_model_data, g_strided_slice29_input0_int16_test_data,
       g_strided_slice29_input0_int16_test_data_size,
       g_strided_slice29_golden_int16_test_data,
@@ -413,7 +413,7 @@ TF_LITE_MICRO_TEST(strided_slice29_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice30_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice30_model_data, g_strided_slice30_input0_int16_test_data,
       g_strided_slice30_input0_int16_test_data_size,
       g_strided_slice30_golden_int16_test_data,
@@ -421,7 +421,7 @@ TF_LITE_MICRO_TEST(strided_slice30_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice31_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice31_model_data, g_strided_slice31_input0_int16_test_data,
       g_strided_slice31_input0_int16_test_data_size,
       g_strided_slice31_golden_int16_test_data,
@@ -429,7 +429,7 @@ TF_LITE_MICRO_TEST(strided_slice31_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice32_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice32_model_data, g_strided_slice32_input0_int16_test_data,
       g_strided_slice32_input0_int16_test_data_size,
       g_strided_slice32_golden_int16_test_data,
@@ -437,7 +437,7 @@ TF_LITE_MICRO_TEST(strided_slice32_test) {
 }
 
 TF_LITE_MICRO_TEST(strided_slice33_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_strided_slice33_model_data, g_strided_slice33_input0_int16_test_data,
       g_strided_slice33_input0_int16_test_data_size,
       g_strided_slice33_golden_int16_test_data,

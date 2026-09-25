@@ -26,7 +26,7 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestResizableBuffer) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   uint8_t* resizable_buf = allocator.AllocateResizableBuffer(10, 1);
   TF_LITE_MICRO_EXPECT(resizable_buf == arena);
@@ -54,7 +54,7 @@ TF_LITE_MICRO_TEST(TestResizableBuffer) {
 TF_LITE_MICRO_TEST(TestTempBuffer) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   constexpr size_t allocation_size = 100;
   uint8_t* temp = allocator.AllocateTemp(/*size=*/allocation_size,
@@ -81,7 +81,7 @@ TF_LITE_MICRO_TEST(TestTempBuffer) {
 TF_LITE_MICRO_TEST(TestAllocateResizeFailIfTempStillExists) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   constexpr size_t allocation_size = 100;
   uint8_t* temp = allocator.AllocateTemp(/*size=*/allocation_size,
@@ -97,7 +97,7 @@ TF_LITE_MICRO_TEST(TestAllocateResizeFailIfTempStillExists) {
 TF_LITE_MICRO_TEST(TestAllocateResizePassIfNoTemp) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   constexpr size_t allocation_size = 100;
   uint8_t* temp = allocator.AllocateTemp(/*size=*/allocation_size,
@@ -114,7 +114,7 @@ TF_LITE_MICRO_TEST(TestAllocateResizePassIfNoTemp) {
 TF_LITE_MICRO_TEST(TestAllocateResizableFailIfResizableExists) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   constexpr size_t allocation_size = 100;
   TF_LITE_MICRO_EXPECT(
@@ -130,7 +130,7 @@ TF_LITE_MICRO_TEST(TestAllocateResizableFailIfResizableExists) {
 TF_LITE_MICRO_TEST(TestResetTempFailIfTempStillExists) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   constexpr size_t allocation_size = 100;
   allocator.AllocateTemp(/*size=*/allocation_size,
@@ -143,7 +143,7 @@ TF_LITE_MICRO_TEST(TestResetTempFailIfTempStillExists) {
 TF_LITE_MICRO_TEST(TestAllocateTempFailIfExceedAllowance) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   TF_LITE_MICRO_EXPECT(allocator.AllocateTemp(/*size=*/arena_size + 1,
                                               /*alignment=*/1) == nullptr);
@@ -153,7 +153,7 @@ TF_LITE_MICRO_TEST(TestAllocateTempFailIfExceedAllowance) {
 TF_LITE_MICRO_TEST(TestAllocateTempFailIfExceedAllowance) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   TF_LITE_MICRO_EXPECT(allocator.AllocateResizableBuffer(
                            /*size=*/arena_size + 1, /*alignment=*/1) ==
@@ -176,7 +176,7 @@ TF_LITE_MICRO_TEST(TestAllocateTempFailIfExceedAllowance) {
 TF_LITE_MICRO_TEST(TestGetNonPersistentUsedBytes) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::NonPersistentArenaBufferAllocator allocator(arena, arena_size);
 
   constexpr size_t allocation_size = 100;
   TF_LITE_MICRO_EXPECT(

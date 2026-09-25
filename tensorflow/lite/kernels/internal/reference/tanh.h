@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/kernels/op_macros.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 inline void Tanh(const RuntimeShape& input_shape, const float* input_data,
@@ -124,6 +124,6 @@ inline void Tanh(const TanhParams& params, const RuntimeShape& input_shape,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_TANH_H_

@@ -48,7 +48,7 @@ constexpr size_t kTensorArenaSize = 1024 * 100;
 uint8_t tensor_arena[kTensorArenaSize];
 bool print_log = false;
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 namespace {
 
@@ -80,7 +80,7 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
   TfLiteTensor* output_tensor = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(output_tensor->bytes, golden_size * sizeof(int16_t));
-  int16_t* output = ::tflite::GetTensorData<int16_t>(output_tensor);
+  int16_t* output = ::tflite_micro::GetTensorData<int16_t>(output_tensor);
   for (uint32_t i = 0; i < golden_size; i++) {
     // TODO(b/205046520): Better understand why TfLite and TFLM can sometimes be
     // off by 1.
@@ -90,12 +90,12 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
 }  // namespace
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(sub0_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_sub0_model_data, g_sub0_input0_int16_test_data,
       g_sub0_input0_int16_test_data_size, g_sub0_input1_int16_test_data,
       g_sub0_input1_int16_test_data_size, g_sub0_golden_int16_test_data,
@@ -103,7 +103,7 @@ TF_LITE_MICRO_TEST(sub0_test) {
 }
 
 TF_LITE_MICRO_TEST(sub1_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_sub1_model_data, g_sub1_input0_int16_test_data,
       g_sub1_input0_int16_test_data_size, g_sub1_input1_int16_test_data,
       g_sub1_input1_int16_test_data_size, g_sub1_golden_int16_test_data,
@@ -111,7 +111,7 @@ TF_LITE_MICRO_TEST(sub1_test) {
 }
 
 TF_LITE_MICRO_TEST(sub2_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_sub2_model_data, g_sub2_input0_int16_test_data,
       g_sub2_input0_int16_test_data_size, g_sub2_input1_int16_test_data,
       g_sub2_input1_int16_test_data_size, g_sub2_golden_int16_test_data,
@@ -119,7 +119,7 @@ TF_LITE_MICRO_TEST(sub2_test) {
 }
 
 TF_LITE_MICRO_TEST(sub3_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_sub3_model_data, g_sub3_input0_int16_test_data,
       g_sub3_input0_int16_test_data_size, g_sub3_input1_int16_test_data,
       g_sub3_input1_int16_test_data_size, g_sub3_golden_int16_test_data,
@@ -127,7 +127,7 @@ TF_LITE_MICRO_TEST(sub3_test) {
 }
 
 TF_LITE_MICRO_TEST(sub4_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_sub4_model_data, g_sub4_input0_int16_test_data,
       g_sub4_input0_int16_test_data_size, g_sub4_input1_int16_test_data,
       g_sub4_input1_int16_test_data_size, g_sub4_golden_int16_test_data,

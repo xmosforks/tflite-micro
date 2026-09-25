@@ -32,7 +32,7 @@ limitations under the License.
 #include "tensorflow/lite/schema/schema_generated.h"
 #include "tensorflow/lite/schema/schema_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 MemoryPlannerType FlagToMemoryPlannerType(bool preserve_all_tensors) {
   if (preserve_all_tensors) {
@@ -334,4 +334,4 @@ TfLiteStatus MicroInterpreter::SetMicroExternalContext(
   return micro_context_.set_external_context(external_context_payload);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

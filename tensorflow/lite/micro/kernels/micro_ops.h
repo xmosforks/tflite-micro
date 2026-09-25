@@ -27,7 +27,7 @@ limitations under the License.
 // their model requires, using a custom `(Micro)MutableOpResolver`. Selective
 // registration in turn allows the linker to strip unused kernels.
 
-namespace tflite {
+namespace tflite_micro {
 
 // TFLM is incrementally moving towards a flat tflite namespace
 // (https://abseil.io/tips/130). Any new ops (or cleanup of existing ops should
@@ -153,6 +153,6 @@ TFLMRegistration* Register_STACKER();
 TFLMRegistration* Register_WINDOW();
 }  // namespace tflm_signal
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_MICRO_OPS_H_

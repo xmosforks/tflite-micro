@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/tensor_ctypes.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // A list of tensors in a format that can be used by kernels like split and
 // concatenation.
@@ -136,6 +136,6 @@ class SequentialTensorWriter {
   T* output_ptr_;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_PORTABLE_TENSOR_H_

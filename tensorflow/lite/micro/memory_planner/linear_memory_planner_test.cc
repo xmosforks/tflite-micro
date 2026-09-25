@@ -20,7 +20,7 @@ limitations under the License.
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestBasics) {
-  tflite::LinearMemoryPlanner planner;
+  tflite_micro::LinearMemoryPlanner planner;
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(10, 0, 1));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(20, 1, 2));
   TF_LITE_MICRO_EXPECT_EQ(static_cast<size_t>(30),
@@ -35,7 +35,7 @@ TF_LITE_MICRO_TEST(TestBasics) {
 }
 
 TF_LITE_MICRO_TEST(TestErrorHandling) {
-  tflite::LinearMemoryPlanner planner;
+  tflite_micro::LinearMemoryPlanner planner;
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(10, 0, 1));
 
   int offset = -1;
@@ -43,7 +43,7 @@ TF_LITE_MICRO_TEST(TestErrorHandling) {
 }
 
 TF_LITE_MICRO_TEST(TestPersonDetectionModel) {
-  tflite::LinearMemoryPlanner planner;
+  tflite_micro::LinearMemoryPlanner planner;
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(9216, 0, 29));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(3, 28, 29));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(256, 27, 28));

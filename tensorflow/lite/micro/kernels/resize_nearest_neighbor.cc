@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -53,7 +53,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
   output->type = input->type;
 
-  if (!IsConstantTensor(size)) {
+  if (!IsConstantTensor(context, size)) {
     MicroPrintf("Dynamic tensors are unsupported in tfmicro.");
     return kTfLiteError;
   }
@@ -70,43 +70,43 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       reinterpret_cast<TfLiteResizeNearestNeighborParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* size =
-      tflite::micro::GetEvalInput(context, node, kSizeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSizeTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
-  tflite::ResizeNearestNeighborParams op_params;
+  tflite_micro::ResizeNearestNeighborParams op_params;
   op_params.align_corners = params->align_corners;
   op_params.half_pixel_centers = false;
 
   if (output->type == kTfLiteFloat32) {
     reference_ops::ResizeNearestNeighbor(
-        op_params, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int32_t>(input),
-        tflite::micro::GetTensorShape(size),
-        tflite::micro::GetTensorData<int32_t>(size),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int32_t>(output));
+        op_params, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int32_t>(input),
+        tflite_micro::micro::GetTensorShape(size),
+        tflite_micro::micro::GetTensorData<int32_t>(size),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int32_t>(output));
   } else if (output->type == kTfLiteInt8) {
     reference_ops::ResizeNearestNeighbor(
-        op_params, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int8_t>(input),
-        tflite::micro::GetTensorShape(size),
-        tflite::micro::GetTensorData<int32_t>(size),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int8_t>(output));
+        op_params, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int8_t>(input),
+        tflite_micro::micro::GetTensorShape(size),
+        tflite_micro::micro::GetTensorData<int32_t>(size),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int8_t>(output));
   } else if (output->type == kTfLiteInt16) {
     reference_ops::ResizeNearestNeighbor(
-        op_params, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int16_t>(input),
-        tflite::micro::GetTensorShape(size),
-        tflite::micro::GetTensorData<int32_t>(size),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int16_t>(output));
+        op_params, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int16_t>(input),
+        tflite_micro::micro::GetTensorShape(size),
+        tflite_micro::micro::GetTensorData<int32_t>(size),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int16_t>(output));
   } else {
     MicroPrintf("Output tensor type %s (%d) not supported.",
-                TfLiteTypeGetName(output->type), output->type);
+                TfLiteMicroTypeGetName(output->type), output->type);
 
     return kTfLiteError;
   }
@@ -117,7 +117,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_RESIZE_NEAREST_NEIGHBOR() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

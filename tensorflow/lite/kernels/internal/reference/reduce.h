@@ -44,7 +44,7 @@ inline bool IsFirstReduction(const int* index, const int num_axis,
   return true;
 }
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
@@ -268,7 +268,7 @@ inline bool Mean(const T* input_data, const int* input_dims,
   return true;
 }
 
-inline void Mean(const tflite::MeanParams& op_params,
+inline void Mean(const tflite_micro::MeanParams& op_params,
                  const RuntimeShape& unextended_input_shape,
                  const float* input_data,
                  const RuntimeShape& unextended_output_shape,
@@ -486,6 +486,6 @@ inline bool QuantizedReduceProd(const T* input_data, int32_t input_zero_point,
 
 }  // namespace reference_ops
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_REDUCE_H_

@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 TfLiteStatus InvokeConv(TfLiteTensor* tensors, int tensors_size,
@@ -89,6 +89,6 @@ TfLiteStatus TestConvQuantizedPerChannel(
     TFLMRegistration registration, int16_t* output_data);
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_CONV_TEST_H_

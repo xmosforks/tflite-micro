@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -35,7 +35,7 @@ void TestCallOnce(const int subgraph0_invoke_count_golden,
   TfLiteCallOnceParams params;
   params.init_subgraph_index = 1;
 
-  const TFLMRegistration registration = tflite::Register_CALL_ONCE();
+  const TFLMRegistration registration = tflite_micro::Register_CALL_ONCE();
   micro::KernelRunner runner(registration, nullptr, 0, inputs_array,
                              outputs_array, &params);
 
@@ -50,13 +50,13 @@ void TestCallOnce(const int subgraph0_invoke_count_golden,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(CallOnceShouldOnlyInvokeSubgraphOnce) {
-  tflite::testing::TestCallOnce(1, 1);
-  tflite::testing::TestCallOnce(10, 1);
+  tflite_micro::testing::TestCallOnce(1, 1);
+  tflite_micro::testing::TestCallOnce(10, 1);
 }
 
 TF_LITE_MICRO_TESTS_END

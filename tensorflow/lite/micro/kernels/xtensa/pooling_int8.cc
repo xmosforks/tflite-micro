@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_pooling.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -57,7 +57,7 @@ TfLiteStatus AverageEvalInt8(TfLiteContext* context, TfLiteNode* node) {
     }
     default: {
       MicroPrintf("Input type %s is not currently supported",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -94,7 +94,7 @@ TfLiteStatus MaxEvalInt8(TfLiteContext* context, TfLiteNode* node) {
     }
     default: {
       MicroPrintf("Type %s not currently supported.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -157,8 +157,8 @@ TfLiteStatus AverageEvalQuantizedHifi(TfLiteContext* context,
                                       TfLiteEvalTensor* output) {
   TFLITE_DCHECK(input->type == kTfLiteInt8);
 
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
   const int batches = MatchingDim(input_shape, 0, output_shape, 0);
   const int depth = MatchingDim(input_shape, 3, output_shape, 3);
   const int input_height = input_shape.Dims(1);
@@ -169,8 +169,8 @@ TfLiteStatus AverageEvalQuantizedHifi(TfLiteContext* context,
   void* p_scratch = static_cast<void*>(
       context->GetScratchBuffer(context, data->scratch_tensor_index));
 
-  const int8_t* inp_data_ptr = tflite::micro::GetTensorData<int8_t>(input);
-  int8_t* out_data_ptr = tflite::micro::GetTensorData<int8_t>(output);
+  const int8_t* inp_data_ptr = tflite_micro::micro::GetTensorData<int8_t>(input);
+  int8_t* out_data_ptr = tflite_micro::micro::GetTensorData<int8_t>(output);
 
   for (int batch = 0; batch < batches; ++batch) {
     TF_LITE_ENSURE_EQ(
@@ -249,8 +249,8 @@ TfLiteStatus MaxEvalQuantizedHifi(TfLiteContext* context, TfLiteNode* node,
                                   const XtensaOpDataPooling* data,
                                   const TfLiteEvalTensor* input,
                                   TfLiteEvalTensor* output) {
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
   const int batches = MatchingDim(input_shape, 0, output_shape, 0);
   const int depth = MatchingDim(input_shape, 3, output_shape, 3);
   const int input_height = input_shape.Dims(1);
@@ -261,8 +261,8 @@ TfLiteStatus MaxEvalQuantizedHifi(TfLiteContext* context, TfLiteNode* node,
   void* p_scratch = static_cast<void*>(
       context->GetScratchBuffer(context, data->scratch_tensor_index));
 
-  const int8_t* inp_data_ptr = tflite::micro::GetTensorData<int8_t>(input);
-  int8_t* out_data_ptr = tflite::micro::GetTensorData<int8_t>(output);
+  const int8_t* inp_data_ptr = tflite_micro::micro::GetTensorData<int8_t>(input);
+  int8_t* out_data_ptr = tflite_micro::micro::GetTensorData<int8_t>(output);
 
   for (int batch = 0; batch < batches; ++batch) {
     TF_LITE_ENSURE_EQ(
@@ -311,28 +311,28 @@ void* XtensaPoolingInit(TfLiteContext* context, const char* buffer,
 
 TFLMRegistration Register_AVERAGE_POOL_2D_INT8() {
 #if defined(HIFI5)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, AveragePrepareHifi,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, AveragePrepareHifi,
                                    AverageEvalInt8);
 #elif defined(VISION_P6)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, AvgPoolingPrepareVision,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, AvgPoolingPrepareVision,
                                    AverageEvalInt8);
 #else
-  return tflite::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare,
                                    AverageEvalInt8);
 #endif
 }
 
 TFLMRegistration Register_MAX_POOL_2D_INT8() {
 #if defined(HIFI5)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, MaxPrepareHifi,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, MaxPrepareHifi,
                                    MaxEvalInt8);
 #elif defined(VISION_P6)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, MaxPoolingPrepareVision,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, MaxPoolingPrepareVision,
                                    MaxEvalInt8);
 #else
-  return tflite::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare,
                                    MaxEvalInt8);
 #endif
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

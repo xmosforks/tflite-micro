@@ -343,8 +343,8 @@ void InterpreterWrapper::SetInputTensor(PyObject* data, size_t index) {
   if (TfLiteTypeFromPyArray(array) != tensor->type) {
     std::string err_str =
         "Cannot set tensor: Got value of type " +
-        std::string(TfLiteTypeGetName(TfLiteTypeFromPyArray(array))) +
-        " but expected type " + TfLiteTypeGetName(tensor->type) +
+        std::string(TfLiteMicroTypeGetName(TfLiteTypeFromPyArray(array))) +
+        " but expected type " + TfLiteMicroTypeGetName(tensor->type) +
         " for input " + std::to_string(index);
     ThrowValueError(err_str.c_str());
   }

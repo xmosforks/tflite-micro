@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <vector>
 
-namespace tflite {
+namespace tflite_micro {
 
 RuntimeShape GetTensorShape(const TfLiteTensor* tensor) {
   if (tensor == nullptr) {
@@ -34,4 +34,4 @@ RuntimeShape GetTensorShape(std::vector<int32_t> data) {
   return RuntimeShape(data.size(), data.data());
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -29,19 +29,19 @@ constexpr int kOutputTensor = 0;
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   switch (input->type) {
     // TODO(wangtz): handle for kTfLiteInt8
     case kTfLiteFloat32:
-      reference_ops::Negate(tflite::micro::GetTensorShape(input),
-                            tflite::micro::GetTensorData<float>(input),
-                            tflite::micro::GetTensorShape(output),
-                            tflite::micro::GetTensorData<float>(output));
+      reference_ops::Negate(tflite_micro::micro::GetTensorShape(input),
+                            tflite_micro::micro::GetTensorData<float>(input),
+                            tflite_micro::micro::GetTensorShape(output),
+                            tflite_micro::micro::GetTensorData<float>(output));
       break;
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -51,7 +51,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_NEG() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

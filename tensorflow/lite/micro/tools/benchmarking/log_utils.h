@@ -23,7 +23,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // The maxmimum length of a string.
 static constexpr int kMaxStringLength = 32;
@@ -268,6 +268,6 @@ void PrintFormattedData(const char headers[kColumns][kMaxStringLength],
   }
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TFLM_BENCHMARK_INTERNAL_LOG_UTILS_H_

@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -49,7 +49,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE_EQ(context, size->type, kTfLiteInt32);
   output->type = input->type;
 
-  TF_LITE_ENSURE_MSG(context, IsConstantTensor(size),
+  TF_LITE_ENSURE_MSG(context, IsConstantTensor(context, size),
                      "Non constant size tensor not supported");
 
   // Ensure params are valid.
@@ -71,34 +71,34 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       reinterpret_cast<TfLiteResizeBilinearParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* size =
-      tflite::micro::GetEvalInput(context, node, kSizeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSizeTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   if (output->type == kTfLiteFloat32) {
-    tflite::ResizeBilinearParams op_params;
+    tflite_micro::ResizeBilinearParams op_params;
     op_params.align_corners = params->align_corners;
     op_params.half_pixel_centers = params->half_pixel_centers;
     reference_ops::ResizeBilinear(op_params,
-                                  tflite::micro::GetTensorShape(input),
-                                  tflite::micro::GetTensorData<float>(input),
-                                  tflite::micro::GetTensorShape(size),
-                                  tflite::micro::GetTensorData<int32_t>(size),
-                                  tflite::micro::GetTensorShape(output),
-                                  tflite::micro::GetTensorData<float>(output));
+                                  tflite_micro::micro::GetTensorShape(input),
+                                  tflite_micro::micro::GetTensorData<float>(input),
+                                  tflite_micro::micro::GetTensorShape(size),
+                                  tflite_micro::micro::GetTensorData<int32_t>(size),
+                                  tflite_micro::micro::GetTensorShape(output),
+                                  tflite_micro::micro::GetTensorData<float>(output));
   } else if (output->type == kTfLiteInt8) {
-    tflite::ResizeBilinearParams op_params;
+    tflite_micro::ResizeBilinearParams op_params;
     op_params.align_corners = params->align_corners;
     op_params.half_pixel_centers = params->half_pixel_centers;
     reference_ops::ResizeBilinearInteger(
-        op_params, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int8_t>(input),
-        tflite::micro::GetTensorShape(size),
-        tflite::micro::GetTensorData<int32_t>(size),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int8_t>(output));
+        op_params, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int8_t>(input),
+        tflite_micro::micro::GetTensorShape(size),
+        tflite_micro::micro::GetTensorData<int32_t>(size),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int8_t>(output));
   } else {
     MicroPrintf("Output type is %d, requires float or int8.", output->type);
     return kTfLiteError;
@@ -110,7 +110,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_RESIZE_BILINEAR() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

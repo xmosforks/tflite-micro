@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 #if defined(VISION_P6)
@@ -62,9 +62,9 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kReshapeInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kReshapeInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kReshapeOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kReshapeOutputTensor);
 
   // TODO(b/162522304): storing input bytes in OpData increases some models
   // significantly, possibly due to alignment issues.
@@ -93,10 +93,10 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
 TFLMRegistration Register_RESHAPE() {
 #if defined(VISION_P6)
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 #else
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 #endif
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

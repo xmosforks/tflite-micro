@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 
 // For per-channel functions, since it is defined in quantization spec that
@@ -121,6 +121,6 @@ void FullyConnected(const FullyConnectedParams& params,
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_FULLY_CONNECTED_H_

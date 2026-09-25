@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 MicroInterpreterContext::MicroInterpreterContext(MicroAllocator* allocator,
                                                  const Model* model,
                                                  MicroInterpreterGraph* graph)
@@ -56,6 +56,12 @@ TfLiteTensor* MicroInterpreterContext::AllocateTempTfLiteTensor(
                                              graph_.GetCurrentSubgraphIndex());
 }
 
+TfLiteTensor* MicroInterpreterContext::AllocateTempTfLiteTensor(int tensor_idx, int sg) {
+  return allocator_.AllocateTempTfLiteTensor(model_, graph_.GetAllocations(),
+                                             tensor_idx,
+                                             sg);
+}
+
 void MicroInterpreterContext::DeallocateTempTfLiteTensor(TfLiteTensor* tensor) {
   return allocator_.DeallocateTempTfLiteTensor(tensor);
 }
@@ -76,6 +82,11 @@ TfLiteEvalTensor* MicroInterpreterContext::GetEvalTensor(int tensor_idx) {
               .tensors[tensor_idx];
 }
 
+TfLiteEvalTensor* MicroInterpreterContext::GetEvalTensor(int tensor_idx, int sg) {
+  return &graph_.GetAllocations()[sg]
+              .tensors[tensor_idx];
+}
+
 void MicroInterpreterContext::SetScratchBufferHandles(
     ScratchBufferHandle* scratch_buffer_handles) {
   scratch_buffer_handles_ = scratch_buffer_handles;
@@ -83,7 +94,8 @@ void MicroInterpreterContext::SetScratchBufferHandles(
 
 TfLiteStatus MicroInterpreterContext::set_external_context(
     void* external_context_payload) {
-  TFLITE_DCHECK(state_ == InterpreterState::kPrepare ||
+  TFLITE_DCHECK(state_ == InterpreterState::kInit ||
+                state_ == InterpreterState::kPrepare ||
                 state_ == InterpreterState::kInvoke);
   if (external_context_payload == nullptr ||
       external_context_payload_ != nullptr) {
@@ -106,4 +118,4 @@ MicroInterpreterContext::GetInterpreterState() const {
   return state_;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

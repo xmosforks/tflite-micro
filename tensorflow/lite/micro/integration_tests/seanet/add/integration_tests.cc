@@ -96,7 +96,7 @@ constexpr size_t kTensorArenaSize = 1024 * 100;
 uint8_t tensor_arena[kTensorArenaSize];
 bool print_log = false;
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 namespace {
 
@@ -128,7 +128,7 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
   TfLiteTensor* output_tensor = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(output_tensor->bytes, golden_size * sizeof(int16_t));
-  int16_t* output = ::tflite::GetTensorData<int16_t>(output_tensor);
+  int16_t* output = ::tflite_micro::GetTensorData<int16_t>(output_tensor);
   for (uint32_t i = 0; i < golden_size; i++) {
     // TODO(b/205046520): Better understand why TfLite and TFLM can sometimes be
     // off by 1.
@@ -138,12 +138,12 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
 }  // namespace
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(add0_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add0_model_data, g_add0_input0_int16_test_data,
       g_add0_input0_int16_test_data_size, g_add0_input1_int16_test_data,
       g_add0_input1_int16_test_data_size, g_add0_golden_int16_test_data,
@@ -151,7 +151,7 @@ TF_LITE_MICRO_TEST(add0_test) {
 }
 
 TF_LITE_MICRO_TEST(add1_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add1_model_data, g_add1_input0_int16_test_data,
       g_add1_input0_int16_test_data_size, g_add1_input1_int16_test_data,
       g_add1_input1_int16_test_data_size, g_add1_golden_int16_test_data,
@@ -159,7 +159,7 @@ TF_LITE_MICRO_TEST(add1_test) {
 }
 
 TF_LITE_MICRO_TEST(add2_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add2_model_data, g_add2_input0_int16_test_data,
       g_add2_input0_int16_test_data_size, g_add2_input1_int16_test_data,
       g_add2_input1_int16_test_data_size, g_add2_golden_int16_test_data,
@@ -167,7 +167,7 @@ TF_LITE_MICRO_TEST(add2_test) {
 }
 
 TF_LITE_MICRO_TEST(add3_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add3_model_data, g_add3_input0_int16_test_data,
       g_add3_input0_int16_test_data_size, g_add3_input1_int16_test_data,
       g_add3_input1_int16_test_data_size, g_add3_golden_int16_test_data,
@@ -175,7 +175,7 @@ TF_LITE_MICRO_TEST(add3_test) {
 }
 
 TF_LITE_MICRO_TEST(add4_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add4_model_data, g_add4_input0_int16_test_data,
       g_add4_input0_int16_test_data_size, g_add4_input1_int16_test_data,
       g_add4_input1_int16_test_data_size, g_add4_golden_int16_test_data,
@@ -183,7 +183,7 @@ TF_LITE_MICRO_TEST(add4_test) {
 }
 
 TF_LITE_MICRO_TEST(add5_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add5_model_data, g_add5_input0_int16_test_data,
       g_add5_input0_int16_test_data_size, g_add5_input1_int16_test_data,
       g_add5_input1_int16_test_data_size, g_add5_golden_int16_test_data,
@@ -191,7 +191,7 @@ TF_LITE_MICRO_TEST(add5_test) {
 }
 
 TF_LITE_MICRO_TEST(add6_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add6_model_data, g_add6_input0_int16_test_data,
       g_add6_input0_int16_test_data_size, g_add6_input1_int16_test_data,
       g_add6_input1_int16_test_data_size, g_add6_golden_int16_test_data,
@@ -199,7 +199,7 @@ TF_LITE_MICRO_TEST(add6_test) {
 }
 
 TF_LITE_MICRO_TEST(add7_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add7_model_data, g_add7_input0_int16_test_data,
       g_add7_input0_int16_test_data_size, g_add7_input1_int16_test_data,
       g_add7_input1_int16_test_data_size, g_add7_golden_int16_test_data,
@@ -207,7 +207,7 @@ TF_LITE_MICRO_TEST(add7_test) {
 }
 
 TF_LITE_MICRO_TEST(add8_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add8_model_data, g_add8_input0_int16_test_data,
       g_add8_input0_int16_test_data_size, g_add8_input1_int16_test_data,
       g_add8_input1_int16_test_data_size, g_add8_golden_int16_test_data,
@@ -215,7 +215,7 @@ TF_LITE_MICRO_TEST(add8_test) {
 }
 
 TF_LITE_MICRO_TEST(add9_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add9_model_data, g_add9_input0_int16_test_data,
       g_add9_input0_int16_test_data_size, g_add9_input1_int16_test_data,
       g_add9_input1_int16_test_data_size, g_add9_golden_int16_test_data,
@@ -223,7 +223,7 @@ TF_LITE_MICRO_TEST(add9_test) {
 }
 
 TF_LITE_MICRO_TEST(add10_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add10_model_data, g_add10_input0_int16_test_data,
       g_add10_input0_int16_test_data_size, g_add10_input1_int16_test_data,
       g_add10_input1_int16_test_data_size, g_add10_golden_int16_test_data,
@@ -231,7 +231,7 @@ TF_LITE_MICRO_TEST(add10_test) {
 }
 
 TF_LITE_MICRO_TEST(add11_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add11_model_data, g_add11_input0_int16_test_data,
       g_add11_input0_int16_test_data_size, g_add11_input1_int16_test_data,
       g_add11_input1_int16_test_data_size, g_add11_golden_int16_test_data,
@@ -239,7 +239,7 @@ TF_LITE_MICRO_TEST(add11_test) {
 }
 
 TF_LITE_MICRO_TEST(add12_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add12_model_data, g_add12_input0_int16_test_data,
       g_add12_input0_int16_test_data_size, g_add12_input1_int16_test_data,
       g_add12_input1_int16_test_data_size, g_add12_golden_int16_test_data,
@@ -247,7 +247,7 @@ TF_LITE_MICRO_TEST(add12_test) {
 }
 
 TF_LITE_MICRO_TEST(add13_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add13_model_data, g_add13_input0_int16_test_data,
       g_add13_input0_int16_test_data_size, g_add13_input1_int16_test_data,
       g_add13_input1_int16_test_data_size, g_add13_golden_int16_test_data,
@@ -255,7 +255,7 @@ TF_LITE_MICRO_TEST(add13_test) {
 }
 
 TF_LITE_MICRO_TEST(add14_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add14_model_data, g_add14_input0_int16_test_data,
       g_add14_input0_int16_test_data_size, g_add14_input1_int16_test_data,
       g_add14_input1_int16_test_data_size, g_add14_golden_int16_test_data,
@@ -263,7 +263,7 @@ TF_LITE_MICRO_TEST(add14_test) {
 }
 
 TF_LITE_MICRO_TEST(add15_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add15_model_data, g_add15_input0_int16_test_data,
       g_add15_input0_int16_test_data_size, g_add15_input1_int16_test_data,
       g_add15_input1_int16_test_data_size, g_add15_golden_int16_test_data,
@@ -271,7 +271,7 @@ TF_LITE_MICRO_TEST(add15_test) {
 }
 
 TF_LITE_MICRO_TEST(add16_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_add16_model_data, g_add16_input0_int16_test_data,
       g_add16_input0_int16_test_data_size, g_add16_input1_int16_test_data,
       g_add16_input1_int16_test_data_size, g_add16_golden_int16_test_data,

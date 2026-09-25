@@ -20,7 +20,7 @@ limitations under the License.
 #include "mli_interface.h"
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -140,6 +140,6 @@ TfLiteStatus arc_scratch_buffer_calc_slice_size_weights(
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_ARC_SCRATCH_BUF_MGR_H_

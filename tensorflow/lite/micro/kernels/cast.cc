@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -67,51 +67,51 @@ TfLiteStatus copyToTensor(TfLiteContext* context, const FromT* in,
       copyCast(in, out->data.u32, num_elements);
       break;
     case kTfLiteFloat32:
-      copyCast(in, tflite::micro::GetTensorData<float>(out), num_elements);
+      copyCast(in, tflite_micro::micro::GetTensorData<float>(out), num_elements);
       break;
     default:
       // Unsupported type.
       MicroPrintf("Output type %s (%d) not supported.",
-                  TfLiteTypeGetName(out->type), out->type);
+                  TfLiteMicroTypeGetName(out->type), out->type);
   }
   return kTfLiteOk;
 }
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  int num_elements = MatchingFlatSize(tflite::micro::GetTensorShape(input),
-                                      tflite::micro::GetTensorShape(output));
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  int num_elements = MatchingFlatSize(tflite_micro::micro::GetTensorShape(input),
+                                      tflite_micro::micro::GetTensorShape(output));
 
   switch (input->type) {
     case kTfLiteInt8:
       return copyToTensor(context, input->data.int8, output, num_elements);
     case kTfLiteInt16:
-      return copyToTensor(context, tflite::micro::GetTensorData<int16_t>(input),
+      return copyToTensor(context, tflite_micro::micro::GetTensorData<int16_t>(input),
                           output, num_elements);
     case kTfLiteInt32:
-      return copyToTensor(context, tflite::micro::GetTensorData<int32_t>(input),
+      return copyToTensor(context, tflite_micro::micro::GetTensorData<int32_t>(input),
                           output, num_elements);
     case kTfLiteUInt32:
       return copyToTensor(context,
-                          tflite::micro::GetTensorData<uint32_t>(input), output,
+                          tflite_micro::micro::GetTensorData<uint32_t>(input), output,
                           num_elements);
     case kTfLiteFloat32:
-      return copyToTensor(context, tflite::micro::GetTensorData<float>(input),
+      return copyToTensor(context, tflite_micro::micro::GetTensorData<float>(input),
                           output, num_elements);
     default:
       // Unsupported type.
       MicroPrintf("Input type %s (%d) not supported.",
-                  TfLiteTypeGetName(input->type), input->type);
+                  TfLiteMicroTypeGetName(input->type), input->type);
   }
   return kTfLiteOk;
 }
 }  // namespace
 
 TFLMRegistration Register_CAST() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

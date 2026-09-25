@@ -20,7 +20,7 @@ limitations under the License.
 #include "flatbuffer_size.h"
 #include "tensorflow/lite/schema/reflection/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 FlatbufferSizeWrapper::~FlatbufferSizeWrapper() {}
 
@@ -28,11 +28,11 @@ FlatbufferSizeWrapper::FlatbufferSizeWrapper() {}
 
 std::string FlatbufferSizeWrapper::ConvertToJsonString(
     const char* in_flatbuffer) {
-  std::string output = tflite::FlatBufferSizeToJsonString(
+  std::string output = tflite_micro::FlatBufferSizeToJsonString(
       reinterpret_cast<const uint8_t*>(in_flatbuffer),
-      tflite::ModelTypeTable());
+      tflite_micro::ModelTypeTable());
 
   return output;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/test_helpers.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 
 // TODO(b/161841696): Consider moving away from global arena buffers:
@@ -50,7 +50,7 @@ KernelRunner::KernelRunner(const TFLMRegistration& registration,
   context_.recommended_num_threads = 1;
   context_.GetTensor = MicroContextGetTensor;
   context_.GetEvalTensor = MicroContextGetEvalTensor;
-  tflite::micro::ClearBufferApi(&context_);
+  tflite_micro::micro::ClearBufferApi(&context_);
   context_.AllocatePersistentBuffer = MicroContextAllocatePersistentBuffer;
 
   context_.recommended_num_threads = 0;
@@ -69,7 +69,7 @@ bool KernelRunner::ValidateTempBufferDeallocated() {
 TfLiteStatus KernelRunner::InitAndPrepare(const char* init_data,
                                           size_t length) {
   if (registration_.init) {
-    tflite::micro::ClearBufferApi(&context_);
+    tflite_micro::micro::ClearBufferApi(&context_);
     context_.AllocatePersistentBuffer = MicroContextAllocatePersistentBuffer;
     node_.user_data = registration_.init(&context_, init_data, length);
   }
@@ -91,7 +91,7 @@ TfLiteStatus KernelRunner::InitAndPrepare(const char* init_data,
 }
 
 TfLiteStatus KernelRunner::Invoke() {
-  tflite::micro::ClearBufferApi(&context_);
+  tflite_micro::micro::ClearBufferApi(&context_);
   context_.GetScratchBuffer = MicroContextGetScratchBuffer;
 
   if (registration_.invoke == nullptr) {
@@ -107,7 +107,7 @@ TfLiteStatus KernelRunner::Invoke() {
 }
 
 TfLiteStatus KernelRunner::Reset() {
-  tflite::micro::ClearBufferApi(&context_);
+  tflite_micro::micro::ClearBufferApi(&context_);
   context_.GetScratchBuffer = MicroContextGetScratchBuffer;
 
   if (registration_.reset == nullptr) {
@@ -120,7 +120,7 @@ TfLiteStatus KernelRunner::Reset() {
 }
 
 TfLiteStatus KernelRunner::Free() {
-  tflite::micro::ClearBufferApi(&context_);
+  tflite_micro::micro::ClearBufferApi(&context_);
   context_.GetScratchBuffer = MicroContextGetScratchBuffer;
 
   if (registration_.free == nullptr) {
@@ -132,4 +132,4 @@ TfLiteStatus KernelRunner::Free() {
   return kTfLiteOk;
 }
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro

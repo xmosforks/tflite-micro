@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -31,7 +31,7 @@ void ExecuteFloorModTest(TfLiteTensor* tensors, int tensors_count) {
   int kOutputArrayData[] = {1, 2};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_FLOOR_MOD();
+  const TFLMRegistration registration = tflite_micro::Register_FLOOR_MOD();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -64,7 +64,7 @@ void TestFloorMod(int* input1_dims_data, const T* input1_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -76,7 +76,7 @@ TF_LITE_MICRO_TEST(FloorModFloatSimple) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestFloorMod(kDims, kInput1, kDims, kInput2, kDims, kExpect,
+  tflite_micro::testing::TestFloorMod(kDims, kInput1, kDims, kInput2, kDims, kExpect,
                                 output_data);
 }
 
@@ -88,7 +88,7 @@ TF_LITE_MICRO_TEST(FloorModFloatNegativeValue) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestFloorMod(kDims, kInput1, kDims, kInput2, kDims, kExpect,
+  tflite_micro::testing::TestFloorMod(kDims, kInput1, kDims, kInput2, kDims, kExpect,
                                 output_data);
 }
 
@@ -101,7 +101,7 @@ TF_LITE_MICRO_TEST(FloorModFloatBroadcast) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestFloorMod(kDims1, kInput1, kDims2, kInput2, kDims1,
+  tflite_micro::testing::TestFloorMod(kDims1, kInput1, kDims2, kInput2, kDims1,
                                 kExpect, output_data);
 }
 

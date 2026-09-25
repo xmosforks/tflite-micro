@@ -76,15 +76,15 @@ typedef enum TfLiteStatus {
   kTfLiteApplicationError = 3,
 
   /// Generally referring to serialized delegate data not being found.
-  /// See tflite::delegates::Serialization.
+  /// See tflite_micro::delegates::Serialization.
   kTfLiteDelegateDataNotFound = 4,
 
   /// Generally referring to data-writing issues in delegate serialization.
-  /// See tflite::delegates::Serialization.
+  /// See tflite_micro::delegates::Serialization.
   kTfLiteDelegateDataWriteError = 5,
 
   /// Generally referring to data-reading issues in delegate serialization.
-  /// See tflite::delegates::Serialization.
+  /// See tflite_micro::delegates::Serialization.
   kTfLiteDelegateDataReadError = 6,
 
   /// Generally referring to issues when the TF Lite model has ops that cannot

@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_common.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 int GetTensorIndex(int index, int max_size, const int* tensor_indices) {
@@ -74,4 +74,4 @@ void MicroContextReportOpError(struct TfLiteContext* context,
   va_end(args);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

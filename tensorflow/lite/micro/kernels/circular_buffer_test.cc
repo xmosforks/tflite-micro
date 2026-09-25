@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -29,7 +29,7 @@ constexpr int kRunPeriod = 2;
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -47,33 +47,33 @@ TF_LITE_MICRO_TEST(OutputTensorLength4) {
   int output_dims[] = {4, 1, num_slots, 1, depth};
 
   TfLiteIntArray* input_tensor_dims =
-      tflite::testing::IntArrayFromInts(input_dims);
+      tflite_micro::testing::IntArrayFromInts(input_dims);
   TfLiteIntArray* output_tensor_dims =
-      tflite::testing::IntArrayFromInts(output_dims);
+      tflite_micro::testing::IntArrayFromInts(output_dims);
 
-  const int output_dims_count = tflite::ElementCount(*output_tensor_dims);
+  const int output_dims_count = tflite_micro::ElementCount(*output_tensor_dims);
 
   constexpr int inputs_size = 2;
   constexpr int outputs_size = 1;
   constexpr int tensors_size = inputs_size + outputs_size;
   TfLiteTensor tensors[tensors_size] = {
-      tflite::testing::CreateQuantizedTensor(input_data, input_tensor_dims, 1,
+      tflite_micro::testing::CreateQuantizedTensor(input_data, input_tensor_dims, 1,
                                              0),
-      tflite::testing::CreateQuantizedTensor(output_data, output_tensor_dims, 1,
+      tflite_micro::testing::CreateQuantizedTensor(output_data, output_tensor_dims, 1,
                                              0),
   };
 
   // There is one input - tensor 0.
   int inputs_array_data[] = {1, 0};
   TfLiteIntArray* inputs_array =
-      tflite::testing::IntArrayFromInts(inputs_array_data);
+      tflite_micro::testing::IntArrayFromInts(inputs_array_data);
   // There is one output - tensor 1.
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array =
-      tflite::testing::IntArrayFromInts(outputs_array_data);
+      tflite_micro::testing::IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration* registration = tflite::Register_CIRCULAR_BUFFER();
-  tflite::micro::KernelRunner runner = tflite::micro::KernelRunner(
+  const TFLMRegistration* registration = tflite_micro::Register_CIRCULAR_BUFFER();
+  tflite_micro::micro::KernelRunner runner = tflite_micro::micro::KernelRunner(
       *registration, tensors, tensors_size, inputs_array, outputs_array,
       /*builtin_data=*/nullptr);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, runner.InitAndPrepare());
@@ -96,10 +96,10 @@ TF_LITE_MICRO_TEST(OutputTensorLength4) {
     }
 
     // Every kRunPeriod iterations, the circular buffer should return kTfLiteOk.
-    if (i % tflite::testing::kRunPeriod == tflite::testing::kRunPeriod - 1) {
+    if (i % tflite_micro::testing::kRunPeriod == tflite_micro::testing::kRunPeriod - 1) {
       TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, status);
     } else {
-      TF_LITE_MICRO_EXPECT_EQ(tflite::kTfLiteAbort, status);
+      TF_LITE_MICRO_EXPECT_EQ(tflite_micro::kTfLiteAbort, status);
     }
   }
 }
@@ -118,33 +118,33 @@ TF_LITE_MICRO_TEST(OutputTensorOnEveryIterationLength4) {
   int output_dims[] = {4, 1, num_slots, 1, depth};
 
   TfLiteIntArray* input_tensor_dims =
-      tflite::testing::IntArrayFromInts(input_dims);
+      tflite_micro::testing::IntArrayFromInts(input_dims);
   TfLiteIntArray* output_tensor_dims =
-      tflite::testing::IntArrayFromInts(output_dims);
+      tflite_micro::testing::IntArrayFromInts(output_dims);
 
-  const int output_dims_count = tflite::ElementCount(*output_tensor_dims);
+  const int output_dims_count = tflite_micro::ElementCount(*output_tensor_dims);
 
   constexpr int inputs_size = 2;
   constexpr int outputs_size = 1;
   constexpr int tensors_size = inputs_size + outputs_size;
   TfLiteTensor tensors[tensors_size] = {
-      tflite::testing::CreateQuantizedTensor(input_data, input_tensor_dims, 1,
+      tflite_micro::testing::CreateQuantizedTensor(input_data, input_tensor_dims, 1,
                                              0),
-      tflite::testing::CreateQuantizedTensor(output_data, output_tensor_dims, 1,
+      tflite_micro::testing::CreateQuantizedTensor(output_data, output_tensor_dims, 1,
                                              0),
   };
 
   // There is one input - tensor 0.
   int inputs_array_data[] = {1, 0};
   TfLiteIntArray* inputs_array =
-      tflite::testing::IntArrayFromInts(inputs_array_data);
+      tflite_micro::testing::IntArrayFromInts(inputs_array_data);
   // There is one output - tensor 1.
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array =
-      tflite::testing::IntArrayFromInts(outputs_array_data);
+      tflite_micro::testing::IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration* registration = tflite::Register_CIRCULAR_BUFFER();
-  tflite::micro::KernelRunner runner = tflite::micro::KernelRunner(
+  const TFLMRegistration* registration = tflite_micro::Register_CIRCULAR_BUFFER();
+  tflite_micro::micro::KernelRunner runner = tflite_micro::micro::KernelRunner(
       *registration, tensors, tensors_size, inputs_array, outputs_array,
       /*builtin_data=*/nullptr);
 
@@ -183,33 +183,33 @@ TF_LITE_MICRO_TEST(OutputTensorLength5) {
   int input_dims[] = {4, 1, 1, 1, depth};
   int output_dims[] = {4, 1, num_slots, 1, depth};
   TfLiteIntArray* input_tensor_dims =
-      tflite::testing::IntArrayFromInts(input_dims);
+      tflite_micro::testing::IntArrayFromInts(input_dims);
   TfLiteIntArray* output_tensor_dims =
-      tflite::testing::IntArrayFromInts(output_dims);
+      tflite_micro::testing::IntArrayFromInts(output_dims);
 
-  const int output_dims_count = tflite::ElementCount(*output_tensor_dims);
+  const int output_dims_count = tflite_micro::ElementCount(*output_tensor_dims);
 
   constexpr int inputs_size = 2;
   constexpr int outputs_size = 1;
   constexpr int tensors_size = inputs_size + outputs_size;
   TfLiteTensor tensors[tensors_size] = {
-      tflite::testing::CreateQuantizedTensor(input_data, input_tensor_dims, 1,
+      tflite_micro::testing::CreateQuantizedTensor(input_data, input_tensor_dims, 1,
                                              0),
-      tflite::testing::CreateQuantizedTensor(output_data, output_tensor_dims, 1,
+      tflite_micro::testing::CreateQuantizedTensor(output_data, output_tensor_dims, 1,
                                              0),
   };
 
   // There is one input - tensor 0.
   int inputs_array_data[] = {1, 0};
   TfLiteIntArray* inputs_array =
-      tflite::testing::IntArrayFromInts(inputs_array_data);
+      tflite_micro::testing::IntArrayFromInts(inputs_array_data);
   // There is one output - tensor 1.
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array =
-      tflite::testing::IntArrayFromInts(outputs_array_data);
+      tflite_micro::testing::IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration* registration = tflite::Register_CIRCULAR_BUFFER();
-  tflite::micro::KernelRunner runner = tflite::micro::KernelRunner(
+  const TFLMRegistration* registration = tflite_micro::Register_CIRCULAR_BUFFER();
+  tflite_micro::micro::KernelRunner runner = tflite_micro::micro::KernelRunner(
       *registration, tensors, tensors_size, inputs_array, outputs_array,
       /*builtin_data=*/nullptr);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, runner.InitAndPrepare());

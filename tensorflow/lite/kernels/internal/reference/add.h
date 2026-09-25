@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
@@ -479,7 +479,7 @@ inline void BroadcastAddFivefold(const ArithmeticParams& unswitched_params,
 
   const bool use_unswitched =
       unswitched_params.broadcast_category ==
-      tflite::BroadcastableOpCategory::kFirstInputBroadcastsFast;
+      tflite_micro::BroadcastableOpCategory::kFirstInputBroadcastsFast;
 
   const ArithmeticParams& params =
       use_unswitched ? unswitched_params : switched_params;
@@ -556,6 +556,6 @@ inline void BroadcastAddFivefold(const ArithmeticParams& unswitched_params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_ADD_H_

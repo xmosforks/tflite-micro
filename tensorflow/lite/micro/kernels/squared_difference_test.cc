@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -42,7 +42,7 @@ void ValidateSquaredDifferenceGoldens(TfLiteTensor* tensors, int tensors_size,
   int outputs_array_data[] = {1, 2};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_SQUARED_DIFFERENCE();
+  const TFLMRegistration registration = tflite_micro::Register_SQUARED_DIFFERENCE();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -124,7 +124,7 @@ void TestSquaredDifferenceQuantized(
   int outputs_array_data[] = {1, 2};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_SQUARED_DIFFERENCE();
+  const TFLMRegistration registration = tflite_micro::Register_SQUARED_DIFFERENCE();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -141,7 +141,7 @@ void TestSquaredDifferenceQuantized(
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -152,7 +152,7 @@ TF_LITE_MICRO_TEST(FloatSquaredDifferenceSameShape) {
   const float input2_values[] = {0.5, 0.2, -1.5, 0.5};
   const float golden_values[] = {0.49, 0.0, 0.09, 0.09};
   float output_data[data_size];
-  tflite::testing::TestSquaredDifference(
+  tflite_micro::testing::TestSquaredDifference(
       inout_shape, input1_values, inout_shape, input2_values, inout_shape,
       golden_values, output_data);
 }
@@ -163,11 +163,11 @@ TF_LITE_MICRO_TEST(FloatSquaredDifferenceVariousShapes) {
   const float input2_values[] = {1.0, 0.2, 0.6, 0.4, -1.0, -0.0};
   const float golden_values[] = {9.0, 0.0, 0.09, 0.16, 4.41, 4.0};
   float output_data[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifference(
-        tflite::testing::test_shape[i], input1_values,
-        tflite::testing::test_shape[i], input2_values,
-        tflite::testing::test_shape[i], golden_values, output_data);
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifference(
+        tflite_micro::testing::test_shape[i], input1_values,
+        tflite_micro::testing::test_shape[i], input2_values,
+        tflite_micro::testing::test_shape[i], golden_values, output_data);
   }
 }
 
@@ -180,10 +180,10 @@ TF_LITE_MICRO_TEST(FloatSquaredDifferenceWithBroadcast) {
   const float input2_values[] = {0.1};
   const float golden_values[] = {0.09, 0.01, 0.16, 0.49, 0.0001, 1.0};
   float output_data[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifference(
-        tflite::testing::test_shape[i], input1_values, input2_shape,
-        input2_values, tflite::testing::test_shape[i], golden_values,
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifference(
+        tflite_micro::testing::test_shape[i], input1_values, input2_shape,
+        input2_values, tflite_micro::testing::test_shape[i], golden_values,
         output_data);
   }
 }
@@ -195,7 +195,7 @@ TF_LITE_MICRO_TEST(IntegerSquaredDifferenceSameShape) {
   const int32_t input2_values[] = {5, -2, -3, 5};
   const int32_t golden_values[] = {49, 16, 144, 9};
   int32_t output_data[data_size];
-  tflite::testing::TestSquaredDifference(
+  tflite_micro::testing::TestSquaredDifference(
       inout_shape, input1_values, inout_shape, input2_values, inout_shape,
       golden_values, output_data);
 }
@@ -206,11 +206,11 @@ TF_LITE_MICRO_TEST(IntegerSquaredDifferenceVariousShapes) {
   const int32_t input2_values[] = {1, 2, 6, 5, -5, -20};
   const int32_t golden_values[] = {441, 0, 9, 9, 256, 0};
   int32_t output_data[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifference(
-        tflite::testing::test_shape[i], input1_values,
-        tflite::testing::test_shape[i], input2_values,
-        tflite::testing::test_shape[i], golden_values, output_data);
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifference(
+        tflite_micro::testing::test_shape[i], input1_values,
+        tflite_micro::testing::test_shape[i], input2_values,
+        tflite_micro::testing::test_shape[i], golden_values, output_data);
   }
 }
 
@@ -223,10 +223,10 @@ TF_LITE_MICRO_TEST(IntegerSquaredDifferenceWithBroadcast) {
   const int32_t input2_values[] = {3};
   const int32_t golden_values[] = {529, 49, 16, 0, 4, 100};
   int32_t output_data[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifference(
-        tflite::testing::test_shape[i], input1_values, input2_shape,
-        input2_values, tflite::testing::test_shape[i], golden_values,
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifference(
+        tflite_micro::testing::test_shape[i], input1_values, input2_shape,
+        input2_values, tflite_micro::testing::test_shape[i], golden_values,
         output_data);
   }
 }
@@ -242,7 +242,7 @@ TF_LITE_MICRO_TEST(QuantizedSquaredDifferenceSameShape) {
   int8_t input1_int8[data_size];
   int8_t input2_int8[data_size];
   int8_t output_int8[data_size];
-  tflite::testing::TestSquaredDifferenceQuantized(
+  tflite_micro::testing::TestSquaredDifferenceQuantized(
       inout_shape, input1_values, input1_int8, -1.2f, 0.8f, inout_shape,
       input2_values, input2_int8, -1.5f, 0.5f, inout_shape, output_int8, 0.0f,
       0.5f, output_dequantized, golden_values, 2.0f / 255.0f);
@@ -255,7 +255,7 @@ TF_LITE_MICRO_TEST(QuantizedSquaredDifferenceSameShape) {
   // -qmax).
   // TODO(b/269352046): understand the tolerance level
   // http://b/269352046#comment7
-  tflite::testing::TestSquaredDifferenceQuantized(
+  tflite_micro::testing::TestSquaredDifferenceQuantized(
       inout_shape, input1_values, input1_int16, -1.2f, 1.2f, inout_shape,
       input2_values, input2_int16, -1.5f, 1.5f, inout_shape, output_int16,
       -0.5f, 0.5f, output_dequantized, golden_values, 6.0f / 32768.0f,
@@ -272,11 +272,11 @@ TF_LITE_MICRO_TEST(QuantizedSquaredDifferenceVariousShapes) {
   int8_t input2_int8[data_size];
   int8_t output_int8[data_size];
   float output_dequantized[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifferenceQuantized(
-        tflite::testing::test_shape[i], input1_values, input1_int8, -2.0f, 1.7f,
-        tflite::testing::test_shape[i], input2_values, input2_int8, -1.0f, 1.0f,
-        tflite::testing::test_shape[i], output_int8, 0.0f, 9.0f,
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifferenceQuantized(
+        tflite_micro::testing::test_shape[i], input1_values, input1_int8, -2.0f, 1.7f,
+        tflite_micro::testing::test_shape[i], input2_values, input2_int8, -1.0f, 1.0f,
+        tflite_micro::testing::test_shape[i], output_int8, 0.0f, 9.0f,
         output_dequantized, golden_values, 18.0f / 255.0f);
   }
 
@@ -286,11 +286,11 @@ TF_LITE_MICRO_TEST(QuantizedSquaredDifferenceVariousShapes) {
   int16_t output_int16[data_size];
   // Symmetrical quantization: (rmin == -rmax), requires narrow range (qmin =
   // -qmax).
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifferenceQuantized(
-        tflite::testing::test_shape[i], input1_values, input1_int16, -2.0f,
-        2.0f, tflite::testing::test_shape[i], input2_values, input2_int16,
-        -1.0f, 1.0f, tflite::testing::test_shape[i], output_int16, -9.0f, 9.0f,
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifferenceQuantized(
+        tflite_micro::testing::test_shape[i], input1_values, input1_int16, -2.0f,
+        2.0f, tflite_micro::testing::test_shape[i], input2_values, input2_int16,
+        -1.0f, 1.0f, tflite_micro::testing::test_shape[i], output_int16, -9.0f, 9.0f,
         output_dequantized, golden_values, 18.0f / 32768.0f,
         /*narrow_range=*/true);
   }
@@ -310,11 +310,11 @@ TF_LITE_MICRO_TEST(FloatSquaredDifferenceWithBroadcast) {
   int8_t input2_int8[data_size];
   int8_t output_int8[data_size];
   float output_dequantized[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifferenceQuantized(
-        tflite::testing::test_shape[i], input1_values, input1_int8, -0.2f, 1.1f,
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifferenceQuantized(
+        tflite_micro::testing::test_shape[i], input1_values, input1_int8, -0.2f, 1.1f,
         input2_shape, input2_values, input2_int8, 0.0f, 1.0f,
-        tflite::testing::test_shape[i], output_int8, 0.0f, 1.0f,
+        tflite_micro::testing::test_shape[i], output_int8, 0.0f, 1.0f,
         output_dequantized, golden_values, 2.0f / 255.0f);
   }
 
@@ -322,11 +322,11 @@ TF_LITE_MICRO_TEST(FloatSquaredDifferenceWithBroadcast) {
   int16_t input1_int16[data_size];
   int16_t input2_int16[data_size];
   int16_t output_int16[data_size];
-  for (int i = 0; i < tflite::testing::kNumTestShapes; ++i) {
-    tflite::testing::TestSquaredDifferenceQuantized(
-        tflite::testing::test_shape[i], input1_values, input1_int16, -1.1f,
+  for (int i = 0; i < tflite_micro::testing::kNumTestShapes; ++i) {
+    tflite_micro::testing::TestSquaredDifferenceQuantized(
+        tflite_micro::testing::test_shape[i], input1_values, input1_int16, -1.1f,
         1.1f, input2_shape, input2_values, input2_int16, -1.0f, 1.0f,
-        tflite::testing::test_shape[i], output_int16, -1.0f, 1.0f,
+        tflite_micro::testing::test_shape[i], output_int16, -1.0f, 1.0f,
         output_dequantized, golden_values, 2.0f / 32768.0f,
         /*narrow_range=*/true);
   }

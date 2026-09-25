@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <cmath>
 
-namespace tflite {
+namespace tflite_micro {
 
 #if defined(TF_LITE_USE_GLOBAL_MAX) || defined(__ZEPHYR__)
 inline float TfLiteMax(const float& x, const float& y) {
@@ -30,6 +30,6 @@ inline T TfLiteMax(const T& x, const T& y) {
 }
 #endif
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_MAX_H_

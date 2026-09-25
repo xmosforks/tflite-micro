@@ -23,8 +23,8 @@ limitations under the License.
 
 // Use MicroBenchmarkRunner to avoid boiler plate code and more easily compare
 // the size with other benchmarks such as keyword_benchmark.
-using InterpreterMemoryFootprintRunner = tflite::MicroBenchmarkRunner<int16_t>;
-using InterpreterMemoryFootprintOpResolver = tflite::MicroMutableOpResolver<6>;
+using InterpreterMemoryFootprintRunner = tflite_micro::MicroBenchmarkRunner<int16_t>;
+using InterpreterMemoryFootprintOpResolver = tflite_micro::MicroMutableOpResolver<6>;
 
 // This binary includes the TFLM Framework (interpreter, memory planner etc),
 // but without any kernels.  This is used to measure the code size of the TFLM
@@ -36,8 +36,8 @@ int main(int argc, char** argv) {
   alignas(16) uint8_t tensor_arena[kTensorArenaSize];
   uint8_t runner_buffer[sizeof(InterpreterMemoryFootprintRunner)];
 
-  tflite::InitializeTarget();
-  tflite::MicroProfiler profiler;
+  tflite_micro::InitializeTarget();
+  tflite_micro::MicroProfiler profiler;
 
   InterpreterMemoryFootprintOpResolver op_resolver;
 

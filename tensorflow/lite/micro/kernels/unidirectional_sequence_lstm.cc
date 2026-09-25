@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/lstm_eval.h"
 #include "tensorflow/lite/micro/kernels/lstm_shared.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 /*Helper Functions*/
@@ -80,7 +80,7 @@ TfLiteStatus UnidirectionalSequenceLstmPrepare(TfLiteContext* context,
     MicroPrintf(
         "Cell state type %s (%d) not supported. The quantized Unidirectional "
         "Sequence LSTM Op only support int16 cell state",
-        TfLiteTypeGetName(cell_state_type), cell_state_type);
+        TfLiteMicroTypeGetName(cell_state_type), cell_state_type);
     return kTfLiteError;
   }
   // request buffers (four buffers)
@@ -125,7 +125,7 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
         }
         default: {
           MicroPrintf("Filter type %s (%d) not supported.",
-                      TfLiteTypeGetName(weight_type), activation_type);
+                      TfLiteMicroTypeGetName(weight_type), activation_type);
           return kTfLiteError;
         }
       }
@@ -143,7 +143,7 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
         }
         default: {
           MicroPrintf("Filter type %s (%d) not supported.",
-                      TfLiteTypeGetName(weight_type), weight_type);
+                      TfLiteMicroTypeGetName(weight_type), weight_type);
           return kTfLiteError;
         }
       }
@@ -151,7 +151,7 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
     }
     default: {
       MicroPrintf("Input type %s (%d) not supported.",
-                  TfLiteTypeGetName(activation_type), activation_type);
+                  TfLiteMicroTypeGetName(activation_type), activation_type);
       return kTfLiteError;
     }
   }
@@ -161,8 +161,8 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
 }  // namespace
 
 TFLMRegistration Register_UNIDIRECTIONAL_SEQUENCE_LSTM() {
-  return tflite::micro::RegisterOp(UnidirectionalSequenceLstmInit,
+  return tflite_micro::micro::RegisterOp(UnidirectionalSequenceLstmInit,
                                    UnidirectionalSequenceLstmPrepare,
                                    UnidirectionalSequenceLstmEval);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

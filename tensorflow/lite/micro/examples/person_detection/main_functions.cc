@@ -27,8 +27,8 @@ limitations under the License.
 
 // Globals, used for compatibility with Arduino-style sketches.
 namespace {
-const tflite::Model* model = nullptr;
-tflite::MicroInterpreter* interpreter = nullptr;
+const tflite_micro::Model* model = nullptr;
+tflite_micro::MicroInterpreter* interpreter = nullptr;
 TfLiteTensor* input = nullptr;
 
 // In order to use optimized tensorflow lite kernels, a signed int8_t quantized
@@ -45,11 +45,11 @@ alignas(16) static uint8_t tensor_arena[kTensorArenaSize];
 
 // The name of this function is important for Arduino compatibility.
 void setup() {
-  tflite::InitializeTarget();
+  tflite_micro::InitializeTarget();
 
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
-  model = tflite::GetModel(g_person_detect_model_data);
+  model = tflite_micro::GetModel(g_person_detect_model_data);
   if (model->version() != TFLITE_SCHEMA_VERSION) {
     MicroPrintf(
         "Model provided is schema version %d not equal "
@@ -62,17 +62,17 @@ void setup() {
   // This relies on a complete list of all the ops needed by this graph.
 
   // NOLINTNEXTLINE(runtime-global-variables)
-  static tflite::MicroMutableOpResolver<5> micro_op_resolver;
-  micro_op_resolver.AddAveragePool2D(tflite::Register_AVERAGE_POOL_2D_INT8());
-  micro_op_resolver.AddConv2D(tflite::Register_CONV_2D_INT8());
+  static tflite_micro::MicroMutableOpResolver<5> micro_op_resolver;
+  micro_op_resolver.AddAveragePool2D(tflite_micro::Register_AVERAGE_POOL_2D_INT8());
+  micro_op_resolver.AddConv2D(tflite_micro::Register_CONV_2D_INT8());
   micro_op_resolver.AddDepthwiseConv2D(
-      tflite::Register_DEPTHWISE_CONV_2D_INT8());
+      tflite_micro::Register_DEPTHWISE_CONV_2D_INT8());
   micro_op_resolver.AddReshape();
-  micro_op_resolver.AddSoftmax(tflite::Register_SOFTMAX_INT8());
+  micro_op_resolver.AddSoftmax(tflite_micro::Register_SOFTMAX_INT8());
 
   // Build an interpreter to run the model with.
   // NOLINTNEXTLINE(runtime-global-variables)
-  static tflite::MicroInterpreter static_interpreter(
+  static tflite_micro::MicroInterpreter static_interpreter(
       model, micro_op_resolver, tensor_arena, kTensorArenaSize);
   interpreter = &static_interpreter;
 

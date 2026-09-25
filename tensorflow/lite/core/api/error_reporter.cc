@@ -15,7 +15,7 @@ limitations under the License.
 #include "tensorflow/lite/core/api/error_reporter.h"
 #include <cstdarg>
 
-namespace tflite {
+namespace tflite_micro {
 
 int ErrorReporter::Report(const char* format, ...) {
   va_list args;
@@ -35,4 +35,4 @@ int ErrorReporter::ReportError(void*, const char* format, ...) {
   return code;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -38,7 +38,7 @@ Note that with multiple tflite files as input, the files must be placed in the s
 The generated header file can then be included in the application and used like below:
 
 ```
-tflite::MicroMutableOpResolver<kNumberOperators> op_resolver = get_resolver();
+tflite_micro::MicroMutableOpResolver<kNumberOperators> op_resolver = get_resolver();
 ```
 
 ## Verifying the content of the generated header file

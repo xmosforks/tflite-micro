@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor1 = 0;
@@ -109,7 +109,7 @@ template <typename T>
 void EvalDiv(TfLiteContext* context, TfLiteNode* node, TfLiteDivParams* params,
              const OpDataDiv* data, const TfLiteEvalTensor* input1,
              const TfLiteEvalTensor* input2, TfLiteEvalTensor* output) {
-  tflite::ArithmeticParams op_params = {};
+  tflite_micro::ArithmeticParams op_params = {};
 
 #define TF_LITE_DIV(type, opname, data_type)                           \
   data_type output_activation_min, output_activation_max;              \
@@ -117,16 +117,16 @@ void EvalDiv(TfLiteContext* context, TfLiteNode* node, TfLiteDivParams* params,
                            &output_activation_max);                    \
   SetActivationParams(output_activation_min, output_activation_max,    \
                       &op_params);                                     \
-  type::opname(op_params, tflite::micro::GetTensorShape(input1),       \
-               tflite::micro::GetTensorData<data_type>(input1),        \
-               tflite::micro::GetTensorShape(input2),                  \
-               tflite::micro::GetTensorData<data_type>(input2),        \
-               tflite::micro::GetTensorShape(output),                  \
-               tflite::micro::GetTensorData<data_type>(output))
+  type::opname(op_params, tflite_micro::micro::GetTensorShape(input1),       \
+               tflite_micro::micro::GetTensorData<data_type>(input1),        \
+               tflite_micro::micro::GetTensorShape(input2),                  \
+               tflite_micro::micro::GetTensorData<data_type>(input2),        \
+               tflite_micro::micro::GetTensorShape(output),                  \
+               tflite_micro::micro::GetTensorData<data_type>(output))
 
   bool requires_broadcast = reference_ops::ProcessBroadcastShapes(
-      tflite::micro::GetTensorShape(input1),
-      tflite::micro::GetTensorShape(input2), &op_params);
+      tflite_micro::micro::GetTensorShape(input1),
+      tflite_micro::micro::GetTensorShape(input2), &op_params);
 
   if (requires_broadcast) {
     TF_LITE_DIV(reference_ops, BroadcastDivSlow, T);
@@ -141,15 +141,15 @@ TfLiteStatus EvalQuantized(TfLiteContext* context, TfLiteNode* node,
                            const TfLiteEvalTensor* input1,
                            const TfLiteEvalTensor* input2,
                            TfLiteEvalTensor* output) {
-  tflite::ArithmeticParams op_params = {};
+  tflite_micro::ArithmeticParams op_params = {};
 
 #define TF_LITE_DIV(type, opname, dtype)                         \
-  type::opname(op_params, tflite::micro::GetTensorShape(input1), \
-               tflite::micro::GetTensorData<dtype>(input1),      \
-               tflite::micro::GetTensorShape(input2),            \
-               tflite::micro::GetTensorData<dtype>(input2),      \
-               tflite::micro::GetTensorShape(output),            \
-               tflite::micro::GetTensorData<dtype>(output))
+  type::opname(op_params, tflite_micro::micro::GetTensorShape(input1), \
+               tflite_micro::micro::GetTensorData<dtype>(input1),      \
+               tflite_micro::micro::GetTensorShape(input2),            \
+               tflite_micro::micro::GetTensorData<dtype>(input2),      \
+               tflite_micro::micro::GetTensorShape(output),            \
+               tflite_micro::micro::GetTensorData<dtype>(output))
 
   if (input1->type == kTfLiteInt8 && input2->type == kTfLiteInt8 &&
       output->type == kTfLiteInt8) {
@@ -162,8 +162,8 @@ TfLiteStatus EvalQuantized(TfLiteContext* context, TfLiteNode* node,
     op_params.output_shift = data->output_shift;
 
     bool requires_broadcast = reference_ops::ProcessBroadcastShapes(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorShape(input2), &op_params);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorShape(input2), &op_params);
 
     if (requires_broadcast) {
       TF_LITE_DIV(reference_ops, BroadcastDivSlow, int8_t);
@@ -186,11 +186,11 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   auto* data = static_cast<OpDataDiv*>(node->user_data);
 
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, kInputTensor1);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor1);
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, kInputTensor2);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor2);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   if (output->type == kTfLiteFloat32) {
     EvalDiv<float>(context, node, params, data, input1, input2, output);
@@ -203,7 +203,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     MicroPrintf(
         "DIV only supports FLOAT32, INT32, quantized INT8 "
         "now, got type %s (%d).",
-        TfLiteTypeGetName(output->type), output->type);
+        TfLiteMicroTypeGetName(output->type), output->type);
     return kTfLiteError;
   }
 
@@ -213,7 +213,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_DIV() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

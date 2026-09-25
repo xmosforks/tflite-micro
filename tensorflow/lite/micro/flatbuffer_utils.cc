@@ -15,7 +15,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/flatbuffer_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 FlexbufferWrapper::FlexbufferWrapper(const uint8_t* buffer, size_t size)
     : flexbuffers::Vector(flexbuffers::GetRoot(buffer, size).AsVector()) {}
@@ -81,4 +81,4 @@ TfLiteFloatArray* FlatBufferVectorToTfLiteTypeArray(
       reinterpret_cast<const TfLiteFloatArray*>(flatbuffer_array));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

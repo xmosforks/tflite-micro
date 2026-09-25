@@ -21,9 +21,9 @@ limitations under the License.
 
 constexpr int kNumberOperators = ${number_of_ops};
 
-inline tflite::MicroMutableOpResolver<kNumberOperators> get_resolver()
+inline tflite_micro::MicroMutableOpResolver<kNumberOperators> get_resolver()
 {
-  tflite::MicroMutableOpResolver<kNumberOperators> micro_op_resolver;
+  tflite_micro::MicroMutableOpResolver<kNumberOperators> micro_op_resolver;
 
 % for operator in operators:
   micro_op_resolver.${operator}();

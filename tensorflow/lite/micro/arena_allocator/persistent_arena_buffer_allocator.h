@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/arena_allocator/ibuffer_allocator.h"
 #include "tensorflow/lite/micro/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // PersistentArenaBufferAllocator is an implementatation of
 // IPersistentBufferAllocator interface on an arena that is dedicated for
@@ -53,6 +53,6 @@ class PersistentArenaBufferAllocator : public IPersistentBufferAllocator {
   uint8_t* tail_temp_;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_ARENA_ALLOCATOR_PERSISTENT_ARENA_BUFFER_ALLOCATOR_H_

@@ -47,6 +47,7 @@ limitations under the License.
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <assert.h>
 
 #include "tensorflow/lite/core/c/c_api_types.h"  // IWYU pragma: export
 
@@ -107,28 +108,28 @@ typedef struct TfLiteIntArray {
 
 // Given the size (number of elements) in a TfLiteIntArray, calculate its size
 // in bytes.
-size_t TfLiteIntArrayGetSizeInBytes(int size);
+size_t TfLiteMicroIntArrayGetSizeInBytes(int size);
 
 #ifndef TF_LITE_STATIC_MEMORY
 // Create a array of a given `size` (uninitialized entries).
 // This returns a pointer, that you must free using TfLiteIntArrayFree().
-TfLiteIntArray* TfLiteIntArrayCreate(int size);
+TfLiteIntArray* TfLiteMicroIntArrayCreate(int size);
 #endif
 
 // Check if two intarrays are equal. Returns 1 if they are equal, 0 otherwise.
-int TfLiteIntArrayEqual(const TfLiteIntArray* a, const TfLiteIntArray* b);
+int TfLiteMicroIntArrayEqual(const TfLiteIntArray* a, const TfLiteIntArray* b);
 
 // Check if an intarray equals an array. Returns 1 if equals, 0 otherwise.
-int TfLiteIntArrayEqualsArray(const TfLiteIntArray* a, int b_size,
+int TfLiteMicroIntArrayEqualsArray(const TfLiteIntArray* a, int b_size,
                               const int b_data[]);
 
 #ifndef TF_LITE_STATIC_MEMORY
 // Create a copy of an array passed as `src`.
 // You are expected to free memory with TfLiteIntArrayFree
-TfLiteIntArray* TfLiteIntArrayCopy(const TfLiteIntArray* src);
+TfLiteIntArray* TfLiteMicroIntArrayCopy(const TfLiteIntArray* src);
 
 // Free memory of array `a`.
-void TfLiteIntArrayFree(TfLiteIntArray* a);
+void TfLiteMicroIntArrayFree(TfLiteIntArray* a);
 #endif  // TF_LITE_STATIC_MEMORY
 
 // Fixed size list of floats. Used for per-channel quantization.
@@ -156,14 +157,14 @@ int TfLiteFloatArrayGetSizeInBytes(int size);
 #ifndef TF_LITE_STATIC_MEMORY
 // Create a array of a given `size` (uninitialized entries).
 // This returns a pointer, that you must free using TfLiteFloatArrayFree().
-TfLiteFloatArray* TfLiteFloatArrayCreate(int size);
+TfLiteFloatArray* TfLiteMicroFloatArrayCreate(int size);
 
 // Create a copy of an array passed as `src`.
 // You are expected to free memory with TfLiteFloatArrayFree.
-TfLiteFloatArray* TfLiteFloatArrayCopy(const TfLiteFloatArray* src);
+TfLiteFloatArray* TfLiteMicroFloatArrayCopy(const TfLiteFloatArray* src);
 
 // Free memory of array `a`.
-void TfLiteFloatArrayFree(TfLiteFloatArray* a);
+void TfLiteMicroFloatArrayFree(TfLiteFloatArray* a);
 #endif  // TF_LITE_STATIC_MEMORY
 
 // Since we must not depend on any libraries, define a minimal subset of
@@ -238,8 +239,8 @@ void TfLiteFloatArrayFree(TfLiteFloatArray* a);
   do {                                                                     \
     if ((a) != (b)) {                                                      \
       TF_LITE_KERNEL_LOG((context), "%s:%d %s != %s (%s != %s)", __FILE__, \
-                         __LINE__, #a, #b, TfLiteTypeGetName(a),           \
-                         TfLiteTypeGetName(b));                            \
+                         __LINE__, #a, #b, TfLiteMicroTypeGetName(a),           \
+                         TfLiteMicroTypeGetName(b));                            \
       return kTfLiteError;                                                 \
     }                                                                      \
   } while (0)
@@ -279,7 +280,7 @@ typedef struct TfLiteFloat16 {
 } TfLiteFloat16;
 
 // Return the name of a given type, for error reporting purposes.
-const char* TfLiteTypeGetName(TfLiteType type);
+const char* TfLiteMicroTypeGetName(TfLiteType type);
 
 // SupportedQuantizationTypes.
 typedef enum TfLiteQuantizationType {
@@ -472,7 +473,7 @@ typedef struct TfLiteTensor {
   // bytes = sizeof(float) * 3 * 2 = 4 * 3 * 2 = 24.
   size_t bytes;
 
-  // An opaque pointer to a tflite::MMapAllocation
+  // An opaque pointer to a tflite_micro::MMapAllocation
   const void* allocation;
 
   // Null-terminated name of this tensor.
@@ -570,13 +571,6 @@ typedef struct TfLiteNode {
 // - name
 // - sparsity
 typedef struct TfLiteTensor {
-  // TODO(b/155784997): Consider consolidating these quantization fields:
-  // Quantization information. Replaces params field above.
-  TfLiteQuantization quantization;
-
-  // Quantization information.
-  TfLiteQuantizationParams params;
-
   // A union of data pointers. The appropriate type should be used for a typed
   // tensor based on `type`.
   TfLitePtrUnion data;
@@ -586,25 +580,17 @@ typedef struct TfLiteTensor {
   // and the element datatype size should be equal to `bytes` below.
   TfLiteIntArray* dims;
 
-  // The number of bytes required to store the data of this Tensor. I.e.
-  // (bytes of each element) * dims[0] * ... * dims[n-1].  For example, if
-  // type is kTfLiteFloat32 and dims = {3, 2} then
-  // bytes = sizeof(float) * 3 * 2 = 4 * 3 * 2 = 24.
-  size_t bytes;
-
   // The data type specification for data stored in `data`. This affects
   // what member of `data` union should be used.
   TfLiteType type;
 
-  // How memory is mapped
-  //  kTfLiteMmapRo: Memory mapped read only.
-  //  i.e. weights
-  //  kTfLiteArenaRw: Arena allocated read write memory
-  //  (i.e. temporaries, outputs).
-  TfLiteAllocationType allocation_type;
+  // TODO(b/155784997): Consider consolidating these quantization fields:
+  // Quantization information. Replaces params field above.
+  TfLiteQuantization quantization;
 
-  // True if the tensor is a variable.
-  bool is_variable;
+  // Quantization information.
+  TfLiteQuantizationParams params;
+
 } TfLiteTensor;
 
 // Specific reduced TfLiteNode struct for TF Micro runtime. This struct contains
@@ -621,10 +607,6 @@ typedef struct TfLiteNode {
   // Outputs to this node expressed as indices into the simulator's tensors.
   TfLiteIntArray* outputs;
 
-  // intermediate tensors to this node expressed as indices into the simulator's
-  // tensors.
-  TfLiteIntArray* intermediates;
-
   // Opaque data provided by the node implementer through `Registration.init`.
   void* user_data;
 
@@ -634,7 +616,6 @@ typedef struct TfLiteNode {
 
   // Custom initial data. This is the opaque data provided in the flatbuffer.
   // WARNING: This is an experimental interface that is subject to change.
-  const void* custom_initial_data;
   int custom_initial_data_size;
 } TfLiteNode;
 #endif  // TF_LITE_STATIC_MEMORY
@@ -662,10 +643,10 @@ typedef struct TfLiteEvalTensor {
 void TfLiteTensorDataFree(TfLiteTensor* t);
 
 // Free quantization data.
-void TfLiteQuantizationFree(TfLiteQuantization* quantization);
+void TfLiteMicroQuantizationFree(TfLiteQuantization* quantization);
 
 // Free sparsity parameters.
-void TfLiteSparsityFree(TfLiteSparsity* sparsity);
+void TfLiteMicroSparsityFree(TfLiteSparsity* sparsity);
 
 // Free memory of tensor `t`.
 void TfLiteTensorFree(TfLiteTensor* t);
@@ -910,6 +891,16 @@ typedef struct TfLiteContext {
   // WARNING: This method may not be available on all platforms.
   TfLiteEvalTensor* (*GetEvalTensor)(const struct TfLiteContext* context,
                                      int tensor_idx);
+
+  // TODO
+  // New interface to avoid storing an is_variable bool
+  bool (*IsVariableTensor)(struct TfLiteContext* context,
+                                    TfLiteTensor* tensor);
+
+  // TODO
+  // New interface to avoid storing allocation type in TfLiteTensor
+  bool (*IsConstantTensor)(struct TfLiteContext* context,
+                                    TfLiteTensor* tensor);
 
   // Retrieves named metadata buffer from the TFLite model.
   // Returns kTfLiteOk if metadata is successfully obtained from the flatbuffer
@@ -1316,8 +1307,8 @@ typedef struct TfLiteOpaqueDelegateBuilder {
 // the objects pointed to by any of the fields within the
 // 'opaque_delegate_builder' must outlive the returned
 // 'TfLiteOpaqueDelegate' and any 'TfLiteInterpreter',
-// 'TfLiteInterpreterOptions', 'tflite::Interpreter', or
-// 'tflite::InterpreterBuilder' that the delegate is added to.  The returned
+// 'TfLiteInterpreterOptions', 'tflite_micro::Interpreter', or
+// 'tflite_micro::InterpreterBuilder' that the delegate is added to.  The returned
 // address should be passed to 'TfLiteOpaqueDelegateDelete' for deletion.  If
 // 'opaque_delegate_builder' is a null pointer, then a null pointer will be
 // returned.
@@ -1493,7 +1484,9 @@ TfLiteStatus TfLiteTensorVariantRealloc(TfLiteTensor* t,
     new_vd = new VariantType(std::forward<VariantArgs>(args)...);
   }
   t->data.data = static_cast<VariantData*>(new_vd);
-  t->allocation_type = kTfLiteVariantObject;
+
+  assert(false && "Disabled function!");
+  // t->allocation_type = kTfLiteVariantObject;
   return kTfLiteOk;
 }
 

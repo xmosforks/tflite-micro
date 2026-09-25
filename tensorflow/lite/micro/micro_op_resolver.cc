@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/schema/schema_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus GetRegistrationFromOpCode(const OperatorCode* opcode,
                                        const MicroOpResolver& op_resolver,
@@ -52,4 +52,4 @@ TfLiteStatus GetRegistrationFromOpCode(const OperatorCode* opcode,
   }
   return status;
 }
-}  // namespace tflite
+}  // namespace tflite_micro

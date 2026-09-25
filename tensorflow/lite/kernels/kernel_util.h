@@ -16,6 +16,7 @@ limitations under the License.
 #define TENSORFLOW_LITE_KERNELS_KERNEL_UTIL_H_
 
 #include <stdint.h>
+#include <assert.h>
 
 #include <limits>
 #ifndef TF_LITE_STATIC_MEMORY
@@ -28,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/op_macros.h"
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 
 // A fair number of functions in this header have historically been inline.
 // It is ok to change functions to not be inline if the latency with
@@ -200,19 +201,27 @@ inline int64_t NumElements(const TfLiteTensor* t) {
 // persistent-read-only, which would be useful for most tensor kernels that
 // are potentially dynamic based on the input tensor value availability at the
 // time of prepare.
-inline bool IsConstantTensor(const TfLiteTensor* tensor) {
+inline bool IsConstantTensor(TfLiteContext *context, TfLiteTensor* tensor) {
+  #ifndef NO_INTERPRETER
   return tensor->allocation_type == kTfLiteMmapRo;
+  #else
+  return context->IsConstantTensor(context, tensor);
+  #endif
 }
 
 inline bool IsConstantOrPersistentTensor(const TfLiteTensor* tensor) {
-  return IsConstantTensor(tensor) ||
-         (tensor->allocation_type == kTfLitePersistentRo);
+  assert(false && "Disabled function!");
+  return false;
+  // return IsConstantTensor(tensor) ||
+        //  (tensor->allocation_type == kTfLitePersistentRo);
 }
 
 // Determines whether tensor is dynamic. Note that a tensor can be non-const and
 // not dynamic. This function specifically checks for a dynamic tensor.
 inline bool IsDynamicTensor(const TfLiteTensor* tensor) {
-  return tensor->allocation_type == kTfLiteDynamic;
+  assert(false && "Disabled function!");
+  return false;
+  // return tensor->allocation_type == kTfLiteDynamic;
 }
 #ifndef TF_LITE_STATIC_MEMORY
 // Sets tensor to dynamic.
@@ -336,6 +345,6 @@ bool IsMobilePlatform();
 // Returns whether there is unspecified dimension in the tensor's dim signature.
 bool HasUnspecifiedDimension(const TfLiteTensor* tensor);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_KERNEL_UTIL_H_

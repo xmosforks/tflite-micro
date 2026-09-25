@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/tensor_ctypes.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -28,21 +28,21 @@ constexpr int kOutputTensor = 0;
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, kTfLiteFloat32);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  reference_ops::Floor(tflite::micro::GetTensorShape(input),
-                       tflite::micro::GetTensorData<float>(input),
-                       tflite::micro::GetTensorShape(output),
-                       tflite::micro::GetTensorData<float>(output));
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  reference_ops::Floor(tflite_micro::micro::GetTensorShape(input),
+                       tflite_micro::micro::GetTensorData<float>(input),
+                       tflite_micro::micro::GetTensorShape(output),
+                       tflite_micro::micro::GetTensorData<float>(output));
   return kTfLiteOk;
 }
 
 }  // namespace
 
 TFLMRegistration Register_FLOOR() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/reduce.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* InitReduce(TfLiteContext* context, const char* buffer, size_t length) {
   return context->AllocatePersistentBuffer(context, sizeof(OpDataReduce));
@@ -58,15 +58,15 @@ TfLiteStatus EvalSum(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TFLMRegistration Register_MEAN() {
-  return tflite::micro::RegisterOp(InitReduce, PrepareMeanOrSum, EvalMean);
+  return tflite_micro::micro::RegisterOp(InitReduce, PrepareMeanOrSum, EvalMean);
 }
 
 TFLMRegistration Register_REDUCE_MAX() {
-  return tflite::micro::RegisterOp(InitReduce, PrepareMax, EvalMax);
+  return tflite_micro::micro::RegisterOp(InitReduce, PrepareMax, EvalMax);
 }
 
 TFLMRegistration Register_SUM() {
-  return tflite::micro::RegisterOp(InitReduce, PrepareMeanOrSum, EvalSum);
+  return tflite_micro::micro::RegisterOp(InitReduce, PrepareMeanOrSum, EvalSum);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

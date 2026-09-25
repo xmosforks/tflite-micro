@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_context.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 constexpr int kShape1Tensor = 0;
 constexpr int kShape2Tensor = 1;
@@ -84,8 +84,8 @@ TfLiteStatus BroadcastArgsEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_BROADCAST_ARGS() {
-  return tflite::micro::RegisterOp(nullptr, BroadcastArgsPrepare,
+  return tflite_micro::micro::RegisterOp(nullptr, BroadcastArgsPrepare,
                                    BroadcastArgsEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/ceva/mcps_macros.h "
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -41,15 +41,15 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
 
   auto* data = static_cast<OpDataQuantizeReference*>(node->user_data);
 
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   if (input->type == kTfLiteFloat32 && output->type == kTfLiteInt8) {
-    const float* input_data = tflite::micro::GetTensorData<float>(input);
-    int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
+    const float* input_data = tflite_micro::micro::GetTensorData<float>(input);
+    int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
     const int flat_size =
-        MatchingFlatSize(tflite::micro::GetTensorShape(input),
-                         tflite::micro::GetTensorShape(output));
+        MatchingFlatSize(tflite_micro::micro::GetTensorShape(input),
+                         tflite_micro::micro::GetTensorShape(output));
 
 #ifdef MCPS_MEASUREMENT
     MCPS_START_ONE;
@@ -80,7 +80,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 // AffineQuantize takes scale and zero point and quantizes the float value to
 // quantized output, in int8_t or uint8_t format.
 TFLMRegistration Register_QUANTIZE() {
-  return tflite::micro::RegisterOp(Init, PrepareQuantizeReference, Eval);
+  return tflite_micro::micro::RegisterOp(Init, PrepareQuantizeReference, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

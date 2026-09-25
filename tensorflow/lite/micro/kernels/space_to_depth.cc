@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -111,7 +111,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("SPACE_TO_DEPTH only supports FLOAT32 and INT8, got %s.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
 
@@ -121,7 +121,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SPACE_TO_DEPTH() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 // TODO(b/135760455): Move this method anonymous namespace in a cc file.
@@ -104,6 +104,6 @@ inline void SpaceToBatchND(const SpaceToBatchParams& params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_SPACE_TO_BATCH_ND_H_

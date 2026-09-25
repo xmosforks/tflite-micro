@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_time.h"
 #include "tensorflow/lite/micro/system_setup.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 constexpr uint32_t kClocksPerSecond = 25e6;
@@ -100,4 +100,4 @@ void InitializeTarget() {
 #endif
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

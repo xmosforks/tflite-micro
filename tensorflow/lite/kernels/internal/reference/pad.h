@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
@@ -35,7 +35,7 @@ constexpr int PadKernelMaxDimensionCount() { return 5; }
 // Note that two typenames are required, so that T=P=int32_t is considered a
 // specialization distinct from P=int32_t.
 template <typename T, typename P>
-inline void PadImpl(const tflite::PadParams& op_params,
+inline void PadImpl(const tflite_micro::PadParams& op_params,
                     const RuntimeShape& input_shape, const T* input_data,
                     const P* pad_value_ptr, const RuntimeShape& output_shape,
                     T* output_data) {
@@ -115,7 +115,7 @@ inline void PadImpl(const tflite::PadParams& op_params,
 }
 
 template <typename T, typename P>
-inline void Pad(const tflite::PadParams& op_params,
+inline void Pad(const tflite_micro::PadParams& op_params,
                 const RuntimeShape& input_shape, const T* input_data,
                 const P* pad_value_ptr, const RuntimeShape& output_shape,
                 T* output_data) {
@@ -125,7 +125,7 @@ inline void Pad(const tflite::PadParams& op_params,
 
 // The second (pad-value) input can be int32_t when, say, the first is uint8_t.
 template <typename T>
-inline void Pad(const tflite::PadParams& op_params,
+inline void Pad(const tflite_micro::PadParams& op_params,
                 const RuntimeShape& input_shape, const T* input_data,
                 const int32_t* pad_value_ptr, const RuntimeShape& output_shape,
                 T* output_data) {
@@ -136,7 +136,7 @@ inline void Pad(const tflite::PadParams& op_params,
 
 // This version avoids conflicting template matching.
 template <>
-inline void Pad(const tflite::PadParams& op_params,
+inline void Pad(const tflite_micro::PadParams& op_params,
                 const RuntimeShape& input_shape, const int32_t* input_data,
                 const int32_t* pad_value_ptr, const RuntimeShape& output_shape,
                 int32_t* output_data) {
@@ -145,7 +145,7 @@ inline void Pad(const tflite::PadParams& op_params,
 }
 
 template <typename T, typename P>
-inline void PadImageStyle(const tflite::PadParams& op_params,
+inline void PadImageStyle(const tflite_micro::PadParams& op_params,
                           const RuntimeShape& input_shape, const T* input_data,
                           const P* pad_value_ptr,
                           const RuntimeShape& output_shape, T* output_data) {
@@ -154,7 +154,7 @@ inline void PadImageStyle(const tflite::PadParams& op_params,
 }
 
 template <typename P>
-inline void PadImageStyle(const tflite::PadParams& op_params,
+inline void PadImageStyle(const tflite_micro::PadParams& op_params,
                           const RuntimeShape& input_shape,
                           const float* input_data, const P* pad_value_ptr,
                           const RuntimeShape& output_shape,
@@ -164,6 +164,6 @@ inline void PadImageStyle(const tflite::PadParams& op_params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_PAD_H_

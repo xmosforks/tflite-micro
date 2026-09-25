@@ -15,13 +15,13 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_MICRO_SYSTEM_SETUP_H_
 #define TENSORFLOW_LITE_MICRO_SYSTEM_SETUP_H_
 
-namespace tflite {
+namespace tflite_micro {
 
 // This should called during initialization of TFLM binaries and tests. It can
 // be specialized if there is a need for custom target-specific intialization.
 // For more information, see tensorflow/lite/micro/system_setup.cc.
 void InitializeTarget();
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_SYSTEM_SETUP_H_

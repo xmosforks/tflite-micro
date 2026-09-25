@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/schema/schema_generated.h"
 
 namespace {
-using HelloWorldOpResolver = tflite::MicroMutableOpResolver<1>;
+using HelloWorldOpResolver = tflite_micro::MicroMutableOpResolver<1>;
 
 TfLiteStatus RegisterOps(HelloWorldOpResolver& op_resolver) {
   TF_LITE_ENSURE_STATUS(op_resolver.AddFullyConnected());
@@ -36,7 +36,7 @@ TfLiteStatus RegisterOps(HelloWorldOpResolver& op_resolver) {
 }  // namespace
 
 TfLiteStatus ProfileMemoryAndLatency() {
-  tflite::MicroProfiler profiler;
+  tflite_micro::MicroProfiler profiler;
   HelloWorldOpResolver op_resolver;
   TF_LITE_ENSURE_STATUS(RegisterOps(op_resolver));
 
@@ -46,11 +46,11 @@ TfLiteStatus ProfileMemoryAndLatency() {
   uint8_t tensor_arena[kTensorArenaSize];
   constexpr int kNumResourceVariables = 24;
 
-  tflite::RecordingMicroAllocator* allocator(
-      tflite::RecordingMicroAllocator::Create(tensor_arena, kTensorArenaSize));
-  tflite::RecordingMicroInterpreter interpreter(
-      tflite::GetModel(g_hello_world_float_model_data), op_resolver, allocator,
-      tflite::MicroResourceVariables::Create(allocator, kNumResourceVariables),
+  tflite_micro::RecordingMicroAllocator* allocator(
+      tflite_micro::RecordingMicroAllocator::Create(tensor_arena, kTensorArenaSize));
+  tflite_micro::RecordingMicroInterpreter interpreter(
+      tflite_micro::GetModel(g_hello_world_float_model_data), op_resolver, allocator,
+      tflite_micro::MicroResourceVariables::Create(allocator, kNumResourceVariables),
       &profiler);
 
   TF_LITE_ENSURE_STATUS(interpreter.AllocateTensors());
@@ -67,8 +67,8 @@ TfLiteStatus ProfileMemoryAndLatency() {
 }
 
 TfLiteStatus LoadFloatModelAndPerformInference() {
-  const tflite::Model* model =
-      ::tflite::GetModel(g_hello_world_float_model_data);
+  const tflite_micro::Model* model =
+      ::tflite_micro::GetModel(g_hello_world_float_model_data);
   TFLITE_CHECK_EQ(model->version(), TFLITE_SCHEMA_VERSION);
 
   HelloWorldOpResolver op_resolver;
@@ -79,7 +79,7 @@ TfLiteStatus LoadFloatModelAndPerformInference() {
   constexpr int kTensorArenaSize = 3000;
   uint8_t tensor_arena[kTensorArenaSize];
 
-  tflite::MicroInterpreter interpreter(model, op_resolver, tensor_arena,
+  tflite_micro::MicroInterpreter interpreter(model, op_resolver, tensor_arena,
                                        kTensorArenaSize);
   TF_LITE_ENSURE_STATUS(interpreter.AllocateTensors());
 
@@ -102,8 +102,8 @@ TfLiteStatus LoadFloatModelAndPerformInference() {
 TfLiteStatus LoadQuantModelAndPerformInference() {
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
-  const tflite::Model* model =
-      ::tflite::GetModel(g_hello_world_int8_model_data);
+  const tflite_micro::Model* model =
+      ::tflite_micro::GetModel(g_hello_world_int8_model_data);
   TFLITE_CHECK_EQ(model->version(), TFLITE_SCHEMA_VERSION);
 
   HelloWorldOpResolver op_resolver;
@@ -114,7 +114,7 @@ TfLiteStatus LoadQuantModelAndPerformInference() {
   constexpr int kTensorArenaSize = 3000;
   uint8_t tensor_arena[kTensorArenaSize];
 
-  tflite::MicroInterpreter interpreter(model, op_resolver, tensor_arena,
+  tflite_micro::MicroInterpreter interpreter(model, op_resolver, tensor_arena,
                                        kTensorArenaSize);
 
   TF_LITE_ENSURE_STATUS(interpreter.AllocateTensors());
@@ -150,7 +150,7 @@ TfLiteStatus LoadQuantModelAndPerformInference() {
 }
 
 int main(int argc, char* argv[]) {
-  tflite::InitializeTarget();
+  tflite_micro::InitializeTarget();
   TF_LITE_ENSURE_STATUS(ProfileMemoryAndLatency());
   TF_LITE_ENSURE_STATUS(LoadFloatModelAndPerformInference());
   TF_LITE_ENSURE_STATUS(LoadQuantModelAndPerformInference());

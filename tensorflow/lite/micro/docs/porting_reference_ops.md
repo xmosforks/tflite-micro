@@ -287,7 +287,7 @@ platform/compiler dependent.
 ## How do I allocate persistent memory?
 Use `TfLiteContext::AllocatePersistentBuffer` to allocate persistent memory.
 Memory allocated by this method will remain valid throughout the lifetime of
-the `tflite::MicroInterpreter` instance.
+the `tflite_micro::MicroInterpreter` instance.
 
 An example code snippet looks like ([leaky_relu.cc](../kernels/leaky_relu.cc)):
 ```C++
@@ -339,8 +339,8 @@ the scope of your operator's `Invoke` method.
 ## Can I resize my input/output tensors?
 No.  The storage space for each input/output tensor is a fixed, calculated value
 determined at the time the TensorFlow Lite (TfLite) model converter is executed.
-During the `Init` phase of the `tflite::MicroInterpreter` all tensor storage is
-allocated by the `tflite::MicroInterpreter` instance, using the calculated values
+During the `Init` phase of the `tflite_micro::MicroInterpreter` all tensor storage is
+allocated by the `tflite_micro::MicroInterpreter` instance, using the calculated values
 of the model converter.
 For more information see: [Memory Allocation Overview](online_memory_allocation_overview.md)
 
@@ -348,15 +348,15 @@ For more information see: [Memory Allocation Overview](online_memory_allocation_
 Yes.  The new shape must not exceed the storage space indicated by the old shape.
 Because tensor shape values may live in memory that is not directly writable
 (ex. Flash, EEPROM, ROM), a special method must be called before modification
-is attempted.  The `tflite::micro::CreateWritableTensorDimsWithCopy` method will
+is attempted.  The `tflite_micro::micro::CreateWritableTensorDimsWithCopy` method will
 move the tensor shape values to guaranteed persistent writable memory.
 
 An example code snippet looks like ([l2_pool_2d.cc](../kernels/l2_pool_2d.cc)):
 ```C++
 // the output variable is a TfLiteTensor*
 TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                context, output, output_eval));
 output->dims->data[kBatchRank] = batches;
 output->dims->data[kHeightRank] = out_height;
@@ -366,14 +366,14 @@ output->dims->data[kChannelRank] = channels_out;
 
 ## When can I change the shape of tensors in my operator code?
 Tensor shape values can be modified any time after the
-`tflite::micro::CreateWritableTensorDimsWithCopy` method has been called.
+`tflite_micro::micro::CreateWritableTensorDimsWithCopy` method has been called.
 This means that tensor shape values can be modified within the scope of
 your operator's `Prepare` or `Invoke` methods.
-The `tflite::micro::CreateWritableTensorDimsWithCopy` method may
+The `tflite_micro::micro::CreateWritableTensorDimsWithCopy` method may
 only be called within the scope of your operator's `Prepare` method.
 
 ## Can I modify a `TfLiteTensor` or `TfLiteEvalTensor`?
-No.  The `tflite::MicroInterpreter` is the owner and manipulator of these data
+No.  The `tflite_micro::MicroInterpreter` is the owner and manipulator of these data
 structures.  Your code should not modify these data structures.  The only
 directly allowed modification of tensors is to change their data values, or
 their shape values.

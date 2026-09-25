@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/core/api/error_reporter.h"
 #include "tensorflow/lite/micro/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 // Get a pointer to a singleton global error reporter.
 ErrorReporter* GetMicroErrorReporter();
 class MicroErrorReporter : public ErrorReporter {
@@ -28,10 +28,9 @@ class MicroErrorReporter : public ErrorReporter {
   ~MicroErrorReporter() override {}
   int Report(const char* format, va_list args) override;
 
- private:
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_TFLITE_BRIDGE_MICRO_ERROR_REPORTER_H_

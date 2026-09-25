@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -31,7 +31,7 @@ TfLiteStatus UnpackImpl(TfLiteContext* context, TfLiteNode* node,
                         const TfLiteEvalTensor* input, int output_count,
                         int axis) {
   const TfLiteEvalTensor* output0 =
-      tflite::micro::GetEvalOutput(context, node, 0);
+      tflite_micro::micro::GetEvalOutput(context, node, 0);
   const TfLiteIntArray* input_dims = input->dims;
   const TfLiteIntArray* output_dims = output0->dims;
   const int dimensions = input_dims->size;
@@ -56,11 +56,11 @@ TfLiteStatus UnpackImpl(TfLiteContext* context, TfLiteNode* node,
   }
   TFLITE_DCHECK_EQ(output_size, copy_size * outer_size);
 
-  const T* input_data = tflite::micro::GetTensorData<T>(input);
+  const T* input_data = tflite_micro::micro::GetTensorData<T>(input);
 
   for (int i = 0; i < output_count; ++i) {
-    TfLiteEvalTensor* t = tflite::micro::GetEvalOutput(context, node, i);
-    T* output_data = tflite::micro::GetTensorData<T>(t);
+    TfLiteEvalTensor* t = tflite_micro::micro::GetEvalOutput(context, node, i);
+    T* output_data = tflite_micro::micro::GetTensorData<T>(t);
     for (int k = 0; k < outer_size; ++k) {
       T* output_ptr = output_data + copy_size * k;
       int loc = k * output_count * copy_size + i * copy_size;
@@ -77,7 +77,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       reinterpret_cast<TfLiteUnpackParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
 
   switch (input->type) {
     case kTfLiteFloat32: {
@@ -86,12 +86,15 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     case kTfLiteInt32: {
       return UnpackImpl<int32_t>(context, node, input, data->num, data->axis);
     }
+    case kTfLiteInt16: {
+      return UnpackImpl<int16_t>(context, node, input, data->num, data->axis);
+    }
     case kTfLiteInt8: {
       return UnpackImpl<int8_t>(context, node, input, data->num, data->axis);
     }
     default: {
       MicroPrintf("Type '%s' is not supported by unpack.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -102,7 +105,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_UNPACK() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

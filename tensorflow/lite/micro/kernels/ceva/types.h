@@ -209,7 +209,7 @@ inline bool NextIndex(const int num_dims, const int* dims, int* current) {
 
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 enum class FusedActivationFunctionType : uint8_t { kNone, kRelu6, kRelu1, kRelu };
 enum class PaddingType : uint8_t { kNone, kSame, kValid };
@@ -485,9 +485,9 @@ class RuntimeShape {
   };
 };
 
-// Converts inference-style shape to legacy tflite::Dims<4>.
-inline tflite::Dims<4> ToRuntimeDims(const tflite::RuntimeShape& array_shape) {
-  tflite::Dims<4> result;
+// Converts inference-style shape to legacy tflite_micro::Dims<4>.
+inline tflite_micro::Dims<4> ToRuntimeDims(const tflite_micro::RuntimeShape& array_shape) {
+  tflite_micro::Dims<4> result;
   const int dimensions_count = array_shape.DimensionsCount();
   TFLITE_CHECK_LE(dimensions_count, 4);
   int cum_prod = 1;
@@ -502,7 +502,7 @@ inline tflite::Dims<4> ToRuntimeDims(const tflite::RuntimeShape& array_shape) {
 }
 
 // TODO(b/80418076): Move to legacy ops file, update invocations.
-inline RuntimeShape DimsToShape(const tflite::Dims<4>& dims) {
+inline RuntimeShape DimsToShape(const tflite_micro::Dims<4>& dims) {
   return RuntimeShape(
       {dims.sizes[3], dims.sizes[2], dims.sizes[1], dims.sizes[0]});
 }
@@ -1281,6 +1281,6 @@ inline void GetActivationParams(const P& params, float* min, float* max) {
   *max = params.float_activation_max;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif
 #endif  // CEVA_TYPES_H_

@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus ConvReferenceEvalInt16(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
@@ -35,47 +35,47 @@ TfLiteStatus ConvReferenceEvalInt16(TfLiteContext* context, TfLiteNode* node) {
   const auto& op_data = *(reinterpret_cast<OpDataConv*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kConvOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kConvBiasTensor)
           : nullptr;
 
   if (bias == nullptr || bias->type == kTfLiteInt32) {
     reference_integer_ops::ConvPerChannel(
         ConvParamsQuantized(params, op_data),
         op_data.per_channel_output_multiplier, op_data.per_channel_output_shift,
-        tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int16_t>(input),
-        tflite::micro::GetTensorShape(filter),
-        tflite::micro::GetTensorData<int8_t>(filter),
-        tflite::micro::GetTensorShape(bias),
-        tflite::micro::GetOptionalTensorData<std::int32_t>(bias),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int16_t>(output));
+        tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int16_t>(input),
+        tflite_micro::micro::GetTensorShape(filter),
+        tflite_micro::micro::GetTensorData<int8_t>(filter),
+        tflite_micro::micro::GetTensorShape(bias),
+        tflite_micro::micro::GetOptionalTensorData<std::int32_t>(bias),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int16_t>(output));
   } else if (bias->type == kTfLiteInt64) {
     reference_integer_ops::ConvPerChannel(
         ConvParamsQuantized(params, op_data),
         op_data.per_channel_output_multiplier, op_data.per_channel_output_shift,
-        tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int16_t>(input),
-        tflite::micro::GetTensorShape(filter),
-        tflite::micro::GetTensorData<int8_t>(filter),
-        tflite::micro::GetTensorShape(bias),
-        tflite::micro::GetOptionalTensorData<std::int64_t>(bias),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int16_t>(output));
+        tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int16_t>(input),
+        tflite_micro::micro::GetTensorShape(filter),
+        tflite_micro::micro::GetTensorData<int8_t>(filter),
+        tflite_micro::micro::GetTensorShape(bias),
+        tflite_micro::micro::GetOptionalTensorData<std::int64_t>(bias),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int16_t>(output));
   } else {
     MicroPrintf("Bias type %s (%d) not supported.",
-                TfLiteTypeGetName(bias->type), bias->type);
+                TfLiteMicroTypeGetName(bias->type), bias->type);
     return kTfLiteError;
   }
 
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

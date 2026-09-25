@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -733,7 +733,7 @@ TfLiteStatus ParseOpDataTfLite(const Operator* op, BuiltinOperator op_type,
       const auto* unique_params = op->builtin_options_as_UniqueOptions();
       if (unique_params != nullptr) {
         params->index_out_type =
-            unique_params->idx_out_type() == tflite::TensorType_INT64
+            unique_params->idx_out_type() == tflite_micro::TensorType_INT64
                 ? TfLiteType::kTfLiteInt64
                 : TfLiteType::kTfLiteInt32;
       }
@@ -2751,4 +2751,4 @@ TfLiteStatus ParseOpData(const Operator* op, BuiltinOperator op_type,
 #endif
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

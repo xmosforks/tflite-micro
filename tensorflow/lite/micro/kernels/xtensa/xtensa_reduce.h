@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/kernels/reduce.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 struct XtensaReduceOpData {
   OpDataReduce reference_op_data;
@@ -42,6 +42,6 @@ TfLiteStatus ReduceEvalVision(const XtensaReduceOpData& data,
 
 #endif  // VISION_P6
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_REDUCE_H_

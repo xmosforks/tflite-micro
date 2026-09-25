@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace strided_slice {
 
 // Use until std::clamp() is available from C++17.
@@ -33,7 +33,7 @@ inline int Clamp(const int v, const int lo, const int hi) {
   return v;
 }
 
-inline void StridedSlicePadIndices(tflite::StridedSliceParams* p,
+inline void StridedSlicePadIndices(tflite_micro::StridedSliceParams* p,
                                    int dim_count) {
   // Add indices and mask bits to fully include extra dimensions
   TFLITE_CHECK_LE(dim_count, 5);
@@ -72,7 +72,7 @@ inline void StridedSlicePadIndices(tflite::StridedSliceParams* p,
 // Return the index for the first element along that axis. This index will be a
 // positive integer between [0, axis_size] (or [-1, axis_size -1] if stride < 0)
 // that can be used to index directly into the data.
-inline int StridedSliceStartForAxis(const tflite::StridedSliceParams& params,
+inline int StridedSliceStartForAxis(const tflite_micro::StridedSliceParams& params,
                                     const RuntimeShape& input_shape,
                                     int32_t axis) {
   const int32_t axis_size = input_shape.Dims(axis);
@@ -97,7 +97,7 @@ inline int StridedSliceStartForAxis(const tflite::StridedSliceParams& params,
   return start;
 }
 
-inline int StridedSliceEndForAxis(const tflite::StridedSliceParams& params,
+inline int StridedSliceEndForAxis(const tflite_micro::StridedSliceParams& params,
                                   const RuntimeShape& input_shape, int axis,
                                   int start) {
   const auto shrink_axis_mask = params.shrink_axis_mask;
@@ -139,7 +139,7 @@ inline int StridedSliceEndForAxis(const tflite::StridedSliceParams& params,
 // Return the index for the first element along that axis. This index will be a
 // positive integer between [0, axis_size] (or [-1, axis_size -1] if stride < 0)
 // that can be used to index directly into the data.
-inline int StartForAxis(const tflite::StridedSliceParams& params,
+inline int StartForAxis(const tflite_micro::StridedSliceParams& params,
                         const RuntimeShape& input_shape, int axis) {
   const auto begin_mask = params.begin_mask;
   const auto* start_indices = params.start_indices;
@@ -186,7 +186,7 @@ inline int StartForAxis(const tflite::StridedSliceParams& params,
 // element. ie. So if you were iterating through all elements of a 1D array of
 // size 4, this function would return 4 as the stop, because it is one past the
 // "real" indices of 0, 1, 2 & 3.
-inline int StopForAxis(const tflite::StridedSliceParams& params,
+inline int StopForAxis(const tflite_micro::StridedSliceParams& params,
                        const RuntimeShape& input_shape, int axis,
                        int start_for_axis) {
   const auto end_mask = params.end_mask;
@@ -246,11 +246,11 @@ inline bool LoopCondition(int index, int stop, int stride) {
   return stride > 0 ? index >= stop : index <= stop;
 }
 
-inline tflite::StridedSliceParams BuildStridedSliceParams(
+inline tflite_micro::StridedSliceParams BuildStridedSliceParams(
     int begin_mask, int end_mask, int shrink_axis_mask,
     const std::vector<int>& start_indices, const std::vector<int>& stop_indices,
     const std::vector<int>& strides) {
-  tflite::StridedSliceParams op_params{};
+  tflite_micro::StridedSliceParams op_params{};
   const int dims_count = start_indices.size();
 
   op_params.start_indices_count = dims_count;
@@ -273,6 +273,6 @@ inline tflite::StridedSliceParams BuildStridedSliceParams(
 
 }  // namespace strided_slice
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_STRIDED_SLICE_LOGIC_H_

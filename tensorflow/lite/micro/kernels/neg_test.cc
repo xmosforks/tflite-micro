@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -58,7 +58,7 @@ void TestNegFloat(int* input_dims_data, const float* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -68,7 +68,7 @@ TF_LITE_MICRO_TEST(NegOpSingleFloat) {
   const float golden[] = {-8.5, 0.0};
   float output_data[2];
 
-  tflite::testing::TestNegFloat(dims, input_data, golden, dims, output_data);
+  tflite_micro::testing::TestNegFloat(dims, input_data, golden, dims, output_data);
 }
 
 TF_LITE_MICRO_TEST(NegOpFloat) {
@@ -77,7 +77,7 @@ TF_LITE_MICRO_TEST(NegOpFloat) {
   const float golden[] = {2.0f, 1.0f, -0.f, -1.0f, -2.0f, -3.0f};
   float output_data[6];
 
-  tflite::testing::TestNegFloat(dims, input_data, golden, dims, output_data);
+  tflite_micro::testing::TestNegFloat(dims, input_data, golden, dims, output_data);
 }
 
 TF_LITE_MICRO_TESTS_END

@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 struct SqueezeContext {
@@ -88,15 +88,15 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
 
   if (input->type == kTfLiteString) {
-    MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+    MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                 input->type);
     return kTfLiteError;
   }
 
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   size_t input_byte_size;
   size_t output_byte_size;
   TF_LITE_ENSURE_OK(context,
@@ -112,7 +112,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SQUEEZE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

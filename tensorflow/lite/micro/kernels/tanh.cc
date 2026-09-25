@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -149,43 +149,43 @@ TfLiteStatus TanhPrepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus TanhEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpData& data = *(static_cast<const OpData*>(node->user_data));
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      reference_ops::Tanh(tflite::micro::GetTensorShape(input),
-                          tflite::micro::GetTensorData<float>(input),
-                          tflite::micro::GetTensorShape(output),
-                          tflite::micro::GetTensorData<float>(output));
+      reference_ops::Tanh(tflite_micro::micro::GetTensorShape(input),
+                          tflite_micro::micro::GetTensorData<float>(input),
+                          tflite_micro::micro::GetTensorShape(output),
+                          tflite_micro::micro::GetTensorData<float>(output));
       return kTfLiteOk;
     } break;
     case kTfLiteInt16: {
       reference_integer_ops::Tanh(
           data.input_multiplier, data.input_left_shift,
-          tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int16_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int16_t>(output));
+          tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int16_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int16_t>(output));
       return kTfLiteOk;
     } break;
     case kTfLiteInt8: {
       reference_integer_ops::Tanh(
           data.input_zero_point, data.input_range_radius, data.input_multiplier,
-          data.input_left_shift, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int8_t>(output));
+          data.input_left_shift, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int8_t>(output));
       return kTfLiteOk;
     } break;
     default:
       MicroPrintf("Input %s, output %s not supported.",
-                  TfLiteTypeGetName(input->type),
-                  TfLiteTypeGetName(output->type), context);
+                  TfLiteMicroTypeGetName(input->type),
+                  TfLiteMicroTypeGetName(output->type), context);
       return kTfLiteError;
   }
 }
@@ -193,7 +193,7 @@ TfLiteStatus TanhEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_TANH() {
-  return tflite::micro::RegisterOp(TanhInit, TanhPrepare, TanhEval);
+  return tflite_micro::micro::RegisterOp(TanhInit, TanhPrepare, TanhEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

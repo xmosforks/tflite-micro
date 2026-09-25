@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/hifimini/fixedpoint_utils.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void FullyConnectedEvalHifimini(
     const FullyConnectedParams& params, const RuntimeShape& input_shape,
@@ -114,5 +114,5 @@ void FullyConnectedEvalHifimini(
   }
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(HIFIMINI)

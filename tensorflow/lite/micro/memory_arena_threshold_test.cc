@@ -148,10 +148,10 @@ void EnsureAllocatedSizeThreshold(const char* allocation_type, size_t actual,
 }
 
 void ValidateModelAllocationThresholds(
-    const tflite::RecordingMicroAllocator& allocator,
+    const tflite_micro::RecordingMicroAllocator& allocator,
     const ModelAllocationThresholds& thresholds) {
   MicroPrintf("Overhead from RecordingMicroAllocator is %d",
-              tflite::RecordingMicroAllocator::GetDefaultTailUsage());
+              tflite_micro::RecordingMicroAllocator::GetDefaultTailUsage());
   allocator.PrintAllocations();
 
   EnsureAllocatedSizeThreshold(
@@ -167,27 +167,27 @@ void ValidateModelAllocationThresholds(
       "TfLiteEvalTensor",
       allocator
           .GetRecordedAllocation(
-              tflite::RecordedAllocationType::kTfLiteEvalTensorData)
+              tflite_micro::RecordedAllocationType::kTfLiteEvalTensorData)
           .used_bytes,
       sizeof(TfLiteEvalTensor) * thresholds.tensor_count);
   EnsureAllocatedSizeThreshold(
       "VariableBufferData",
       allocator
           .GetRecordedAllocation(
-              tflite::RecordedAllocationType::kTfLiteTensorVariableBufferData)
+              tflite_micro::RecordedAllocationType::kTfLiteTensorVariableBufferData)
           .used_bytes,
       thresholds.tensor_variable_buffer_data_size);
   EnsureAllocatedSizeThreshold(
       "PersistentTfLiteTensor",
       allocator
           .GetRecordedAllocation(
-              tflite::RecordedAllocationType::kPersistentTfLiteTensorData)
+              tflite_micro::RecordedAllocationType::kPersistentTfLiteTensorData)
           .used_bytes,
       thresholds.persistent_tflite_tensor_data_size);
   EnsureAllocatedSizeThreshold(
       "PersistentTfliteTensorQuantizationData",
       allocator
-          .GetRecordedAllocation(tflite::RecordedAllocationType::
+          .GetRecordedAllocation(tflite_micro::RecordedAllocationType::
                                      kPersistentTfLiteTensorQuantizationData)
           .used_bytes,
       thresholds.persistent_tflite_tensor_quantization_data_size);
@@ -195,22 +195,22 @@ void ValidateModelAllocationThresholds(
       "PersistentBufferData",
       allocator
           .GetRecordedAllocation(
-              tflite::RecordedAllocationType::kPersistentBufferData)
+              tflite_micro::RecordedAllocationType::kPersistentBufferData)
           .used_bytes,
       thresholds.persistent_buffer_data);
   EnsureAllocatedSizeThreshold(
       "NodeAndRegistration",
       allocator
           .GetRecordedAllocation(
-              tflite::RecordedAllocationType::kNodeAndRegistrationArray)
+              tflite_micro::RecordedAllocationType::kNodeAndRegistrationArray)
           .used_bytes,
-      sizeof(tflite::NodeAndRegistration) *
+      sizeof(tflite_micro::NodeAndRegistration) *
           thresholds.node_and_registration_count);
 
   // Ensure tail allocation recording is not missing any large chunks:
   size_t tail_est_length = sizeof(TfLiteEvalTensor) * thresholds.tensor_count +
                            thresholds.tensor_variable_buffer_data_size +
-                           sizeof(tflite::NodeAndRegistration) *
+                           sizeof(tflite_micro::NodeAndRegistration) *
                                thresholds.node_and_registration_count +
                            thresholds.op_runtime_data_size;
   TF_LITE_MICRO_EXPECT_LE(thresholds.tail_alloc_size - tail_est_length,
@@ -222,17 +222,17 @@ void ValidateModelAllocationThresholds(
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestKeywordModelMemoryThreshold) {
-  tflite::MicroMutableOpResolver<4> op_resolver;
+  tflite_micro::MicroMutableOpResolver<4> op_resolver;
   TF_LITE_MICRO_EXPECT_EQ(
-      op_resolver.AddFullyConnected(tflite::Register_FULLY_CONNECTED_INT8()),
+      op_resolver.AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED_INT8()),
       kTfLiteOk);
   TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddQuantize(), kTfLiteOk);
   TF_LITE_MICRO_EXPECT_EQ(
-      op_resolver.AddSoftmax(tflite::Register_SOFTMAX_INT8_INT16()), kTfLiteOk);
-  TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddSvdf(tflite::Register_SVDF_INT8()),
+      op_resolver.AddSoftmax(tflite_micro::Register_SOFTMAX_INT8_INT16()), kTfLiteOk);
+  TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddSvdf(tflite_micro::Register_SVDF_INT8()),
                           kTfLiteOk);
-  tflite::RecordingMicroInterpreter interpreter(
-      tflite::GetModel(g_keyword_scrambled_model_data), op_resolver,
+  tflite_micro::RecordingMicroInterpreter interpreter(
+      tflite_micro::GetModel(g_keyword_scrambled_model_data), op_resolver,
       keyword_model_tensor_arena, kKeywordModelTensorArenaSize);
 
   interpreter.AllocateTensors();
@@ -243,11 +243,11 @@ TF_LITE_MICRO_TEST(TestKeywordModelMemoryThreshold) {
       kKeywordModelNodeAndRegistrationCount;
   thresholds.total_alloc_size =
       kKeywordModelOnlyTotalSize +
-      tflite::RecordingMicroAllocator::GetDefaultTailUsage();
+      tflite_micro::RecordingMicroAllocator::GetDefaultTailUsage();
   thresholds.head_alloc_size = kKeywordModelHeadSize;
   thresholds.tail_alloc_size =
       kKeywordModelOnlyTailSize +
-      tflite::RecordingMicroAllocator::GetDefaultTailUsage();
+      tflite_micro::RecordingMicroAllocator::GetDefaultTailUsage();
   thresholds.tensor_variable_buffer_data_size =
       kKeywordModelTfLiteTensorVariableBufferDataSize;
   thresholds.op_runtime_data_size = kKeywordModelOpRuntimeDataSize;
@@ -262,7 +262,7 @@ TF_LITE_MICRO_TEST(TestKeywordModelMemoryThreshold) {
 }
 
 TF_LITE_MICRO_TEST(TestConvModelMemoryThreshold) {
-  tflite::MicroMutableOpResolver<6> op_resolver;
+  tflite_micro::MicroMutableOpResolver<6> op_resolver;
   TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddConv2D(), kTfLiteOk);
   TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddQuantize(), kTfLiteOk);
   TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddMaxPool2D(), kTfLiteOk);
@@ -270,8 +270,8 @@ TF_LITE_MICRO_TEST(TestConvModelMemoryThreshold) {
   TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddFullyConnected(), kTfLiteOk);
   TF_LITE_MICRO_EXPECT_EQ(op_resolver.AddDequantize(), kTfLiteOk);
 
-  tflite::RecordingMicroInterpreter interpreter(
-      tflite::GetModel(kTestConvModelData), op_resolver, test_conv_tensor_arena,
+  tflite_micro::RecordingMicroInterpreter interpreter(
+      tflite_micro::GetModel(kTestConvModelData), op_resolver, test_conv_tensor_arena,
       kTestConvModelArenaSize);
 
   interpreter.AllocateTensors();
@@ -282,11 +282,11 @@ TF_LITE_MICRO_TEST(TestConvModelMemoryThreshold) {
       kTestConvModelNodeAndRegistrationCount;
   thresholds.total_alloc_size =
       kTestConvModelOnlyTotalSize +
-      tflite::RecordingMicroAllocator::GetDefaultTailUsage();
+      tflite_micro::RecordingMicroAllocator::GetDefaultTailUsage();
   thresholds.head_alloc_size = kTestConvModelHeadSize;
   thresholds.tail_alloc_size =
       kTestConvModelOnlyTailSize +
-      tflite::RecordingMicroAllocator::GetDefaultTailUsage();
+      tflite_micro::RecordingMicroAllocator::GetDefaultTailUsage();
   thresholds.op_runtime_data_size = kTestConvModelOpRuntimeDataSize;
   thresholds.persistent_buffer_data = kTestConvModelPersistentBufferDataSize;
   thresholds.persistent_tflite_tensor_data_size =

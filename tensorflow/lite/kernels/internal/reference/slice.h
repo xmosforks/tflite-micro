@@ -18,12 +18,12 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/portable_tensor.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
 template <typename T>
-inline void Slice(const tflite::SliceParams& op_params,
+inline void Slice(const tflite_micro::SliceParams& op_params,
                   const RuntimeShape& input_shape,
                   const RuntimeShape& output_shape,
                   SequentialTensorWriter<T>* writer) {
@@ -59,7 +59,7 @@ inline void Slice(const tflite::SliceParams& op_params,
 }
 
 template <typename T>
-inline void Slice(const tflite::SliceParams& op_params,
+inline void Slice(const tflite_micro::SliceParams& op_params,
                   const RuntimeShape& input_shape, const T* input_data,
                   const RuntimeShape& output_shape, T* output_data) {
   SequentialTensorWriter<T> writer(input_data, output_data);
@@ -67,7 +67,7 @@ inline void Slice(const tflite::SliceParams& op_params,
 }
 
 template <typename T>
-inline void Slice(const tflite::SliceParams& op_params,
+inline void Slice(const tflite_micro::SliceParams& op_params,
                   const RuntimeShape& input_shape, const TfLiteTensor* input,
                   const RuntimeShape& output_shape, TfLiteTensor* output) {
   SequentialTensorWriter<T> writer(input, output);
@@ -75,6 +75,6 @@ inline void Slice(const tflite::SliceParams& op_params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_SLICE_H_

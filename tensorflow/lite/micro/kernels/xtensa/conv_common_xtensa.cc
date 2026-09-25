@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_conv.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* ConvInitXtensa(TfLiteContext* context, const char* buffer,
                      size_t length) {
@@ -53,4 +53,4 @@ TfLiteStatus ConvPrepareXtensa(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

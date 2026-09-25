@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/kernels/softmax.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
 struct XtensaSoftmaxOpData {
@@ -53,6 +53,6 @@ TfLiteStatus SoftmaxEvalVision(TfLiteContext* context, TfLiteNode* node,
                                TfLiteEvalTensor* output);
 #endif  // defined(VISION_P6)
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_SOFTMAX_H_

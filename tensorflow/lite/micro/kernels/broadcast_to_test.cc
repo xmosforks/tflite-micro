@@ -20,8 +20,8 @@ limitations under the License.
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
 namespace {
-using ::tflite::testing::CreateTensor;
-using ::tflite::testing::IntArrayFromInts;
+using ::tflite_micro::testing::CreateTensor;
+using ::tflite_micro::testing::IntArrayFromInts;
 
 // The layout of tensors is fixed.
 constexpr int kInputIndex = 0;
@@ -32,7 +32,7 @@ constexpr int kOutputsTensor[] = {1, kOutputIndex};
 
 // This function is NOT thread safe.
 template <typename DimsType, typename ValueType>
-tflite::micro::KernelRunner CreateBroadcastToTestRunner(
+tflite_micro::micro::KernelRunner CreateBroadcastToTestRunner(
     int* dims_shape, DimsType* dims_data, int* input_shape,
     ValueType* input_data, int* output_shape, ValueType* output_data) {
   // Some targets do not support dynamic memory (i.e., no malloc or new), thus,
@@ -50,8 +50,8 @@ tflite::micro::KernelRunner CreateBroadcastToTestRunner(
   TF_LITE_MICRO_EXPECT_EQ(tensors[kOutputIndex].type,
                           tensors[kInputIndex].type);
 
-  registration = tflite::Register_BROADCAST_TO();
-  tflite::micro::KernelRunner runner = tflite::micro::KernelRunner(
+  registration = tflite_micro::Register_BROADCAST_TO();
+  tflite_micro::micro::KernelRunner runner = tflite_micro::micro::KernelRunner(
       registration, tensors, sizeof(tensors) / sizeof(TfLiteTensor),
       IntArrayFromInts(const_cast<int*>(kInputsTensor)),
       IntArrayFromInts(const_cast<int*>(kOutputsTensor)),
@@ -63,7 +63,7 @@ template <typename DimsType, typename ValueType>
 void TestBroadcastTo(int* dims_shape, DimsType* dims_data, int* input_shape,
                      ValueType* input_data, int* output_shape,
                      ValueType* output_data, ValueType* expected_output_data) {
-  tflite::micro::KernelRunner runner =
+  tflite_micro::micro::KernelRunner runner =
       CreateBroadcastToTestRunner(dims_shape, dims_data, input_shape,
                                   input_data, output_shape, output_data);
 
@@ -71,7 +71,7 @@ void TestBroadcastTo(int* dims_shape, DimsType* dims_data, int* input_shape,
   TF_LITE_MICRO_EXPECT_EQ(runner.Invoke(), kTfLiteOk);
 
   // The output elements contain the fill value.
-  const auto elements = tflite::ElementCount(*IntArrayFromInts(output_shape));
+  const auto elements = tflite_micro::ElementCount(*IntArrayFromInts(output_shape));
   for (int i = 0; i < elements; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(output_data[i], expected_output_data[i]);
   }
@@ -90,7 +90,7 @@ TF_LITE_MICRO_TEST(ShapeMustBe1D) {
   int output_shape[] = {2, 2, 2};
   int output_data[] = {2, 3, 4, 4};
 
-  tflite::micro::KernelRunner runner =
+  tflite_micro::micro::KernelRunner runner =
       CreateBroadcastToTestRunner(dims_shape, dims_data, input_shape,
                                   input_data, output_shape, output_data);
 
@@ -107,7 +107,7 @@ TF_LITE_MICRO_TEST(TooManyDimensionShouldFail) {
   int output_shape[] = {6, 2, 2, 2, 2, 2, 2};
   int output_data[12];
 
-  tflite::micro::KernelRunner runner =
+  tflite_micro::micro::KernelRunner runner =
       CreateBroadcastToTestRunner(dims_shape, dims_data, input_shape,
                                   input_data, output_shape, output_data);
 
@@ -124,7 +124,7 @@ TF_LITE_MICRO_TEST(MismatchDimensionShouldFail) {
   int output_shape[] = {4, 2, 4, 1, 2};
   int output_data[24];
 
-  tflite::micro::KernelRunner runner =
+  tflite_micro::micro::KernelRunner runner =
       CreateBroadcastToTestRunner(dims_shape, dims_data, input_shape,
                                   input_data, output_shape, output_data);
 

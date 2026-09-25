@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // The following GetBuiltinCode methods are the utility methods for reading
 // builtin operator code, ensuring compatibility issues between v3 and v3a
@@ -59,4 +59,4 @@ BuiltinOperator GetBuiltinCode(const OperatorCodeT* op_code) {
                                              op_code->deprecated_builtin_code));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

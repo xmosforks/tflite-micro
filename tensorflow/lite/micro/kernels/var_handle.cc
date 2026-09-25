@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_resource_variable.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -46,7 +46,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   const auto* params =
       reinterpret_cast<const TfLiteVarHandleParams*>(node->builtin_data);
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   MicroGraph& graph_info = micro_context->graph();
 
   MicroResourceVariables* resources = graph_info.GetResourceVariables();
@@ -62,7 +62,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
     return kTfLiteError;
   }
 
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TFLITE_DCHECK(output != nullptr);
 
   // Assign saved resource_id so this output tensor will always return the
@@ -75,7 +75,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   OpData* op_data = reinterpret_cast<OpData*>(node->user_data);
 
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TFLITE_DCHECK(output != nullptr);
 
   // Assign saved resource_id so this output tensor will always return the
@@ -87,7 +87,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace.
 
 TFLMRegistration Register_VAR_HANDLE() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

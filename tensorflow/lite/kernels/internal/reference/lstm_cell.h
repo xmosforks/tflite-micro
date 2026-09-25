@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/reference/fully_connected.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 inline void LstmCell(
@@ -94,14 +94,14 @@ inline void LstmCell(
   float const* concat_input_arrays_data[2] = {input_data, prev_activ_data};
   const RuntimeShape* concat_input_arrays_shapes[2] = {&input_shape,
                                                        &prev_activ_shape};
-  tflite::ConcatenationParams concat_params;
+  tflite_micro::ConcatenationParams concat_params;
   concat_params.axis = 3;
   concat_params.inputs_count = 2;
   Concatenation(concat_params, concat_input_arrays_shapes,
                 concat_input_arrays_data, concat_temp_shape, concat_temp_data);
 
   // Fully connected
-  tflite::FullyConnectedParams fc_params;
+  tflite_micro::FullyConnectedParams fc_params;
   fc_params.float_activation_min = std::numeric_limits<float>::lowest();
   fc_params.float_activation_max = std::numeric_limits<float>::max();
   FullyConnected(fc_params, concat_temp_shape, concat_temp_data, weights_shape,
@@ -305,7 +305,7 @@ inline void LstmCell(const LstmCellParams& params,
                                                 prev_activ_data_uint8};
   const RuntimeShape* concat_input_arrays_shapes[2] = {&input_shape,
                                                        &prev_activ_shape};
-  tflite::ConcatenationParams concat_params;
+  tflite_micro::ConcatenationParams concat_params;
   concat_params.axis = 3;
   concat_params.inputs_count = 2;
   Concatenation(concat_params, concat_input_arrays_shapes,
@@ -418,5 +418,5 @@ inline void LstmCell(const LstmCellParams& params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_LSTM_CELL_H_

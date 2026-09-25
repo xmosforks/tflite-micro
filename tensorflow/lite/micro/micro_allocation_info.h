@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_allocator.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Used to hold information used during allocation calculations.
 struct AllocationInfo {
@@ -127,12 +127,12 @@ class AllocationInfoBuilder {
   TfLiteStatus ValidateSubgraph(const SubGraph* subgraph,
                                 TfLiteEvalTensor* eval_tensors);
 
-  const tflite::Model* model_ = nullptr;
+  const tflite_micro::Model* model_ = nullptr;
   INonPersistentBufferAllocator* non_persistent_allocator_ = nullptr;
   GraphAllocationInfo info_;
   int allocation_scope_count_ = 0;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_ALLOCATION_INFO_H_

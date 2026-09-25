@@ -19,7 +19,7 @@ limitations under the License.
 #include <stdio.h>
 #include <stdlib.h>
 
-namespace tflite {
+namespace tflite_micro {
 
 int GetLongestStringLength(const char strings[][kMaxStringLength],
                            const int count) {
@@ -112,4 +112,4 @@ void FormatNumber<double>(char* output, double value) {
   FormatIntegerDivide(output, static_cast<int64_t>(value * kDenominator),
                       kDenominator, 3);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

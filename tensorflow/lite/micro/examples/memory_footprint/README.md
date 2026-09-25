@@ -110,15 +110,15 @@ snipet shows how to do so using the keyword detection as an example:
   KeywordOpResolver* op_resolver = new (op_resolver_buffer) KeywordOpResolver();
 
   // Only add the required kernel
-  op_resolver->AddFullyConnected(tflite::Register_FULLY_CONNECTED_INT8());
+  op_resolver->AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED_INT8());
   op_resolver->AddQuantize();
-  op_resolver->AddSoftmax(tflite::Register_SOFTMAX_INT8_INT16());
-  op_resolver->AddSvdf(tflite::Register_SVDF_INT8());
+  op_resolver->AddSoftmax(tflite_micro::Register_SOFTMAX_INT8_INT16());
+  op_resolver->AddSvdf(tflite_micro::Register_SVDF_INT8());
 
   ...
 
   // Pass the OpResolver to the interpreter
-  tflite::MicroInterpreter * interpreter = tflite::MicroInterpeter::Create(
+  tflite_micro::MicroInterpreter * interpreter = tflite_micro::MicroInterpeter::Create(
       g_keyword_scrambled_model_data, op_resolver, tensor_arena, kTensorArenaSize, profiler);
 ```
 

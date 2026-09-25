@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -172,13 +172,13 @@ void AverageEvalFloat(TfLiteContext* context, const TfLiteNode* node,
   op_params.padding_values.width = data.padding.width;
   op_params.float_activation_min = activation_min;
   op_params.float_activation_max = activation_max;
-  reference_ops::AveragePool(op_params, tflite::micro::GetTensorShape(input),
-                             tflite::micro::GetTensorData<float>(input),
-                             tflite::micro::GetTensorShape(output),
-                             tflite::micro::GetTensorData<float>(output));
+  reference_ops::AveragePool(op_params, tflite_micro::micro::GetTensorShape(input),
+                             tflite_micro::micro::GetTensorData<float>(input),
+                             tflite_micro::micro::GetTensorShape(output),
+                             tflite_micro::micro::GetTensorData<float>(output));
 #else
   MicroPrintf("Type %s (%d) is not supported by ARC MLI Library.",
-              TfLiteTypeGetName(input->type), input->type);
+              TfLiteMicroTypeGetName(input->type), input->type);
 #endif
 }
 
@@ -281,13 +281,13 @@ void AverageEvalQuantized(TfLiteContext* context, const TfLiteNode* node,
   op_params.quantized_activation_max = data.activation_max;
 
   reference_integer_ops::AveragePool(
-      op_params, tflite::micro::GetTensorShape(input),
-      tflite::micro::GetTensorData<int8_t>(input),
-      tflite::micro::GetTensorShape(output),
-      tflite::micro::GetTensorData<int8_t>(output));
+      op_params, tflite_micro::micro::GetTensorShape(input),
+      tflite_micro::micro::GetTensorData<int8_t>(input),
+      tflite_micro::micro::GetTensorShape(output),
+      tflite_micro::micro::GetTensorData<int8_t>(output));
 #else
   MicroPrintf("Type %s (%d) is not supported by ARC MLI Library.",
-              TfLiteTypeGetName(input->type), input->type);
+              TfLiteMicroTypeGetName(input->type), input->type);
 #endif
 }
 
@@ -295,7 +295,7 @@ void MaxEvalFloat(TfLiteContext* context, TfLiteNode* node,
                   TfLitePoolParams* params, const OpData& data,
                   const TfLiteEvalTensor* input, TfLiteEvalTensor* output) {
 #if !defined(TF_LITE_STRIP_REFERENCE_IMPL)
-  tflite::PoolParams op_params;
+  tflite_micro::PoolParams op_params;
   op_params.stride_height = params->stride_height;
   op_params.stride_width = params->stride_width;
   op_params.filter_height = params->filter_height;
@@ -304,15 +304,15 @@ void MaxEvalFloat(TfLiteContext* context, TfLiteNode* node,
   op_params.padding_values.width = data.padding.width;
   op_params.float_activation_min = data.activation_min_f32;
   op_params.float_activation_max = data.activation_max_f32;
-  reference_ops::MaxPool(op_params, tflite::micro::GetTensorShape(input),
-                         tflite::micro::GetTensorData<float>(input),
-                         tflite::micro::GetTensorShape(output),
-                         tflite::micro::GetTensorData<float>(output));
+  reference_ops::MaxPool(op_params, tflite_micro::micro::GetTensorShape(input),
+                         tflite_micro::micro::GetTensorData<float>(input),
+                         tflite_micro::micro::GetTensorShape(output),
+                         tflite_micro::micro::GetTensorData<float>(output));
 #else
   MicroPrintf(
 
       "Node configuration or type %s (%d) is not supported by ARC MLI Library.",
-      TfLiteTypeGetName(input->type), input->type);
+      TfLiteMicroTypeGetName(input->type), input->type);
 #endif
 }
 
@@ -321,7 +321,7 @@ void MaxEvalQuantized(TfLiteContext* context, TfLiteNode* node,
                       const TfLiteEvalTensor* input, TfLiteEvalTensor* output) {
 #if !defined(TF_LITE_STRIP_REFERENCE_IMPL)
   TFLITE_DCHECK(input->type == kTfLiteInt8);
-  tflite::PoolParams op_params;
+  tflite_micro::PoolParams op_params;
   op_params.stride_height = params->stride_height;
   op_params.stride_width = params->stride_width;
   op_params.filter_height = params->filter_height;
@@ -332,15 +332,15 @@ void MaxEvalQuantized(TfLiteContext* context, TfLiteNode* node,
   op_params.quantized_activation_max = data.activation_max;
 
   reference_integer_ops::MaxPool(op_params,
-                                 tflite::micro::GetTensorShape(input),
-                                 tflite::micro::GetTensorData<int8_t>(input),
-                                 tflite::micro::GetTensorShape(output),
-                                 tflite::micro::GetTensorData<int8_t>(output));
+                                 tflite_micro::micro::GetTensorShape(input),
+                                 tflite_micro::micro::GetTensorData<int8_t>(input),
+                                 tflite_micro::micro::GetTensorShape(output),
+                                 tflite_micro::micro::GetTensorData<int8_t>(output));
 #else
   MicroPrintf(
 
       "Node configuration or type %s (%d) is not supported by ARC MLI Library.",
-      TfLiteTypeGetName(input->type), input->type);
+      TfLiteMicroTypeGetName(input->type), input->type);
 #endif
 }
 
@@ -349,9 +349,9 @@ TfLiteStatus AverageEval(TfLiteContext* context, TfLiteNode* node) {
   auto* params = reinterpret_cast<TfLitePoolParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpData& data = *(static_cast<const OpData*>(node->user_data));
@@ -370,7 +370,7 @@ TfLiteStatus AverageEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Input type %s is not currently supported",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -380,9 +380,9 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
   auto* params = reinterpret_cast<TfLitePoolParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpData& data = *(static_cast<const OpData*>(node->user_data));
@@ -400,7 +400,7 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Type %s not currently supported.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -409,11 +409,11 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_AVERAGE_POOL_2D() {
-  return tflite::micro::RegisterOp(Init, Prepare, AverageEval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, AverageEval);
 }
 
 TFLMRegistration Register_MAX_POOL_2D() {
-  return tflite::micro::RegisterOp(Init, Prepare, MaxEval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, MaxEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

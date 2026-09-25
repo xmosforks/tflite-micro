@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/kernels/op_macros.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 inline void Logistic(const RuntimeShape& input_shape, const float* input_data,
@@ -127,6 +127,6 @@ inline void Logistic(const RuntimeShape& input_shape, const int8_t* input_data,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_LOGISTIC_H_

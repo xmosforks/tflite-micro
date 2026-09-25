@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/tflite_bridge/flatbuffer_conversions_bridge.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 uint8_t* AlignPointerUp(uint8_t* data, size_t alignment) {
   std::uintptr_t data_as_uintptr_t = reinterpret_cast<std::uintptr_t>(data);
@@ -98,7 +98,7 @@ TfLiteStatus TfLiteTypeSizeOf(TfLiteType type, size_t* size) {
   return kTfLiteOk;
 }
 
-TfLiteStatus BytesRequiredForTensor(const tflite::Tensor& flatbuffer_tensor,
+TfLiteStatus BytesRequiredForTensor(const tflite_micro::Tensor& flatbuffer_tensor,
                                     size_t* bytes, size_t* type_size) {
   int element_count = 1;
   // If flatbuffer_tensor.shape == nullptr, then flatbuffer_tensor is a scalar
@@ -149,16 +149,16 @@ TfLiteStatus AllocateOutputDimensionsFromInput(TfLiteContext* context,
 
   size_t size = 0;
   TfLiteTypeSizeOf(input->type, &size);
-  const int dimensions_count = tflite::GetTensorShape(input).DimensionsCount();
+  const int dimensions_count = tflite_micro::GetTensorShape(input).DimensionsCount();
   for (int i = 0; i < dimensions_count; i++) {
     size *= input->dims->data[i];
   }
 
-  output->bytes = size;
+  // output->bytes = size;
 
   output->dims =
       reinterpret_cast<TfLiteIntArray*>(context->AllocatePersistentBuffer(
-          context, TfLiteIntArrayGetSizeInBytes(size)));
+          context, TfLiteMicroIntArrayGetSizeInBytes(size)));
 
   output->dims->size = input->dims->size;
   for (int i = 0; i < dimensions_count; i++) {
@@ -168,4 +168,4 @@ TfLiteStatus AllocateOutputDimensionsFromInput(TfLiteContext* context,
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

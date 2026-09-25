@@ -28,27 +28,10 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 const int kActivationsInputTensor = 0;
 const int kActivationsOutputTensor = 0;
-
-void ReluQuantized(const ReluOpData& data, const RuntimeShape& input_shape,
-                   const RuntimeShape& output_shape, const int8_t* input_data,
-                   int8_t* output_data) {
-  const int flat_size = MatchingFlatSize(input_shape, output_shape);
-  for (int i = 0; i < flat_size; ++i) {
-    const int32_t val = static_cast<int32_t>(input_data[i]);
-    int32_t clamped =
-        data.params.output_offset +
-        MultiplyByQuantizedMultiplier(val - data.params.input_offset,
-                                      data.params.output_multiplier,
-                                      data.params.output_shift);
-    clamped = std::max(data.params.quantized_activation_min, clamped);
-    clamped = std::min(data.params.quantized_activation_max, clamped);
-    output_data[i] = static_cast<int8_t>(clamped);
-  }
-}
 
 template <typename T>
 void CalculateReluOpData(const TfLiteTensor* input, TfLiteTensor* output,
@@ -113,6 +96,17 @@ void Relu6Quantized(int8_t lower, int8_t upper, const RuntimeShape& input_shape,
   }
 }
 
+void Relu6Quantized(int16_t lower, int16_t upper, const RuntimeShape& input_shape,
+                    const int16_t* input_data, const RuntimeShape& output_shape,
+                    int16_t* output_data) {
+  const int flat_size = MatchingFlatSize(input_shape, output_shape);
+  for (int i = 0; i < flat_size; ++i) {
+    const int16_t val = input_data[i];
+    const int16_t clamped = val > upper ? upper : val < lower ? lower : val;
+    output_data[i] = clamped;
+  }
+}
+
 TfLiteStatus ReluPrepare(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
   ReluOpData* data = static_cast<ReluOpData*>(node->user_data);
@@ -127,6 +121,8 @@ TfLiteStatus ReluPrepare(TfLiteContext* context, TfLiteNode* node) {
 
   if (input->type == kTfLiteInt8) {
     CalculateReluOpData<int8_t>(input, output, data);
+  } else if (input->type == kTfLiteInt16) {
+    CalculateReluOpData<int16_t>(input, output, data);
   }
 
   micro_context->DeallocateTempTfLiteTensor(input);
@@ -155,4 +151,4 @@ TfLiteStatus Relu6Prepare(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

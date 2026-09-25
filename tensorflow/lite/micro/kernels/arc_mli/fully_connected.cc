@@ -30,7 +30,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 struct OpData {
@@ -377,7 +377,7 @@ TfLiteStatus EvalQuantized(TfLiteContext* context, TfLiteNode* node,
                            const TfLiteEvalTensor* bias,
                            TfLiteEvalTensor* output) {
 #if !defined(TF_LITE_STRIP_REFERENCE_IMPL)
-  tflite::FullyConnectedParams op_params;
+  tflite_micro::FullyConnectedParams op_params;
   op_params.input_offset = -data.input_zero_point;
   op_params.weights_offset = -data.filter_zero_point;
   op_params.output_offset = data.output_zero_point;
@@ -387,14 +387,14 @@ TfLiteStatus EvalQuantized(TfLiteContext* context, TfLiteNode* node,
   op_params.quantized_activation_max = data.output_activation_max;
 
   reference_integer_ops::FullyConnected(
-      op_params, tflite::micro::GetTensorShape(input),
-      tflite::micro::GetTensorData<int8_t>(input),
-      tflite::micro::GetTensorShape(filter),
-      tflite::micro::GetTensorData<int8_t>(filter),
-      tflite::micro::GetTensorShape(bias),
-      tflite::micro::GetTensorData<int32_t>(bias),
-      tflite::micro::GetTensorShape(output),
-      tflite::micro::GetTensorData<int8_t>(output));
+      op_params, tflite_micro::micro::GetTensorShape(input),
+      tflite_micro::micro::GetTensorData<int8_t>(input),
+      tflite_micro::micro::GetTensorShape(filter),
+      tflite_micro::micro::GetTensorData<int8_t>(filter),
+      tflite_micro::micro::GetTensorShape(bias),
+      tflite_micro::micro::GetTensorData<int32_t>(bias),
+      tflite_micro::micro::GetTensorShape(output),
+      tflite_micro::micro::GetTensorData<int8_t>(output));
   return kTfLiteOk;
 #else
   MicroPrintf("Node configuration is not supported by ARC MLI Library.");
@@ -411,22 +411,22 @@ TfLiteStatus EvalFloat(TfLiteContext* context, TfLiteNode* node,
   float output_activation_min, output_activation_max;
   CalculateActivationRange(activation, &output_activation_min,
                            &output_activation_max);
-  tflite::FullyConnectedParams op_params;
+  tflite_micro::FullyConnectedParams op_params;
   op_params.float_activation_min = output_activation_min;
   op_params.float_activation_max = output_activation_max;
-  tflite::reference_ops::FullyConnected(
-      op_params, tflite::micro::GetTensorShape(input),
-      tflite::micro::GetTensorData<float>(input),
-      tflite::micro::GetTensorShape(filter),
-      tflite::micro::GetTensorData<float>(filter),
-      tflite::micro::GetTensorShape(bias),
-      tflite::micro::GetTensorData<float>(bias),
-      tflite::micro::GetTensorShape(output),
-      tflite::micro::GetTensorData<float>(output));
+  tflite_micro::reference_ops::FullyConnected(
+      op_params, tflite_micro::micro::GetTensorShape(input),
+      tflite_micro::micro::GetTensorData<float>(input),
+      tflite_micro::micro::GetTensorShape(filter),
+      tflite_micro::micro::GetTensorData<float>(filter),
+      tflite_micro::micro::GetTensorShape(bias),
+      tflite_micro::micro::GetTensorData<float>(bias),
+      tflite_micro::micro::GetTensorShape(output),
+      tflite_micro::micro::GetTensorData<float>(output));
   return kTfLiteOk;
 #else
   MicroPrintf("Type %s (%d) is not supported by ARC MLI Library.",
-              TfLiteTypeGetName(input->type), input->type);
+              TfLiteMicroTypeGetName(input->type), input->type);
   return kTfLiteError;
 #endif
 }
@@ -437,13 +437,13 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       static_cast<const TfLiteFullyConnectedParams*>(node->builtin_data);
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kWeightsTensor);
   const TfLiteEvalTensor* bias =
-      tflite::micro::GetEvalInput(context, node, kBiasTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kBiasTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpData& data = *(static_cast<const OpData*>(node->user_data));
@@ -462,7 +462,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       }
 
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -470,7 +470,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TFLMRegistration Register_FULLY_CONNECTED() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

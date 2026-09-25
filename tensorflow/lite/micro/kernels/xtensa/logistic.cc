@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* LogisticInit(TfLiteContext* context, const char* buffer, size_t length) {
@@ -38,9 +38,9 @@ void* LogisticInit(TfLiteContext* context, const char* buffer, size_t length) {
 
 TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kLogisticInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kLogisticInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kLogisticOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kLogisticOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   OpDataLogistic* data = static_cast<OpDataLogistic*>(node->user_data);
@@ -48,40 +48,40 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
   if (input->type != output->type) {
     MicroPrintf(
         "Input and output types must be identical. Input %s, output %s.",
-        TfLiteTypeGetName(input->type), TfLiteTypeGetName(output->type));
+        TfLiteMicroTypeGetName(input->type), TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
 
   switch (input->type) {
     case kTfLiteFloat32: {
 #if HIFI_VFPU && (defined(HIFI3) || defined(HIFI4) || defined(HIFI5))
-      const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-      const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+      const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+      const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
       const int flat_size = MatchingFlatSize(input_shape, output_shape);
 
-      const float* inp_data_ptr = tflite::micro::GetTensorData<float>(input);
-      float* out_data_ptr = tflite::micro::GetTensorData<float>(output);
+      const float* inp_data_ptr = tflite_micro::micro::GetTensorData<float>(input);
+      float* out_data_ptr = tflite_micro::micro::GetTensorData<float>(output);
 
       TF_LITE_ENSURE_EQ(
           context,
           xa_nn_vec_sigmoid_f32_f32(out_data_ptr, inp_data_ptr, flat_size), 0);
 #else
-      reference_ops::Logistic(tflite::micro::GetTensorShape(input),
-                              tflite::micro::GetTensorData<float>(input),
-                              tflite::micro::GetTensorShape(output),
-                              tflite::micro::GetTensorData<float>(output));
+      reference_ops::Logistic(tflite_micro::micro::GetTensorShape(input),
+                              tflite_micro::micro::GetTensorData<float>(input),
+                              tflite_micro::micro::GetTensorShape(output),
+                              tflite_micro::micro::GetTensorData<float>(output));
 #endif  // HIFI_VFPU && (defined(HIFI3) || defined(HIFI4) || defined(HIFI5))
       break;
     }
     case kTfLiteInt8: {
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
-      const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-      const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+      const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+      const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
       const int flat_size = MatchingFlatSize(input_shape, output_shape);
 
       const int8_t* input_data_ptr =
-          tflite::micro::GetTensorData<int8_t>(input);
-      int8_t* output_data_ptr = tflite::micro::GetTensorData<int8_t>(output);
+          tflite_micro::micro::GetTensorData<int8_t>(input);
+      int8_t* output_data_ptr = tflite_micro::micro::GetTensorData<int8_t>(output);
 
       TF_LITE_ENSURE_EQ(
           context,
@@ -94,8 +94,8 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
       reference_integer_ops::Logistic(
           data->input_zero_point, data->input_range_radius,
           data->input_multiplier, data->input_left_shift,
-          NumElements(input->dims), tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorData<int8_t>(output));
+          NumElements(input->dims), tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorData<int8_t>(output));
 #endif  // defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
       break;
     }
@@ -105,21 +105,21 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
           reference_integer_ops::Logistic(
               data->input_multiplier, data->input_left_shift,
               NumElements(input->dims),
-              tflite::micro::GetTensorData<int16_t>(input),
-              tflite::micro::GetTensorData<int16_t>(output));
+              tflite_micro::micro::GetTensorData<int16_t>(input),
+              tflite_micro::micro::GetTensorData<int16_t>(output));
           break;
         default:
           MicroPrintf("Input %s, output %s not supported.",
-                      TfLiteTypeGetName(input->type),
-                      TfLiteTypeGetName(output->type));
+                      TfLiteMicroTypeGetName(input->type),
+                      TfLiteMicroTypeGetName(output->type));
           return kTfLiteError;
       }
       break;
     }
     default: {
       MicroPrintf("Input %s, output %s not supported.",
-                  TfLiteTypeGetName(input->type),
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(input->type),
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
     }
   }
@@ -129,6 +129,6 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_LOGISTIC() {
-  return tflite::micro::RegisterOp(LogisticInit, LogisticPrepare, LogisticEval);
+  return tflite_micro::micro::RegisterOp(LogisticInit, LogisticPrepare, LogisticEval);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

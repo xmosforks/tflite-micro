@@ -22,12 +22,12 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 
 namespace {
-uint8_t micro_error_reporter_buffer[sizeof(tflite::MicroErrorReporter)];
-tflite::MicroErrorReporter* error_reporter_ = nullptr;
+uint8_t micro_error_reporter_buffer[sizeof(tflite_micro::MicroErrorReporter)];
+tflite_micro::MicroErrorReporter* error_reporter_ = nullptr;
 
 }  // namespace
 
-namespace tflite {
+namespace tflite_micro {
 ErrorReporter* GetMicroErrorReporter() {
   if (error_reporter_ == nullptr) {
     error_reporter_ = new (micro_error_reporter_buffer) MicroErrorReporter();
@@ -40,4 +40,4 @@ int MicroErrorReporter::Report(const char* format, va_list args) {
   return 0;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

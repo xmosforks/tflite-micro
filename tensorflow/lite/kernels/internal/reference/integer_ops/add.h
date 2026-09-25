@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 
 inline void CheckArithmeticParams(const ArithmeticParams& params) {
@@ -245,6 +245,6 @@ inline void BroadcastAdd4DSlow(const ArithmeticParams& params,
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_ADD_H_

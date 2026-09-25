@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_reduce.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* XtensaInitReduce(TfLiteContext* context, const char* buffer,
                        size_t length) {
@@ -71,8 +71,8 @@ TfLiteStatus XtensaEvalMax(TfLiteContext* context, TfLiteNode* node) {
   OpDataReduce* op_data = &(op_data_xtensa->reference_op_data);
 
 #if defined(VISION_P6)
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
 
   switch (input->type) {
@@ -101,18 +101,18 @@ TfLiteStatus XtensaEvalSum(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TFLMRegistration Register_MEAN() {
-  return tflite::micro::RegisterOp(XtensaInitReduce, XtensaPrepareMeanOrSum,
+  return tflite_micro::micro::RegisterOp(XtensaInitReduce, XtensaPrepareMeanOrSum,
                                    XtensaEvalMean);
 }
 
 TFLMRegistration Register_REDUCE_MAX() {
-  return tflite::micro::RegisterOp(XtensaInitReduce, XtensaPrepareMax,
+  return tflite_micro::micro::RegisterOp(XtensaInitReduce, XtensaPrepareMax,
                                    XtensaEvalMax);
 }
 
 TFLMRegistration Register_SUM() {
-  return tflite::micro::RegisterOp(XtensaInitReduce, XtensaPrepareMeanOrSum,
+  return tflite_micro::micro::RegisterOp(XtensaInitReduce, XtensaPrepareMeanOrSum,
                                    XtensaEvalSum);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

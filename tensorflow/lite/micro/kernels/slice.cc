@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -39,8 +39,8 @@ void GetBeginAndSizeVectors(int dimensions, const TfLiteEvalTensor* begin,
                             int32_t* sizes) {
   int offset = kMaxDim - dimensions;
   for (int idx = 0; idx < dimensions; ++idx) {
-    begins[offset + idx] = tflite::micro::GetTensorData<T>(begin)[idx];
-    sizes[offset + idx] = tflite::micro::GetTensorData<T>(size)[idx];
+    begins[offset + idx] = tflite_micro::micro::GetTensorData<T>(begin)[idx];
+    sizes[offset + idx] = tflite_micro::micro::GetTensorData<T>(size)[idx];
   }
 }
 
@@ -83,15 +83,15 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* begin =
-      tflite::micro::GetEvalInput(context, node, kBeginTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kBeginTensor);
   const TfLiteEvalTensor* size =
-      tflite::micro::GetEvalInput(context, node, kSizeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSizeTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
-  tflite::SliceParams op_params;
+  tflite_micro::SliceParams op_params;
   op_params.begin_count = kMaxDim;
   op_params.size_count = kMaxDim;
   for (int i = 0; i < kMaxDim; ++i) {
@@ -107,49 +107,49 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
                                     op_params.begin, op_params.size);
   } else {
     MicroPrintf("Begin tensor type %s (%d) not supported.",
-                TfLiteTypeGetName(input->type), input->type);
+                TfLiteMicroTypeGetName(input->type), input->type);
     return kTfLiteError;
   }
 
   switch (input->type) {
     case kTfLiteFloat32:
       reference_ops::Slice<float>(op_params,
-                                  tflite::micro::GetTensorShape(input),
-                                  tflite::micro::GetTensorData<float>(input),
-                                  tflite::micro::GetTensorShape(output),
-                                  tflite::micro::GetTensorData<float>(output));
+                                  tflite_micro::micro::GetTensorShape(input),
+                                  tflite_micro::micro::GetTensorData<float>(input),
+                                  tflite_micro::micro::GetTensorShape(output),
+                                  tflite_micro::micro::GetTensorData<float>(output));
       break;
     case kTfLiteInt32:
       reference_ops::Slice<int32_t>(
-          op_params, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int32_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int32_t>(output));
+          op_params, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int32_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int32_t>(output));
       break;
     case kTfLiteInt8:
       reference_ops::Slice<int8_t>(
-          op_params, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int8_t>(output));
+          op_params, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int8_t>(output));
       break;
     case kTfLiteInt16:
       reference_ops::Slice<int16_t>(
-          op_params, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int16_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int16_t>(output));
+          op_params, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int16_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int16_t>(output));
       break;
     case kTfLiteBool:
       reference_ops::Slice<bool>(op_params,
-                                 tflite::micro::GetTensorShape(input),
-                                 tflite::micro::GetTensorData<bool>(input),
-                                 tflite::micro::GetTensorShape(output),
-                                 tflite::micro::GetTensorData<bool>(output));
+                                 tflite_micro::micro::GetTensorShape(input),
+                                 tflite_micro::micro::GetTensorData<bool>(input),
+                                 tflite_micro::micro::GetTensorShape(output),
+                                 tflite_micro::micro::GetTensorData<bool>(output));
       break;
     default:
       MicroPrintf("Input tensor type %s (%d) not supported.",
-                  TfLiteTypeGetName(input->type), input->type);
+                  TfLiteMicroTypeGetName(input->type), input->type);
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -158,7 +158,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SLICE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

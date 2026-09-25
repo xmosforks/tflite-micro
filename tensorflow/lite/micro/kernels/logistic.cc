@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/logistic.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* LogisticInit(TfLiteContext* context, const char* buffer, size_t length) {
@@ -37,9 +37,9 @@ void* LogisticInit(TfLiteContext* context, const char* buffer, size_t length) {
 
 TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kLogisticInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kLogisticInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kLogisticOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kLogisticOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   OpDataLogistic* data = static_cast<OpDataLogistic*>(node->user_data);
@@ -47,16 +47,16 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
   if (input->type == kTfLiteFloat32) {
     switch (output->type) {
       case kTfLiteFloat32: {
-        reference_ops::Logistic(tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<float>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+        reference_ops::Logistic(tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<float>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
         return kTfLiteOk;
       }
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteInt16) {
@@ -65,14 +65,14 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
         reference_integer_ops::Logistic(
             data->input_multiplier, data->input_left_shift,
             NumElements(input->dims),
-            tflite::micro::GetTensorData<int16_t>(input),
-            tflite::micro::GetTensorData<int16_t>(output));
+            tflite_micro::micro::GetTensorData<int16_t>(input),
+            tflite_micro::micro::GetTensorData<int16_t>(output));
         return kTfLiteOk;
       }
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteInt8) {
@@ -82,22 +82,22 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
             data->input_zero_point, data->input_range_radius,
             data->input_multiplier, data->input_left_shift,
             NumElements(input->dims),
-            tflite::micro::GetTensorData<int8_t>(input),
-            tflite::micro::GetTensorData<int8_t>(output));
+            tflite_micro::micro::GetTensorData<int8_t>(input),
+            tflite_micro::micro::GetTensorData<int8_t>(output));
         return kTfLiteOk;
       }
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else {
     // TODO(b/141211002): Also support other data types once we have supported
     // temporary tensors in TFLM.
     MicroPrintf("Input %s, output %s not supported.",
-                TfLiteTypeGetName(input->type),
-                TfLiteTypeGetName(output->type));
+                TfLiteMicroTypeGetName(input->type),
+                TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
   return kTfLiteOk;
@@ -106,6 +106,6 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_LOGISTIC() {
-  return tflite::micro::RegisterOp(LogisticInit, LogisticPrepare, LogisticEval);
+  return tflite_micro::micro::RegisterOp(LogisticInit, LogisticPrepare, LogisticEval);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

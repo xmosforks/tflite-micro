@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 const int kMaxNumberOfAxis = 5;
 const int kMaxNumberOfReducedAxis = 2;
@@ -125,7 +125,7 @@ TfLiteStatus PrepareMeanOrSumHelper(TfLiteContext* context, TfLiteNode* node,
 }
 
 void ResolveAxis(const int* axis_data, int axis_count,
-                 tflite::MeanParams* op_params) {
+                 tflite_micro::MeanParams* op_params) {
   int i = 0;
   for (; i < axis_count; ++i) {
     op_params->axis[i] = static_cast<int16_t>(axis_data[i]);
@@ -141,19 +141,19 @@ TfLiteStatus QuantizedMeanOrSum(TfLiteContext* context, TfLiteNode* node,
                                 int* temp_index, int* resolved_axis,
                                 int32_t* temp_sum, OpDataReduce* op_data,
                                 bool compute_sum) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  const TfLiteEvalTensor* axis = tflite::micro::GetEvalInput(context, node, 1);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* axis = tflite_micro::micro::GetEvalInput(context, node, 1);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TfLiteReducerParams* params =
       static_cast<TfLiteReducerParams*>(node->builtin_data);
 
   bool result = reference_ops::QuantizedMeanOrSumExtraArgs<T, int32_t>(
-      tflite::micro::GetTensorData<T>(input), op_data->input_zp,
+      tflite_micro::micro::GetTensorData<T>(input), op_data->input_zp,
       op_data->input_scale, &input->dims->data[0], input->dims->size,
-      tflite::micro::GetTensorData<T>(output), op_data->output_scale,
+      tflite_micro::micro::GetTensorData<T>(output), op_data->output_scale,
       op_data->multiplier, op_data->shift, op_data->output_zp,
       &output->dims->data[0], output->dims->size,
-      tflite::micro::GetTensorData<int>(axis), op_data->num_axis,
+      tflite_micro::micro::GetTensorData<int>(axis), op_data->num_axis,
       params->keep_dims, temp_index, resolved_axis, temp_sum, compute_sum);
   TF_LITE_ENSURE(context, result);
 
@@ -175,9 +175,9 @@ TfLiteStatus EvalIntegerMean(TfLiteContext* context, TfLiteNode* node,
 
 TfLiteStatus EvalMeanHelper(TfLiteContext* context, TfLiteNode* node,
                             OpDataReduce* op_data) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  const TfLiteEvalTensor* axis = tflite::micro::GetEvalInput(context, node, 1);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* axis = tflite_micro::micro::GetEvalInput(context, node, 1);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TfLiteReducerParams* params =
       reinterpret_cast<TfLiteReducerParams*>(node->builtin_data);
 
@@ -187,8 +187,8 @@ TfLiteStatus EvalMeanHelper(TfLiteContext* context, TfLiteNode* node,
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      tflite::MeanParams op_params;
-      ResolveAxis(tflite::micro::GetTensorData<int>(axis), num_axis,
+      tflite_micro::MeanParams op_params;
+      ResolveAxis(tflite_micro::micro::GetTensorData<int>(axis), num_axis,
                   &op_params);
 
       // Special case mean implementation exists for 4D mean across axes 1
@@ -200,20 +200,20 @@ TfLiteStatus EvalMeanHelper(TfLiteContext* context, TfLiteNode* node,
 
       // Defer to specialized implementation for 4D Mean across axes 1 & 2.
       if (params->keep_dims && special_case_4d_axes_1_and_2) {
-        reference_ops::Mean(op_params, tflite::micro::GetTensorShape(input),
-                            tflite::micro::GetTensorData<float>(input),
-                            tflite::micro::GetTensorShape(output),
-                            tflite::micro::GetTensorData<float>(output));
+        reference_ops::Mean(op_params, tflite_micro::micro::GetTensorShape(input),
+                            tflite_micro::micro::GetTensorData<float>(input),
+                            tflite_micro::micro::GetTensorShape(output),
+                            tflite_micro::micro::GetTensorData<float>(output));
       } else {
         TF_LITE_ENSURE(
             context,
             reference_ops::Mean(
-                tflite::micro::GetTensorData<float>(input), input->dims->data,
-                input->dims->size, tflite::micro::GetTensorData<float>(output),
+                tflite_micro::micro::GetTensorData<float>(input), input->dims->data,
+                input->dims->size, tflite_micro::micro::GetTensorData<float>(output),
                 output->dims->data, output->dims->size,
-                tflite::micro::GetTensorData<int>(axis), num_axis,
+                tflite_micro::micro::GetTensorData<int>(axis), num_axis,
                 params->keep_dims, temp_index, resolved_axis,
-                tflite::micro::GetTensorData<float>(output)));
+                tflite_micro::micro::GetTensorData<float>(output)));
       }
     } break;
     case kTfLiteInt8: {
@@ -236,9 +236,9 @@ TfLiteStatus EvalMeanHelper(TfLiteContext* context, TfLiteNode* node,
 
 TfLiteStatus EvalMaxHelper(TfLiteContext* context, TfLiteNode* node,
                            OpDataReduce* op_data) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  const TfLiteEvalTensor* axis = tflite::micro::GetEvalInput(context, node, 1);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* axis = tflite_micro::micro::GetEvalInput(context, node, 1);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
   TfLiteReducerParams* params =
       static_cast<TfLiteReducerParams*>(node->builtin_data);
@@ -254,10 +254,10 @@ TfLiteStatus EvalMaxHelper(TfLiteContext* context, TfLiteNode* node,
       TF_LITE_ENSURE(
           context,
           reference_ops::ReduceGeneric<float>(
-              tflite::micro::GetTensorData<float>(input), input->dims->data,
-              input->dims->size, tflite::micro::GetTensorData<float>(output),
+              tflite_micro::micro::GetTensorData<float>(input), input->dims->data,
+              input->dims->size, tflite_micro::micro::GetTensorData<float>(output),
               output->dims->data, output->dims->size,
-              tflite::micro::GetTensorData<int>(axis), num_axis,
+              tflite_micro::micro::GetTensorData<int>(axis), num_axis,
               params->keep_dims, temp_buffer, resolved_axis,
               std::numeric_limits<float>::lowest(),
               [](const float current, const float in) -> float {
@@ -271,10 +271,10 @@ TfLiteStatus EvalMaxHelper(TfLiteContext* context, TfLiteNode* node,
       TF_LITE_ENSURE(
           context,
           reference_ops::ReduceGeneric<int8_t>(
-              tflite::micro::GetTensorData<int8_t>(input), input->dims->data,
-              input->dims->size, tflite::micro::GetTensorData<int8_t>(output),
+              tflite_micro::micro::GetTensorData<int8_t>(input), input->dims->data,
+              input->dims->size, tflite_micro::micro::GetTensorData<int8_t>(output),
               output->dims->data, output->dims->size,
-              tflite::micro::GetTensorData<int>(axis), num_axis,
+              tflite_micro::micro::GetTensorData<int>(axis), num_axis,
               params->keep_dims, temp_buffer, resolved_axis,
               std::numeric_limits<int8_t>::lowest(),
               [](const int8_t current, const int8_t in) -> int8_t {
@@ -290,9 +290,9 @@ TfLiteStatus EvalMaxHelper(TfLiteContext* context, TfLiteNode* node,
 
 TfLiteStatus EvalSumHelper(TfLiteContext* context, TfLiteNode* node,
                            OpDataReduce* op_data) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  const TfLiteEvalTensor* axis = tflite::micro::GetEvalInput(context, node, 1);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* axis = tflite_micro::micro::GetEvalInput(context, node, 1);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
   TfLiteReducerParams* params =
       static_cast<TfLiteReducerParams*>(node->builtin_data);
@@ -307,10 +307,10 @@ TfLiteStatus EvalSumHelper(TfLiteContext* context, TfLiteNode* node,
       TF_LITE_ENSURE(
           context,
           reference_ops::ReduceGeneric<float>(
-              tflite::micro::GetTensorData<float>(input), input->dims->data,
-              input->dims->size, tflite::micro::GetTensorData<float>(output),
+              tflite_micro::micro::GetTensorData<float>(input), input->dims->data,
+              input->dims->size, tflite_micro::micro::GetTensorData<float>(output),
               output->dims->data, output->dims->size,
-              tflite::micro::GetTensorData<int>(axis), num_axis,
+              tflite_micro::micro::GetTensorData<int>(axis), num_axis,
               params->keep_dims, temp_index, resolved_axis, /*init_value=*/0.f,
               [](const float current, const float in) -> float {
                 return in + current;
@@ -335,4 +335,4 @@ TfLiteStatus EvalSumHelper(TfLiteContext* context, TfLiteNode* node,
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

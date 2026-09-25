@@ -26,7 +26,7 @@ limitations under the License.
 
 // OLD-TODO(b/117523611): We should factor out a binary_op and put binary ops
 // there.
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 // Input/output tensor index.
@@ -75,22 +75,22 @@ TfLiteStatus EvalFloorMod(TfLiteContext* context, bool requires_broadcast,
                           const TfLiteEvalTensor* input1,
                           const TfLiteEvalTensor* input2,
                           TfLiteEvalTensor* output) {
-  const T* denominator_data = tflite::micro::GetTensorData<T>(input2);
+  const T* denominator_data = tflite_micro::micro::GetTensorData<T>(input2);
 
   if (requires_broadcast) {
     reference_ops::BroadcastBinaryFunction4DSlow<T, T, T>(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<T>(input1),
-        tflite::micro::GetTensorShape(input2), denominator_data,
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<T>(output), reference_ops::FloorMod<T>);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<T>(input1),
+        tflite_micro::micro::GetTensorShape(input2), denominator_data,
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<T>(output), reference_ops::FloorMod<T>);
   } else {
     reference_ops::BinaryFunction<T, T, T>(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<T>(input1),
-        tflite::micro::GetTensorShape(input2), denominator_data,
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<T>(output), reference_ops::FloorMod<T>);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<T>(input1),
+        tflite_micro::micro::GetTensorShape(input2), denominator_data,
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<T>(output), reference_ops::FloorMod<T>);
   }
 
   return kTfLiteOk;
@@ -98,13 +98,13 @@ TfLiteStatus EvalFloorMod(TfLiteContext* context, bool requires_broadcast,
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, kInputTensor1);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor1);
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, kInputTensor2);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor2);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
-  bool requires_broadcast = !tflite::micro::HaveSameShapes(input1, input2);
+  bool requires_broadcast = !tflite_micro::micro::HaveSameShapes(input1, input2);
 
   switch (input1->type) {
     case kTfLiteFloat32: {
@@ -113,7 +113,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     }
     default: {
       MicroPrintf("Type '%s' is not supported by FLOOR_MOD.",
-                  TfLiteTypeGetName(input1->type));
+                  TfLiteMicroTypeGetName(input1->type));
       return kTfLiteError;
     }
   }
@@ -122,7 +122,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_FLOOR_MOD() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

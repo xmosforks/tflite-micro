@@ -19,7 +19,28 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_graph.h"
 
-namespace tflite {
+#define XCORE_TFLITE_MICRO_PATCHED
+
+#ifdef NO_INTERPRETER
+
+namespace tflite_micro {
+  const TfLiteStatus kTfLiteAbort = static_cast<TfLiteStatus>(15);
+
+  struct MicroContext{
+      TfLiteTensor* (*AllocateTempInputTensor)(const TfLiteNode* node, int index);
+      TfLiteTensor* (*AllocateTempOutputTensor)(const TfLiteNode* node, int index);
+      void (*DeallocateTempTfLiteTensor)(TfLiteTensor* tensor);
+      void* (*external_context)();
+      MicroGraph& (*graph)();
+  };
+  static inline MicroContext* GetMicroContext(const struct TfLiteContext* context){
+      return reinterpret_cast<MicroContext*>(context->impl_);
+  }
+}
+
+#else
+
+namespace tflite_micro {
 // TODO(b/149795762): kTfLiteAbort cannot be part of the tflite TfLiteStatus.
 const TfLiteStatus kTfLiteAbort = static_cast<TfLiteStatus>(15);
 
@@ -52,6 +73,7 @@ class MicroContext {
 
   // Returns a temporary TfLiteTensor struct for a given index.
   virtual TfLiteTensor* AllocateTempTfLiteTensor(int tensor_idx) = 0;
+  virtual TfLiteTensor* AllocateTempTfLiteTensor(int tensor_idx, int sg){return nullptr;}
 
   // Returns a temporary TfLiteTensor struct for the specified input tensor of a
   // given mode. This is the recommended API over the deprecated
@@ -85,6 +107,7 @@ class MicroContext {
 
   // Returns a TfLiteEvalTensor struct for a given index.
   virtual TfLiteEvalTensor* GetEvalTensor(int tensor_idx) = 0;
+  virtual TfLiteEvalTensor* GetEvalTensor(int tensor_idx, int sg){return nullptr;}
 
   // Does not take ownership of the pointer and the pointer must refer to valid
   // an object that outlive this class instance.
@@ -124,9 +147,17 @@ inline TfLiteTensor* MicroContextGetTensor(const struct TfLiteContext* context,
                                            int tensor_idx) {
   return GetMicroContext(context)->AllocateTempTfLiteTensor(tensor_idx);
 }
+inline TfLiteTensor* MicroContextGetTensor(const struct TfLiteContext* context,
+                                           int tensor_idx, int sg) {
+  return GetMicroContext(context)->AllocateTempTfLiteTensor(tensor_idx, sg);
+}
 inline TfLiteEvalTensor* MicroContextGetEvalTensor(
     const struct TfLiteContext* context, int tensor_idx) {
   return GetMicroContext(context)->GetEvalTensor(tensor_idx);
+}
+inline TfLiteEvalTensor* MicroContextGetEvalTensor(
+    const struct TfLiteContext* context, int tensor_idx, int sg) {
+  return GetMicroContext(context)->GetEvalTensor(tensor_idx, sg);
 }
 inline TfLiteExternalContext* MicroContextGetExternalContext(
     TfLiteContext* context, TfLiteExternalContextType unused) {
@@ -138,6 +169,8 @@ inline TfLiteExternalContext* MicroContextGetExternalContext(
 void MicroContextReportOpError(struct TfLiteContext* context,
                                const char* format, ...);
 
-}  // namespace tflite
+}  // namespace tflite_micro
+
+#endif  // NO_INTERPRETER
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_CONTEXT_H_

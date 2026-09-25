@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_conv.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus ConvPrepareHifi(TfLiteContext* context, TfLiteNode* node) {
   XtensaConvOpData* data = static_cast<XtensaConvOpData*>(node->user_data);
@@ -123,8 +123,8 @@ TfLiteStatus ConvEvalHifiInt16(TfLiteContext* context, TfLiteNode* node,
                                const TfLiteEvalTensor* filter,
                                const TfLiteEvalTensor* bias,
                                TfLiteEvalTensor* output) {
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
   const int stride_width = params.stride_width;
   const int stride_height = params.stride_height;
   const int pad_width = data.reference_op_data.padding.width;
@@ -134,7 +134,7 @@ TfLiteStatus ConvEvalHifiInt16(TfLiteContext* context, TfLiteNode* node,
   const int32_t output_activation_max =
       data.reference_op_data.output_activation_max;
 
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
   const int batches = MatchingDim(input_shape, 0, output_shape, 0);
   const int input_depth = MatchingDim(input_shape, 3, filter_shape, 3);
   const int output_depth = MatchingDim(filter_shape, 0, output_shape, 3);
@@ -145,10 +145,10 @@ TfLiteStatus ConvEvalHifiInt16(TfLiteContext* context, TfLiteNode* node,
   const int output_height = output_shape.Dims(1);
   const int output_width = output_shape.Dims(2);
 
-  const int16_t* input_data = tflite::micro::GetTensorData<int16_t>(input);
-  const int8_t* filter_data = tflite::micro::GetTensorData<int8_t>(filter);
-  const int64_t* bias_data = tflite::micro::GetTensorData<int64_t>(bias);
-  int16_t* output_data = tflite::micro::GetTensorData<int16_t>(output);
+  const int16_t* input_data = tflite_micro::micro::GetTensorData<int16_t>(input);
+  const int8_t* filter_data = tflite_micro::micro::GetTensorData<int8_t>(filter);
+  const int64_t* bias_data = tflite_micro::micro::GetTensorData<int64_t>(bias);
+  int16_t* output_data = tflite_micro::micro::GetTensorData<int16_t>(output);
 
   int output_data_format = 0;
   int out_length = output_height * output_width * output_depth;
@@ -219,8 +219,8 @@ TfLiteStatus ConvEvalHifiInt8(TfLiteContext* context, TfLiteNode* node,
                               const TfLiteEvalTensor* filter,
                               const TfLiteEvalTensor* bias,
                               TfLiteEvalTensor* output) {
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
   const int32_t input_offset = -data.reference_op_data.input_zero_point;
   const int32_t output_offset = data.reference_op_data.output_zero_point;
   const int stride_width = params.stride_width;
@@ -232,7 +232,7 @@ TfLiteStatus ConvEvalHifiInt8(TfLiteContext* context, TfLiteNode* node,
   const int32_t output_activation_max =
       data.reference_op_data.output_activation_max;
 
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
   const int batches = MatchingDim(input_shape, 0, output_shape, 0);
   const int input_depth = MatchingDim(input_shape, 3, filter_shape, 3);
   const int output_depth = MatchingDim(filter_shape, 0, output_shape, 3);
@@ -243,21 +243,21 @@ TfLiteStatus ConvEvalHifiInt8(TfLiteContext* context, TfLiteNode* node,
   const int output_height = output_shape.Dims(1);
   const int output_width = output_shape.Dims(2);
 
-  const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
-  const int32_t* bias_data = tflite::micro::GetTensorData<int32_t>(bias);
-  int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
+  const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+  const int32_t* bias_data = tflite_micro::micro::GetTensorData<int32_t>(bias);
+  int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
 
   const int8_t* filter_data;
   if (filter->type == kTfLiteInt4) {
     int8_t* unpacked_filter_data =
         static_cast<int8_t*>(context->GetScratchBuffer(
             context, data.reference_op_data.filter_buffer_index));
-    tflite::tensor_utils::UnpackDenseInt4IntoInt8(
-        tflite::micro::GetTensorData<int8_t>(filter),
-        tflite::micro::GetTensorShape(filter).FlatSize(), unpacked_filter_data);
+    tflite_micro::tensor_utils::UnpackDenseInt4IntoInt8(
+        tflite_micro::micro::GetTensorData<int8_t>(filter),
+        tflite_micro::micro::GetTensorShape(filter).FlatSize(), unpacked_filter_data);
     filter_data = unpacked_filter_data;
   } else {
-    filter_data = tflite::micro::GetTensorData<int8_t>(filter);
+    filter_data = tflite_micro::micro::GetTensorData<int8_t>(filter);
   }
 
   int output_data_format = 0;
@@ -324,5 +324,5 @@ TfLiteStatus ConvEvalHifiInt8(TfLiteContext* context, TfLiteNode* node,
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(HIFI3) || defined(HIFI4) || defined(HIFI5)

@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/prelu.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus CalculatePreluParams(const TfLiteTensor* input,
                                   const TfLiteTensor* alpha,
@@ -102,4 +102,4 @@ TfLiteStatus PreluPrepare(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

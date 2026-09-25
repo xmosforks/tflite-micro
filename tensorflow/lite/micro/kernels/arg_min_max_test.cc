@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -95,7 +95,7 @@ void TestArgMinMaxQuantized(int* input_dims_data, const float* input_values,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -108,7 +108,7 @@ TF_LITE_MICRO_TEST(GetMaxArgFloat) {
   int output_dims[] = {3, 1, 1, 1};
   const int32_t goldens[] = {1};
 
-  tflite::testing::TestArgMinMaxFloat(input_dims, input_values, axis_dims,
+  tflite_micro::testing::TestArgMinMaxFloat(input_dims, input_values, axis_dims,
                                       axis_values, output_dims, output_data,
                                       goldens, false);
 }
@@ -122,7 +122,7 @@ TF_LITE_MICRO_TEST(GetMinArgFloat) {
   int output_dims[] = {3, 1, 1, 1};
   const int32_t goldens[] = {0};
 
-  tflite::testing::TestArgMinMaxFloat(input_dims, input_values, axis_dims,
+  tflite_micro::testing::TestArgMinMaxFloat(input_dims, input_values, axis_dims,
                                       axis_values, output_dims, output_data,
                                       goldens, true);
 }
@@ -141,7 +141,7 @@ TF_LITE_MICRO_TEST(GetMaxArgInt8) {
   int input_zero_point = -9;
   int8_t input_quantized[input_size];
 
-  tflite::testing::TestArgMinMaxQuantized(
+  tflite_micro::testing::TestArgMinMaxQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       axis_dims, axis_values, output_dims, output_data, goldens, false);
 }
@@ -160,7 +160,7 @@ TF_LITE_MICRO_TEST(GetMinArgInt8) {
   int input_zero_point = -9;
   int8_t input_quantized[input_size];
 
-  tflite::testing::TestArgMinMaxQuantized(
+  tflite_micro::testing::TestArgMinMaxQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       axis_dims, axis_values, output_dims, output_data, goldens, true);
 }
@@ -179,7 +179,7 @@ TF_LITE_MICRO_TEST(GetMaxArgMulDimensions) {
   int input_zero_point = -9;
   int8_t input_quantized[input_size];
 
-  tflite::testing::TestArgMinMaxQuantized(
+  tflite_micro::testing::TestArgMinMaxQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       axis_dims, axis_values, output_dims, output_data, goldens, false);
 }
@@ -198,7 +198,7 @@ TF_LITE_MICRO_TEST(GetMinArgMulDimensions) {
   int input_zero_point = -9;
   int8_t input_quantized[input_size];
 
-  tflite::testing::TestArgMinMaxQuantized(
+  tflite_micro::testing::TestArgMinMaxQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       axis_dims, axis_values, output_dims, output_data, goldens, true);
 }
@@ -218,7 +218,7 @@ TF_LITE_MICRO_TEST(GetMaxArgNegativeAxis) {
   int32_t output_data[output_size];
   int8_t input_quantized[input_size];
 
-  tflite::testing::TestArgMinMaxQuantized(
+  tflite_micro::testing::TestArgMinMaxQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       axis_dims, axis_values, output_dims, output_data, goldens, false);
 }

@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/core/macros.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 template <typename T>
 inline T* GetTensorData(TfLiteTensor* tensor) {
@@ -37,6 +37,6 @@ inline const T* GetTensorData(const TfLiteTensor* tensor) {
 TFLITE_NOINLINE RuntimeShape GetTensorShape(const TfLiteTensor* tensor);
 RuntimeShape GetTensorShape(std::vector<int32_t> data);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_TENSOR_CTYPES_H_

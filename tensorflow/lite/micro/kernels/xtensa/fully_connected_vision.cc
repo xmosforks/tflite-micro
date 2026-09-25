@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_fully_connected.h"
 #include "tensorflow/lite/micro/micro_arena_constants.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void NormalizeFCDims(uint32_t* dims, int rank) {
   if (rank < 4) {
@@ -97,10 +97,10 @@ TfLiteStatus FullyConnectedPrepareVision(TfLiteContext* context,
   if (filter->type == kTfLiteInt4) {
     const size_t bytes_unpacked = filter->bytes * 2;
     filter_int8.data.data = micro_context->AllocateTempBuffer(
-        bytes_unpacked, tflite::MicroArenaBufferAlignment());
+        bytes_unpacked, tflite_micro::MicroArenaBufferAlignment());
     filter_int8.dims = filter->dims;
     filter_int8.type = kTfLiteInt8;
-    tflite::tensor_utils::UnpackDenseInt4IntoInt8(
+    tflite_micro::tensor_utils::UnpackDenseInt4IntoInt8(
         GetTensorData<int8_t>(filter), GetTensorShape(filter).FlatSize(),
         GetTensorData<int8_t>(&filter_int8));
 
@@ -171,11 +171,11 @@ TfLiteStatus FullyConnectedEvalVision(TfLiteContext* context, TfLiteNode* node,
 
   xiFullyConnected(
       data.p_context, data.context_size,
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input)),
-      input_size, tflite::micro::GetTensorData<int8_t>(output), output_size,
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input)),
+      input_size, tflite_micro::micro::GetTensorData<int8_t>(output), output_size,
       data.reorder_coefficient_bias, data.reorder_coefficient_bias_size, NULL,
       NULL, num_channels);
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(VISION_P6)

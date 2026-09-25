@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -174,7 +174,7 @@ void TestTanhFloat(int input_dims_data[], const float* input_data,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_TANH();
+  const TFLMRegistration registration = tflite_micro::Register_TANH();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -198,7 +198,7 @@ void TestTanhQuantized(int input_dims_data[], const float* input_data,
   TfLiteIntArray* output_dims = IntArrayFromInts(output_dims_data);
   const int output_elements_count = ElementCount(*output_dims);
 
-  tflite::Quantize(expected_output_data, expected_output_quantized,
+  tflite_micro::Quantize(expected_output_data, expected_output_quantized,
                    output_elements_count, output_scale, output_zero_point);
 
   constexpr int inputs_size = 1;
@@ -215,7 +215,7 @@ void TestTanhQuantized(int input_dims_data[], const float* input_data,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_TANH();
+  const TFLMRegistration registration = tflite_micro::Register_TANH();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -230,20 +230,20 @@ void TestTanhQuantized(int input_dims_data[], const float* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(SimpleTestTanhFloat) {
-  using tflite::testing::tanh_input_vec_fp;
-  using tflite::testing::tanh_output_vec_fp;
-  using tflite::testing::tanh_vec_size;
+  using tflite_micro::testing::tanh_input_vec_fp;
+  using tflite_micro::testing::tanh_output_vec_fp;
+  using tflite_micro::testing::tanh_vec_size;
 
   int input_shape[] = {2, 1, tanh_vec_size};
   int output_shape[] = {2, 1, tanh_vec_size};
 
   float output_data[tanh_vec_size];
-  tflite::testing::TestTanhFloat(  //
+  tflite_micro::testing::TestTanhFloat(  //
       input_shape,                 // Input shape.
       tanh_input_vec_fp,           // Input data
       tanh_output_vec_fp,          // Expected results.
@@ -252,9 +252,9 @@ TF_LITE_MICRO_TEST(SimpleTestTanhFloat) {
 }
 
 TF_LITE_MICRO_TEST(SimpleTestTanhInt8) {
-  using tflite::testing::tanh_input_vec_fp;
-  using tflite::testing::tanh_output_vec_fp;
-  using tflite::testing::tanh_vec_size;
+  using tflite_micro::testing::tanh_input_vec_fp;
+  using tflite_micro::testing::tanh_output_vec_fp;
+  using tflite_micro::testing::tanh_vec_size;
 
   const float input_scale = 16 / 256.f;
   const int input_zero_point = 0;
@@ -267,7 +267,7 @@ TF_LITE_MICRO_TEST(SimpleTestTanhInt8) {
   int8_t input_quantized[tanh_vec_size];
   int8_t expected_output_quantized[tanh_vec_size];
   int8_t output_quantized[tanh_vec_size];
-  tflite::testing::TestTanhQuantized<int8_t>(         //
+  tflite_micro::testing::TestTanhQuantized<int8_t>(         //
       input_shape,                                    // Input shape.
       tanh_input_vec_fp, input_quantized,             // Input data.
       input_scale, input_zero_point,                  // Input quantized info.
@@ -280,9 +280,9 @@ TF_LITE_MICRO_TEST(SimpleTestTanhInt8) {
 }
 
 TF_LITE_MICRO_TEST(TestTanhInt16WideRange) {
-  using tflite::testing::tanh_int16_input_vec_fp;
-  using tflite::testing::tanh_int16_output_vec_fp;
-  using tflite::testing::tanh_int16_vec_size;
+  using tflite_micro::testing::tanh_int16_input_vec_fp;
+  using tflite_micro::testing::tanh_int16_output_vec_fp;
+  using tflite_micro::testing::tanh_int16_vec_size;
 
   const float input_scale = 32.f / 65536.f;
   const int input_zero_point = 0;
@@ -295,7 +295,7 @@ TF_LITE_MICRO_TEST(TestTanhInt16WideRange) {
   int16_t input_quantized[tanh_int16_vec_size];
   int16_t expected_output_quantized[tanh_int16_vec_size];
   int16_t output_quantized[tanh_int16_vec_size];
-  tflite::testing::TestTanhQuantized<int16_t>(  //
+  tflite_micro::testing::TestTanhQuantized<int16_t>(  //
       input_shape,                              // Input shape.
       tanh_int16_input_vec_fp,                  // Input data.
       input_quantized,                          // Quantized input data.

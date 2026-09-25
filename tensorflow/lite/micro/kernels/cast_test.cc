@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -57,7 +57,7 @@ void TestCast(int* input_dims_data, const inputT* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -68,7 +68,7 @@ TF_LITE_MICRO_TEST(CastFloatToInt8) {
   // TODO(b/178391195): Test negative and out-of-range numbers.
   const float input_values[] = {100.f, 1.0f, 0.f, 0.4f, 1.999f, 1.1f};
   const int8_t golden[] = {100, 1, 0, 0, 1, 1};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastFloatToInt16) {
@@ -78,7 +78,7 @@ TF_LITE_MICRO_TEST(CastFloatToInt16) {
   // TODO(b/178391195): Test negative and out-of-range numbers.
   const float input_values[] = {100.f, 1.0f, 0.f, 0.4f, 1.999f, 1.1f};
   const int16_t golden[] = {100, 1, 0, 0, 1, 1};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastInt8ToFloat) {
@@ -86,7 +86,7 @@ TF_LITE_MICRO_TEST(CastInt8ToFloat) {
   int input_dims[] = {2, 3, 2};
   const int8_t input_values[] = {123, 0, 1, 2, 3, 4};
   const float golden[] = {123.f, 0.f, 1.f, 2.f, 3.f, 4.f};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastInt16ToFloat) {
@@ -94,7 +94,7 @@ TF_LITE_MICRO_TEST(CastInt16ToFloat) {
   int input_dims[] = {2, 3, 2};
   const int16_t input_values[] = {123, 0, 1, 2, 3, 4};
   const float golden[] = {123.f, 0.f, 1.f, 2.f, 3.f, 4.f};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastInt16ToInt32) {
@@ -102,7 +102,7 @@ TF_LITE_MICRO_TEST(CastInt16ToInt32) {
   int input_dims[] = {2, 3, 2};
   const int16_t input_values[] = {123, 0, 1, 2, 3, 4};
   const int32_t golden[] = {123, 0, 1, 2, 3, 4};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastInt32ToInt16) {
@@ -110,7 +110,7 @@ TF_LITE_MICRO_TEST(CastInt32ToInt16) {
   int input_dims[] = {2, 3, 2};
   const int32_t input_values[] = {123, 0, 1, 2, 3, 4};
   const int16_t golden[] = {123, 0, 1, 2, 3, 4};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastUInt32ToInt32) {
@@ -118,7 +118,7 @@ TF_LITE_MICRO_TEST(CastUInt32ToInt32) {
   int input_dims[] = {2, 2, 3};
   const uint32_t input_values[] = {100, 200, 300, 400, 500, 600};
   const int32_t golden[] = {100, 200, 300, 400, 500, 600};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TEST(CastUInt32ToInt32) {
@@ -126,7 +126,7 @@ TF_LITE_MICRO_TEST(CastUInt32ToInt32) {
   int input_dims[] = {2, 2, 3};
   const int32_t input_values[] = {100, 200, 300, 400, 500, 600};
   const uint32_t golden[] = {100, 200, 300, 400, 500, 600};
-  tflite::testing::TestCast(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestCast(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TESTS_END

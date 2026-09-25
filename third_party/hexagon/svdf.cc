@@ -97,7 +97,7 @@ TfLiteStatus SvdfEval(TfLiteContext* context, TfLiteNode* node) {
 
     default:
       MicroPrintf( "Type %s not currently supported.",
-                         TfLiteTypeGetName(weights_feature->type));
+                         TfLiteMicroTypeGetName(weights_feature->type));
       return kTfLiteError;
   }
   return kTfLiteOk;

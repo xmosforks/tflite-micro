@@ -17,7 +17,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -444,4 +444,4 @@ bool GreedyMemoryPlanner::DoAnyBuffersOverlap() {
   return were_overlaps_found;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

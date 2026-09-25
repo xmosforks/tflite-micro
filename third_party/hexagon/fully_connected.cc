@@ -117,7 +117,7 @@ TfLiteStatus HexagonFullyConnectedEval(TfLiteContext* context,
 
     default:
       MicroPrintf( "Type %s (%d) not supported.",
-                         TfLiteTypeGetName(input->type), input->type);
+                         TfLiteMicroTypeGetName(input->type), input->type);
       return kTfLiteError;
   }
   return kTfLiteOk;

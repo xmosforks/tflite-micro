@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/logical.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Input/output tensor index.
 const int kLogicalInputTensor1 = 0;
@@ -29,28 +29,28 @@ const int kLogicalOutputTensor = 0;
 TfLiteStatus LogicalImpl(TfLiteContext* context, TfLiteNode* node,
                          bool (*func)(bool, bool)) {
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, kLogicalInputTensor1);
+      tflite_micro::micro::GetEvalInput(context, node, kLogicalInputTensor1);
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, kLogicalInputTensor2);
+      tflite_micro::micro::GetEvalInput(context, node, kLogicalInputTensor2);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kLogicalOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kLogicalOutputTensor);
 
-  if (tflite::micro::HaveSameShapes(input1, input2)) {
+  if (tflite_micro::micro::HaveSameShapes(input1, input2)) {
     reference_ops::BinaryFunction<bool, bool, bool>(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<bool>(input1),
-        tflite::micro::GetTensorShape(input2),
-        tflite::micro::GetTensorData<bool>(input2),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<bool>(output), func);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<bool>(input1),
+        tflite_micro::micro::GetTensorShape(input2),
+        tflite_micro::micro::GetTensorData<bool>(input2),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<bool>(output), func);
   } else {
     reference_ops::BroadcastBinaryFunction4DSlow<bool, bool, bool>(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<bool>(input1),
-        tflite::micro::GetTensorShape(input2),
-        tflite::micro::GetTensorData<bool>(input2),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<bool>(output), func);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<bool>(input1),
+        tflite_micro::micro::GetTensorShape(input2),
+        tflite_micro::micro::GetTensorData<bool>(input2),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<bool>(output), func);
   }
 
   return kTfLiteOk;
@@ -60,4 +60,4 @@ bool LogicalOr(bool x, bool y) { return x || y; }
 
 bool LogicalAnd(bool x, bool y) { return x && y; }
 
-}  // namespace tflite
+}  // namespace tflite_micro

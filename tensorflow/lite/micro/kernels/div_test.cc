@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -35,7 +35,7 @@ void ExecuteDivTest(TfLiteTensor* tensors, int tensors_count,
   int kOutputArrayData[] = {1, 2};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_DIV();
+  const TFLMRegistration registration = tflite_micro::Register_DIV();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, static_cast<void*>(&builtin_data));
 
@@ -175,7 +175,7 @@ void TestDivMultiBroadcastQuant(int** shapes, const int shapes_count,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -187,7 +187,7 @@ TF_LITE_MICRO_TEST(FloatDivOpTestActNone) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
+  tflite_micro::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
                            output_data, kTfLiteActNone);
 }
 
@@ -199,7 +199,7 @@ TF_LITE_MICRO_TEST(FloatDivOpTestActReluN1To1) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
+  tflite_micro::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
                            output_data, kTfLiteActReluN1To1);
 }
 
@@ -217,7 +217,7 @@ TF_LITE_MICRO_TEST(FloatDivOpTestMultiShape) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestDivMultiShape(kDims, kDimsCount, kInput1, kInput2,
+  tflite_micro::testing::TestDivMultiShape(kDims, kDimsCount, kInput1, kInput2,
                                      kExpect, output_data, kTfLiteActNone);
 }
 
@@ -236,7 +236,7 @@ TF_LITE_MICRO_TEST(FloatDivOpTestBroadcast) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestDivMultiBroadcast(kDims, kDimsCount, kInput1, kInput2,
+  tflite_micro::testing::TestDivMultiBroadcast(kDims, kDimsCount, kInput1, kInput2,
                                          kExpect, output_data, kTfLiteActNone);
 }
 
@@ -252,7 +252,7 @@ TF_LITE_MICRO_TEST(FloatDivOpTestBroadcast5D) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestDivMultiBroadcast(kDims, kDimsCount, kInput1, kInput2,
+  tflite_micro::testing::TestDivMultiBroadcast(kDims, kDimsCount, kInput1, kInput2,
                                          kExpect, output_data, kTfLiteActNone);
 }
 
@@ -268,14 +268,14 @@ TF_LITE_MICRO_TEST(QuantizedDivOpTestActNone) {
   int8_t q_output_data[kOutputCount];
   int8_t q_input1_data[kOutputCount];
   int8_t q_input2_data[kOutputCount];
-  tflite::testing::TestQuantParams<int8_t> params = {};
+  tflite_micro::testing::TestQuantParams<int8_t> params = {};
   params.data_min = -1.0;
   params.data_max = 1.0;
   params.input1_data = q_input1_data;
   params.input2_data = q_input2_data;
   params.output_data = q_output_data;
 
-  tflite::testing::TestDivQuantized(kDims, kInput1, kDims, kInput2, kDims,
+  tflite_micro::testing::TestDivQuantized(kDims, kInput1, kDims, kInput2, kDims,
                                     kExpect, output_data, kTfLiteActNone,
                                     &params);
 }
@@ -292,14 +292,14 @@ TF_LITE_MICRO_TEST(QuantizedDivOpTestActReluN1To1) {
   int8_t q_output_data[kOutputCount];
   int8_t q_input1_data[kOutputCount];
   int8_t q_input2_data[kOutputCount];
-  tflite::testing::TestQuantParams<int8_t> params = {};
+  tflite_micro::testing::TestQuantParams<int8_t> params = {};
   params.data_min = -1.0;
   params.data_max = 1.0;
   params.input1_data = q_input1_data;
   params.input2_data = q_input2_data;
   params.output_data = q_output_data;
 
-  tflite::testing::TestDivQuantized(kDims, kInput1, kDims, kInput2, kDims,
+  tflite_micro::testing::TestDivQuantized(kDims, kInput1, kDims, kInput2, kDims,
                                     kExpect1, output_data, kTfLiteActReluN1To1,
                                     &params);
 
@@ -307,7 +307,7 @@ TF_LITE_MICRO_TEST(QuantizedDivOpTestActReluN1To1) {
   constexpr float kInput4[] = {0.6, 0.5, -0.8, 0.5};
   constexpr float kExpect2[] = {-0.833, 0.4, -0.75, 0.6};
 
-  tflite::testing::TestDivQuantized(kDims, kInput3, kDims, kInput4, kDims,
+  tflite_micro::testing::TestDivQuantized(kDims, kInput3, kDims, kInput4, kDims,
                                     kExpect2, output_data, kTfLiteActReluN1To1,
                                     &params);
 }
@@ -330,14 +330,14 @@ TF_LITE_MICRO_TEST(QuantizedDivOpTestMultiShape) {
   int8_t q_output_data[kOutputCount];
   int8_t q_input1_data[kOutputCount];
   int8_t q_input2_data[kOutputCount];
-  tflite::testing::TestQuantParams<int8_t> params = {};
+  tflite_micro::testing::TestQuantParams<int8_t> params = {};
   params.data_min = -3.0;
   params.data_max = 3.0;
   params.input1_data = q_input1_data;
   params.input2_data = q_input2_data;
   params.output_data = q_output_data;
 
-  tflite::testing::TestDivMultiShapeQuant(kDims, kDimsCount, kInput1, kInput2,
+  tflite_micro::testing::TestDivMultiShapeQuant(kDims, kDimsCount, kInput1, kInput2,
                                           kExpect, output_data, kTfLiteActNone,
                                           &params);
 }
@@ -362,14 +362,14 @@ TF_LITE_MICRO_TEST(QuantizedDivOpTestBroadcast) {
   int8_t q_output_data[kOutputCount];
   int8_t q_input1_data[kOutputCount];
   int8_t q_input2_data[kOutputCount];
-  tflite::testing::TestQuantParams<int8_t> params = {};
+  tflite_micro::testing::TestQuantParams<int8_t> params = {};
   params.data_min = -3.0;
   params.data_max = 3.0;
   params.input1_data = q_input1_data;
   params.input2_data = q_input2_data;
   params.output_data = q_output_data;
 
-  tflite::testing::TestDivMultiBroadcastQuant(kDims, kDimsCount, kInput1,
+  tflite_micro::testing::TestDivMultiBroadcastQuant(kDims, kDimsCount, kInput1,
                                               kInput2, kExpect, output_data,
                                               kTfLiteActNone, &params);
 }
@@ -382,7 +382,7 @@ TF_LITE_MICRO_TEST(IntegerDivOpTestNoActivation) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   int32_t output_data[kOutputCount];
 
-  tflite::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
+  tflite_micro::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
                            output_data, kTfLiteActNone);
 }
 
@@ -394,7 +394,7 @@ TF_LITE_MICRO_TEST(IntegerDivOpTestActivationRELU_N1_TO_1) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   int32_t output_data[kOutputCount];
 
-  tflite::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
+  tflite_micro::testing::TestDiv(kDims, kInput1, kDims, kInput2, kDims, kExpect,
                            output_data, kTfLiteActReluN1To1);
 }
 
@@ -412,7 +412,7 @@ TF_LITE_MICRO_TEST(IntegerDivOpTestVariousInputShapes) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   int32_t output_data[kOutputCount];
 
-  tflite::testing::TestDivMultiShape(kDims, kDimsCount, kInput1, kInput2,
+  tflite_micro::testing::TestDivMultiShape(kDims, kDimsCount, kInput1, kInput2,
                                      kExpect, output_data, kTfLiteActNone);
 }
 
@@ -431,7 +431,7 @@ TF_LITE_MICRO_TEST(IntegerDivOpTestWithBroadcast) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   int32_t output_data[kOutputCount];
 
-  tflite::testing::TestDivMultiBroadcast(kDims, kDimsCount, kInput1, kInput2,
+  tflite_micro::testing::TestDivMultiBroadcast(kDims, kDimsCount, kInput1, kInput2,
                                          kExpect, output_data, kTfLiteActNone);
 }
 

@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 inline void DepthwiseConvPerChannel(
     const DepthwiseParams& params, const int32_t* output_multiplier,
@@ -286,6 +286,6 @@ inline void DepthwiseConvHybridPerChannel(
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_DEPTHWISE_CONV_H_

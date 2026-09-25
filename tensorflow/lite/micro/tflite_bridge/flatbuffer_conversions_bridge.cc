@@ -20,15 +20,15 @@ limitations under the License.
 #include "tensorflow/lite/micro/tflite_bridge/micro_error_reporter.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 TfLiteStatus ConvertTensorType(TensorType tensor_type, TfLiteType* type) {
-  return ConvertTensorType(tensor_type, type, tflite::GetMicroErrorReporter());
+  return ConvertTensorType(tensor_type, type, tflite_micro::GetMicroErrorReporter());
 }
 
 TfLiteStatus CallBuiltinParseFunction(TfLiteBridgeBuiltinParseFunction parser,
                                       const Operator* op,
                                       BuiltinDataAllocator* allocator,
                                       void** builtin_data) {
-  return parser(op, tflite::GetMicroErrorReporter(), allocator, builtin_data);
+  return parser(op, tflite_micro::GetMicroErrorReporter(), allocator, builtin_data);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

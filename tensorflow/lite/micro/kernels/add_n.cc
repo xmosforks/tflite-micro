@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor0 = 0;
@@ -123,7 +123,7 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node) {
         &data->output_activation_max));
   } else {
     MicroPrintf("ADD_N only supports FLOAT32 and INT8, got %s.",
-                TfLiteTypeGetName(output->type));
+                TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
 
@@ -146,8 +146,8 @@ inline const T** CopyInputsToScratchBuffer(TfLiteContext* context,
   const T** all_inputs = static_cast<decltype(all_inputs)>(scratch_buffer);
   for (int i = 0; i < num_inputs; i++) {
     const TfLiteEvalTensor* next_input =
-        tflite::micro::GetEvalInput(context, node, kInputTensor0 + i);
-    all_inputs[i] = tflite::micro::GetTensorData<T>(next_input);
+        tflite_micro::micro::GetEvalInput(context, node, kInputTensor0 + i);
+    all_inputs[i] = tflite_micro::micro::GetTensorData<T>(next_input);
   }
 
   return all_inputs;
@@ -163,8 +163,8 @@ void EvalAddN(TfLiteContext* context, TfLiteNode* node,
   const T** all_inputs =
       CopyInputsToScratchBuffer<T>(context, node, scratch_index);
 
-  reference_ops::AddN<T>(tflite::micro::GetTensorShape(output), num_inputs,
-                         all_inputs, tflite::micro::GetTensorData<T>(output));
+  reference_ops::AddN<T>(tflite_micro::micro::GetTensorShape(output), num_inputs,
+                         all_inputs, tflite_micro::micro::GetTensorData<T>(output));
 }
 
 template <typename T>
@@ -187,20 +187,20 @@ void EvalAddNQuantized(TfLiteContext* context, TfLiteNode* node,
   SetActivationParams(data->output_activation_min, data->output_activation_max,
                       &params);
 
-  reference_ops::AddN(params, tflite::micro::GetTensorShape(output), num_inputs,
-                      all_inputs, tflite::micro::GetTensorData<T>(output));
+  reference_ops::AddN(params, tflite_micro::micro::GetTensorShape(output), num_inputs,
+                      all_inputs, tflite_micro::micro::GetTensorData<T>(output));
 }
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   if (output->type == kTfLiteFloat32) {
     EvalAddN<float>(context, node, output);
   } else if (output->type == kTfLiteInt8) {
     EvalAddNQuantized<int8_t>(context, node, output);
   } else {
     MicroPrintf("ADD_N only supports FLOAT32 and INT8, got %s.",
-                TfLiteTypeGetName(output->type));
+                TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
   return kTfLiteOk;
@@ -209,7 +209,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_ADD_N() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

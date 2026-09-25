@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kAbsNameId = 0;
@@ -89,7 +89,7 @@ TfLiteStatus GenericPrepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
   if (!IsSupportedType(input->type)) {
     MicroPrintf("Input data type %s (%d) is not supported.",
-                TfLiteTypeGetName(input->type), input->type);
+                TfLiteMicroTypeGetName(input->type), input->type);
     return kTfLiteError;
   }
 
@@ -111,7 +111,7 @@ TfLiteStatus PrepareAbsRsqrt(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, output->type);
   if (!IsSupportedType(input->type)) {
     MicroPrintf("Input data type %s (%d) is not supported.",
-                TfLiteTypeGetName(input->type), input->type);
+                TfLiteMicroTypeGetName(input->type), input->type);
     return kTfLiteError;
   }
 
@@ -171,12 +171,12 @@ inline TfLiteStatus EvalImplQuantized(
     T func(TfLiteContext*, TfLiteNode*, T),
     TfLiteStatus validate_input_func(TfLiteContext*, TfLiteNode*, T),
     TfLiteType expected_type) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, expected_type);
   const size_t num_elements = ElementCount(*input->dims);
-  const T* in_data = tflite::micro::GetTensorData<T>(input);
-  T* out_data = tflite::micro::GetTensorData<T>(output);
+  const T* in_data = tflite_micro::micro::GetTensorData<T>(input);
+  T* out_data = tflite_micro::micro::GetTensorData<T>(output);
   for (size_t i = 0; i < num_elements; ++i) {
     if (validate_input_func) {
       TF_LITE_ENSURE_OK(context,
@@ -196,12 +196,12 @@ template <typename T>
 inline TfLiteStatus EvalImpl(TfLiteContext* context, TfLiteNode* node,
                              T func(T), TfLiteStatus validate_input_func(T),
                              TfLiteType expected_type) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, expected_type);
   const size_t num_elements = ElementCount(*input->dims);
-  const T* in_data = tflite::micro::GetTensorData<T>(input);
-  T* out_data = tflite::micro::GetTensorData<T>(output);
+  const T* in_data = tflite_micro::micro::GetTensorData<T>(input);
+  T* out_data = tflite_micro::micro::GetTensorData<T>(output);
   for (size_t i = 0; i < num_elements; ++i) {
     if (validate_input_func) {
       TF_LITE_ENSURE_OK(context, validate_input_func(in_data[i]));
@@ -244,7 +244,7 @@ inline T AbsEvalQuantized(TfLiteContext* context, TfLiteNode* node, T i) {
                  static_cast<long int>(kMax)));
   }
 
-  const int32_t output = tflite::MultiplyByQuantizedMultiplier(
+  const int32_t output = tflite_micro::MultiplyByQuantizedMultiplier(
                              value, op_data->multiplier, op_data->shift) +
                          op_data->output_offset;
   return static_cast<T>(std::min(
@@ -268,10 +268,10 @@ inline T RsqrtEvalQuantized(TfLiteContext* context, TfLiteNode* node, T i) {
   int inv_sqrt_shift;
   GetInvSqrtQuantizedMultiplierExp(value, kReverseShift, &inv_sqrt_multiplier,
                                    &inv_sqrt_shift);
-  const int32_t data = tflite::MultiplyByQuantizedMultiplier(
+  const int32_t data = tflite_micro::MultiplyByQuantizedMultiplier(
       static_cast<int32_t>(1), inv_sqrt_multiplier, inv_sqrt_shift + kShift);
   const int32_t output =
-      tflite::MultiplyByQuantizedMultiplier(data, op_data->multiplier,
+      tflite_micro::MultiplyByQuantizedMultiplier(data, op_data->multiplier,
                                             op_data->shift - kShift) +
       op_data->output_offset;
   return static_cast<T>(std::min(
@@ -316,7 +316,7 @@ TfLiteStatus AbsEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Current data type %s is not supported.",
-                  TfLiteTypeGetName(type));
+                  TfLiteMicroTypeGetName(type));
       return kTfLiteError;
       break;
   }
@@ -356,7 +356,7 @@ TfLiteStatus RsqrtEval(TfLiteContext* context, TfLiteNode* node) {
 
     default:
       MicroPrintf("Current data type %s is not supported.",
-                  TfLiteTypeGetName(type));
+                  TfLiteMicroTypeGetName(type));
       return kTfLiteError;
   }
 }
@@ -372,45 +372,45 @@ TfLiteStatus LogicalNotEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_ABS() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       ElementWiseAbsRsqrtInit, PrepareAbsRsqrt<IsAbsSupportedType, kAbsNameId>,
       AbsEval);
 }
 
 TFLMRegistration Register_SIN() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       nullptr, GenericPrepare<IsNumericSupportedType>, SinEval);
 }
 
 TFLMRegistration Register_COS() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       nullptr, GenericPrepare<IsNumericSupportedType>, CosEval);
 }
 
 TFLMRegistration Register_LOG() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       nullptr, GenericPrepare<IsNumericSupportedType>, LogEval);
 }
 
 TFLMRegistration Register_SQRT() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       nullptr, GenericPrepare<IsNumericSupportedType>, SqrtEval);
 }
 
 TFLMRegistration Register_RSQRT() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       ElementWiseAbsRsqrtInit,
       PrepareAbsRsqrt<IsRsqrtSupportedType, kRsrqtNameId>, RsqrtEval);
 }
 
 TFLMRegistration Register_SQUARE() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       nullptr, GenericPrepare<IsNumericSupportedType>, SquareEval);
 }
 
 TFLMRegistration Register_LOGICAL_NOT() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       nullptr, GenericPrepare<IsLogicalSupportedType>, LogicalNotEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

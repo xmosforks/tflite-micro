@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/depthwise_conv.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 const int kDepthwiseConvInputTensor = 0;
 const int kDepthwiseConvWeightsTensor = 1;
@@ -43,7 +43,7 @@ DepthwiseParams DepthwiseConvParamsFloat(
   DepthwiseParams op_params;
   CalculateActivationRange(params.activation, &op_params.float_activation_min,
                            &op_params.float_activation_max);
-  op_params.padding_type = tflite::micro::RuntimePaddingType(params.padding);
+  op_params.padding_type = tflite_micro::micro::RuntimePaddingType(params.padding);
   op_params.padding_values.width = data.padding.width;
   op_params.padding_values.height = data.padding.height;
   op_params.stride_width = params.stride_width;
@@ -64,7 +64,7 @@ DepthwiseParams DepthwiseConvParamsQuantized(
   op_params.output_offset = data.output_zero_point;
   op_params.output_multiplier = data.output_multiplier;
   op_params.output_shift = -data.output_shift;
-  op_params.padding_type = tflite::micro::RuntimePaddingType(params.padding);
+  op_params.padding_type = tflite_micro::micro::RuntimePaddingType(params.padding);
   op_params.padding_values.height = data.padding.height;
   op_params.padding_values.width = data.padding.width;
   op_params.stride_height = params.stride_height;
@@ -113,7 +113,7 @@ TfLiteStatus CalculateOpDataDepthwiseConv(
   if (data_type != kTfLiteFloat32) {
     int output_channels = filter->dims->data[kDepthwiseConvQuantizedDimension];
 
-    TF_LITE_ENSURE_STATUS(tflite::PopulateConvolutionQuantizationParams(
+    TF_LITE_ENSURE_STATUS(tflite_micro::PopulateConvolutionQuantizationParams(
         context, input, filter, bias, output, params.activation,
         &data->output_multiplier, &data->output_shift,
         &data->output_activation_min, &data->output_activation_max,
@@ -216,4 +216,4 @@ TfLiteStatus DepthwiseConvPrepare(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

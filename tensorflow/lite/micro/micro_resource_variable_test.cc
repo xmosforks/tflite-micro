@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kMaxBufferSize = 1024;
@@ -38,15 +38,15 @@ TfLiteContext* GetMockContext() {
 }
 
 }  // namespace
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(CreateVariables) {
-  tflite::MicroResourceVariables* resource_variables =
-      tflite::MicroResourceVariables::Create(
-          tflite::MicroAllocator::Create(tflite::buffer_,
-                                         tflite::kMaxBufferSize),
+  tflite_micro::MicroResourceVariables* resource_variables =
+      tflite_micro::MicroResourceVariables::Create(
+          tflite_micro::MicroAllocator::Create(tflite_micro::buffer_,
+                                         tflite_micro::kMaxBufferSize),
           4);
   int id1 = resource_variables->CreateIdIfNoneFound("", "var1");
   TF_LITE_MICRO_EXPECT_GE(id1, 0);
@@ -74,10 +74,10 @@ TF_LITE_MICRO_TEST(CreateVariables) {
 }
 
 TF_LITE_MICRO_TEST(AllocateResourceBuffers) {
-  tflite::MicroResourceVariables* resource_variables =
-      tflite::MicroResourceVariables::Create(
-          tflite::MicroAllocator::Create(tflite::buffer_,
-                                         tflite::kMaxBufferSize),
+  tflite_micro::MicroResourceVariables* resource_variables =
+      tflite_micro::MicroResourceVariables::Create(
+          tflite_micro::MicroAllocator::Create(tflite_micro::buffer_,
+                                         tflite_micro::kMaxBufferSize),
           2);
   int id1 = resource_variables->CreateIdIfNoneFound("", "var1");
   TF_LITE_MICRO_EXPECT_GE(id1, 0);
@@ -87,19 +87,19 @@ TF_LITE_MICRO_TEST(AllocateResourceBuffers) {
 
   TfLiteTensor tensor = {};
   tensor.bytes = 42;
-  resource_variables->Allocate(id1, tflite::GetMockContext(), &tensor);
-  TF_LITE_MICRO_EXPECT_EQ(42, tflite::last_allocation_size_);
+  resource_variables->Allocate(id1, tflite_micro::GetMockContext(), &tensor);
+  TF_LITE_MICRO_EXPECT_EQ(42, tflite_micro::last_allocation_size_);
 
   tensor.bytes = 100;
-  resource_variables->Allocate(id2, tflite::GetMockContext(), &tensor);
-  TF_LITE_MICRO_EXPECT_EQ(100, tflite::last_allocation_size_);
+  resource_variables->Allocate(id2, tflite_micro::GetMockContext(), &tensor);
+  TF_LITE_MICRO_EXPECT_EQ(100, tflite_micro::last_allocation_size_);
 }
 
 TF_LITE_MICRO_TEST(VerifyAssignAndReadResourceBuffer) {
-  tflite::MicroResourceVariables* resource_variables =
-      tflite::MicroResourceVariables::Create(
-          tflite::MicroAllocator::Create(tflite::buffer_,
-                                         tflite::kMaxBufferSize),
+  tflite_micro::MicroResourceVariables* resource_variables =
+      tflite_micro::MicroResourceVariables::Create(
+          tflite_micro::MicroAllocator::Create(tflite_micro::buffer_,
+                                         tflite_micro::kMaxBufferSize),
           1);
   int id = resource_variables->CreateIdIfNoneFound("", "var1");
   TF_LITE_MICRO_EXPECT_GE(id, 0);
@@ -107,8 +107,8 @@ TF_LITE_MICRO_TEST(VerifyAssignAndReadResourceBuffer) {
   TfLiteTensor tensor = {};
   const int bytes = 32 * sizeof(int32_t);
   tensor.bytes = bytes;
-  resource_variables->Allocate(id, tflite::GetMockContext(), &tensor);
-  TF_LITE_MICRO_EXPECT_EQ(bytes, tflite::last_allocation_size_);
+  resource_variables->Allocate(id, tflite_micro::GetMockContext(), &tensor);
+  TF_LITE_MICRO_EXPECT_EQ(bytes, tflite_micro::last_allocation_size_);
 
   int32_t golden[32] = {1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
                         12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -116,7 +116,7 @@ TF_LITE_MICRO_TEST(VerifyAssignAndReadResourceBuffer) {
   int dims[] = {1, 32};
   TfLiteEvalTensor assign_tensor = {
       .data = {golden},
-      .dims = tflite::testing::IntArrayFromInts(dims),
+      .dims = tflite_micro::testing::IntArrayFromInts(dims),
 
       .type = kTfLiteFloat32,
   };
@@ -125,7 +125,7 @@ TF_LITE_MICRO_TEST(VerifyAssignAndReadResourceBuffer) {
   int32_t buffer[32];
   TfLiteEvalTensor read_tensor = {
       .data = {buffer},
-      .dims = tflite::testing::IntArrayFromInts(dims),
+      .dims = tflite_micro::testing::IntArrayFromInts(dims),
       .type = kTfLiteInt32,
   };
   resource_variables->Read(id, &read_tensor);
@@ -135,10 +135,10 @@ TF_LITE_MICRO_TEST(VerifyAssignAndReadResourceBuffer) {
 }
 
 TF_LITE_MICRO_TEST(CreateVariablesNullContainer) {
-  tflite::MicroResourceVariables* resource_variables =
-      tflite::MicroResourceVariables::Create(
-          tflite::MicroAllocator::Create(tflite::buffer_,
-                                         tflite::kMaxBufferSize),
+  tflite_micro::MicroResourceVariables* resource_variables =
+      tflite_micro::MicroResourceVariables::Create(
+          tflite_micro::MicroAllocator::Create(tflite_micro::buffer_,
+                                         tflite_micro::kMaxBufferSize),
           4);
   int id1 = resource_variables->CreateIdIfNoneFound(nullptr, "var1");
   TF_LITE_MICRO_EXPECT_GE(id1, 0);

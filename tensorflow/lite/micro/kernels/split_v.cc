@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -30,7 +30,7 @@ TfLiteStatus SplitImpl(TfLiteContext* context, TfLiteNode* node,
                        const TfLiteEvalTensor* input, int axis_value) {
   const TfLiteIntArray* input_dims = input->dims;
   const TfLiteEvalTensor* output0 =
-      tflite::micro::GetEvalOutput(context, node, 0);
+      tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   const int split_dimensions = input_dims->size;
 
@@ -41,7 +41,7 @@ TfLiteStatus SplitImpl(TfLiteContext* context, TfLiteNode* node,
   const int output_count = NumOutputs(node);
   for (int i = 0; i < output_count; i++) {
     split_size +=
-        tflite::micro::GetEvalOutput(context, node, i)->dims->data[axis_value];
+        tflite_micro::micro::GetEvalOutput(context, node, i)->dims->data[axis_value];
   }
   TFLITE_DCHECK_EQ(split_size, input_dims->data[axis_value]);
   int64_t outer_size = 1;
@@ -54,12 +54,12 @@ TfLiteStatus SplitImpl(TfLiteContext* context, TfLiteNode* node,
     base_inner_size *= input_dims->data[i];
   }
 
-  const T* input_ptr = tflite::micro::GetTensorData<T>(input);
+  const T* input_ptr = tflite_micro::micro::GetTensorData<T>(input);
   for (int k = 0; k < outer_size; ++k) {
     for (int i = 0; i < output_count; ++i) {
       TfLiteEvalTensor* output_tensor =
-          tflite::micro::GetEvalOutput(context, node, i);
-      T* output_data = tflite::micro::GetTensorData<T>(output_tensor);
+          tflite_micro::micro::GetEvalOutput(context, node, i);
+      T* output_data = tflite_micro::micro::GetTensorData<T>(output_tensor);
       const int copy_size =
           output_tensor->dims->data[axis_value] * base_inner_size;
       T* output_ptr = output_data + k * copy_size;
@@ -79,17 +79,17 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   // But Micro doesn't support dynamic memory allocation, so we only support
   // constant axis tensor for now.
   TfLiteTensor* axis = micro_context->AllocateTempInputTensor(node, 2);
-  TF_LITE_ENSURE_MSG(context, IsConstantTensor(axis),
+  TF_LITE_ENSURE_MSG(context, IsConstantTensor(context, axis),
                      "Non constant axis tensor not supported");
   micro_context->DeallocateTempTfLiteTensor(axis);
   return kTfLiteOk;
 }
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  const TfLiteEvalTensor* axis = tflite::micro::GetEvalInput(context, node, 2);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* axis = tflite_micro::micro::GetEvalInput(context, node, 2);
 
-  int axis_value = tflite::micro::GetTensorData<int32_t>(axis)[0];
+  int axis_value = tflite_micro::micro::GetTensorData<int32_t>(axis)[0];
   if (axis_value < 0) {
     axis_value += input->dims->size;
   }
@@ -112,7 +112,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     }
     default:
       MicroPrintf("Type %s currently not supported.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -121,7 +121,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SPLIT_V() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // INT24 MIN/MAX
 #define INT24_MIN -8388608
@@ -134,6 +134,6 @@ inline int CreateQConstantForInt24(int integer_bits, float f) {
   return static_cast<int>(raw);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(HIFIMINI)
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_HIFIMINI_FIXEDPOINT_UTILS_H_

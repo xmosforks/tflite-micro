@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_graph.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -51,7 +51,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE(context, NumInputs(node) == 0);
   TF_LITE_ENSURE(context, NumOutputs(node) == 0);
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   MicroGraph& graph_info = micro_context->graph();
 
   TF_LITE_ENSURE(context,
@@ -68,7 +68,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     return kTfLiteOk;
   }
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   MicroGraph& graph_info = micro_context->graph();
 
   TF_LITE_ENSURE_OK(context,
@@ -82,7 +82,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace.
 
 TFLMRegistration Register_CALL_ONCE() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

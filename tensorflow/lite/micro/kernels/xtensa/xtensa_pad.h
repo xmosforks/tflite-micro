@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
-namespace tflite {
+namespace tflite_micro {
 
 struct OpDataPad {
   PadParams params;
@@ -44,6 +44,6 @@ TfLiteStatus PadEvalVision(const XtensaPadData& data,
                            TfLiteEvalTensor* output);
 #endif  // VISION_P6
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_PAD_H_

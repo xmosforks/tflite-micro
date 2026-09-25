@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kParams = 0;
@@ -49,7 +49,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Params of type '%s' are not supported by gather_nd.",
-                  TfLiteTypeGetName(params->type));
+                  TfLiteMicroTypeGetName(params->type));
       return kTfLiteError;
       break;
   }
@@ -58,7 +58,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Indices of type '%s' are not supported by gather_nd.",
-                  TfLiteTypeGetName(indices->type));
+                  TfLiteMicroTypeGetName(indices->type));
       return kTfLiteError;
   }
 
@@ -89,8 +89,8 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   // The tensor output dims must be relocated
   // from the FlatBuffer to the persistent storage arena.
   TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                  context, output, output_eval));
 
   // TFLM gather_nd does not create the output tensor, but it needs to ensure
@@ -119,9 +119,9 @@ TfLiteStatus GatherNd(const TfLiteEvalTensor* params,
   const int indices_dims = indices->dims->size;
   const int indices_nd = indices->dims->data[indices_dims - 1];
   const int params_dims = params->dims->size;
-  const IndicesT* index_data = tflite::micro::GetTensorData<IndicesT>(indices);
-  const ParamsT* param_data = tflite::micro::GetTensorData<ParamsT>(params);
-  ParamsT* output_data = tflite::micro::GetTensorData<ParamsT>(output);
+  const IndicesT* index_data = tflite_micro::micro::GetTensorData<IndicesT>(indices);
+  const ParamsT* param_data = tflite_micro::micro::GetTensorData<ParamsT>(params);
+  ParamsT* output_data = tflite_micro::micro::GetTensorData<ParamsT>(output);
 
   int n_slices = 1;
   for (int i = 0; i < indices_dims - 1; ++i) {
@@ -176,7 +176,7 @@ TfLiteStatus EvalGatherNd(TfLiteContext* context,
       break;
     default:
       MicroPrintf("Params type '%s' are not supported by gather_nd.",
-                  TfLiteTypeGetName(params->type));
+                  TfLiteMicroTypeGetName(params->type));
       return kTfLiteError;
   }
   if (status != kTfLiteOk) {
@@ -187,11 +187,11 @@ TfLiteStatus EvalGatherNd(TfLiteContext* context,
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* params =
-      tflite::micro::GetEvalInput(context, node, kParams);
+      tflite_micro::micro::GetEvalInput(context, node, kParams);
   const TfLiteEvalTensor* indices =
-      tflite::micro::GetEvalInput(context, node, kIndices);
+      tflite_micro::micro::GetEvalInput(context, node, kIndices);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   switch (indices->type) {
     case kTfLiteInt32:
@@ -199,14 +199,14 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Indices of type '%s' are not supported by gather_nd.",
-                  TfLiteTypeGetName(indices->type));
+                  TfLiteMicroTypeGetName(indices->type));
       return kTfLiteError;
   }
 }
 }  // namespace
 
 TFLMRegistration Register_GATHER_ND() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

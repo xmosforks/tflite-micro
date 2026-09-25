@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/fake_micro_context.h"
 #include "tensorflow/lite/micro/mock_micro_graph.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 
 // Helper class to perform a simulated kernel (i.e. TFLMRegistration)
@@ -81,6 +81,6 @@ class KernelRunner {
 };
 
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_KERNEL_RUNNER_H_

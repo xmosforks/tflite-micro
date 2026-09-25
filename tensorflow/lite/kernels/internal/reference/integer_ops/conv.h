@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 
 // Fixed-point per-channel-quantization convolution reference kernel.
@@ -236,6 +236,6 @@ inline void ConvPerChannel(
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_CONV_H_

@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 // used only with quantized data
@@ -74,7 +74,7 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node) {
 
     int input_left_shift;
     int reverse_scaling_right_shift;
-    tflite::PreprocessLogSoftmaxScalingExp(
+    tflite_micro::PreprocessLogSoftmaxScalingExp(
         kBeta, static_cast<double>(input->params.scale), kScaledDiffIntegerBits,
         &data->input_multiplier, &input_left_shift,
         &data->reverse_scaling_divisor, &reverse_scaling_right_shift);
@@ -84,7 +84,7 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node) {
     // diff_min has a negative value, and is used to limit the maximum magnitude
     // of the diffs, which are <= 0.
     data->diff_min =
-        -tflite::CalculateInputRadius(kScaledDiffIntegerBits, input_left_shift);
+        -tflite_micro::CalculateInputRadius(kScaledDiffIntegerBits, input_left_shift);
 
     RuntimeShape input_shape = GetTensorShape(input);
     const int trailing_dim = input_shape.DimensionsCount() - 1;
@@ -106,16 +106,16 @@ TfLiteStatus LogSoftmaxEval(TfLiteContext* context, TfLiteNode* node) {
   const LogSoftmaxOpData* data =
       static_cast<LogSoftmaxOpData*>(node->user_data);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   switch (input->type) {
     case kTfLiteFloat32: {
       SoftmaxParams op_params = {};
-      reference_ops::LogSoftmax(op_params, tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<float>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+      reference_ops::LogSoftmax(op_params, tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<float>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
       return kTfLiteOk;
     }
     case kTfLiteInt8: {
@@ -126,15 +126,15 @@ TfLiteStatus LogSoftmaxEval(TfLiteContext* context, TfLiteNode* node) {
       op_params.reverse_scaling_right_shift = data->reverse_scaling_right_shift;
       op_params.diff_min = data->diff_min;
       reference_ops::LogSoftmax(op_params, data->outer_size, data->depth,
-                                tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<int8_t>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<int8_t>(output));
+                                tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<int8_t>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<int8_t>(output));
       return kTfLiteOk;
     }
     default:
       MicroPrintf("LOG_SOFTMAX only supports float32, int8, got %s.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
 }
@@ -142,7 +142,7 @@ TfLiteStatus LogSoftmaxEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_LOG_SOFTMAX() {
-  return tflite::micro::RegisterOp(nullptr, LogSoftmaxPrepare, LogSoftmaxEval);
+  return tflite_micro::micro::RegisterOp(nullptr, LogSoftmaxPrepare, LogSoftmaxEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

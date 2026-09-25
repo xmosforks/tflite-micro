@@ -65,10 +65,10 @@ extern bool is_test_complete;
 extern bool did_test_fail;
 }  // namespace micro_test
 
-namespace tflite {
+namespace tflite_micro {
 
 // This additional helper function is used (instead of directly calling
-// tflite::InitializeTarget from the TF_LITE_MICRO_TESTS_BEGIN macro) to avoid
+// tflite_micro::InitializeTarget from the TF_LITE_MICRO_TESTS_BEGIN macro) to avoid
 // adding a dependency from every bazel test target to micro:system_setp (which
 // is the target that implements InitializeTarget().
 //
@@ -76,7 +76,7 @@ namespace tflite {
 // dependencies that can be containted within the micro/testing:micro_test
 // target bleeding on to all the tests.
 inline void InitializeTest() { InitializeTarget(); }
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #define TF_LITE_MICRO_TESTS_BEGIN   \
   namespace micro_test {            \
@@ -89,7 +89,7 @@ inline void InitializeTest() { InitializeTarget(); }
   int main(int argc, char** argv) { \
     micro_test::tests_passed = 0;   \
     micro_test::tests_failed = 0;   \
-    tflite::InitializeTest();
+    tflite_micro::InitializeTest();
 
 #define TF_LITE_MICRO_TESTS_END                                       \
   MicroPrintf("%d/%d tests passed", micro_test::tests_passed,         \

@@ -39,13 +39,13 @@ limitations under the License.
  * with random inputs.
  */
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
-using Profiler = ::tflite::MicroProfiler;
+using Profiler = ::tflite_micro::MicroProfiler;
 
-using TflmOpResolver = tflite::MicroMutableOpResolver<96>;
+using TflmOpResolver = tflite_micro::MicroMutableOpResolver<96>;
 
 constexpr int kTfLiteAbort = -9;
 
@@ -61,7 +61,7 @@ constexpr int kNumResourceVariable = 100;
 constexpr size_t kModelSize = 2e6;
 
 void SetRandomInput(const uint32_t random_seed,
-                    tflite::MicroInterpreter& interpreter) {
+                    tflite_micro::MicroInterpreter& interpreter) {
   std::mt19937 eng(random_seed);
   std::uniform_int_distribution<uint32_t> dist(0, 255);
 
@@ -69,7 +69,7 @@ void SetRandomInput(const uint32_t random_seed,
     TfLiteTensor* input = interpreter.input_tensor(i);
 
     // Pre-populate input tensor with random values.
-    int8_t* input_values = tflite::GetTensorData<int8_t>(input);
+    int8_t* input_values = tflite_micro::GetTensorData<int8_t>(input);
     for (size_t j = 0; j < input->bytes; ++j) {
       input_values[j] = dist(eng);
     }
@@ -110,17 +110,17 @@ int Benchmark(const char* model_file_name) {
     return -1;
   }
   uint32_t event_handle = profiler.BeginEvent("TfliteGetModel");
-  const tflite::Model* model = tflite::GetModel(model_file_content);
+  const tflite_micro::Model* model = tflite_micro::GetModel(model_file_content);
   profiler.EndEvent(event_handle);
 
   TflmOpResolver op_resolver;
   TF_LITE_ENSURE_STATUS(CreateOpResolver(op_resolver));
 
-  tflite::RecordingMicroAllocator* allocator(
-      tflite::RecordingMicroAllocator::Create(tensor_arena, kTensorArenaSize));
-  tflite::RecordingMicroInterpreter interpreter(
+  tflite_micro::RecordingMicroAllocator* allocator(
+      tflite_micro::RecordingMicroAllocator::Create(tensor_arena, kTensorArenaSize));
+  tflite_micro::RecordingMicroInterpreter interpreter(
       model, op_resolver, allocator,
-      tflite::MicroResourceVariables::Create(allocator, kNumResourceVariable),
+      tflite_micro::MicroResourceVariables::Create(allocator, kNumResourceVariable),
       &profiler);
   TF_LITE_ENSURE_STATUS(interpreter.AllocateTensors());
 
@@ -159,6 +159,6 @@ int Benchmark(const char* model_file_name) {
   return 0;
 }
 }  // namespace
-}  // namespace tflite
+}  // namespace tflite_micro
 
-int main(int argc, char** argv) { return tflite::Benchmark(argv[1]); }
+int main(int argc, char** argv) { return tflite_micro::Benchmark(argv[1]); }

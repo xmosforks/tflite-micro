@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_context.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 constexpr int kInputTensor = 0;
@@ -66,9 +66,8 @@ TfLiteStatus ValidateOutputTensor(TfLiteContext* context, TfLiteTensor* input,
   }
 
   // Validating the shape of the output tensor.
-  tflite::RuntimeShape output_shape = tflite::GetTensorShape(output);
   for (int idx = 0; idx < output_num_dims; ++idx) {
-    TF_LITE_ENSURE(context, output_shape.Dims(idx) == get_shape_data(idx));
+    TF_LITE_ENSURE(context, SizeOfDimension(output, idx) == get_shape_data(idx));
   }
   return kTfLiteOk;
 }
@@ -116,8 +115,8 @@ TfLiteStatus BroadcastToEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_BROADCAST_TO() {
-  return tflite::micro::RegisterOp(nullptr, BroadcastToPrepare,
+  return tflite_micro::micro::RegisterOp(nullptr, BroadcastToPrepare,
                                    BroadcastToEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

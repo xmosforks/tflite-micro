@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 struct OpData {
@@ -213,10 +213,10 @@ inline void PopulateDwConvParams(
       data.reference_op_data.per_channel_output_multiplier;
   quant_params->shift = data.reference_op_data.per_channel_output_shift;
 
-  RuntimeShape filter_shape = tflite::micro::GetTensorShape(filter);
-  RuntimeShape input_shape = tflite::micro::GetTensorShape(input);
-  RuntimeShape output_shape = tflite::micro::GetTensorShape(output);
-  RuntimeShape bias_shape = tflite::micro::GetTensorShape(bias);
+  RuntimeShape filter_shape = tflite_micro::micro::GetTensorShape(filter);
+  RuntimeShape input_shape = tflite_micro::micro::GetTensorShape(input);
+  RuntimeShape output_shape = tflite_micro::micro::GetTensorShape(output);
+  RuntimeShape bias_shape = tflite_micro::micro::GetTensorShape(bias);
 
   TFLITE_DCHECK_LE(dw_conv_params->activation.min,
                    dw_conv_params->activation.max);
@@ -224,7 +224,7 @@ inline void PopulateDwConvParams(
   const int batch_size = MatchingDim(input_shape, 0, output_shape, 0);
   const int output_depth = MatchingDim(filter_shape, 3, output_shape, 3);
 
-  if (tflite::micro::GetOptionalTensorData<int8_t>(bias)) {
+  if (tflite_micro::micro::GetOptionalTensorData<int8_t>(bias)) {
     TFLITE_DCHECK_EQ(bias_shape.FlatSize(), output_depth);
   }
 
@@ -278,10 +278,10 @@ void EvalQuantizedPerChannel(TfLiteContext* context, TfLiteNode* node,
   TFLITE_DCHECK_EQ(
       arm_depthwise_conv_wrapper_s8(
           &ctx, &dw_conv_params, &quant_params, &input_dims,
-          tflite::micro::GetTensorData<int8_t>(input), &filter_dims,
-          tflite::micro::GetTensorData<int8_t>(filter), &bias_dims,
-          tflite::micro::GetOptionalTensorData<int32_t>(bias), &output_dims,
-          tflite::micro::GetTensorData<int8_t>(output)),
+          tflite_micro::micro::GetTensorData<int8_t>(input), &filter_dims,
+          tflite_micro::micro::GetTensorData<int8_t>(filter), &bias_dims,
+          tflite_micro::micro::GetOptionalTensorData<int32_t>(bias), &output_dims,
+          tflite_micro::micro::GetTensorData<int8_t>(output)),
       ARM_CMSIS_NN_SUCCESS);
 }
 
@@ -311,10 +311,10 @@ void EvalQuantizedPerChannel16x8(TfLiteContext* context, TfLiteNode* node,
   TFLITE_DCHECK_EQ(
       arm_depthwise_conv_s16(
           &ctx, &dw_conv_params, &quant_params, &input_dims,
-          tflite::micro::GetTensorData<int16_t>(input), &filter_dims,
-          tflite::micro::GetTensorData<int8_t>(filter), &bias_dims,
-          tflite::micro::GetOptionalTensorData<int64_t>(bias), &output_dims,
-          tflite::micro::GetTensorData<int16_t>(output)),
+          tflite_micro::micro::GetTensorData<int16_t>(input), &filter_dims,
+          tflite_micro::micro::GetTensorData<int8_t>(filter), &bias_dims,
+          tflite_micro::micro::GetOptionalTensorData<int64_t>(bias), &output_dims,
+          tflite_micro::micro::GetTensorData<int16_t>(output)),
       ARM_CMSIS_NN_SUCCESS);
 }
 
@@ -327,31 +327,31 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const OpData& data = *(static_cast<OpData*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
           : nullptr;
 
-  TfLiteEvalTensor filter_int8 = tflite::micro::MakeUnpackedInt4Tensor(
+  TfLiteEvalTensor filter_int8 = tflite_micro::micro::MakeUnpackedInt4Tensor(
       context, data.reference_op_data.filter_buffer_index, filter);
 
   switch (input->type) {  // Already know in/out types are same.
     case kTfLiteFloat32: {
-      tflite::reference_ops::DepthwiseConv(
+      tflite_micro::reference_ops::DepthwiseConv(
           DepthwiseConvParamsFloat(params, data.reference_op_data),
-          tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<float>(input),
-          tflite::micro::GetTensorShape(filter),
-          tflite::micro::GetTensorData<float>(filter),
-          tflite::micro::GetTensorShape(bias),
-          tflite::micro::GetOptionalTensorData<float>(bias),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<float>(output));
+          tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<float>(input),
+          tflite_micro::micro::GetTensorShape(filter),
+          tflite_micro::micro::GetTensorData<float>(filter),
+          tflite_micro::micro::GetTensorShape(bias),
+          tflite_micro::micro::GetOptionalTensorData<float>(bias),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<float>(output));
       break;
     }
     case kTfLiteInt8:
@@ -363,7 +363,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
         }
         default: {
           MicroPrintf("Filter type %s (%d) not supported.",
-                      TfLiteTypeGetName(filter->type), filter->type);
+                      TfLiteMicroTypeGetName(filter->type), filter->type);
           return kTfLiteError;
         }
       }
@@ -373,7 +373,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
                                   bias, output);
       break;
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -389,17 +389,17 @@ TfLiteStatus EvalInt8(TfLiteContext* context, TfLiteNode* node) {
   const OpData& data = *(static_cast<OpData*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
           : nullptr;
 
-  TfLiteEvalTensor filter_int8 = tflite::micro::MakeUnpackedInt4Tensor(
+  TfLiteEvalTensor filter_int8 = tflite_micro::micro::MakeUnpackedInt4Tensor(
       context, data.reference_op_data.filter_buffer_index, filter);
 
   EvalQuantizedPerChannel(context, node, params, data, input, &filter_int8,
@@ -416,14 +416,14 @@ TfLiteStatus EvalInt16x8(TfLiteContext* context, TfLiteNode* node) {
   const OpData& data = *(static_cast<OpData*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
           : nullptr;
 
   EvalQuantizedPerChannel16x8(context, node, params, data, input, filter, bias,
@@ -434,15 +434,15 @@ TfLiteStatus EvalInt16x8(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_DEPTHWISE_CONV_2D() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
 TFLMRegistration Register_DEPTHWISE_CONV_2D_INT8() {
-  return tflite::micro::RegisterOp(Init, Prepare, EvalInt8);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, EvalInt8);
 }
 
 TFLMRegistration Register_DEPTHWISE_CONV_2D_INT16() {
-  return tflite::micro::RegisterOp(Init, Prepare, EvalInt16x8);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, EvalInt16x8);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

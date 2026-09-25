@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/compatibility.h"
 #include "tensorflow/lite/micro/memory_planner/micro_memory_planner.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // The simplest possible memory planner that just lays out all buffers at
 // increasing offsets without trying to reuse memory.
@@ -48,6 +48,6 @@ class LinearMemoryPlanner : public MicroMemoryPlanner {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MEMORY_PLANNER_LINEAR_MEMORY_PLANNER_H_

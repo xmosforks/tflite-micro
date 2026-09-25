@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/debug_log.h"
 #include "tensorflow/lite/micro/micro_time.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Calling this method enables a timer that runs for eternity.
 void InitializeTarget() {
@@ -42,4 +42,4 @@ uint32_t GetCurrentTimeTicks() {
 #endif  // TF_LITE_STRIP_ERROR_STRINGS
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

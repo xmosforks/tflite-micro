@@ -21,7 +21,7 @@ limitations under the License.
 #define __restrict__ __restrict
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace tensor_utils {
 
 // Check if all entries of a vector are zero for float.
@@ -328,6 +328,6 @@ void TwoGateSaturatingAdd(const int8_t* input, int8_t input_zp,
 }
 
 }  // namespace tensor_utils
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_PORTABLE_TENSOR_UTILS_H_

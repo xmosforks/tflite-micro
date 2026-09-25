@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/fully_connected.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 struct XtensaFullyConnectedOpData {
   OpDataFullyConnected reference_op_data;
 
@@ -73,6 +73,6 @@ TfLiteStatus XtensaCalculateOpDataFullyConnected(
 TfLiteStatus XtensaPrepareFullyConnected(TfLiteContext* context,
                                          TfLiteNode* node);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_FULLY_CONNECTED_H_

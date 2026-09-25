@@ -17,7 +17,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 LinearMemoryPlanner::LinearMemoryPlanner()
     : current_buffer_count_(0), next_free_offset_(0) {}
@@ -50,4 +50,4 @@ TfLiteStatus LinearMemoryPlanner::GetOffsetForBuffer(int buffer_index,
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

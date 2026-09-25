@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -89,7 +89,7 @@ void TestResizeBilinear(int* input_dims_data, const T* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -106,7 +106,7 @@ TF_LITE_MICRO_TEST(HorizontalResize) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear(input_dims, input_data,
+  tflite_micro::testing::TestResizeBilinear(input_dims, input_data,
                                       expected_size_data, expected_output_data,
                                       output_dims, output_data, &params);
 }
@@ -124,7 +124,7 @@ TF_LITE_MICRO_TEST(HorizontalResizeInt8) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear<int8_t>(
+  tflite_micro::testing::TestResizeBilinear<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data, &params);
 }
@@ -142,7 +142,7 @@ TF_LITE_MICRO_TEST(VerticalResize) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear(input_dims, input_data,
+  tflite_micro::testing::TestResizeBilinear(input_dims, input_data,
                                       expected_size_data, expected_output_data,
                                       output_dims, output_data, &params);
 }
@@ -160,7 +160,7 @@ TF_LITE_MICRO_TEST(VerticalResizeInt8) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear<int8_t>(
+  tflite_micro::testing::TestResizeBilinear<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data, &params);
 }
@@ -186,7 +186,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResize) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear(input_dims, input_data,
+  tflite_micro::testing::TestResizeBilinear(input_dims, input_data,
                                       expected_size_data, expected_output_data,
                                       output_dims, output_data, &params);
 }
@@ -211,7 +211,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeInt8) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear<int8_t>(
+  tflite_micro::testing::TestResizeBilinear<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data, &params);
 }
@@ -241,7 +241,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeWithTwoBatches) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear(input_dims, input_data,
+  tflite_micro::testing::TestResizeBilinear(input_dims, input_data,
                                       expected_size_data, expected_output_data,
                                       output_dims, output_data, &params);
 }
@@ -271,7 +271,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeWithTwoBatchesInt8) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear<int8_t>(
+  tflite_micro::testing::TestResizeBilinear<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data, &params, /*tolerance=*/1);
 }
@@ -296,7 +296,7 @@ TF_LITE_MICRO_TEST(ThreeDimensionalResize) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear(input_dims, input_data,
+  tflite_micro::testing::TestResizeBilinear(input_dims, input_data,
                                       expected_size_data, expected_output_data,
                                       output_dims, output_data, &params);
 }
@@ -321,7 +321,7 @@ TF_LITE_MICRO_TEST(ThreeDimensionalResizeInt8) {
       false  /*half pixel centers*/
   };
 
-  tflite::testing::TestResizeBilinear<int8_t>(
+  tflite_micro::testing::TestResizeBilinear<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data, &params, /*tolerance=*/1);
 }

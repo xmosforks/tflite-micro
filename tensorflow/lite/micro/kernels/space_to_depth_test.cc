@@ -20,9 +20,9 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-using tflite::ElementCount;
-using tflite::testing::CreateTensor;
-using tflite::testing::IntArrayFromInts;
+using tflite_micro::ElementCount;
+using tflite_micro::testing::CreateTensor;
+using tflite_micro::testing::IntArrayFromInts;
 
 namespace {
 
@@ -63,7 +63,7 @@ void TestSpaceToDepth(const SpaceToDepthTest<T>& args) {
   TfLiteTensor tensors[] = {CreateTensor(args.input_data, input_dims),
                             CreateTensor(args.output_data, output_dims)};
 
-  const TFLMRegistration registration = tflite::Register_SPACE_TO_DEPTH();
+  const TFLMRegistration registration = tflite_micro::Register_SPACE_TO_DEPTH();
   constexpr int tensor_count = ArrayLength(tensors);
   constexpr int kInputIndex = 0;
   int input_indexes_data[] = {1, kInputIndex};
@@ -74,7 +74,7 @@ void TestSpaceToDepth(const SpaceToDepthTest<T>& args) {
   TfLiteSpaceToDepthParams op_params = {};
   op_params.block_size = args.block_size;
 
-  tflite::micro::KernelRunner runner(registration, tensors, tensor_count,
+  tflite_micro::micro::KernelRunner runner(registration, tensors, tensor_count,
                                      input_indexes, output_indexes,
                                      static_cast<void*>(&op_params));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, runner.InitAndPrepare());

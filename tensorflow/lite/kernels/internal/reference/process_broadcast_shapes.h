@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
@@ -39,7 +39,7 @@ namespace reference_ops {
 // patterns and falling back to generic broadcast.
 inline bool ProcessBroadcastShapes(const RuntimeShape& shape0,
                                    const RuntimeShape& shape1,
-                                   tflite::ArithmeticParams* params) {
+                                   tflite_micro::ArithmeticParams* params) {
   const int dims_count =
       std::max(shape0.DimensionsCount(), shape1.DimensionsCount());
 
@@ -135,6 +135,6 @@ inline bool ProcessBroadcastShapes(const RuntimeShape& shape0,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_PROCESS_BROADCAST_SHAPES_H_

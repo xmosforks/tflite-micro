@@ -30,7 +30,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/op_macros.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 namespace lstm_eval {
@@ -864,66 +864,66 @@ TfLiteStatus EvalInteger8x8_16(
     for (int t = 0; t < max_time; t++) {
       const int t_rel = t;
       int8_t* output_ptr =
-          tflite::micro::GetTensorData<int8_t>(output) + t_rel * output_step;
+          tflite_micro::micro::GetTensorData<int8_t>(output) + t_rel * output_step;
       const int8_t* input_ptr =
-          tflite::micro::GetTensorData<int8_t>(input) + t_rel * input_step;
+          tflite_micro::micro::GetTensorData<int8_t>(input) + t_rel * input_step;
       LstmStepInteger8x8_16(
           input_ptr,
-          tflite::micro::GetTensorData<int8_t>(input_to_input_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(input_to_input_weights),
           integer_lstm_param->effective_input_to_input_scale_a,
           integer_lstm_param->effective_input_to_input_scale_b,
-          tflite::micro::GetTensorData<int8_t>(input_to_forget_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(input_to_forget_weights),
           integer_lstm_param->effective_input_to_forget_scale_a,
           integer_lstm_param->effective_input_to_forget_scale_b,
-          tflite::micro::GetTensorData<int8_t>(input_to_cell_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(input_to_cell_weights),
           integer_lstm_param->effective_input_to_cell_scale_a,
           integer_lstm_param->effective_input_to_cell_scale_b,
-          tflite::micro::GetTensorData<int8_t>(input_to_output_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(input_to_output_weights),
           integer_lstm_param->effective_input_to_output_scale_a,
           integer_lstm_param->effective_input_to_output_scale_b,
-          tflite::micro::GetTensorData<int8_t>(recurrent_to_input_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_input_weights),
           integer_lstm_param->effective_recurrent_to_input_scale_a,
           integer_lstm_param->effective_recurrent_to_input_scale_b,
-          tflite::micro::GetTensorData<int8_t>(recurrent_to_forget_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_forget_weights),
           integer_lstm_param->effective_recurrent_to_forget_scale_a,
           integer_lstm_param->effective_recurrent_to_forget_scale_b,
-          tflite::micro::GetTensorData<int8_t>(recurrent_to_cell_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_cell_weights),
           integer_lstm_param->effective_recurrent_to_cell_scale_a,
           integer_lstm_param->effective_recurrent_to_cell_scale_b,
-          tflite::micro::GetTensorData<int8_t>(recurrent_to_output_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_output_weights),
           integer_lstm_param->effective_recurrent_to_output_scale_a,
           integer_lstm_param->effective_recurrent_to_output_scale_b,
-          tflite::micro::GetTensorData<int16_t>(cell_to_input_weights),
+          tflite_micro::micro::GetTensorData<int16_t>(cell_to_input_weights),
           integer_lstm_param->effective_cell_to_input_scale_a,
           integer_lstm_param->effective_cell_to_input_scale_b,
-          tflite::micro::GetTensorData<int16_t>(cell_to_forget_weights),
+          tflite_micro::micro::GetTensorData<int16_t>(cell_to_forget_weights),
           integer_lstm_param->effective_cell_to_forget_scale_a,
           integer_lstm_param->effective_cell_to_forget_scale_b,
-          tflite::micro::GetTensorData<int16_t>(cell_to_output_weights),
+          tflite_micro::micro::GetTensorData<int16_t>(cell_to_output_weights),
           integer_lstm_param->effective_cell_to_output_scale_a,
           integer_lstm_param->effective_cell_to_output_scale_b,
-          tflite::micro::GetTensorData<int8_t>(projection_weights),
+          tflite_micro::micro::GetTensorData<int8_t>(projection_weights),
           integer_lstm_param->effective_proj_scale_a,
           integer_lstm_param->effective_proj_scale_b,
           integer_lstm_param->hidden_zp,
           integer_lstm_param->effective_hidden_scale_a,
           integer_lstm_param->effective_hidden_scale_b,
-          tflite::micro::GetTensorData<int16_t>(input_layer_norm_coefficients),
+          tflite_micro::micro::GetTensorData<int16_t>(input_layer_norm_coefficients),
           integer_lstm_param->layer_norm_input_scale_a,
           integer_lstm_param->layer_norm_input_scale_b,
-          tflite::micro::GetTensorData<int16_t>(forget_layer_norm_coefficients),
+          tflite_micro::micro::GetTensorData<int16_t>(forget_layer_norm_coefficients),
           integer_lstm_param->layer_norm_forget_scale_a,
           integer_lstm_param->layer_norm_forget_scale_b,
-          tflite::micro::GetTensorData<int16_t>(cell_layer_norm_coefficients),
+          tflite_micro::micro::GetTensorData<int16_t>(cell_layer_norm_coefficients),
           integer_lstm_param->layer_norm_cell_scale_a,
           integer_lstm_param->layer_norm_cell_scale_b,
-          tflite::micro::GetTensorData<int16_t>(output_layer_norm_coefficients),
+          tflite_micro::micro::GetTensorData<int16_t>(output_layer_norm_coefficients),
           integer_lstm_param->layer_norm_output_scale_a,
           integer_lstm_param->layer_norm_output_scale_b,
-          tflite::micro::GetTensorData<int32_t>(input_gate_bias),
-          tflite::micro::GetTensorData<int32_t>(forget_gate_bias),
-          tflite::micro::GetTensorData<int32_t>(cell_gate_bias),
-          tflite::micro::GetTensorData<int32_t>(output_gate_bias),
+          tflite_micro::micro::GetTensorData<int32_t>(input_gate_bias),
+          tflite_micro::micro::GetTensorData<int32_t>(forget_gate_bias),
+          tflite_micro::micro::GetTensorData<int32_t>(cell_gate_bias),
+          tflite_micro::micro::GetTensorData<int32_t>(output_gate_bias),
           integer_lstm_param->quantized_cell_clip,
           integer_lstm_param->quantized_proj_clip,
           integer_lstm_param->cell_scale,
@@ -940,8 +940,8 @@ TfLiteStatus EvalInteger8x8_16(
           integer_lstm_param->input_to_input_effective_bias.get(),
           integer_lstm_param->recurrent_to_input_effective_bias.get(),
           integer_lstm_param->projection_effective_bias.get(), n_batch, n_cell,
-          n_input, n_output, tflite::micro::GetTensorData<int8_t>(output_state),
-          output_state_zp, tflite::micro::GetTensorData<int16_t>(cell_state),
+          n_input, n_output, tflite_micro::micro::GetTensorData<int8_t>(output_state),
+          output_state_zp, tflite_micro::micro::GetTensorData<int16_t>(cell_state),
           output_ptr, (int16_t*)(scratch0), (int16_t*)(scratch1),
           (int16_t*)(scratch2), (int16_t*)(scratch3), (int8_t*)(scratch4),
           (int32_t*)(scratch5));
@@ -955,78 +955,78 @@ TfLiteStatus EvalInteger8x8_16(
         // backwards.
         const int t_rel = forward_sequence ? t : max_time - t - 1;
         const int time_offset = b * max_time + t_rel;
-        const int8_t* input_ptr = tflite::micro::GetTensorData<int8_t>(input) +
+        const int8_t* input_ptr = tflite_micro::micro::GetTensorData<int8_t>(input) +
                                   time_offset * input_step;
-        int8_t* output_ptr = tflite::micro::GetTensorData<int8_t>(output) +
+        int8_t* output_ptr = tflite_micro::micro::GetTensorData<int8_t>(output) +
                              time_offset * output_step;
 
         // Offset the {output,cell}_state pointers to the right batch.
         int8_t* output_state_ptr =
-            tflite::micro::GetTensorData<int8_t>(output_state) +
+            tflite_micro::micro::GetTensorData<int8_t>(output_state) +
             b * output_batch_leading_dim;
         int16_t* cell_state_ptr =
-            tflite::micro::GetTensorData<int16_t>(cell_state) + b * n_cell;
+            tflite_micro::micro::GetTensorData<int16_t>(cell_state) + b * n_cell;
 
         LstmStepInteger8x8_16(
             input_ptr,
-            tflite::micro::GetTensorData<int8_t>(input_to_input_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(input_to_input_weights),
             integer_lstm_param->effective_input_to_input_scale_a,
             integer_lstm_param->effective_input_to_input_scale_b,
-            tflite::micro::GetTensorData<int8_t>(input_to_forget_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(input_to_forget_weights),
             integer_lstm_param->effective_input_to_forget_scale_a,
             integer_lstm_param->effective_input_to_forget_scale_b,
-            tflite::micro::GetTensorData<int8_t>(input_to_cell_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(input_to_cell_weights),
             integer_lstm_param->effective_input_to_cell_scale_a,
             integer_lstm_param->effective_input_to_cell_scale_b,
-            tflite::micro::GetTensorData<int8_t>(input_to_output_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(input_to_output_weights),
             integer_lstm_param->effective_input_to_output_scale_a,
             integer_lstm_param->effective_input_to_output_scale_b,
-            tflite::micro::GetTensorData<int8_t>(recurrent_to_input_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_input_weights),
             integer_lstm_param->effective_recurrent_to_input_scale_a,
             integer_lstm_param->effective_recurrent_to_input_scale_b,
-            tflite::micro::GetTensorData<int8_t>(recurrent_to_forget_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_forget_weights),
             integer_lstm_param->effective_recurrent_to_forget_scale_a,
             integer_lstm_param->effective_recurrent_to_forget_scale_b,
-            tflite::micro::GetTensorData<int8_t>(recurrent_to_cell_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_cell_weights),
             integer_lstm_param->effective_recurrent_to_cell_scale_a,
             integer_lstm_param->effective_recurrent_to_cell_scale_b,
-            tflite::micro::GetTensorData<int8_t>(recurrent_to_output_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_output_weights),
             integer_lstm_param->effective_recurrent_to_output_scale_a,
             integer_lstm_param->effective_recurrent_to_output_scale_b,
-            tflite::micro::GetTensorData<int16_t>(cell_to_input_weights),
+            tflite_micro::micro::GetTensorData<int16_t>(cell_to_input_weights),
             integer_lstm_param->effective_cell_to_input_scale_a,
             integer_lstm_param->effective_cell_to_input_scale_b,
-            tflite::micro::GetTensorData<int16_t>(cell_to_forget_weights),
+            tflite_micro::micro::GetTensorData<int16_t>(cell_to_forget_weights),
             integer_lstm_param->effective_cell_to_forget_scale_a,
             integer_lstm_param->effective_cell_to_forget_scale_b,
-            tflite::micro::GetTensorData<int16_t>(cell_to_output_weights),
+            tflite_micro::micro::GetTensorData<int16_t>(cell_to_output_weights),
             integer_lstm_param->effective_cell_to_output_scale_a,
             integer_lstm_param->effective_cell_to_output_scale_b,
-            tflite::micro::GetTensorData<int8_t>(projection_weights),
+            tflite_micro::micro::GetTensorData<int8_t>(projection_weights),
             integer_lstm_param->effective_proj_scale_a,
             integer_lstm_param->effective_proj_scale_b,
             integer_lstm_param->hidden_zp,
             integer_lstm_param->effective_hidden_scale_a,
             integer_lstm_param->effective_hidden_scale_b,
-            tflite::micro::GetTensorData<int16_t>(
+            tflite_micro::micro::GetTensorData<int16_t>(
                 input_layer_norm_coefficients),
             integer_lstm_param->layer_norm_input_scale_a,
             integer_lstm_param->layer_norm_input_scale_b,
-            tflite::micro::GetTensorData<int16_t>(
+            tflite_micro::micro::GetTensorData<int16_t>(
                 forget_layer_norm_coefficients),
             integer_lstm_param->layer_norm_forget_scale_a,
             integer_lstm_param->layer_norm_forget_scale_b,
-            tflite::micro::GetTensorData<int16_t>(cell_layer_norm_coefficients),
+            tflite_micro::micro::GetTensorData<int16_t>(cell_layer_norm_coefficients),
             integer_lstm_param->layer_norm_cell_scale_a,
             integer_lstm_param->layer_norm_cell_scale_b,
-            tflite::micro::GetTensorData<int16_t>(
+            tflite_micro::micro::GetTensorData<int16_t>(
                 output_layer_norm_coefficients),
             integer_lstm_param->layer_norm_output_scale_a,
             integer_lstm_param->layer_norm_output_scale_b,
-            tflite::micro::GetTensorData<int32_t>(input_gate_bias),
-            tflite::micro::GetTensorData<int32_t>(forget_gate_bias),
-            tflite::micro::GetTensorData<int32_t>(cell_gate_bias),
-            tflite::micro::GetTensorData<int32_t>(output_gate_bias),
+            tflite_micro::micro::GetTensorData<int32_t>(input_gate_bias),
+            tflite_micro::micro::GetTensorData<int32_t>(forget_gate_bias),
+            tflite_micro::micro::GetTensorData<int32_t>(cell_gate_bias),
+            tflite_micro::micro::GetTensorData<int32_t>(output_gate_bias),
             integer_lstm_param->quantized_cell_clip,
             integer_lstm_param->quantized_proj_clip,
             integer_lstm_param->cell_scale,
@@ -1113,82 +1113,82 @@ TfLiteStatus EvalInteger8x8_8(
   for (int t = 0; t < max_time; t++) {
     const int t_rel = t;
     int8_t* output_ptr =
-        tflite::micro::GetTensorData<int8_t>(output) + t_rel * output_step;
+        tflite_micro::micro::GetTensorData<int8_t>(output) + t_rel * output_step;
     // Input can be int8 asymmetric or int16 symmetric.
     const int8_t* input_ptr =
-        tflite::micro::GetTensorData<int8_t>(input) + t_rel * input_step;
+        tflite_micro::micro::GetTensorData<int8_t>(input) + t_rel * input_step;
     lstm_eval::LstmStepInteger8x8_8(
         input_ptr, input_zp,
 
-        tflite::micro::GetTensorData<int8_t>(input_to_input_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(input_to_input_weights),
         integer_lstm_param->effective_input_to_input_scale_a,
         integer_lstm_param->effective_input_to_input_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(input_to_forget_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(input_to_forget_weights),
         integer_lstm_param->effective_input_to_forget_scale_a,
         integer_lstm_param->effective_input_to_forget_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(input_to_cell_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(input_to_cell_weights),
         integer_lstm_param->effective_input_to_cell_scale_a,
         integer_lstm_param->effective_input_to_cell_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(input_to_output_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(input_to_output_weights),
         integer_lstm_param->effective_input_to_output_scale_a,
         integer_lstm_param->effective_input_to_output_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(recurrent_to_input_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_input_weights),
         integer_lstm_param->effective_recurrent_to_input_scale_a,
         integer_lstm_param->effective_recurrent_to_input_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(recurrent_to_forget_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_forget_weights),
         integer_lstm_param->effective_recurrent_to_forget_scale_a,
         integer_lstm_param->effective_recurrent_to_forget_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(recurrent_to_cell_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_cell_weights),
         integer_lstm_param->effective_recurrent_to_cell_scale_a,
         integer_lstm_param->effective_recurrent_to_cell_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(recurrent_to_output_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(recurrent_to_output_weights),
         integer_lstm_param->effective_recurrent_to_output_scale_a,
         integer_lstm_param->effective_recurrent_to_output_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(cell_to_input_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(cell_to_input_weights),
         integer_lstm_param->effective_cell_to_input_scale_a,
         integer_lstm_param->effective_cell_to_input_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(cell_to_forget_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(cell_to_forget_weights),
         integer_lstm_param->effective_cell_to_forget_scale_a,
         integer_lstm_param->effective_cell_to_forget_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(cell_to_output_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(cell_to_output_weights),
         integer_lstm_param->effective_cell_to_output_scale_a,
         integer_lstm_param->effective_cell_to_output_scale_b,
 
-        tflite::micro::GetTensorData<int8_t>(projection_weights),
+        tflite_micro::micro::GetTensorData<int8_t>(projection_weights),
         integer_lstm_param->effective_proj_scale_a,
         integer_lstm_param->effective_proj_scale_b,
 
-        tflite::micro::GetTensorData<int16_t>(input_layer_norm_coefficients),
+        tflite_micro::micro::GetTensorData<int16_t>(input_layer_norm_coefficients),
         integer_lstm_param->layer_norm_input_scale_a,
         integer_lstm_param->layer_norm_input_scale_b,
 
-        tflite::micro::GetTensorData<int16_t>(forget_layer_norm_coefficients),
+        tflite_micro::micro::GetTensorData<int16_t>(forget_layer_norm_coefficients),
         integer_lstm_param->layer_norm_forget_scale_a,
         integer_lstm_param->layer_norm_forget_scale_b,
 
-        tflite::micro::GetTensorData<int16_t>(cell_layer_norm_coefficients),
+        tflite_micro::micro::GetTensorData<int16_t>(cell_layer_norm_coefficients),
         integer_lstm_param->layer_norm_cell_scale_a,
         integer_lstm_param->layer_norm_cell_scale_b,
 
-        tflite::micro::GetTensorData<int16_t>(output_layer_norm_coefficients),
+        tflite_micro::micro::GetTensorData<int16_t>(output_layer_norm_coefficients),
         integer_lstm_param->layer_norm_output_scale_a,
         integer_lstm_param->layer_norm_output_scale_b,
 
-        tflite::micro::GetTensorData<int32_t>(input_gate_bias),
-        tflite::micro::GetTensorData<int32_t>(forget_gate_bias),
-        tflite::micro::GetTensorData<int32_t>(cell_gate_bias),
-        tflite::micro::GetTensorData<int32_t>(output_gate_bias),
-        tflite::micro::GetTensorData<int32_t>(projection_bias),
+        tflite_micro::micro::GetTensorData<int32_t>(input_gate_bias),
+        tflite_micro::micro::GetTensorData<int32_t>(forget_gate_bias),
+        tflite_micro::micro::GetTensorData<int32_t>(cell_gate_bias),
+        tflite_micro::micro::GetTensorData<int32_t>(output_gate_bias),
+        tflite_micro::micro::GetTensorData<int32_t>(projection_bias),
 
         params, integer_lstm_param->intermediate_scale_a,
         integer_lstm_param->intermediate_scale_b,
@@ -1196,16 +1196,16 @@ TfLiteStatus EvalInteger8x8_8(
         integer_lstm_param->quantized_cell_clip,
         integer_lstm_param->quantized_proj_clip, n_batch, n_cell, n_input,
         n_output, output_batch_leading_dim,
-        tflite::micro::GetTensorData<int8_t>(output_state), output_state_zp,
-        tflite::micro::GetTensorData<int16_t>(cell_state), output_ptr,
-        tflite::micro::GetTensorData<int8_t>(scratch0),
-        tflite::micro::GetTensorData<int8_t>(scratch1),
-        tflite::micro::GetTensorData<int16_t>(scratch2),
-        tflite::micro::GetTensorData<int16_t>(scratch3),
-        tflite::micro::GetTensorData<int16_t>(scratch4),
-        tflite::micro::GetTensorData<int16_t>(scratch5),
-        tflite::micro::GetTensorData<int16_t>(scratch6),
-        tflite::micro::GetTensorData<int16_t>(scratch7));
+        tflite_micro::micro::GetTensorData<int8_t>(output_state), output_state_zp,
+        tflite_micro::micro::GetTensorData<int16_t>(cell_state), output_ptr,
+        tflite_micro::micro::GetTensorData<int8_t>(scratch0),
+        tflite_micro::micro::GetTensorData<int8_t>(scratch1),
+        tflite_micro::micro::GetTensorData<int16_t>(scratch2),
+        tflite_micro::micro::GetTensorData<int16_t>(scratch3),
+        tflite_micro::micro::GetTensorData<int16_t>(scratch4),
+        tflite_micro::micro::GetTensorData<int16_t>(scratch5),
+        tflite_micro::micro::GetTensorData<int16_t>(scratch6),
+        tflite_micro::micro::GetTensorData<int16_t>(scratch7));
   }
 
   return kTfLiteOk;
@@ -1214,4 +1214,4 @@ TfLiteStatus EvalInteger8x8_8(
 }  // namespace lstm_eval
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro

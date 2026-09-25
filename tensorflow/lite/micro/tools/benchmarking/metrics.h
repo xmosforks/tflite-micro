@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/recording_micro_allocator.h"
 #include "tensorflow/lite/micro/tools/benchmarking/log_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Logs the allocation events. Prints out two tables, one for the arena
 // allocations, and one for each type of TFLM allocation type.
@@ -34,8 +34,8 @@ namespace tflite {
 //       process.
 //   - type: Which print format should be used to output the allocation data to
 //       stdout.
-void LogAllocatorEvents(const tflite::RecordingMicroAllocator& allocator,
+void LogAllocatorEvents(const tflite_micro::RecordingMicroAllocator& allocator,
                         PrettyPrintType type);
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TFLM_BENCHMARK_INTERNAL_METRICS_H_

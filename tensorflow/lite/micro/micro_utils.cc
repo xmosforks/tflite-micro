@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 int ElementCount(const TfLiteIntArray& dims) {
   int result = 1;
@@ -87,4 +87,4 @@ void SignedSymmetricPerChannelQuantize(
   }
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

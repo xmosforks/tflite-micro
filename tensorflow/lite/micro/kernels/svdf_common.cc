@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/svdf.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 /**
  * This version of SVDF is specific to TFLite Micro. It contains the following
@@ -74,7 +74,7 @@ void EvalIntegerSvdfReference(TfLiteContext* context, TfLiteNode* node,
       context->GetScratchBuffer(context, data.scratch_output_tensor_index));
 
   // Shift states.
-  T* const state_ptr = tflite::micro::GetTensorData<T>(activation_state_tensor);
+  T* const state_ptr = tflite_micro::micro::GetTensorData<T>(activation_state_tensor);
 
   // Left shift the activation_state.
   {
@@ -90,10 +90,10 @@ void EvalIntegerSvdfReference(TfLiteContext* context, TfLiteNode* node,
 
   // Feature matmul.
   {
-    T* state = tflite::micro::GetTensorData<T>(activation_state_tensor);
-    const int8_t* input = tflite::micro::GetTensorData<int8_t>(input_tensor);
+    T* state = tflite_micro::micro::GetTensorData<T>(activation_state_tensor);
+    const int8_t* input = tflite_micro::micro::GetTensorData<int8_t>(input_tensor);
     const int8_t* weight_feature =
-        tflite::micro::GetTensorData<int8_t>(weights_feature_tensor);
+        tflite_micro::micro::GetTensorData<int8_t>(weights_feature_tensor);
     const int32_t output_max = std::numeric_limits<T>::max();
     const int32_t output_min = std::numeric_limits<T>::min();
     T* result_in_batch = state + (n_memory - 1);
@@ -125,9 +125,9 @@ void EvalIntegerSvdfReference(TfLiteContext* context, TfLiteNode* node,
 
       // Perform batched vector dot product:
       const T* vector1_ptr =
-          tflite::micro::GetTensorData<T>(weights_time_tensor);
+          tflite_micro::micro::GetTensorData<T>(weights_time_tensor);
       const T* vector2_ptr =
-          tflite::micro::GetTensorData<T>(activation_state_tensor) +
+          tflite_micro::micro::GetTensorData<T>(activation_state_tensor) +
           b * n_memory * n_filter;
 
       for (int i = 0; i < n_filter; i++) {
@@ -148,7 +148,7 @@ void EvalIntegerSvdfReference(TfLiteContext* context, TfLiteNode* node,
     if (bias_tensor) {
       // Vector batch assign:
       const int32_t* bias_data =
-          tflite::micro::GetTensorData<int32_t>(bias_tensor);
+          tflite_micro::micro::GetTensorData<int32_t>(bias_tensor);
       for (int i = 0; i < n_batch; ++i) {
         int32_t* output_ptr = scratch_output_tensor + i * n_unit;
         const int32_t* bias_ptr = bias_data;
@@ -185,7 +185,7 @@ void EvalIntegerSvdfReference(TfLiteContext* context, TfLiteNode* node,
                                                  data.effective_scale_2_b);
       int32_t x3 = x2 + data.output_zero_point;
       int32_t x4 = std::min(std::max(output_min, x3), output_max);
-      tflite::micro::GetTensorData<int8_t>(output_tensor)[i] =
+      tflite_micro::micro::GetTensorData<int8_t>(output_tensor)[i] =
           static_cast<int8_t>(x4);
     }
   }
@@ -280,7 +280,7 @@ static inline void ApplyTimeWeightsBiasAndActivation(
     float* output_ptr_batch = output_ptr + b * num_units;
     for (int i = 0; i < num_units; ++i) {
       *output_ptr_batch =
-          tflite::ops::micro::ActivationValFloat(activation, *output_ptr_batch);
+          tflite_micro::ops::micro::ActivationValFloat(activation, *output_ptr_batch);
       ++output_ptr_batch;
     }
   }
@@ -300,14 +300,14 @@ void EvalFloatSvdfReference(
   const int memory_size = weights_time->dims->data[1];
 
   const float* weights_feature_ptr =
-      tflite::micro::GetTensorData<float>(weights_feature);
+      tflite_micro::micro::GetTensorData<float>(weights_feature);
   const float* weights_time_ptr =
-      tflite::micro::GetTensorData<float>(weights_time);
+      tflite_micro::micro::GetTensorData<float>(weights_time);
   // TODO(#1751): account for optional bias tensor
-  const float* bias_ptr = tflite::micro::GetTensorData<float>(bias);
-  const float* input_ptr = tflite::micro::GetTensorData<float>(input);
+  const float* bias_ptr = tflite_micro::micro::GetTensorData<float>(bias);
+  const float* input_ptr = tflite_micro::micro::GetTensorData<float>(input);
 
-  float* state_ptr = tflite::micro::GetTensorData<float>(activation_state);
+  float* state_ptr = tflite_micro::micro::GetTensorData<float>(activation_state);
 
   TFLITE_DCHECK(context != nullptr);
   TFLITE_DCHECK(context->GetScratchBuffer != nullptr);
@@ -315,7 +315,7 @@ void EvalFloatSvdfReference(
   float* scratch_ptr = static_cast<float*>(
       context->GetScratchBuffer(context, scratch_tensor_index));
 
-  float* output_ptr = tflite::micro::GetTensorData<float>(output);
+  float* output_ptr = tflite_micro::micro::GetTensorData<float>(output);
 
   // Left shift the activation_state.
   {
@@ -433,7 +433,7 @@ TfLiteStatus PrepareSvdf(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE_EQ(context, activation_state->dims->data[1],
                     memory_size * num_filters);
   // Since is_variable is not part of TFLiteEvalTensor, check is_variable here.
-  TF_LITE_ENSURE_EQ(context, activation_state->is_variable, true);
+  TF_LITE_ENSURE_EQ(context, context->IsVariableTensor(context, activation_state), true);
 
   TF_LITE_ENSURE_EQ(context, node->inputs->size, 5);
 
@@ -514,4 +514,4 @@ TfLiteStatus PrepareSvdf(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

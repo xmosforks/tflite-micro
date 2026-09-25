@@ -20,11 +20,26 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_common.h"
 #include "tensorflow/lite/micro/micro_resource_variable.h"
 
-namespace tflite {
+#ifdef NO_INTERPRETER
+
+namespace tflite_micro {
+  struct MicroGraph{
+      int (*NumSubgraphs)();
+      size_t (*NumSubgraphInputs)(int subgraph_idx);
+      size_t (*NumSubgraphOutputs)(int subgraph_idx);
+      TfLiteEvalTensor* (*GetSubgraphInput)(int subgraph_idx, int i);
+      TfLiteEvalTensor* (*GetSubgraphOutput)(int subgraph_idx, int i);
+      TfLiteStatus (*InvokeSubgraph)(int subgraph_idx);
+  };
+}
+
+#else
+
+namespace tflite_micro {
 
 // Abstracts the details of interacting with the graph from the kernels
 //
-// Provides methods to invoke any subgraph in the tflite::Graph.
+// Provides methods to invoke any subgraph in the tflite_micro::Graph.
 class MicroGraph {
  public:
   virtual ~MicroGraph() = default;
@@ -57,6 +72,8 @@ class MicroGraph {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
+
+#endif  // NO_INTERPRETER
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_GRAPH_H_

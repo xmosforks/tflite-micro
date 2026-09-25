@@ -55,8 +55,8 @@ constexpr int kAudioSampleDurationCount =
 constexpr int kAudioSampleStrideCount =
     kFeatureStrideMs * kAudioSampleFrequency / 1000;
 
-using MicroSpeechOpResolver = tflite::MicroMutableOpResolver<4>;
-using AudioPreprocessorOpResolver = tflite::MicroMutableOpResolver<18>;
+using MicroSpeechOpResolver = tflite_micro::MicroMutableOpResolver<4>;
+using AudioPreprocessorOpResolver = tflite_micro::MicroMutableOpResolver<18>;
 
 TfLiteStatus RegisterOps(MicroSpeechOpResolver& op_resolver) {
   TF_LITE_ENSURE_STATUS(op_resolver.AddReshape());
@@ -92,8 +92,8 @@ TfLiteStatus LoadMicroSpeechModelAndPerformInference(
     const Features& features, const char* expected_label) {
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
-  const tflite::Model* model =
-      tflite::GetModel(g_micro_speech_quantized_model_data);
+  const tflite_micro::Model* model =
+      tflite_micro::GetModel(g_micro_speech_quantized_model_data);
   TF_LITE_MICRO_EXPECT(model->version() == TFLITE_SCHEMA_VERSION);
   TF_LITE_MICRO_CHECK_FAIL();
 
@@ -101,7 +101,7 @@ TfLiteStatus LoadMicroSpeechModelAndPerformInference(
   TF_LITE_MICRO_EXPECT(RegisterOps(op_resolver) == kTfLiteOk);
   TF_LITE_MICRO_CHECK_FAIL();
 
-  tflite::MicroInterpreter interpreter(model, op_resolver, g_arena, kArenaSize);
+  tflite_micro::MicroInterpreter interpreter(model, op_resolver, g_arena, kArenaSize);
 
   TF_LITE_MICRO_EXPECT(interpreter.AllocateTensors() == kTfLiteOk);
   TF_LITE_MICRO_CHECK_FAIL();
@@ -129,7 +129,7 @@ TfLiteStatus LoadMicroSpeechModelAndPerformInference(
   int output_zero_point = output->params.zero_point;
 
   std::copy_n(&features[0][0], kFeatureElementCount,
-              tflite::GetTensorData<int8_t>(input));
+              tflite_micro::GetTensorData<int8_t>(input));
   TF_LITE_MICRO_EXPECT(interpreter.Invoke() == kTfLiteOk);
   TF_LITE_MICRO_CHECK_FAIL();
 
@@ -138,7 +138,7 @@ TfLiteStatus LoadMicroSpeechModelAndPerformInference(
   MicroPrintf("MicroSpeech category predictions for <%s>", expected_label);
   for (int i = 0; i < kCategoryCount; i++) {
     category_predictions[i] =
-        (tflite::GetTensorData<int8_t>(output)[i] - output_zero_point) *
+        (tflite_micro::GetTensorData<int8_t>(output)[i] - output_zero_point) *
         output_scale;
     MicroPrintf("  %.4f %s", static_cast<double>(category_predictions[i]),
                 kCategoryLabels[i]);
@@ -157,7 +157,7 @@ TfLiteStatus LoadMicroSpeechModelAndPerformInference(
 TfLiteStatus GenerateSingleFeature(const int16_t* audio_data,
                                    const int audio_data_size,
                                    int8_t* feature_output,
-                                   tflite::MicroInterpreter* interpreter) {
+                                   tflite_micro::MicroInterpreter* interpreter) {
   TfLiteTensor* input = interpreter->input(0);
   TF_LITE_MICRO_EXPECT(input != nullptr);
   TF_LITE_MICRO_CHECK_FAIL();
@@ -177,10 +177,10 @@ TfLiteStatus GenerateSingleFeature(const int16_t* audio_data,
   TF_LITE_MICRO_CHECK_FAIL();
 
   std::copy_n(audio_data, audio_data_size,
-              tflite::GetTensorData<int16_t>(input));
+              tflite_micro::GetTensorData<int16_t>(input));
   TF_LITE_MICRO_EXPECT(interpreter->Invoke() == kTfLiteOk);
   TF_LITE_MICRO_CHECK_FAIL();
-  std::copy_n(tflite::GetTensorData<int8_t>(output), kFeatureSize,
+  std::copy_n(tflite_micro::GetTensorData<int8_t>(output), kFeatureSize,
               feature_output);
 
   return kTfLiteOk;
@@ -191,8 +191,8 @@ TfLiteStatus GenerateFeatures(const int16_t* audio_data,
                               Features* features_output) {
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
-  const tflite::Model* model =
-      tflite::GetModel(g_audio_preprocessor_int8_model_data);
+  const tflite_micro::Model* model =
+      tflite_micro::GetModel(g_audio_preprocessor_int8_model_data);
   TF_LITE_MICRO_EXPECT(model->version() == TFLITE_SCHEMA_VERSION);
   TF_LITE_MICRO_CHECK_FAIL();
 
@@ -200,7 +200,7 @@ TfLiteStatus GenerateFeatures(const int16_t* audio_data,
   TF_LITE_MICRO_EXPECT(RegisterOps(op_resolver) == kTfLiteOk);
   TF_LITE_MICRO_CHECK_FAIL();
 
-  tflite::MicroInterpreter interpreter(model, op_resolver, g_arena, kArenaSize);
+  tflite_micro::MicroInterpreter interpreter(model, op_resolver, g_arena, kArenaSize);
 
   TF_LITE_MICRO_EXPECT(interpreter.AllocateTensors() == kTfLiteOk);
   TF_LITE_MICRO_CHECK_FAIL();

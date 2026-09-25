@@ -13,7 +13,7 @@ static_assert(FLATBUFFERS_VERSION_MAJOR == 2 &&
               FLATBUFFERS_VERSION_REVISION == 6,
              "Non-compatible flatbuffers version included");
 
-namespace tflite {
+namespace tflite_micro {
 
 struct CustomQuantization;
 struct CustomQuantizationBuilder;
@@ -779,7 +779,7 @@ template<typename T> struct QuantizationDetailsTraits {
   static const QuantizationDetails enum_value = QuantizationDetails_NONE;
 };
 
-template<> struct QuantizationDetailsTraits<tflite::CustomQuantization> {
+template<> struct QuantizationDetailsTraits<tflite_micro::CustomQuantization> {
   static const QuantizationDetails enum_value = QuantizationDetails_CustomQuantization;
 };
 
@@ -787,7 +787,7 @@ template<typename T> struct QuantizationDetailsUnionTraits {
   static const QuantizationDetails enum_value = QuantizationDetails_NONE;
 };
 
-template<> struct QuantizationDetailsUnionTraits<tflite::CustomQuantizationT> {
+template<> struct QuantizationDetailsUnionTraits<tflite_micro::CustomQuantizationT> {
   static const QuantizationDetails enum_value = QuantizationDetails_CustomQuantization;
 };
 
@@ -821,13 +821,13 @@ struct QuantizationDetailsUnion {
   static void *UnPack(const void *obj, QuantizationDetails type, const flatbuffers::resolver_function_t *resolver);
   flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
 
-  tflite::CustomQuantizationT *AsCustomQuantization() {
+  tflite_micro::CustomQuantizationT *AsCustomQuantization() {
     return type == QuantizationDetails_CustomQuantization ?
-      reinterpret_cast<tflite::CustomQuantizationT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::CustomQuantizationT *>(value) : nullptr;
   }
-  const tflite::CustomQuantizationT *AsCustomQuantization() const {
+  const tflite_micro::CustomQuantizationT *AsCustomQuantization() const {
     return type == QuantizationDetails_CustomQuantization ?
-      reinterpret_cast<const tflite::CustomQuantizationT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::CustomQuantizationT *>(value) : nullptr;
   }
 };
 
@@ -904,15 +904,15 @@ template<typename T> struct SparseIndexVectorTraits {
   static const SparseIndexVector enum_value = SparseIndexVector_NONE;
 };
 
-template<> struct SparseIndexVectorTraits<tflite::Int32Vector> {
+template<> struct SparseIndexVectorTraits<tflite_micro::Int32Vector> {
   static const SparseIndexVector enum_value = SparseIndexVector_Int32Vector;
 };
 
-template<> struct SparseIndexVectorTraits<tflite::Uint16Vector> {
+template<> struct SparseIndexVectorTraits<tflite_micro::Uint16Vector> {
   static const SparseIndexVector enum_value = SparseIndexVector_Uint16Vector;
 };
 
-template<> struct SparseIndexVectorTraits<tflite::Uint8Vector> {
+template<> struct SparseIndexVectorTraits<tflite_micro::Uint8Vector> {
   static const SparseIndexVector enum_value = SparseIndexVector_Uint8Vector;
 };
 
@@ -920,15 +920,15 @@ template<typename T> struct SparseIndexVectorUnionTraits {
   static const SparseIndexVector enum_value = SparseIndexVector_NONE;
 };
 
-template<> struct SparseIndexVectorUnionTraits<tflite::Int32VectorT> {
+template<> struct SparseIndexVectorUnionTraits<tflite_micro::Int32VectorT> {
   static const SparseIndexVector enum_value = SparseIndexVector_Int32Vector;
 };
 
-template<> struct SparseIndexVectorUnionTraits<tflite::Uint16VectorT> {
+template<> struct SparseIndexVectorUnionTraits<tflite_micro::Uint16VectorT> {
   static const SparseIndexVector enum_value = SparseIndexVector_Uint16Vector;
 };
 
-template<> struct SparseIndexVectorUnionTraits<tflite::Uint8VectorT> {
+template<> struct SparseIndexVectorUnionTraits<tflite_micro::Uint8VectorT> {
   static const SparseIndexVector enum_value = SparseIndexVector_Uint8Vector;
 };
 
@@ -962,29 +962,29 @@ struct SparseIndexVectorUnion {
   static void *UnPack(const void *obj, SparseIndexVector type, const flatbuffers::resolver_function_t *resolver);
   flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
 
-  tflite::Int32VectorT *AsInt32Vector() {
+  tflite_micro::Int32VectorT *AsInt32Vector() {
     return type == SparseIndexVector_Int32Vector ?
-      reinterpret_cast<tflite::Int32VectorT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Int32VectorT *>(value) : nullptr;
   }
-  const tflite::Int32VectorT *AsInt32Vector() const {
+  const tflite_micro::Int32VectorT *AsInt32Vector() const {
     return type == SparseIndexVector_Int32Vector ?
-      reinterpret_cast<const tflite::Int32VectorT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Int32VectorT *>(value) : nullptr;
   }
-  tflite::Uint16VectorT *AsUint16Vector() {
+  tflite_micro::Uint16VectorT *AsUint16Vector() {
     return type == SparseIndexVector_Uint16Vector ?
-      reinterpret_cast<tflite::Uint16VectorT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Uint16VectorT *>(value) : nullptr;
   }
-  const tflite::Uint16VectorT *AsUint16Vector() const {
+  const tflite_micro::Uint16VectorT *AsUint16Vector() const {
     return type == SparseIndexVector_Uint16Vector ?
-      reinterpret_cast<const tflite::Uint16VectorT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Uint16VectorT *>(value) : nullptr;
   }
-  tflite::Uint8VectorT *AsUint8Vector() {
+  tflite_micro::Uint8VectorT *AsUint8Vector() {
     return type == SparseIndexVector_Uint8Vector ?
-      reinterpret_cast<tflite::Uint8VectorT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Uint8VectorT *>(value) : nullptr;
   }
-  const tflite::Uint8VectorT *AsUint8Vector() const {
+  const tflite_micro::Uint8VectorT *AsUint8Vector() const {
     return type == SparseIndexVector_Uint8Vector ?
-      reinterpret_cast<const tflite::Uint8VectorT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Uint8VectorT *>(value) : nullptr;
   }
 };
 
@@ -2042,507 +2042,507 @@ template<typename T> struct BuiltinOptionsTraits {
   static const BuiltinOptions enum_value = BuiltinOptions_NONE;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::Conv2DOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::Conv2DOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_Conv2DOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::DepthwiseConv2DOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::DepthwiseConv2DOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_DepthwiseConv2DOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ConcatEmbeddingsOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ConcatEmbeddingsOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ConcatEmbeddingsOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LSHProjectionOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LSHProjectionOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LSHProjectionOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::Pool2DOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::Pool2DOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_Pool2DOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SVDFOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SVDFOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SVDFOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::RNNOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::RNNOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_RNNOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::FullyConnectedOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::FullyConnectedOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_FullyConnectedOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SoftmaxOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SoftmaxOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SoftmaxOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ConcatenationOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ConcatenationOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ConcatenationOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::AddOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::AddOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_AddOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::L2NormOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::L2NormOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_L2NormOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LocalResponseNormalizationOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LocalResponseNormalizationOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LocalResponseNormalizationOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LSTMOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LSTMOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LSTMOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ResizeBilinearOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ResizeBilinearOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ResizeBilinearOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::CallOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::CallOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_CallOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ReshapeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ReshapeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReshapeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SkipGramOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SkipGramOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SkipGramOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SpaceToDepthOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SpaceToDepthOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SpaceToDepthOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::EmbeddingLookupSparseOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::EmbeddingLookupSparseOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_EmbeddingLookupSparseOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::MulOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::MulOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_MulOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::PadOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::PadOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_PadOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::GatherOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::GatherOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_GatherOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BatchToSpaceNDOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BatchToSpaceNDOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BatchToSpaceNDOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SpaceToBatchNDOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SpaceToBatchNDOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SpaceToBatchNDOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::TransposeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::TransposeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_TransposeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ReducerOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ReducerOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReducerOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SubOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SubOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SubOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::DivOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::DivOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_DivOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SqueezeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SqueezeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SqueezeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SequenceRNNOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SequenceRNNOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SequenceRNNOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::StridedSliceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::StridedSliceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_StridedSliceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ExpOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ExpOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ExpOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::TopKV2Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::TopKV2Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_TopKV2Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SplitOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SplitOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SplitOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LogSoftmaxOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LogSoftmaxOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogSoftmaxOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::CastOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::CastOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_CastOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::DequantizeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::DequantizeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_DequantizeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::MaximumMinimumOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::MaximumMinimumOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_MaximumMinimumOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ArgMaxOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ArgMaxOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ArgMaxOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LessOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LessOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LessOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::NegOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::NegOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_NegOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::PadV2Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::PadV2Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_PadV2Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::GreaterOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::GreaterOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_GreaterOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::GreaterEqualOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::GreaterEqualOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_GreaterEqualOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LessEqualOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LessEqualOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LessEqualOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SelectOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SelectOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SelectOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SliceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SliceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SliceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::TransposeConvOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::TransposeConvOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_TransposeConvOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SparseToDenseOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SparseToDenseOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SparseToDenseOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::TileOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::TileOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_TileOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ExpandDimsOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ExpandDimsOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ExpandDimsOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::EqualOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::EqualOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_EqualOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::NotEqualOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::NotEqualOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_NotEqualOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ShapeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ShapeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ShapeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::PowOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::PowOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_PowOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ArgMinOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ArgMinOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ArgMinOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::FakeQuantOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::FakeQuantOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_FakeQuantOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::PackOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::PackOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_PackOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LogicalOrOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LogicalOrOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogicalOrOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::OneHotOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::OneHotOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_OneHotOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LogicalAndOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LogicalAndOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogicalAndOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LogicalNotOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LogicalNotOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogicalNotOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UnpackOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UnpackOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnpackOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::FloorDivOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::FloorDivOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_FloorDivOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SquareOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SquareOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SquareOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ZerosLikeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ZerosLikeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ZerosLikeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::FillOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::FillOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_FillOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BidirectionalSequenceLSTMOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BidirectionalSequenceLSTMOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BidirectionalSequenceLSTMOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BidirectionalSequenceRNNOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BidirectionalSequenceRNNOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BidirectionalSequenceRNNOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UnidirectionalSequenceLSTMOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UnidirectionalSequenceLSTMOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnidirectionalSequenceLSTMOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::FloorModOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::FloorModOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_FloorModOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::RangeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::RangeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_RangeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ResizeNearestNeighborOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ResizeNearestNeighborOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ResizeNearestNeighborOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::LeakyReluOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::LeakyReluOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_LeakyReluOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SquaredDifferenceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SquaredDifferenceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SquaredDifferenceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::MirrorPadOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::MirrorPadOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_MirrorPadOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::AbsOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::AbsOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_AbsOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SplitVOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SplitVOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SplitVOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UniqueOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UniqueOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UniqueOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ReverseV2Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ReverseV2Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReverseV2Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::AddNOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::AddNOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_AddNOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::GatherNdOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::GatherNdOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_GatherNdOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::CosOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::CosOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_CosOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::WhereOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::WhereOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_WhereOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::RankOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::RankOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_RankOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ReverseSequenceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ReverseSequenceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReverseSequenceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::MatrixDiagOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::MatrixDiagOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_MatrixDiagOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::QuantizeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::QuantizeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_QuantizeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::MatrixSetDiagOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::MatrixSetDiagOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_MatrixSetDiagOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::HardSwishOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::HardSwishOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_HardSwishOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::IfOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::IfOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_IfOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::WhileOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::WhileOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_WhileOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::DepthToSpaceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::DepthToSpaceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_DepthToSpaceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::NonMaxSuppressionV4Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::NonMaxSuppressionV4Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_NonMaxSuppressionV4Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::NonMaxSuppressionV5Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::NonMaxSuppressionV5Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_NonMaxSuppressionV5Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ScatterNdOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ScatterNdOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ScatterNdOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SelectV2Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SelectV2Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_SelectV2Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::DensifyOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::DensifyOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_DensifyOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SegmentSumOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SegmentSumOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SegmentSumOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BatchMatMulOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BatchMatMulOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BatchMatMulOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::CumsumOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::CumsumOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_CumsumOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::CallOnceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::CallOnceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_CallOnceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BroadcastToOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BroadcastToOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BroadcastToOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::Rfft2dOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::Rfft2dOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_Rfft2dOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::Conv3DOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::Conv3DOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_Conv3DOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::HashtableOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::HashtableOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::HashtableFindOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::HashtableFindOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableFindOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::HashtableImportOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::HashtableImportOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableImportOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::HashtableSizeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::HashtableSizeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableSizeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::VarHandleOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::VarHandleOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_VarHandleOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ReadVariableOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ReadVariableOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReadVariableOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::AssignVariableOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::AssignVariableOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_AssignVariableOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::RandomOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::RandomOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_RandomOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BucketizeOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BucketizeOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BucketizeOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::GeluOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::GeluOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_GeluOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::DynamicUpdateSliceOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::DynamicUpdateSliceOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_DynamicUpdateSliceOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UnsortedSegmentProdOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UnsortedSegmentProdOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentProdOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UnsortedSegmentMaxOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UnsortedSegmentMaxOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentMaxOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UnsortedSegmentMinOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UnsortedSegmentMinOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentMinOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::UnsortedSegmentSumOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::UnsortedSegmentSumOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentSumOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::ATan2Options> {
+template<> struct BuiltinOptionsTraits<tflite_micro::ATan2Options> {
   static const BuiltinOptions enum_value = BuiltinOptions_ATan2Options;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::SignOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::SignOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_SignOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BitcastOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BitcastOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BitcastOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::BitwiseXorOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::BitwiseXorOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_BitwiseXorOptions;
 };
 
-template<> struct BuiltinOptionsTraits<tflite::RightShiftOptions> {
+template<> struct BuiltinOptionsTraits<tflite_micro::RightShiftOptions> {
   static const BuiltinOptions enum_value = BuiltinOptions_RightShiftOptions;
 };
 
@@ -2550,507 +2550,507 @@ template<typename T> struct BuiltinOptionsUnionTraits {
   static const BuiltinOptions enum_value = BuiltinOptions_NONE;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::Conv2DOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::Conv2DOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_Conv2DOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::DepthwiseConv2DOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::DepthwiseConv2DOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_DepthwiseConv2DOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ConcatEmbeddingsOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ConcatEmbeddingsOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ConcatEmbeddingsOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LSHProjectionOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LSHProjectionOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LSHProjectionOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::Pool2DOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::Pool2DOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_Pool2DOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SVDFOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SVDFOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SVDFOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::RNNOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::RNNOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_RNNOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::FullyConnectedOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::FullyConnectedOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_FullyConnectedOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SoftmaxOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SoftmaxOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SoftmaxOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ConcatenationOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ConcatenationOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ConcatenationOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::AddOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::AddOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_AddOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::L2NormOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::L2NormOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_L2NormOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LocalResponseNormalizationOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LocalResponseNormalizationOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LocalResponseNormalizationOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LSTMOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LSTMOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LSTMOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ResizeBilinearOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ResizeBilinearOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ResizeBilinearOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::CallOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::CallOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_CallOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ReshapeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ReshapeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReshapeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SkipGramOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SkipGramOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SkipGramOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SpaceToDepthOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SpaceToDepthOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SpaceToDepthOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::EmbeddingLookupSparseOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::EmbeddingLookupSparseOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_EmbeddingLookupSparseOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::MulOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::MulOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_MulOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::PadOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::PadOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_PadOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::GatherOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::GatherOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_GatherOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BatchToSpaceNDOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BatchToSpaceNDOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BatchToSpaceNDOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SpaceToBatchNDOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SpaceToBatchNDOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SpaceToBatchNDOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::TransposeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::TransposeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_TransposeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ReducerOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ReducerOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReducerOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SubOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SubOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SubOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::DivOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::DivOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_DivOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SqueezeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SqueezeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SqueezeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SequenceRNNOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SequenceRNNOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SequenceRNNOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::StridedSliceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::StridedSliceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_StridedSliceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ExpOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ExpOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ExpOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::TopKV2OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::TopKV2OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_TopKV2Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SplitOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SplitOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SplitOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LogSoftmaxOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LogSoftmaxOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogSoftmaxOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::CastOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::CastOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_CastOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::DequantizeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::DequantizeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_DequantizeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::MaximumMinimumOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::MaximumMinimumOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_MaximumMinimumOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ArgMaxOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ArgMaxOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ArgMaxOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LessOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LessOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LessOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::NegOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::NegOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_NegOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::PadV2OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::PadV2OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_PadV2Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::GreaterOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::GreaterOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_GreaterOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::GreaterEqualOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::GreaterEqualOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_GreaterEqualOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LessEqualOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LessEqualOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LessEqualOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SelectOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SelectOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SelectOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SliceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SliceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SliceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::TransposeConvOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::TransposeConvOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_TransposeConvOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SparseToDenseOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SparseToDenseOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SparseToDenseOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::TileOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::TileOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_TileOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ExpandDimsOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ExpandDimsOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ExpandDimsOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::EqualOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::EqualOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_EqualOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::NotEqualOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::NotEqualOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_NotEqualOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ShapeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ShapeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ShapeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::PowOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::PowOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_PowOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ArgMinOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ArgMinOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ArgMinOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::FakeQuantOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::FakeQuantOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_FakeQuantOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::PackOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::PackOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_PackOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LogicalOrOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LogicalOrOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogicalOrOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::OneHotOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::OneHotOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_OneHotOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LogicalAndOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LogicalAndOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogicalAndOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LogicalNotOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LogicalNotOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LogicalNotOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UnpackOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UnpackOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnpackOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::FloorDivOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::FloorDivOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_FloorDivOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SquareOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SquareOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SquareOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ZerosLikeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ZerosLikeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ZerosLikeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::FillOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::FillOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_FillOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BidirectionalSequenceLSTMOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BidirectionalSequenceLSTMOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BidirectionalSequenceLSTMOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BidirectionalSequenceRNNOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BidirectionalSequenceRNNOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BidirectionalSequenceRNNOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UnidirectionalSequenceLSTMOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UnidirectionalSequenceLSTMOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnidirectionalSequenceLSTMOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::FloorModOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::FloorModOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_FloorModOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::RangeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::RangeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_RangeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ResizeNearestNeighborOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ResizeNearestNeighborOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ResizeNearestNeighborOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::LeakyReluOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::LeakyReluOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_LeakyReluOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SquaredDifferenceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SquaredDifferenceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SquaredDifferenceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::MirrorPadOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::MirrorPadOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_MirrorPadOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::AbsOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::AbsOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_AbsOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SplitVOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SplitVOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SplitVOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UniqueOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UniqueOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UniqueOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ReverseV2OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ReverseV2OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReverseV2Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::AddNOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::AddNOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_AddNOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::GatherNdOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::GatherNdOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_GatherNdOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::CosOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::CosOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_CosOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::WhereOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::WhereOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_WhereOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::RankOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::RankOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_RankOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ReverseSequenceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ReverseSequenceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReverseSequenceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::MatrixDiagOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::MatrixDiagOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_MatrixDiagOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::QuantizeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::QuantizeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_QuantizeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::MatrixSetDiagOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::MatrixSetDiagOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_MatrixSetDiagOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::HardSwishOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::HardSwishOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_HardSwishOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::IfOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::IfOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_IfOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::WhileOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::WhileOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_WhileOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::DepthToSpaceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::DepthToSpaceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_DepthToSpaceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::NonMaxSuppressionV4OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::NonMaxSuppressionV4OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_NonMaxSuppressionV4Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::NonMaxSuppressionV5OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::NonMaxSuppressionV5OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_NonMaxSuppressionV5Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ScatterNdOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ScatterNdOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ScatterNdOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SelectV2OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SelectV2OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SelectV2Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::DensifyOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::DensifyOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_DensifyOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SegmentSumOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SegmentSumOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SegmentSumOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BatchMatMulOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BatchMatMulOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BatchMatMulOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::CumsumOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::CumsumOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_CumsumOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::CallOnceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::CallOnceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_CallOnceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BroadcastToOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BroadcastToOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BroadcastToOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::Rfft2dOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::Rfft2dOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_Rfft2dOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::Conv3DOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::Conv3DOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_Conv3DOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::HashtableOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::HashtableOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::HashtableFindOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::HashtableFindOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableFindOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::HashtableImportOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::HashtableImportOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableImportOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::HashtableSizeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::HashtableSizeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_HashtableSizeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::VarHandleOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::VarHandleOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_VarHandleOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ReadVariableOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ReadVariableOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ReadVariableOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::AssignVariableOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::AssignVariableOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_AssignVariableOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::RandomOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::RandomOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_RandomOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BucketizeOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BucketizeOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BucketizeOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::GeluOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::GeluOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_GeluOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::DynamicUpdateSliceOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::DynamicUpdateSliceOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_DynamicUpdateSliceOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UnsortedSegmentProdOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UnsortedSegmentProdOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentProdOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UnsortedSegmentMaxOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UnsortedSegmentMaxOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentMaxOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UnsortedSegmentMinOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UnsortedSegmentMinOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentMinOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::UnsortedSegmentSumOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::UnsortedSegmentSumOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_UnsortedSegmentSumOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::ATan2OptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::ATan2OptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_ATan2Options;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::SignOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::SignOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_SignOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BitcastOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BitcastOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BitcastOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::BitwiseXorOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::BitwiseXorOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_BitwiseXorOptions;
 };
 
-template<> struct BuiltinOptionsUnionTraits<tflite::RightShiftOptionsT> {
+template<> struct BuiltinOptionsUnionTraits<tflite_micro::RightShiftOptionsT> {
   static const BuiltinOptions enum_value = BuiltinOptions_RightShiftOptions;
 };
 
@@ -3084,1013 +3084,1013 @@ struct BuiltinOptionsUnion {
   static void *UnPack(const void *obj, BuiltinOptions type, const flatbuffers::resolver_function_t *resolver);
   flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
 
-  tflite::Conv2DOptionsT *AsConv2DOptions() {
+  tflite_micro::Conv2DOptionsT *AsConv2DOptions() {
     return type == BuiltinOptions_Conv2DOptions ?
-      reinterpret_cast<tflite::Conv2DOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Conv2DOptionsT *>(value) : nullptr;
   }
-  const tflite::Conv2DOptionsT *AsConv2DOptions() const {
+  const tflite_micro::Conv2DOptionsT *AsConv2DOptions() const {
     return type == BuiltinOptions_Conv2DOptions ?
-      reinterpret_cast<const tflite::Conv2DOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Conv2DOptionsT *>(value) : nullptr;
   }
-  tflite::DepthwiseConv2DOptionsT *AsDepthwiseConv2DOptions() {
+  tflite_micro::DepthwiseConv2DOptionsT *AsDepthwiseConv2DOptions() {
     return type == BuiltinOptions_DepthwiseConv2DOptions ?
-      reinterpret_cast<tflite::DepthwiseConv2DOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DepthwiseConv2DOptionsT *>(value) : nullptr;
   }
-  const tflite::DepthwiseConv2DOptionsT *AsDepthwiseConv2DOptions() const {
+  const tflite_micro::DepthwiseConv2DOptionsT *AsDepthwiseConv2DOptions() const {
     return type == BuiltinOptions_DepthwiseConv2DOptions ?
-      reinterpret_cast<const tflite::DepthwiseConv2DOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DepthwiseConv2DOptionsT *>(value) : nullptr;
   }
-  tflite::ConcatEmbeddingsOptionsT *AsConcatEmbeddingsOptions() {
+  tflite_micro::ConcatEmbeddingsOptionsT *AsConcatEmbeddingsOptions() {
     return type == BuiltinOptions_ConcatEmbeddingsOptions ?
-      reinterpret_cast<tflite::ConcatEmbeddingsOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ConcatEmbeddingsOptionsT *>(value) : nullptr;
   }
-  const tflite::ConcatEmbeddingsOptionsT *AsConcatEmbeddingsOptions() const {
+  const tflite_micro::ConcatEmbeddingsOptionsT *AsConcatEmbeddingsOptions() const {
     return type == BuiltinOptions_ConcatEmbeddingsOptions ?
-      reinterpret_cast<const tflite::ConcatEmbeddingsOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ConcatEmbeddingsOptionsT *>(value) : nullptr;
   }
-  tflite::LSHProjectionOptionsT *AsLSHProjectionOptions() {
+  tflite_micro::LSHProjectionOptionsT *AsLSHProjectionOptions() {
     return type == BuiltinOptions_LSHProjectionOptions ?
-      reinterpret_cast<tflite::LSHProjectionOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LSHProjectionOptionsT *>(value) : nullptr;
   }
-  const tflite::LSHProjectionOptionsT *AsLSHProjectionOptions() const {
+  const tflite_micro::LSHProjectionOptionsT *AsLSHProjectionOptions() const {
     return type == BuiltinOptions_LSHProjectionOptions ?
-      reinterpret_cast<const tflite::LSHProjectionOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LSHProjectionOptionsT *>(value) : nullptr;
   }
-  tflite::Pool2DOptionsT *AsPool2DOptions() {
+  tflite_micro::Pool2DOptionsT *AsPool2DOptions() {
     return type == BuiltinOptions_Pool2DOptions ?
-      reinterpret_cast<tflite::Pool2DOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Pool2DOptionsT *>(value) : nullptr;
   }
-  const tflite::Pool2DOptionsT *AsPool2DOptions() const {
+  const tflite_micro::Pool2DOptionsT *AsPool2DOptions() const {
     return type == BuiltinOptions_Pool2DOptions ?
-      reinterpret_cast<const tflite::Pool2DOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Pool2DOptionsT *>(value) : nullptr;
   }
-  tflite::SVDFOptionsT *AsSVDFOptions() {
+  tflite_micro::SVDFOptionsT *AsSVDFOptions() {
     return type == BuiltinOptions_SVDFOptions ?
-      reinterpret_cast<tflite::SVDFOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SVDFOptionsT *>(value) : nullptr;
   }
-  const tflite::SVDFOptionsT *AsSVDFOptions() const {
+  const tflite_micro::SVDFOptionsT *AsSVDFOptions() const {
     return type == BuiltinOptions_SVDFOptions ?
-      reinterpret_cast<const tflite::SVDFOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SVDFOptionsT *>(value) : nullptr;
   }
-  tflite::RNNOptionsT *AsRNNOptions() {
+  tflite_micro::RNNOptionsT *AsRNNOptions() {
     return type == BuiltinOptions_RNNOptions ?
-      reinterpret_cast<tflite::RNNOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::RNNOptionsT *>(value) : nullptr;
   }
-  const tflite::RNNOptionsT *AsRNNOptions() const {
+  const tflite_micro::RNNOptionsT *AsRNNOptions() const {
     return type == BuiltinOptions_RNNOptions ?
-      reinterpret_cast<const tflite::RNNOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::RNNOptionsT *>(value) : nullptr;
   }
-  tflite::FullyConnectedOptionsT *AsFullyConnectedOptions() {
+  tflite_micro::FullyConnectedOptionsT *AsFullyConnectedOptions() {
     return type == BuiltinOptions_FullyConnectedOptions ?
-      reinterpret_cast<tflite::FullyConnectedOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::FullyConnectedOptionsT *>(value) : nullptr;
   }
-  const tflite::FullyConnectedOptionsT *AsFullyConnectedOptions() const {
+  const tflite_micro::FullyConnectedOptionsT *AsFullyConnectedOptions() const {
     return type == BuiltinOptions_FullyConnectedOptions ?
-      reinterpret_cast<const tflite::FullyConnectedOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::FullyConnectedOptionsT *>(value) : nullptr;
   }
-  tflite::SoftmaxOptionsT *AsSoftmaxOptions() {
+  tflite_micro::SoftmaxOptionsT *AsSoftmaxOptions() {
     return type == BuiltinOptions_SoftmaxOptions ?
-      reinterpret_cast<tflite::SoftmaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SoftmaxOptionsT *>(value) : nullptr;
   }
-  const tflite::SoftmaxOptionsT *AsSoftmaxOptions() const {
+  const tflite_micro::SoftmaxOptionsT *AsSoftmaxOptions() const {
     return type == BuiltinOptions_SoftmaxOptions ?
-      reinterpret_cast<const tflite::SoftmaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SoftmaxOptionsT *>(value) : nullptr;
   }
-  tflite::ConcatenationOptionsT *AsConcatenationOptions() {
+  tflite_micro::ConcatenationOptionsT *AsConcatenationOptions() {
     return type == BuiltinOptions_ConcatenationOptions ?
-      reinterpret_cast<tflite::ConcatenationOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ConcatenationOptionsT *>(value) : nullptr;
   }
-  const tflite::ConcatenationOptionsT *AsConcatenationOptions() const {
+  const tflite_micro::ConcatenationOptionsT *AsConcatenationOptions() const {
     return type == BuiltinOptions_ConcatenationOptions ?
-      reinterpret_cast<const tflite::ConcatenationOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ConcatenationOptionsT *>(value) : nullptr;
   }
-  tflite::AddOptionsT *AsAddOptions() {
+  tflite_micro::AddOptionsT *AsAddOptions() {
     return type == BuiltinOptions_AddOptions ?
-      reinterpret_cast<tflite::AddOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::AddOptionsT *>(value) : nullptr;
   }
-  const tflite::AddOptionsT *AsAddOptions() const {
+  const tflite_micro::AddOptionsT *AsAddOptions() const {
     return type == BuiltinOptions_AddOptions ?
-      reinterpret_cast<const tflite::AddOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::AddOptionsT *>(value) : nullptr;
   }
-  tflite::L2NormOptionsT *AsL2NormOptions() {
+  tflite_micro::L2NormOptionsT *AsL2NormOptions() {
     return type == BuiltinOptions_L2NormOptions ?
-      reinterpret_cast<tflite::L2NormOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::L2NormOptionsT *>(value) : nullptr;
   }
-  const tflite::L2NormOptionsT *AsL2NormOptions() const {
+  const tflite_micro::L2NormOptionsT *AsL2NormOptions() const {
     return type == BuiltinOptions_L2NormOptions ?
-      reinterpret_cast<const tflite::L2NormOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::L2NormOptionsT *>(value) : nullptr;
   }
-  tflite::LocalResponseNormalizationOptionsT *AsLocalResponseNormalizationOptions() {
+  tflite_micro::LocalResponseNormalizationOptionsT *AsLocalResponseNormalizationOptions() {
     return type == BuiltinOptions_LocalResponseNormalizationOptions ?
-      reinterpret_cast<tflite::LocalResponseNormalizationOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LocalResponseNormalizationOptionsT *>(value) : nullptr;
   }
-  const tflite::LocalResponseNormalizationOptionsT *AsLocalResponseNormalizationOptions() const {
+  const tflite_micro::LocalResponseNormalizationOptionsT *AsLocalResponseNormalizationOptions() const {
     return type == BuiltinOptions_LocalResponseNormalizationOptions ?
-      reinterpret_cast<const tflite::LocalResponseNormalizationOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LocalResponseNormalizationOptionsT *>(value) : nullptr;
   }
-  tflite::LSTMOptionsT *AsLSTMOptions() {
+  tflite_micro::LSTMOptionsT *AsLSTMOptions() {
     return type == BuiltinOptions_LSTMOptions ?
-      reinterpret_cast<tflite::LSTMOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LSTMOptionsT *>(value) : nullptr;
   }
-  const tflite::LSTMOptionsT *AsLSTMOptions() const {
+  const tflite_micro::LSTMOptionsT *AsLSTMOptions() const {
     return type == BuiltinOptions_LSTMOptions ?
-      reinterpret_cast<const tflite::LSTMOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LSTMOptionsT *>(value) : nullptr;
   }
-  tflite::ResizeBilinearOptionsT *AsResizeBilinearOptions() {
+  tflite_micro::ResizeBilinearOptionsT *AsResizeBilinearOptions() {
     return type == BuiltinOptions_ResizeBilinearOptions ?
-      reinterpret_cast<tflite::ResizeBilinearOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ResizeBilinearOptionsT *>(value) : nullptr;
   }
-  const tflite::ResizeBilinearOptionsT *AsResizeBilinearOptions() const {
+  const tflite_micro::ResizeBilinearOptionsT *AsResizeBilinearOptions() const {
     return type == BuiltinOptions_ResizeBilinearOptions ?
-      reinterpret_cast<const tflite::ResizeBilinearOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ResizeBilinearOptionsT *>(value) : nullptr;
   }
-  tflite::CallOptionsT *AsCallOptions() {
+  tflite_micro::CallOptionsT *AsCallOptions() {
     return type == BuiltinOptions_CallOptions ?
-      reinterpret_cast<tflite::CallOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::CallOptionsT *>(value) : nullptr;
   }
-  const tflite::CallOptionsT *AsCallOptions() const {
+  const tflite_micro::CallOptionsT *AsCallOptions() const {
     return type == BuiltinOptions_CallOptions ?
-      reinterpret_cast<const tflite::CallOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::CallOptionsT *>(value) : nullptr;
   }
-  tflite::ReshapeOptionsT *AsReshapeOptions() {
+  tflite_micro::ReshapeOptionsT *AsReshapeOptions() {
     return type == BuiltinOptions_ReshapeOptions ?
-      reinterpret_cast<tflite::ReshapeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ReshapeOptionsT *>(value) : nullptr;
   }
-  const tflite::ReshapeOptionsT *AsReshapeOptions() const {
+  const tflite_micro::ReshapeOptionsT *AsReshapeOptions() const {
     return type == BuiltinOptions_ReshapeOptions ?
-      reinterpret_cast<const tflite::ReshapeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ReshapeOptionsT *>(value) : nullptr;
   }
-  tflite::SkipGramOptionsT *AsSkipGramOptions() {
+  tflite_micro::SkipGramOptionsT *AsSkipGramOptions() {
     return type == BuiltinOptions_SkipGramOptions ?
-      reinterpret_cast<tflite::SkipGramOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SkipGramOptionsT *>(value) : nullptr;
   }
-  const tflite::SkipGramOptionsT *AsSkipGramOptions() const {
+  const tflite_micro::SkipGramOptionsT *AsSkipGramOptions() const {
     return type == BuiltinOptions_SkipGramOptions ?
-      reinterpret_cast<const tflite::SkipGramOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SkipGramOptionsT *>(value) : nullptr;
   }
-  tflite::SpaceToDepthOptionsT *AsSpaceToDepthOptions() {
+  tflite_micro::SpaceToDepthOptionsT *AsSpaceToDepthOptions() {
     return type == BuiltinOptions_SpaceToDepthOptions ?
-      reinterpret_cast<tflite::SpaceToDepthOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SpaceToDepthOptionsT *>(value) : nullptr;
   }
-  const tflite::SpaceToDepthOptionsT *AsSpaceToDepthOptions() const {
+  const tflite_micro::SpaceToDepthOptionsT *AsSpaceToDepthOptions() const {
     return type == BuiltinOptions_SpaceToDepthOptions ?
-      reinterpret_cast<const tflite::SpaceToDepthOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SpaceToDepthOptionsT *>(value) : nullptr;
   }
-  tflite::EmbeddingLookupSparseOptionsT *AsEmbeddingLookupSparseOptions() {
+  tflite_micro::EmbeddingLookupSparseOptionsT *AsEmbeddingLookupSparseOptions() {
     return type == BuiltinOptions_EmbeddingLookupSparseOptions ?
-      reinterpret_cast<tflite::EmbeddingLookupSparseOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::EmbeddingLookupSparseOptionsT *>(value) : nullptr;
   }
-  const tflite::EmbeddingLookupSparseOptionsT *AsEmbeddingLookupSparseOptions() const {
+  const tflite_micro::EmbeddingLookupSparseOptionsT *AsEmbeddingLookupSparseOptions() const {
     return type == BuiltinOptions_EmbeddingLookupSparseOptions ?
-      reinterpret_cast<const tflite::EmbeddingLookupSparseOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::EmbeddingLookupSparseOptionsT *>(value) : nullptr;
   }
-  tflite::MulOptionsT *AsMulOptions() {
+  tflite_micro::MulOptionsT *AsMulOptions() {
     return type == BuiltinOptions_MulOptions ?
-      reinterpret_cast<tflite::MulOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::MulOptionsT *>(value) : nullptr;
   }
-  const tflite::MulOptionsT *AsMulOptions() const {
+  const tflite_micro::MulOptionsT *AsMulOptions() const {
     return type == BuiltinOptions_MulOptions ?
-      reinterpret_cast<const tflite::MulOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::MulOptionsT *>(value) : nullptr;
   }
-  tflite::PadOptionsT *AsPadOptions() {
+  tflite_micro::PadOptionsT *AsPadOptions() {
     return type == BuiltinOptions_PadOptions ?
-      reinterpret_cast<tflite::PadOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::PadOptionsT *>(value) : nullptr;
   }
-  const tflite::PadOptionsT *AsPadOptions() const {
+  const tflite_micro::PadOptionsT *AsPadOptions() const {
     return type == BuiltinOptions_PadOptions ?
-      reinterpret_cast<const tflite::PadOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::PadOptionsT *>(value) : nullptr;
   }
-  tflite::GatherOptionsT *AsGatherOptions() {
+  tflite_micro::GatherOptionsT *AsGatherOptions() {
     return type == BuiltinOptions_GatherOptions ?
-      reinterpret_cast<tflite::GatherOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::GatherOptionsT *>(value) : nullptr;
   }
-  const tflite::GatherOptionsT *AsGatherOptions() const {
+  const tflite_micro::GatherOptionsT *AsGatherOptions() const {
     return type == BuiltinOptions_GatherOptions ?
-      reinterpret_cast<const tflite::GatherOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::GatherOptionsT *>(value) : nullptr;
   }
-  tflite::BatchToSpaceNDOptionsT *AsBatchToSpaceNDOptions() {
+  tflite_micro::BatchToSpaceNDOptionsT *AsBatchToSpaceNDOptions() {
     return type == BuiltinOptions_BatchToSpaceNDOptions ?
-      reinterpret_cast<tflite::BatchToSpaceNDOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BatchToSpaceNDOptionsT *>(value) : nullptr;
   }
-  const tflite::BatchToSpaceNDOptionsT *AsBatchToSpaceNDOptions() const {
+  const tflite_micro::BatchToSpaceNDOptionsT *AsBatchToSpaceNDOptions() const {
     return type == BuiltinOptions_BatchToSpaceNDOptions ?
-      reinterpret_cast<const tflite::BatchToSpaceNDOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BatchToSpaceNDOptionsT *>(value) : nullptr;
   }
-  tflite::SpaceToBatchNDOptionsT *AsSpaceToBatchNDOptions() {
+  tflite_micro::SpaceToBatchNDOptionsT *AsSpaceToBatchNDOptions() {
     return type == BuiltinOptions_SpaceToBatchNDOptions ?
-      reinterpret_cast<tflite::SpaceToBatchNDOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SpaceToBatchNDOptionsT *>(value) : nullptr;
   }
-  const tflite::SpaceToBatchNDOptionsT *AsSpaceToBatchNDOptions() const {
+  const tflite_micro::SpaceToBatchNDOptionsT *AsSpaceToBatchNDOptions() const {
     return type == BuiltinOptions_SpaceToBatchNDOptions ?
-      reinterpret_cast<const tflite::SpaceToBatchNDOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SpaceToBatchNDOptionsT *>(value) : nullptr;
   }
-  tflite::TransposeOptionsT *AsTransposeOptions() {
+  tflite_micro::TransposeOptionsT *AsTransposeOptions() {
     return type == BuiltinOptions_TransposeOptions ?
-      reinterpret_cast<tflite::TransposeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::TransposeOptionsT *>(value) : nullptr;
   }
-  const tflite::TransposeOptionsT *AsTransposeOptions() const {
+  const tflite_micro::TransposeOptionsT *AsTransposeOptions() const {
     return type == BuiltinOptions_TransposeOptions ?
-      reinterpret_cast<const tflite::TransposeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::TransposeOptionsT *>(value) : nullptr;
   }
-  tflite::ReducerOptionsT *AsReducerOptions() {
+  tflite_micro::ReducerOptionsT *AsReducerOptions() {
     return type == BuiltinOptions_ReducerOptions ?
-      reinterpret_cast<tflite::ReducerOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ReducerOptionsT *>(value) : nullptr;
   }
-  const tflite::ReducerOptionsT *AsReducerOptions() const {
+  const tflite_micro::ReducerOptionsT *AsReducerOptions() const {
     return type == BuiltinOptions_ReducerOptions ?
-      reinterpret_cast<const tflite::ReducerOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ReducerOptionsT *>(value) : nullptr;
   }
-  tflite::SubOptionsT *AsSubOptions() {
+  tflite_micro::SubOptionsT *AsSubOptions() {
     return type == BuiltinOptions_SubOptions ?
-      reinterpret_cast<tflite::SubOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SubOptionsT *>(value) : nullptr;
   }
-  const tflite::SubOptionsT *AsSubOptions() const {
+  const tflite_micro::SubOptionsT *AsSubOptions() const {
     return type == BuiltinOptions_SubOptions ?
-      reinterpret_cast<const tflite::SubOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SubOptionsT *>(value) : nullptr;
   }
-  tflite::DivOptionsT *AsDivOptions() {
+  tflite_micro::DivOptionsT *AsDivOptions() {
     return type == BuiltinOptions_DivOptions ?
-      reinterpret_cast<tflite::DivOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DivOptionsT *>(value) : nullptr;
   }
-  const tflite::DivOptionsT *AsDivOptions() const {
+  const tflite_micro::DivOptionsT *AsDivOptions() const {
     return type == BuiltinOptions_DivOptions ?
-      reinterpret_cast<const tflite::DivOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DivOptionsT *>(value) : nullptr;
   }
-  tflite::SqueezeOptionsT *AsSqueezeOptions() {
+  tflite_micro::SqueezeOptionsT *AsSqueezeOptions() {
     return type == BuiltinOptions_SqueezeOptions ?
-      reinterpret_cast<tflite::SqueezeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SqueezeOptionsT *>(value) : nullptr;
   }
-  const tflite::SqueezeOptionsT *AsSqueezeOptions() const {
+  const tflite_micro::SqueezeOptionsT *AsSqueezeOptions() const {
     return type == BuiltinOptions_SqueezeOptions ?
-      reinterpret_cast<const tflite::SqueezeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SqueezeOptionsT *>(value) : nullptr;
   }
-  tflite::SequenceRNNOptionsT *AsSequenceRNNOptions() {
+  tflite_micro::SequenceRNNOptionsT *AsSequenceRNNOptions() {
     return type == BuiltinOptions_SequenceRNNOptions ?
-      reinterpret_cast<tflite::SequenceRNNOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SequenceRNNOptionsT *>(value) : nullptr;
   }
-  const tflite::SequenceRNNOptionsT *AsSequenceRNNOptions() const {
+  const tflite_micro::SequenceRNNOptionsT *AsSequenceRNNOptions() const {
     return type == BuiltinOptions_SequenceRNNOptions ?
-      reinterpret_cast<const tflite::SequenceRNNOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SequenceRNNOptionsT *>(value) : nullptr;
   }
-  tflite::StridedSliceOptionsT *AsStridedSliceOptions() {
+  tflite_micro::StridedSliceOptionsT *AsStridedSliceOptions() {
     return type == BuiltinOptions_StridedSliceOptions ?
-      reinterpret_cast<tflite::StridedSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StridedSliceOptionsT *>(value) : nullptr;
   }
-  const tflite::StridedSliceOptionsT *AsStridedSliceOptions() const {
+  const tflite_micro::StridedSliceOptionsT *AsStridedSliceOptions() const {
     return type == BuiltinOptions_StridedSliceOptions ?
-      reinterpret_cast<const tflite::StridedSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StridedSliceOptionsT *>(value) : nullptr;
   }
-  tflite::ExpOptionsT *AsExpOptions() {
+  tflite_micro::ExpOptionsT *AsExpOptions() {
     return type == BuiltinOptions_ExpOptions ?
-      reinterpret_cast<tflite::ExpOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ExpOptionsT *>(value) : nullptr;
   }
-  const tflite::ExpOptionsT *AsExpOptions() const {
+  const tflite_micro::ExpOptionsT *AsExpOptions() const {
     return type == BuiltinOptions_ExpOptions ?
-      reinterpret_cast<const tflite::ExpOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ExpOptionsT *>(value) : nullptr;
   }
-  tflite::TopKV2OptionsT *AsTopKV2Options() {
+  tflite_micro::TopKV2OptionsT *AsTopKV2Options() {
     return type == BuiltinOptions_TopKV2Options ?
-      reinterpret_cast<tflite::TopKV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::TopKV2OptionsT *>(value) : nullptr;
   }
-  const tflite::TopKV2OptionsT *AsTopKV2Options() const {
+  const tflite_micro::TopKV2OptionsT *AsTopKV2Options() const {
     return type == BuiltinOptions_TopKV2Options ?
-      reinterpret_cast<const tflite::TopKV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::TopKV2OptionsT *>(value) : nullptr;
   }
-  tflite::SplitOptionsT *AsSplitOptions() {
+  tflite_micro::SplitOptionsT *AsSplitOptions() {
     return type == BuiltinOptions_SplitOptions ?
-      reinterpret_cast<tflite::SplitOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SplitOptionsT *>(value) : nullptr;
   }
-  const tflite::SplitOptionsT *AsSplitOptions() const {
+  const tflite_micro::SplitOptionsT *AsSplitOptions() const {
     return type == BuiltinOptions_SplitOptions ?
-      reinterpret_cast<const tflite::SplitOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SplitOptionsT *>(value) : nullptr;
   }
-  tflite::LogSoftmaxOptionsT *AsLogSoftmaxOptions() {
+  tflite_micro::LogSoftmaxOptionsT *AsLogSoftmaxOptions() {
     return type == BuiltinOptions_LogSoftmaxOptions ?
-      reinterpret_cast<tflite::LogSoftmaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LogSoftmaxOptionsT *>(value) : nullptr;
   }
-  const tflite::LogSoftmaxOptionsT *AsLogSoftmaxOptions() const {
+  const tflite_micro::LogSoftmaxOptionsT *AsLogSoftmaxOptions() const {
     return type == BuiltinOptions_LogSoftmaxOptions ?
-      reinterpret_cast<const tflite::LogSoftmaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LogSoftmaxOptionsT *>(value) : nullptr;
   }
-  tflite::CastOptionsT *AsCastOptions() {
+  tflite_micro::CastOptionsT *AsCastOptions() {
     return type == BuiltinOptions_CastOptions ?
-      reinterpret_cast<tflite::CastOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::CastOptionsT *>(value) : nullptr;
   }
-  const tflite::CastOptionsT *AsCastOptions() const {
+  const tflite_micro::CastOptionsT *AsCastOptions() const {
     return type == BuiltinOptions_CastOptions ?
-      reinterpret_cast<const tflite::CastOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::CastOptionsT *>(value) : nullptr;
   }
-  tflite::DequantizeOptionsT *AsDequantizeOptions() {
+  tflite_micro::DequantizeOptionsT *AsDequantizeOptions() {
     return type == BuiltinOptions_DequantizeOptions ?
-      reinterpret_cast<tflite::DequantizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DequantizeOptionsT *>(value) : nullptr;
   }
-  const tflite::DequantizeOptionsT *AsDequantizeOptions() const {
+  const tflite_micro::DequantizeOptionsT *AsDequantizeOptions() const {
     return type == BuiltinOptions_DequantizeOptions ?
-      reinterpret_cast<const tflite::DequantizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DequantizeOptionsT *>(value) : nullptr;
   }
-  tflite::MaximumMinimumOptionsT *AsMaximumMinimumOptions() {
+  tflite_micro::MaximumMinimumOptionsT *AsMaximumMinimumOptions() {
     return type == BuiltinOptions_MaximumMinimumOptions ?
-      reinterpret_cast<tflite::MaximumMinimumOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::MaximumMinimumOptionsT *>(value) : nullptr;
   }
-  const tflite::MaximumMinimumOptionsT *AsMaximumMinimumOptions() const {
+  const tflite_micro::MaximumMinimumOptionsT *AsMaximumMinimumOptions() const {
     return type == BuiltinOptions_MaximumMinimumOptions ?
-      reinterpret_cast<const tflite::MaximumMinimumOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::MaximumMinimumOptionsT *>(value) : nullptr;
   }
-  tflite::ArgMaxOptionsT *AsArgMaxOptions() {
+  tflite_micro::ArgMaxOptionsT *AsArgMaxOptions() {
     return type == BuiltinOptions_ArgMaxOptions ?
-      reinterpret_cast<tflite::ArgMaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ArgMaxOptionsT *>(value) : nullptr;
   }
-  const tflite::ArgMaxOptionsT *AsArgMaxOptions() const {
+  const tflite_micro::ArgMaxOptionsT *AsArgMaxOptions() const {
     return type == BuiltinOptions_ArgMaxOptions ?
-      reinterpret_cast<const tflite::ArgMaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ArgMaxOptionsT *>(value) : nullptr;
   }
-  tflite::LessOptionsT *AsLessOptions() {
+  tflite_micro::LessOptionsT *AsLessOptions() {
     return type == BuiltinOptions_LessOptions ?
-      reinterpret_cast<tflite::LessOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LessOptionsT *>(value) : nullptr;
   }
-  const tflite::LessOptionsT *AsLessOptions() const {
+  const tflite_micro::LessOptionsT *AsLessOptions() const {
     return type == BuiltinOptions_LessOptions ?
-      reinterpret_cast<const tflite::LessOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LessOptionsT *>(value) : nullptr;
   }
-  tflite::NegOptionsT *AsNegOptions() {
+  tflite_micro::NegOptionsT *AsNegOptions() {
     return type == BuiltinOptions_NegOptions ?
-      reinterpret_cast<tflite::NegOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::NegOptionsT *>(value) : nullptr;
   }
-  const tflite::NegOptionsT *AsNegOptions() const {
+  const tflite_micro::NegOptionsT *AsNegOptions() const {
     return type == BuiltinOptions_NegOptions ?
-      reinterpret_cast<const tflite::NegOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::NegOptionsT *>(value) : nullptr;
   }
-  tflite::PadV2OptionsT *AsPadV2Options() {
+  tflite_micro::PadV2OptionsT *AsPadV2Options() {
     return type == BuiltinOptions_PadV2Options ?
-      reinterpret_cast<tflite::PadV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::PadV2OptionsT *>(value) : nullptr;
   }
-  const tflite::PadV2OptionsT *AsPadV2Options() const {
+  const tflite_micro::PadV2OptionsT *AsPadV2Options() const {
     return type == BuiltinOptions_PadV2Options ?
-      reinterpret_cast<const tflite::PadV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::PadV2OptionsT *>(value) : nullptr;
   }
-  tflite::GreaterOptionsT *AsGreaterOptions() {
+  tflite_micro::GreaterOptionsT *AsGreaterOptions() {
     return type == BuiltinOptions_GreaterOptions ?
-      reinterpret_cast<tflite::GreaterOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::GreaterOptionsT *>(value) : nullptr;
   }
-  const tflite::GreaterOptionsT *AsGreaterOptions() const {
+  const tflite_micro::GreaterOptionsT *AsGreaterOptions() const {
     return type == BuiltinOptions_GreaterOptions ?
-      reinterpret_cast<const tflite::GreaterOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::GreaterOptionsT *>(value) : nullptr;
   }
-  tflite::GreaterEqualOptionsT *AsGreaterEqualOptions() {
+  tflite_micro::GreaterEqualOptionsT *AsGreaterEqualOptions() {
     return type == BuiltinOptions_GreaterEqualOptions ?
-      reinterpret_cast<tflite::GreaterEqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::GreaterEqualOptionsT *>(value) : nullptr;
   }
-  const tflite::GreaterEqualOptionsT *AsGreaterEqualOptions() const {
+  const tflite_micro::GreaterEqualOptionsT *AsGreaterEqualOptions() const {
     return type == BuiltinOptions_GreaterEqualOptions ?
-      reinterpret_cast<const tflite::GreaterEqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::GreaterEqualOptionsT *>(value) : nullptr;
   }
-  tflite::LessEqualOptionsT *AsLessEqualOptions() {
+  tflite_micro::LessEqualOptionsT *AsLessEqualOptions() {
     return type == BuiltinOptions_LessEqualOptions ?
-      reinterpret_cast<tflite::LessEqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LessEqualOptionsT *>(value) : nullptr;
   }
-  const tflite::LessEqualOptionsT *AsLessEqualOptions() const {
+  const tflite_micro::LessEqualOptionsT *AsLessEqualOptions() const {
     return type == BuiltinOptions_LessEqualOptions ?
-      reinterpret_cast<const tflite::LessEqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LessEqualOptionsT *>(value) : nullptr;
   }
-  tflite::SelectOptionsT *AsSelectOptions() {
+  tflite_micro::SelectOptionsT *AsSelectOptions() {
     return type == BuiltinOptions_SelectOptions ?
-      reinterpret_cast<tflite::SelectOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SelectOptionsT *>(value) : nullptr;
   }
-  const tflite::SelectOptionsT *AsSelectOptions() const {
+  const tflite_micro::SelectOptionsT *AsSelectOptions() const {
     return type == BuiltinOptions_SelectOptions ?
-      reinterpret_cast<const tflite::SelectOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SelectOptionsT *>(value) : nullptr;
   }
-  tflite::SliceOptionsT *AsSliceOptions() {
+  tflite_micro::SliceOptionsT *AsSliceOptions() {
     return type == BuiltinOptions_SliceOptions ?
-      reinterpret_cast<tflite::SliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SliceOptionsT *>(value) : nullptr;
   }
-  const tflite::SliceOptionsT *AsSliceOptions() const {
+  const tflite_micro::SliceOptionsT *AsSliceOptions() const {
     return type == BuiltinOptions_SliceOptions ?
-      reinterpret_cast<const tflite::SliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SliceOptionsT *>(value) : nullptr;
   }
-  tflite::TransposeConvOptionsT *AsTransposeConvOptions() {
+  tflite_micro::TransposeConvOptionsT *AsTransposeConvOptions() {
     return type == BuiltinOptions_TransposeConvOptions ?
-      reinterpret_cast<tflite::TransposeConvOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::TransposeConvOptionsT *>(value) : nullptr;
   }
-  const tflite::TransposeConvOptionsT *AsTransposeConvOptions() const {
+  const tflite_micro::TransposeConvOptionsT *AsTransposeConvOptions() const {
     return type == BuiltinOptions_TransposeConvOptions ?
-      reinterpret_cast<const tflite::TransposeConvOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::TransposeConvOptionsT *>(value) : nullptr;
   }
-  tflite::SparseToDenseOptionsT *AsSparseToDenseOptions() {
+  tflite_micro::SparseToDenseOptionsT *AsSparseToDenseOptions() {
     return type == BuiltinOptions_SparseToDenseOptions ?
-      reinterpret_cast<tflite::SparseToDenseOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SparseToDenseOptionsT *>(value) : nullptr;
   }
-  const tflite::SparseToDenseOptionsT *AsSparseToDenseOptions() const {
+  const tflite_micro::SparseToDenseOptionsT *AsSparseToDenseOptions() const {
     return type == BuiltinOptions_SparseToDenseOptions ?
-      reinterpret_cast<const tflite::SparseToDenseOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SparseToDenseOptionsT *>(value) : nullptr;
   }
-  tflite::TileOptionsT *AsTileOptions() {
+  tflite_micro::TileOptionsT *AsTileOptions() {
     return type == BuiltinOptions_TileOptions ?
-      reinterpret_cast<tflite::TileOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::TileOptionsT *>(value) : nullptr;
   }
-  const tflite::TileOptionsT *AsTileOptions() const {
+  const tflite_micro::TileOptionsT *AsTileOptions() const {
     return type == BuiltinOptions_TileOptions ?
-      reinterpret_cast<const tflite::TileOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::TileOptionsT *>(value) : nullptr;
   }
-  tflite::ExpandDimsOptionsT *AsExpandDimsOptions() {
+  tflite_micro::ExpandDimsOptionsT *AsExpandDimsOptions() {
     return type == BuiltinOptions_ExpandDimsOptions ?
-      reinterpret_cast<tflite::ExpandDimsOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ExpandDimsOptionsT *>(value) : nullptr;
   }
-  const tflite::ExpandDimsOptionsT *AsExpandDimsOptions() const {
+  const tflite_micro::ExpandDimsOptionsT *AsExpandDimsOptions() const {
     return type == BuiltinOptions_ExpandDimsOptions ?
-      reinterpret_cast<const tflite::ExpandDimsOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ExpandDimsOptionsT *>(value) : nullptr;
   }
-  tflite::EqualOptionsT *AsEqualOptions() {
+  tflite_micro::EqualOptionsT *AsEqualOptions() {
     return type == BuiltinOptions_EqualOptions ?
-      reinterpret_cast<tflite::EqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::EqualOptionsT *>(value) : nullptr;
   }
-  const tflite::EqualOptionsT *AsEqualOptions() const {
+  const tflite_micro::EqualOptionsT *AsEqualOptions() const {
     return type == BuiltinOptions_EqualOptions ?
-      reinterpret_cast<const tflite::EqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::EqualOptionsT *>(value) : nullptr;
   }
-  tflite::NotEqualOptionsT *AsNotEqualOptions() {
+  tflite_micro::NotEqualOptionsT *AsNotEqualOptions() {
     return type == BuiltinOptions_NotEqualOptions ?
-      reinterpret_cast<tflite::NotEqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::NotEqualOptionsT *>(value) : nullptr;
   }
-  const tflite::NotEqualOptionsT *AsNotEqualOptions() const {
+  const tflite_micro::NotEqualOptionsT *AsNotEqualOptions() const {
     return type == BuiltinOptions_NotEqualOptions ?
-      reinterpret_cast<const tflite::NotEqualOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::NotEqualOptionsT *>(value) : nullptr;
   }
-  tflite::ShapeOptionsT *AsShapeOptions() {
+  tflite_micro::ShapeOptionsT *AsShapeOptions() {
     return type == BuiltinOptions_ShapeOptions ?
-      reinterpret_cast<tflite::ShapeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ShapeOptionsT *>(value) : nullptr;
   }
-  const tflite::ShapeOptionsT *AsShapeOptions() const {
+  const tflite_micro::ShapeOptionsT *AsShapeOptions() const {
     return type == BuiltinOptions_ShapeOptions ?
-      reinterpret_cast<const tflite::ShapeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ShapeOptionsT *>(value) : nullptr;
   }
-  tflite::PowOptionsT *AsPowOptions() {
+  tflite_micro::PowOptionsT *AsPowOptions() {
     return type == BuiltinOptions_PowOptions ?
-      reinterpret_cast<tflite::PowOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::PowOptionsT *>(value) : nullptr;
   }
-  const tflite::PowOptionsT *AsPowOptions() const {
+  const tflite_micro::PowOptionsT *AsPowOptions() const {
     return type == BuiltinOptions_PowOptions ?
-      reinterpret_cast<const tflite::PowOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::PowOptionsT *>(value) : nullptr;
   }
-  tflite::ArgMinOptionsT *AsArgMinOptions() {
+  tflite_micro::ArgMinOptionsT *AsArgMinOptions() {
     return type == BuiltinOptions_ArgMinOptions ?
-      reinterpret_cast<tflite::ArgMinOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ArgMinOptionsT *>(value) : nullptr;
   }
-  const tflite::ArgMinOptionsT *AsArgMinOptions() const {
+  const tflite_micro::ArgMinOptionsT *AsArgMinOptions() const {
     return type == BuiltinOptions_ArgMinOptions ?
-      reinterpret_cast<const tflite::ArgMinOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ArgMinOptionsT *>(value) : nullptr;
   }
-  tflite::FakeQuantOptionsT *AsFakeQuantOptions() {
+  tflite_micro::FakeQuantOptionsT *AsFakeQuantOptions() {
     return type == BuiltinOptions_FakeQuantOptions ?
-      reinterpret_cast<tflite::FakeQuantOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::FakeQuantOptionsT *>(value) : nullptr;
   }
-  const tflite::FakeQuantOptionsT *AsFakeQuantOptions() const {
+  const tflite_micro::FakeQuantOptionsT *AsFakeQuantOptions() const {
     return type == BuiltinOptions_FakeQuantOptions ?
-      reinterpret_cast<const tflite::FakeQuantOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::FakeQuantOptionsT *>(value) : nullptr;
   }
-  tflite::PackOptionsT *AsPackOptions() {
+  tflite_micro::PackOptionsT *AsPackOptions() {
     return type == BuiltinOptions_PackOptions ?
-      reinterpret_cast<tflite::PackOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::PackOptionsT *>(value) : nullptr;
   }
-  const tflite::PackOptionsT *AsPackOptions() const {
+  const tflite_micro::PackOptionsT *AsPackOptions() const {
     return type == BuiltinOptions_PackOptions ?
-      reinterpret_cast<const tflite::PackOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::PackOptionsT *>(value) : nullptr;
   }
-  tflite::LogicalOrOptionsT *AsLogicalOrOptions() {
+  tflite_micro::LogicalOrOptionsT *AsLogicalOrOptions() {
     return type == BuiltinOptions_LogicalOrOptions ?
-      reinterpret_cast<tflite::LogicalOrOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LogicalOrOptionsT *>(value) : nullptr;
   }
-  const tflite::LogicalOrOptionsT *AsLogicalOrOptions() const {
+  const tflite_micro::LogicalOrOptionsT *AsLogicalOrOptions() const {
     return type == BuiltinOptions_LogicalOrOptions ?
-      reinterpret_cast<const tflite::LogicalOrOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LogicalOrOptionsT *>(value) : nullptr;
   }
-  tflite::OneHotOptionsT *AsOneHotOptions() {
+  tflite_micro::OneHotOptionsT *AsOneHotOptions() {
     return type == BuiltinOptions_OneHotOptions ?
-      reinterpret_cast<tflite::OneHotOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::OneHotOptionsT *>(value) : nullptr;
   }
-  const tflite::OneHotOptionsT *AsOneHotOptions() const {
+  const tflite_micro::OneHotOptionsT *AsOneHotOptions() const {
     return type == BuiltinOptions_OneHotOptions ?
-      reinterpret_cast<const tflite::OneHotOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::OneHotOptionsT *>(value) : nullptr;
   }
-  tflite::LogicalAndOptionsT *AsLogicalAndOptions() {
+  tflite_micro::LogicalAndOptionsT *AsLogicalAndOptions() {
     return type == BuiltinOptions_LogicalAndOptions ?
-      reinterpret_cast<tflite::LogicalAndOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LogicalAndOptionsT *>(value) : nullptr;
   }
-  const tflite::LogicalAndOptionsT *AsLogicalAndOptions() const {
+  const tflite_micro::LogicalAndOptionsT *AsLogicalAndOptions() const {
     return type == BuiltinOptions_LogicalAndOptions ?
-      reinterpret_cast<const tflite::LogicalAndOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LogicalAndOptionsT *>(value) : nullptr;
   }
-  tflite::LogicalNotOptionsT *AsLogicalNotOptions() {
+  tflite_micro::LogicalNotOptionsT *AsLogicalNotOptions() {
     return type == BuiltinOptions_LogicalNotOptions ?
-      reinterpret_cast<tflite::LogicalNotOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LogicalNotOptionsT *>(value) : nullptr;
   }
-  const tflite::LogicalNotOptionsT *AsLogicalNotOptions() const {
+  const tflite_micro::LogicalNotOptionsT *AsLogicalNotOptions() const {
     return type == BuiltinOptions_LogicalNotOptions ?
-      reinterpret_cast<const tflite::LogicalNotOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LogicalNotOptionsT *>(value) : nullptr;
   }
-  tflite::UnpackOptionsT *AsUnpackOptions() {
+  tflite_micro::UnpackOptionsT *AsUnpackOptions() {
     return type == BuiltinOptions_UnpackOptions ?
-      reinterpret_cast<tflite::UnpackOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UnpackOptionsT *>(value) : nullptr;
   }
-  const tflite::UnpackOptionsT *AsUnpackOptions() const {
+  const tflite_micro::UnpackOptionsT *AsUnpackOptions() const {
     return type == BuiltinOptions_UnpackOptions ?
-      reinterpret_cast<const tflite::UnpackOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UnpackOptionsT *>(value) : nullptr;
   }
-  tflite::FloorDivOptionsT *AsFloorDivOptions() {
+  tflite_micro::FloorDivOptionsT *AsFloorDivOptions() {
     return type == BuiltinOptions_FloorDivOptions ?
-      reinterpret_cast<tflite::FloorDivOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::FloorDivOptionsT *>(value) : nullptr;
   }
-  const tflite::FloorDivOptionsT *AsFloorDivOptions() const {
+  const tflite_micro::FloorDivOptionsT *AsFloorDivOptions() const {
     return type == BuiltinOptions_FloorDivOptions ?
-      reinterpret_cast<const tflite::FloorDivOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::FloorDivOptionsT *>(value) : nullptr;
   }
-  tflite::SquareOptionsT *AsSquareOptions() {
+  tflite_micro::SquareOptionsT *AsSquareOptions() {
     return type == BuiltinOptions_SquareOptions ?
-      reinterpret_cast<tflite::SquareOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SquareOptionsT *>(value) : nullptr;
   }
-  const tflite::SquareOptionsT *AsSquareOptions() const {
+  const tflite_micro::SquareOptionsT *AsSquareOptions() const {
     return type == BuiltinOptions_SquareOptions ?
-      reinterpret_cast<const tflite::SquareOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SquareOptionsT *>(value) : nullptr;
   }
-  tflite::ZerosLikeOptionsT *AsZerosLikeOptions() {
+  tflite_micro::ZerosLikeOptionsT *AsZerosLikeOptions() {
     return type == BuiltinOptions_ZerosLikeOptions ?
-      reinterpret_cast<tflite::ZerosLikeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ZerosLikeOptionsT *>(value) : nullptr;
   }
-  const tflite::ZerosLikeOptionsT *AsZerosLikeOptions() const {
+  const tflite_micro::ZerosLikeOptionsT *AsZerosLikeOptions() const {
     return type == BuiltinOptions_ZerosLikeOptions ?
-      reinterpret_cast<const tflite::ZerosLikeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ZerosLikeOptionsT *>(value) : nullptr;
   }
-  tflite::FillOptionsT *AsFillOptions() {
+  tflite_micro::FillOptionsT *AsFillOptions() {
     return type == BuiltinOptions_FillOptions ?
-      reinterpret_cast<tflite::FillOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::FillOptionsT *>(value) : nullptr;
   }
-  const tflite::FillOptionsT *AsFillOptions() const {
+  const tflite_micro::FillOptionsT *AsFillOptions() const {
     return type == BuiltinOptions_FillOptions ?
-      reinterpret_cast<const tflite::FillOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::FillOptionsT *>(value) : nullptr;
   }
-  tflite::BidirectionalSequenceLSTMOptionsT *AsBidirectionalSequenceLSTMOptions() {
+  tflite_micro::BidirectionalSequenceLSTMOptionsT *AsBidirectionalSequenceLSTMOptions() {
     return type == BuiltinOptions_BidirectionalSequenceLSTMOptions ?
-      reinterpret_cast<tflite::BidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
   }
-  const tflite::BidirectionalSequenceLSTMOptionsT *AsBidirectionalSequenceLSTMOptions() const {
+  const tflite_micro::BidirectionalSequenceLSTMOptionsT *AsBidirectionalSequenceLSTMOptions() const {
     return type == BuiltinOptions_BidirectionalSequenceLSTMOptions ?
-      reinterpret_cast<const tflite::BidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
   }
-  tflite::BidirectionalSequenceRNNOptionsT *AsBidirectionalSequenceRNNOptions() {
+  tflite_micro::BidirectionalSequenceRNNOptionsT *AsBidirectionalSequenceRNNOptions() {
     return type == BuiltinOptions_BidirectionalSequenceRNNOptions ?
-      reinterpret_cast<tflite::BidirectionalSequenceRNNOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BidirectionalSequenceRNNOptionsT *>(value) : nullptr;
   }
-  const tflite::BidirectionalSequenceRNNOptionsT *AsBidirectionalSequenceRNNOptions() const {
+  const tflite_micro::BidirectionalSequenceRNNOptionsT *AsBidirectionalSequenceRNNOptions() const {
     return type == BuiltinOptions_BidirectionalSequenceRNNOptions ?
-      reinterpret_cast<const tflite::BidirectionalSequenceRNNOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BidirectionalSequenceRNNOptionsT *>(value) : nullptr;
   }
-  tflite::UnidirectionalSequenceLSTMOptionsT *AsUnidirectionalSequenceLSTMOptions() {
+  tflite_micro::UnidirectionalSequenceLSTMOptionsT *AsUnidirectionalSequenceLSTMOptions() {
     return type == BuiltinOptions_UnidirectionalSequenceLSTMOptions ?
-      reinterpret_cast<tflite::UnidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UnidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
   }
-  const tflite::UnidirectionalSequenceLSTMOptionsT *AsUnidirectionalSequenceLSTMOptions() const {
+  const tflite_micro::UnidirectionalSequenceLSTMOptionsT *AsUnidirectionalSequenceLSTMOptions() const {
     return type == BuiltinOptions_UnidirectionalSequenceLSTMOptions ?
-      reinterpret_cast<const tflite::UnidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UnidirectionalSequenceLSTMOptionsT *>(value) : nullptr;
   }
-  tflite::FloorModOptionsT *AsFloorModOptions() {
+  tflite_micro::FloorModOptionsT *AsFloorModOptions() {
     return type == BuiltinOptions_FloorModOptions ?
-      reinterpret_cast<tflite::FloorModOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::FloorModOptionsT *>(value) : nullptr;
   }
-  const tflite::FloorModOptionsT *AsFloorModOptions() const {
+  const tflite_micro::FloorModOptionsT *AsFloorModOptions() const {
     return type == BuiltinOptions_FloorModOptions ?
-      reinterpret_cast<const tflite::FloorModOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::FloorModOptionsT *>(value) : nullptr;
   }
-  tflite::RangeOptionsT *AsRangeOptions() {
+  tflite_micro::RangeOptionsT *AsRangeOptions() {
     return type == BuiltinOptions_RangeOptions ?
-      reinterpret_cast<tflite::RangeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::RangeOptionsT *>(value) : nullptr;
   }
-  const tflite::RangeOptionsT *AsRangeOptions() const {
+  const tflite_micro::RangeOptionsT *AsRangeOptions() const {
     return type == BuiltinOptions_RangeOptions ?
-      reinterpret_cast<const tflite::RangeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::RangeOptionsT *>(value) : nullptr;
   }
-  tflite::ResizeNearestNeighborOptionsT *AsResizeNearestNeighborOptions() {
+  tflite_micro::ResizeNearestNeighborOptionsT *AsResizeNearestNeighborOptions() {
     return type == BuiltinOptions_ResizeNearestNeighborOptions ?
-      reinterpret_cast<tflite::ResizeNearestNeighborOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ResizeNearestNeighborOptionsT *>(value) : nullptr;
   }
-  const tflite::ResizeNearestNeighborOptionsT *AsResizeNearestNeighborOptions() const {
+  const tflite_micro::ResizeNearestNeighborOptionsT *AsResizeNearestNeighborOptions() const {
     return type == BuiltinOptions_ResizeNearestNeighborOptions ?
-      reinterpret_cast<const tflite::ResizeNearestNeighborOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ResizeNearestNeighborOptionsT *>(value) : nullptr;
   }
-  tflite::LeakyReluOptionsT *AsLeakyReluOptions() {
+  tflite_micro::LeakyReluOptionsT *AsLeakyReluOptions() {
     return type == BuiltinOptions_LeakyReluOptions ?
-      reinterpret_cast<tflite::LeakyReluOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::LeakyReluOptionsT *>(value) : nullptr;
   }
-  const tflite::LeakyReluOptionsT *AsLeakyReluOptions() const {
+  const tflite_micro::LeakyReluOptionsT *AsLeakyReluOptions() const {
     return type == BuiltinOptions_LeakyReluOptions ?
-      reinterpret_cast<const tflite::LeakyReluOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::LeakyReluOptionsT *>(value) : nullptr;
   }
-  tflite::SquaredDifferenceOptionsT *AsSquaredDifferenceOptions() {
+  tflite_micro::SquaredDifferenceOptionsT *AsSquaredDifferenceOptions() {
     return type == BuiltinOptions_SquaredDifferenceOptions ?
-      reinterpret_cast<tflite::SquaredDifferenceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SquaredDifferenceOptionsT *>(value) : nullptr;
   }
-  const tflite::SquaredDifferenceOptionsT *AsSquaredDifferenceOptions() const {
+  const tflite_micro::SquaredDifferenceOptionsT *AsSquaredDifferenceOptions() const {
     return type == BuiltinOptions_SquaredDifferenceOptions ?
-      reinterpret_cast<const tflite::SquaredDifferenceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SquaredDifferenceOptionsT *>(value) : nullptr;
   }
-  tflite::MirrorPadOptionsT *AsMirrorPadOptions() {
+  tflite_micro::MirrorPadOptionsT *AsMirrorPadOptions() {
     return type == BuiltinOptions_MirrorPadOptions ?
-      reinterpret_cast<tflite::MirrorPadOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::MirrorPadOptionsT *>(value) : nullptr;
   }
-  const tflite::MirrorPadOptionsT *AsMirrorPadOptions() const {
+  const tflite_micro::MirrorPadOptionsT *AsMirrorPadOptions() const {
     return type == BuiltinOptions_MirrorPadOptions ?
-      reinterpret_cast<const tflite::MirrorPadOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::MirrorPadOptionsT *>(value) : nullptr;
   }
-  tflite::AbsOptionsT *AsAbsOptions() {
+  tflite_micro::AbsOptionsT *AsAbsOptions() {
     return type == BuiltinOptions_AbsOptions ?
-      reinterpret_cast<tflite::AbsOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::AbsOptionsT *>(value) : nullptr;
   }
-  const tflite::AbsOptionsT *AsAbsOptions() const {
+  const tflite_micro::AbsOptionsT *AsAbsOptions() const {
     return type == BuiltinOptions_AbsOptions ?
-      reinterpret_cast<const tflite::AbsOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::AbsOptionsT *>(value) : nullptr;
   }
-  tflite::SplitVOptionsT *AsSplitVOptions() {
+  tflite_micro::SplitVOptionsT *AsSplitVOptions() {
     return type == BuiltinOptions_SplitVOptions ?
-      reinterpret_cast<tflite::SplitVOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SplitVOptionsT *>(value) : nullptr;
   }
-  const tflite::SplitVOptionsT *AsSplitVOptions() const {
+  const tflite_micro::SplitVOptionsT *AsSplitVOptions() const {
     return type == BuiltinOptions_SplitVOptions ?
-      reinterpret_cast<const tflite::SplitVOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SplitVOptionsT *>(value) : nullptr;
   }
-  tflite::UniqueOptionsT *AsUniqueOptions() {
+  tflite_micro::UniqueOptionsT *AsUniqueOptions() {
     return type == BuiltinOptions_UniqueOptions ?
-      reinterpret_cast<tflite::UniqueOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UniqueOptionsT *>(value) : nullptr;
   }
-  const tflite::UniqueOptionsT *AsUniqueOptions() const {
+  const tflite_micro::UniqueOptionsT *AsUniqueOptions() const {
     return type == BuiltinOptions_UniqueOptions ?
-      reinterpret_cast<const tflite::UniqueOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UniqueOptionsT *>(value) : nullptr;
   }
-  tflite::ReverseV2OptionsT *AsReverseV2Options() {
+  tflite_micro::ReverseV2OptionsT *AsReverseV2Options() {
     return type == BuiltinOptions_ReverseV2Options ?
-      reinterpret_cast<tflite::ReverseV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ReverseV2OptionsT *>(value) : nullptr;
   }
-  const tflite::ReverseV2OptionsT *AsReverseV2Options() const {
+  const tflite_micro::ReverseV2OptionsT *AsReverseV2Options() const {
     return type == BuiltinOptions_ReverseV2Options ?
-      reinterpret_cast<const tflite::ReverseV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ReverseV2OptionsT *>(value) : nullptr;
   }
-  tflite::AddNOptionsT *AsAddNOptions() {
+  tflite_micro::AddNOptionsT *AsAddNOptions() {
     return type == BuiltinOptions_AddNOptions ?
-      reinterpret_cast<tflite::AddNOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::AddNOptionsT *>(value) : nullptr;
   }
-  const tflite::AddNOptionsT *AsAddNOptions() const {
+  const tflite_micro::AddNOptionsT *AsAddNOptions() const {
     return type == BuiltinOptions_AddNOptions ?
-      reinterpret_cast<const tflite::AddNOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::AddNOptionsT *>(value) : nullptr;
   }
-  tflite::GatherNdOptionsT *AsGatherNdOptions() {
+  tflite_micro::GatherNdOptionsT *AsGatherNdOptions() {
     return type == BuiltinOptions_GatherNdOptions ?
-      reinterpret_cast<tflite::GatherNdOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::GatherNdOptionsT *>(value) : nullptr;
   }
-  const tflite::GatherNdOptionsT *AsGatherNdOptions() const {
+  const tflite_micro::GatherNdOptionsT *AsGatherNdOptions() const {
     return type == BuiltinOptions_GatherNdOptions ?
-      reinterpret_cast<const tflite::GatherNdOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::GatherNdOptionsT *>(value) : nullptr;
   }
-  tflite::CosOptionsT *AsCosOptions() {
+  tflite_micro::CosOptionsT *AsCosOptions() {
     return type == BuiltinOptions_CosOptions ?
-      reinterpret_cast<tflite::CosOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::CosOptionsT *>(value) : nullptr;
   }
-  const tflite::CosOptionsT *AsCosOptions() const {
+  const tflite_micro::CosOptionsT *AsCosOptions() const {
     return type == BuiltinOptions_CosOptions ?
-      reinterpret_cast<const tflite::CosOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::CosOptionsT *>(value) : nullptr;
   }
-  tflite::WhereOptionsT *AsWhereOptions() {
+  tflite_micro::WhereOptionsT *AsWhereOptions() {
     return type == BuiltinOptions_WhereOptions ?
-      reinterpret_cast<tflite::WhereOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::WhereOptionsT *>(value) : nullptr;
   }
-  const tflite::WhereOptionsT *AsWhereOptions() const {
+  const tflite_micro::WhereOptionsT *AsWhereOptions() const {
     return type == BuiltinOptions_WhereOptions ?
-      reinterpret_cast<const tflite::WhereOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::WhereOptionsT *>(value) : nullptr;
   }
-  tflite::RankOptionsT *AsRankOptions() {
+  tflite_micro::RankOptionsT *AsRankOptions() {
     return type == BuiltinOptions_RankOptions ?
-      reinterpret_cast<tflite::RankOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::RankOptionsT *>(value) : nullptr;
   }
-  const tflite::RankOptionsT *AsRankOptions() const {
+  const tflite_micro::RankOptionsT *AsRankOptions() const {
     return type == BuiltinOptions_RankOptions ?
-      reinterpret_cast<const tflite::RankOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::RankOptionsT *>(value) : nullptr;
   }
-  tflite::ReverseSequenceOptionsT *AsReverseSequenceOptions() {
+  tflite_micro::ReverseSequenceOptionsT *AsReverseSequenceOptions() {
     return type == BuiltinOptions_ReverseSequenceOptions ?
-      reinterpret_cast<tflite::ReverseSequenceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ReverseSequenceOptionsT *>(value) : nullptr;
   }
-  const tflite::ReverseSequenceOptionsT *AsReverseSequenceOptions() const {
+  const tflite_micro::ReverseSequenceOptionsT *AsReverseSequenceOptions() const {
     return type == BuiltinOptions_ReverseSequenceOptions ?
-      reinterpret_cast<const tflite::ReverseSequenceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ReverseSequenceOptionsT *>(value) : nullptr;
   }
-  tflite::MatrixDiagOptionsT *AsMatrixDiagOptions() {
+  tflite_micro::MatrixDiagOptionsT *AsMatrixDiagOptions() {
     return type == BuiltinOptions_MatrixDiagOptions ?
-      reinterpret_cast<tflite::MatrixDiagOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::MatrixDiagOptionsT *>(value) : nullptr;
   }
-  const tflite::MatrixDiagOptionsT *AsMatrixDiagOptions() const {
+  const tflite_micro::MatrixDiagOptionsT *AsMatrixDiagOptions() const {
     return type == BuiltinOptions_MatrixDiagOptions ?
-      reinterpret_cast<const tflite::MatrixDiagOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::MatrixDiagOptionsT *>(value) : nullptr;
   }
-  tflite::QuantizeOptionsT *AsQuantizeOptions() {
+  tflite_micro::QuantizeOptionsT *AsQuantizeOptions() {
     return type == BuiltinOptions_QuantizeOptions ?
-      reinterpret_cast<tflite::QuantizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::QuantizeOptionsT *>(value) : nullptr;
   }
-  const tflite::QuantizeOptionsT *AsQuantizeOptions() const {
+  const tflite_micro::QuantizeOptionsT *AsQuantizeOptions() const {
     return type == BuiltinOptions_QuantizeOptions ?
-      reinterpret_cast<const tflite::QuantizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::QuantizeOptionsT *>(value) : nullptr;
   }
-  tflite::MatrixSetDiagOptionsT *AsMatrixSetDiagOptions() {
+  tflite_micro::MatrixSetDiagOptionsT *AsMatrixSetDiagOptions() {
     return type == BuiltinOptions_MatrixSetDiagOptions ?
-      reinterpret_cast<tflite::MatrixSetDiagOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::MatrixSetDiagOptionsT *>(value) : nullptr;
   }
-  const tflite::MatrixSetDiagOptionsT *AsMatrixSetDiagOptions() const {
+  const tflite_micro::MatrixSetDiagOptionsT *AsMatrixSetDiagOptions() const {
     return type == BuiltinOptions_MatrixSetDiagOptions ?
-      reinterpret_cast<const tflite::MatrixSetDiagOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::MatrixSetDiagOptionsT *>(value) : nullptr;
   }
-  tflite::HardSwishOptionsT *AsHardSwishOptions() {
+  tflite_micro::HardSwishOptionsT *AsHardSwishOptions() {
     return type == BuiltinOptions_HardSwishOptions ?
-      reinterpret_cast<tflite::HardSwishOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::HardSwishOptionsT *>(value) : nullptr;
   }
-  const tflite::HardSwishOptionsT *AsHardSwishOptions() const {
+  const tflite_micro::HardSwishOptionsT *AsHardSwishOptions() const {
     return type == BuiltinOptions_HardSwishOptions ?
-      reinterpret_cast<const tflite::HardSwishOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::HardSwishOptionsT *>(value) : nullptr;
   }
-  tflite::IfOptionsT *AsIfOptions() {
+  tflite_micro::IfOptionsT *AsIfOptions() {
     return type == BuiltinOptions_IfOptions ?
-      reinterpret_cast<tflite::IfOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::IfOptionsT *>(value) : nullptr;
   }
-  const tflite::IfOptionsT *AsIfOptions() const {
+  const tflite_micro::IfOptionsT *AsIfOptions() const {
     return type == BuiltinOptions_IfOptions ?
-      reinterpret_cast<const tflite::IfOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::IfOptionsT *>(value) : nullptr;
   }
-  tflite::WhileOptionsT *AsWhileOptions() {
+  tflite_micro::WhileOptionsT *AsWhileOptions() {
     return type == BuiltinOptions_WhileOptions ?
-      reinterpret_cast<tflite::WhileOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::WhileOptionsT *>(value) : nullptr;
   }
-  const tflite::WhileOptionsT *AsWhileOptions() const {
+  const tflite_micro::WhileOptionsT *AsWhileOptions() const {
     return type == BuiltinOptions_WhileOptions ?
-      reinterpret_cast<const tflite::WhileOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::WhileOptionsT *>(value) : nullptr;
   }
-  tflite::DepthToSpaceOptionsT *AsDepthToSpaceOptions() {
+  tflite_micro::DepthToSpaceOptionsT *AsDepthToSpaceOptions() {
     return type == BuiltinOptions_DepthToSpaceOptions ?
-      reinterpret_cast<tflite::DepthToSpaceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DepthToSpaceOptionsT *>(value) : nullptr;
   }
-  const tflite::DepthToSpaceOptionsT *AsDepthToSpaceOptions() const {
+  const tflite_micro::DepthToSpaceOptionsT *AsDepthToSpaceOptions() const {
     return type == BuiltinOptions_DepthToSpaceOptions ?
-      reinterpret_cast<const tflite::DepthToSpaceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DepthToSpaceOptionsT *>(value) : nullptr;
   }
-  tflite::NonMaxSuppressionV4OptionsT *AsNonMaxSuppressionV4Options() {
+  tflite_micro::NonMaxSuppressionV4OptionsT *AsNonMaxSuppressionV4Options() {
     return type == BuiltinOptions_NonMaxSuppressionV4Options ?
-      reinterpret_cast<tflite::NonMaxSuppressionV4OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::NonMaxSuppressionV4OptionsT *>(value) : nullptr;
   }
-  const tflite::NonMaxSuppressionV4OptionsT *AsNonMaxSuppressionV4Options() const {
+  const tflite_micro::NonMaxSuppressionV4OptionsT *AsNonMaxSuppressionV4Options() const {
     return type == BuiltinOptions_NonMaxSuppressionV4Options ?
-      reinterpret_cast<const tflite::NonMaxSuppressionV4OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::NonMaxSuppressionV4OptionsT *>(value) : nullptr;
   }
-  tflite::NonMaxSuppressionV5OptionsT *AsNonMaxSuppressionV5Options() {
+  tflite_micro::NonMaxSuppressionV5OptionsT *AsNonMaxSuppressionV5Options() {
     return type == BuiltinOptions_NonMaxSuppressionV5Options ?
-      reinterpret_cast<tflite::NonMaxSuppressionV5OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::NonMaxSuppressionV5OptionsT *>(value) : nullptr;
   }
-  const tflite::NonMaxSuppressionV5OptionsT *AsNonMaxSuppressionV5Options() const {
+  const tflite_micro::NonMaxSuppressionV5OptionsT *AsNonMaxSuppressionV5Options() const {
     return type == BuiltinOptions_NonMaxSuppressionV5Options ?
-      reinterpret_cast<const tflite::NonMaxSuppressionV5OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::NonMaxSuppressionV5OptionsT *>(value) : nullptr;
   }
-  tflite::ScatterNdOptionsT *AsScatterNdOptions() {
+  tflite_micro::ScatterNdOptionsT *AsScatterNdOptions() {
     return type == BuiltinOptions_ScatterNdOptions ?
-      reinterpret_cast<tflite::ScatterNdOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ScatterNdOptionsT *>(value) : nullptr;
   }
-  const tflite::ScatterNdOptionsT *AsScatterNdOptions() const {
+  const tflite_micro::ScatterNdOptionsT *AsScatterNdOptions() const {
     return type == BuiltinOptions_ScatterNdOptions ?
-      reinterpret_cast<const tflite::ScatterNdOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ScatterNdOptionsT *>(value) : nullptr;
   }
-  tflite::SelectV2OptionsT *AsSelectV2Options() {
+  tflite_micro::SelectV2OptionsT *AsSelectV2Options() {
     return type == BuiltinOptions_SelectV2Options ?
-      reinterpret_cast<tflite::SelectV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SelectV2OptionsT *>(value) : nullptr;
   }
-  const tflite::SelectV2OptionsT *AsSelectV2Options() const {
+  const tflite_micro::SelectV2OptionsT *AsSelectV2Options() const {
     return type == BuiltinOptions_SelectV2Options ?
-      reinterpret_cast<const tflite::SelectV2OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SelectV2OptionsT *>(value) : nullptr;
   }
-  tflite::DensifyOptionsT *AsDensifyOptions() {
+  tflite_micro::DensifyOptionsT *AsDensifyOptions() {
     return type == BuiltinOptions_DensifyOptions ?
-      reinterpret_cast<tflite::DensifyOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DensifyOptionsT *>(value) : nullptr;
   }
-  const tflite::DensifyOptionsT *AsDensifyOptions() const {
+  const tflite_micro::DensifyOptionsT *AsDensifyOptions() const {
     return type == BuiltinOptions_DensifyOptions ?
-      reinterpret_cast<const tflite::DensifyOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DensifyOptionsT *>(value) : nullptr;
   }
-  tflite::SegmentSumOptionsT *AsSegmentSumOptions() {
+  tflite_micro::SegmentSumOptionsT *AsSegmentSumOptions() {
     return type == BuiltinOptions_SegmentSumOptions ?
-      reinterpret_cast<tflite::SegmentSumOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SegmentSumOptionsT *>(value) : nullptr;
   }
-  const tflite::SegmentSumOptionsT *AsSegmentSumOptions() const {
+  const tflite_micro::SegmentSumOptionsT *AsSegmentSumOptions() const {
     return type == BuiltinOptions_SegmentSumOptions ?
-      reinterpret_cast<const tflite::SegmentSumOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SegmentSumOptionsT *>(value) : nullptr;
   }
-  tflite::BatchMatMulOptionsT *AsBatchMatMulOptions() {
+  tflite_micro::BatchMatMulOptionsT *AsBatchMatMulOptions() {
     return type == BuiltinOptions_BatchMatMulOptions ?
-      reinterpret_cast<tflite::BatchMatMulOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BatchMatMulOptionsT *>(value) : nullptr;
   }
-  const tflite::BatchMatMulOptionsT *AsBatchMatMulOptions() const {
+  const tflite_micro::BatchMatMulOptionsT *AsBatchMatMulOptions() const {
     return type == BuiltinOptions_BatchMatMulOptions ?
-      reinterpret_cast<const tflite::BatchMatMulOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BatchMatMulOptionsT *>(value) : nullptr;
   }
-  tflite::CumsumOptionsT *AsCumsumOptions() {
+  tflite_micro::CumsumOptionsT *AsCumsumOptions() {
     return type == BuiltinOptions_CumsumOptions ?
-      reinterpret_cast<tflite::CumsumOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::CumsumOptionsT *>(value) : nullptr;
   }
-  const tflite::CumsumOptionsT *AsCumsumOptions() const {
+  const tflite_micro::CumsumOptionsT *AsCumsumOptions() const {
     return type == BuiltinOptions_CumsumOptions ?
-      reinterpret_cast<const tflite::CumsumOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::CumsumOptionsT *>(value) : nullptr;
   }
-  tflite::CallOnceOptionsT *AsCallOnceOptions() {
+  tflite_micro::CallOnceOptionsT *AsCallOnceOptions() {
     return type == BuiltinOptions_CallOnceOptions ?
-      reinterpret_cast<tflite::CallOnceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::CallOnceOptionsT *>(value) : nullptr;
   }
-  const tflite::CallOnceOptionsT *AsCallOnceOptions() const {
+  const tflite_micro::CallOnceOptionsT *AsCallOnceOptions() const {
     return type == BuiltinOptions_CallOnceOptions ?
-      reinterpret_cast<const tflite::CallOnceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::CallOnceOptionsT *>(value) : nullptr;
   }
-  tflite::BroadcastToOptionsT *AsBroadcastToOptions() {
+  tflite_micro::BroadcastToOptionsT *AsBroadcastToOptions() {
     return type == BuiltinOptions_BroadcastToOptions ?
-      reinterpret_cast<tflite::BroadcastToOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BroadcastToOptionsT *>(value) : nullptr;
   }
-  const tflite::BroadcastToOptionsT *AsBroadcastToOptions() const {
+  const tflite_micro::BroadcastToOptionsT *AsBroadcastToOptions() const {
     return type == BuiltinOptions_BroadcastToOptions ?
-      reinterpret_cast<const tflite::BroadcastToOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BroadcastToOptionsT *>(value) : nullptr;
   }
-  tflite::Rfft2dOptionsT *AsRfft2dOptions() {
+  tflite_micro::Rfft2dOptionsT *AsRfft2dOptions() {
     return type == BuiltinOptions_Rfft2dOptions ?
-      reinterpret_cast<tflite::Rfft2dOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Rfft2dOptionsT *>(value) : nullptr;
   }
-  const tflite::Rfft2dOptionsT *AsRfft2dOptions() const {
+  const tflite_micro::Rfft2dOptionsT *AsRfft2dOptions() const {
     return type == BuiltinOptions_Rfft2dOptions ?
-      reinterpret_cast<const tflite::Rfft2dOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Rfft2dOptionsT *>(value) : nullptr;
   }
-  tflite::Conv3DOptionsT *AsConv3DOptions() {
+  tflite_micro::Conv3DOptionsT *AsConv3DOptions() {
     return type == BuiltinOptions_Conv3DOptions ?
-      reinterpret_cast<tflite::Conv3DOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::Conv3DOptionsT *>(value) : nullptr;
   }
-  const tflite::Conv3DOptionsT *AsConv3DOptions() const {
+  const tflite_micro::Conv3DOptionsT *AsConv3DOptions() const {
     return type == BuiltinOptions_Conv3DOptions ?
-      reinterpret_cast<const tflite::Conv3DOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::Conv3DOptionsT *>(value) : nullptr;
   }
-  tflite::HashtableOptionsT *AsHashtableOptions() {
+  tflite_micro::HashtableOptionsT *AsHashtableOptions() {
     return type == BuiltinOptions_HashtableOptions ?
-      reinterpret_cast<tflite::HashtableOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::HashtableOptionsT *>(value) : nullptr;
   }
-  const tflite::HashtableOptionsT *AsHashtableOptions() const {
+  const tflite_micro::HashtableOptionsT *AsHashtableOptions() const {
     return type == BuiltinOptions_HashtableOptions ?
-      reinterpret_cast<const tflite::HashtableOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::HashtableOptionsT *>(value) : nullptr;
   }
-  tflite::HashtableFindOptionsT *AsHashtableFindOptions() {
+  tflite_micro::HashtableFindOptionsT *AsHashtableFindOptions() {
     return type == BuiltinOptions_HashtableFindOptions ?
-      reinterpret_cast<tflite::HashtableFindOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::HashtableFindOptionsT *>(value) : nullptr;
   }
-  const tflite::HashtableFindOptionsT *AsHashtableFindOptions() const {
+  const tflite_micro::HashtableFindOptionsT *AsHashtableFindOptions() const {
     return type == BuiltinOptions_HashtableFindOptions ?
-      reinterpret_cast<const tflite::HashtableFindOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::HashtableFindOptionsT *>(value) : nullptr;
   }
-  tflite::HashtableImportOptionsT *AsHashtableImportOptions() {
+  tflite_micro::HashtableImportOptionsT *AsHashtableImportOptions() {
     return type == BuiltinOptions_HashtableImportOptions ?
-      reinterpret_cast<tflite::HashtableImportOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::HashtableImportOptionsT *>(value) : nullptr;
   }
-  const tflite::HashtableImportOptionsT *AsHashtableImportOptions() const {
+  const tflite_micro::HashtableImportOptionsT *AsHashtableImportOptions() const {
     return type == BuiltinOptions_HashtableImportOptions ?
-      reinterpret_cast<const tflite::HashtableImportOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::HashtableImportOptionsT *>(value) : nullptr;
   }
-  tflite::HashtableSizeOptionsT *AsHashtableSizeOptions() {
+  tflite_micro::HashtableSizeOptionsT *AsHashtableSizeOptions() {
     return type == BuiltinOptions_HashtableSizeOptions ?
-      reinterpret_cast<tflite::HashtableSizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::HashtableSizeOptionsT *>(value) : nullptr;
   }
-  const tflite::HashtableSizeOptionsT *AsHashtableSizeOptions() const {
+  const tflite_micro::HashtableSizeOptionsT *AsHashtableSizeOptions() const {
     return type == BuiltinOptions_HashtableSizeOptions ?
-      reinterpret_cast<const tflite::HashtableSizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::HashtableSizeOptionsT *>(value) : nullptr;
   }
-  tflite::VarHandleOptionsT *AsVarHandleOptions() {
+  tflite_micro::VarHandleOptionsT *AsVarHandleOptions() {
     return type == BuiltinOptions_VarHandleOptions ?
-      reinterpret_cast<tflite::VarHandleOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::VarHandleOptionsT *>(value) : nullptr;
   }
-  const tflite::VarHandleOptionsT *AsVarHandleOptions() const {
+  const tflite_micro::VarHandleOptionsT *AsVarHandleOptions() const {
     return type == BuiltinOptions_VarHandleOptions ?
-      reinterpret_cast<const tflite::VarHandleOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::VarHandleOptionsT *>(value) : nullptr;
   }
-  tflite::ReadVariableOptionsT *AsReadVariableOptions() {
+  tflite_micro::ReadVariableOptionsT *AsReadVariableOptions() {
     return type == BuiltinOptions_ReadVariableOptions ?
-      reinterpret_cast<tflite::ReadVariableOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ReadVariableOptionsT *>(value) : nullptr;
   }
-  const tflite::ReadVariableOptionsT *AsReadVariableOptions() const {
+  const tflite_micro::ReadVariableOptionsT *AsReadVariableOptions() const {
     return type == BuiltinOptions_ReadVariableOptions ?
-      reinterpret_cast<const tflite::ReadVariableOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ReadVariableOptionsT *>(value) : nullptr;
   }
-  tflite::AssignVariableOptionsT *AsAssignVariableOptions() {
+  tflite_micro::AssignVariableOptionsT *AsAssignVariableOptions() {
     return type == BuiltinOptions_AssignVariableOptions ?
-      reinterpret_cast<tflite::AssignVariableOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::AssignVariableOptionsT *>(value) : nullptr;
   }
-  const tflite::AssignVariableOptionsT *AsAssignVariableOptions() const {
+  const tflite_micro::AssignVariableOptionsT *AsAssignVariableOptions() const {
     return type == BuiltinOptions_AssignVariableOptions ?
-      reinterpret_cast<const tflite::AssignVariableOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::AssignVariableOptionsT *>(value) : nullptr;
   }
-  tflite::RandomOptionsT *AsRandomOptions() {
+  tflite_micro::RandomOptionsT *AsRandomOptions() {
     return type == BuiltinOptions_RandomOptions ?
-      reinterpret_cast<tflite::RandomOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::RandomOptionsT *>(value) : nullptr;
   }
-  const tflite::RandomOptionsT *AsRandomOptions() const {
+  const tflite_micro::RandomOptionsT *AsRandomOptions() const {
     return type == BuiltinOptions_RandomOptions ?
-      reinterpret_cast<const tflite::RandomOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::RandomOptionsT *>(value) : nullptr;
   }
-  tflite::BucketizeOptionsT *AsBucketizeOptions() {
+  tflite_micro::BucketizeOptionsT *AsBucketizeOptions() {
     return type == BuiltinOptions_BucketizeOptions ?
-      reinterpret_cast<tflite::BucketizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BucketizeOptionsT *>(value) : nullptr;
   }
-  const tflite::BucketizeOptionsT *AsBucketizeOptions() const {
+  const tflite_micro::BucketizeOptionsT *AsBucketizeOptions() const {
     return type == BuiltinOptions_BucketizeOptions ?
-      reinterpret_cast<const tflite::BucketizeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BucketizeOptionsT *>(value) : nullptr;
   }
-  tflite::GeluOptionsT *AsGeluOptions() {
+  tflite_micro::GeluOptionsT *AsGeluOptions() {
     return type == BuiltinOptions_GeluOptions ?
-      reinterpret_cast<tflite::GeluOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::GeluOptionsT *>(value) : nullptr;
   }
-  const tflite::GeluOptionsT *AsGeluOptions() const {
+  const tflite_micro::GeluOptionsT *AsGeluOptions() const {
     return type == BuiltinOptions_GeluOptions ?
-      reinterpret_cast<const tflite::GeluOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::GeluOptionsT *>(value) : nullptr;
   }
-  tflite::DynamicUpdateSliceOptionsT *AsDynamicUpdateSliceOptions() {
+  tflite_micro::DynamicUpdateSliceOptionsT *AsDynamicUpdateSliceOptions() {
     return type == BuiltinOptions_DynamicUpdateSliceOptions ?
-      reinterpret_cast<tflite::DynamicUpdateSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DynamicUpdateSliceOptionsT *>(value) : nullptr;
   }
-  const tflite::DynamicUpdateSliceOptionsT *AsDynamicUpdateSliceOptions() const {
+  const tflite_micro::DynamicUpdateSliceOptionsT *AsDynamicUpdateSliceOptions() const {
     return type == BuiltinOptions_DynamicUpdateSliceOptions ?
-      reinterpret_cast<const tflite::DynamicUpdateSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DynamicUpdateSliceOptionsT *>(value) : nullptr;
   }
-  tflite::UnsortedSegmentProdOptionsT *AsUnsortedSegmentProdOptions() {
+  tflite_micro::UnsortedSegmentProdOptionsT *AsUnsortedSegmentProdOptions() {
     return type == BuiltinOptions_UnsortedSegmentProdOptions ?
-      reinterpret_cast<tflite::UnsortedSegmentProdOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UnsortedSegmentProdOptionsT *>(value) : nullptr;
   }
-  const tflite::UnsortedSegmentProdOptionsT *AsUnsortedSegmentProdOptions() const {
+  const tflite_micro::UnsortedSegmentProdOptionsT *AsUnsortedSegmentProdOptions() const {
     return type == BuiltinOptions_UnsortedSegmentProdOptions ?
-      reinterpret_cast<const tflite::UnsortedSegmentProdOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UnsortedSegmentProdOptionsT *>(value) : nullptr;
   }
-  tflite::UnsortedSegmentMaxOptionsT *AsUnsortedSegmentMaxOptions() {
+  tflite_micro::UnsortedSegmentMaxOptionsT *AsUnsortedSegmentMaxOptions() {
     return type == BuiltinOptions_UnsortedSegmentMaxOptions ?
-      reinterpret_cast<tflite::UnsortedSegmentMaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UnsortedSegmentMaxOptionsT *>(value) : nullptr;
   }
-  const tflite::UnsortedSegmentMaxOptionsT *AsUnsortedSegmentMaxOptions() const {
+  const tflite_micro::UnsortedSegmentMaxOptionsT *AsUnsortedSegmentMaxOptions() const {
     return type == BuiltinOptions_UnsortedSegmentMaxOptions ?
-      reinterpret_cast<const tflite::UnsortedSegmentMaxOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UnsortedSegmentMaxOptionsT *>(value) : nullptr;
   }
-  tflite::UnsortedSegmentMinOptionsT *AsUnsortedSegmentMinOptions() {
+  tflite_micro::UnsortedSegmentMinOptionsT *AsUnsortedSegmentMinOptions() {
     return type == BuiltinOptions_UnsortedSegmentMinOptions ?
-      reinterpret_cast<tflite::UnsortedSegmentMinOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UnsortedSegmentMinOptionsT *>(value) : nullptr;
   }
-  const tflite::UnsortedSegmentMinOptionsT *AsUnsortedSegmentMinOptions() const {
+  const tflite_micro::UnsortedSegmentMinOptionsT *AsUnsortedSegmentMinOptions() const {
     return type == BuiltinOptions_UnsortedSegmentMinOptions ?
-      reinterpret_cast<const tflite::UnsortedSegmentMinOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UnsortedSegmentMinOptionsT *>(value) : nullptr;
   }
-  tflite::UnsortedSegmentSumOptionsT *AsUnsortedSegmentSumOptions() {
+  tflite_micro::UnsortedSegmentSumOptionsT *AsUnsortedSegmentSumOptions() {
     return type == BuiltinOptions_UnsortedSegmentSumOptions ?
-      reinterpret_cast<tflite::UnsortedSegmentSumOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::UnsortedSegmentSumOptionsT *>(value) : nullptr;
   }
-  const tflite::UnsortedSegmentSumOptionsT *AsUnsortedSegmentSumOptions() const {
+  const tflite_micro::UnsortedSegmentSumOptionsT *AsUnsortedSegmentSumOptions() const {
     return type == BuiltinOptions_UnsortedSegmentSumOptions ?
-      reinterpret_cast<const tflite::UnsortedSegmentSumOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::UnsortedSegmentSumOptionsT *>(value) : nullptr;
   }
-  tflite::ATan2OptionsT *AsATan2Options() {
+  tflite_micro::ATan2OptionsT *AsATan2Options() {
     return type == BuiltinOptions_ATan2Options ?
-      reinterpret_cast<tflite::ATan2OptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ATan2OptionsT *>(value) : nullptr;
   }
-  const tflite::ATan2OptionsT *AsATan2Options() const {
+  const tflite_micro::ATan2OptionsT *AsATan2Options() const {
     return type == BuiltinOptions_ATan2Options ?
-      reinterpret_cast<const tflite::ATan2OptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ATan2OptionsT *>(value) : nullptr;
   }
-  tflite::SignOptionsT *AsSignOptions() {
+  tflite_micro::SignOptionsT *AsSignOptions() {
     return type == BuiltinOptions_SignOptions ?
-      reinterpret_cast<tflite::SignOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::SignOptionsT *>(value) : nullptr;
   }
-  const tflite::SignOptionsT *AsSignOptions() const {
+  const tflite_micro::SignOptionsT *AsSignOptions() const {
     return type == BuiltinOptions_SignOptions ?
-      reinterpret_cast<const tflite::SignOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::SignOptionsT *>(value) : nullptr;
   }
-  tflite::BitcastOptionsT *AsBitcastOptions() {
+  tflite_micro::BitcastOptionsT *AsBitcastOptions() {
     return type == BuiltinOptions_BitcastOptions ?
-      reinterpret_cast<tflite::BitcastOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BitcastOptionsT *>(value) : nullptr;
   }
-  const tflite::BitcastOptionsT *AsBitcastOptions() const {
+  const tflite_micro::BitcastOptionsT *AsBitcastOptions() const {
     return type == BuiltinOptions_BitcastOptions ?
-      reinterpret_cast<const tflite::BitcastOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BitcastOptionsT *>(value) : nullptr;
   }
-  tflite::BitwiseXorOptionsT *AsBitwiseXorOptions() {
+  tflite_micro::BitwiseXorOptionsT *AsBitwiseXorOptions() {
     return type == BuiltinOptions_BitwiseXorOptions ?
-      reinterpret_cast<tflite::BitwiseXorOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::BitwiseXorOptionsT *>(value) : nullptr;
   }
-  const tflite::BitwiseXorOptionsT *AsBitwiseXorOptions() const {
+  const tflite_micro::BitwiseXorOptionsT *AsBitwiseXorOptions() const {
     return type == BuiltinOptions_BitwiseXorOptions ?
-      reinterpret_cast<const tflite::BitwiseXorOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::BitwiseXorOptionsT *>(value) : nullptr;
   }
-  tflite::RightShiftOptionsT *AsRightShiftOptions() {
+  tflite_micro::RightShiftOptionsT *AsRightShiftOptions() {
     return type == BuiltinOptions_RightShiftOptions ?
-      reinterpret_cast<tflite::RightShiftOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::RightShiftOptionsT *>(value) : nullptr;
   }
-  const tflite::RightShiftOptionsT *AsRightShiftOptions() const {
+  const tflite_micro::RightShiftOptionsT *AsRightShiftOptions() const {
     return type == BuiltinOptions_RightShiftOptions ?
-      reinterpret_cast<const tflite::RightShiftOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::RightShiftOptionsT *>(value) : nullptr;
   }
 };
 
@@ -4188,83 +4188,83 @@ template<typename T> struct BuiltinOptions2Traits {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_NONE;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloConcatenateOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloConcatenateOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloConcatenateOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloBroadcastInDimOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloBroadcastInDimOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloBroadcastInDimOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloSliceOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloSliceOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloSliceOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloConvolutionOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloConvolutionOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloConvolutionOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloCustomCallOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloCustomCallOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloCustomCallOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloReduceOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloReduceOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloReduceOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloScatterOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloScatterOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloScatterOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloCompareOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloCompareOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloCompareOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloDynamicSliceOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloDynamicSliceOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloDynamicSliceOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloPadOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloPadOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloPadOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloIotaOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloIotaOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloIotaOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloDotGeneralOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloDotGeneralOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloDotGeneralOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloReduceWindowOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloReduceWindowOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloReduceWindowOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloSortOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloSortOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloSortOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloWhileOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloWhileOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloWhileOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloGatherOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloGatherOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloGatherOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloTransposeOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloTransposeOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloTransposeOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::DilateOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::DilateOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_DilateOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::StablehloRngBitGeneratorOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::StablehloRngBitGeneratorOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloRngBitGeneratorOptions;
 };
 
-template<> struct BuiltinOptions2Traits<tflite::ReduceWindowOptions> {
+template<> struct BuiltinOptions2Traits<tflite_micro::ReduceWindowOptions> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_ReduceWindowOptions;
 };
 
@@ -4272,83 +4272,83 @@ template<typename T> struct BuiltinOptions2UnionTraits {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_NONE;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloConcatenateOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloConcatenateOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloConcatenateOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloBroadcastInDimOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloBroadcastInDimOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloBroadcastInDimOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloSliceOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloSliceOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloSliceOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloConvolutionOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloConvolutionOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloConvolutionOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloCustomCallOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloCustomCallOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloCustomCallOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloReduceOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloReduceOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloReduceOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloScatterOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloScatterOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloScatterOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloCompareOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloCompareOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloCompareOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloDynamicSliceOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloDynamicSliceOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloDynamicSliceOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloPadOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloPadOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloPadOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloIotaOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloIotaOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloIotaOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloDotGeneralOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloDotGeneralOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloDotGeneralOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloReduceWindowOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloReduceWindowOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloReduceWindowOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloSortOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloSortOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloSortOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloWhileOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloWhileOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloWhileOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloGatherOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloGatherOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloGatherOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloTransposeOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloTransposeOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloTransposeOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::DilateOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::DilateOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_DilateOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::StablehloRngBitGeneratorOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::StablehloRngBitGeneratorOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_StablehloRngBitGeneratorOptions;
 };
 
-template<> struct BuiltinOptions2UnionTraits<tflite::ReduceWindowOptionsT> {
+template<> struct BuiltinOptions2UnionTraits<tflite_micro::ReduceWindowOptionsT> {
   static const BuiltinOptions2 enum_value = BuiltinOptions2_ReduceWindowOptions;
 };
 
@@ -4382,165 +4382,165 @@ struct BuiltinOptions2Union {
   static void *UnPack(const void *obj, BuiltinOptions2 type, const flatbuffers::resolver_function_t *resolver);
   flatbuffers::Offset<void> Pack(flatbuffers::FlatBufferBuilder &_fbb, const flatbuffers::rehasher_function_t *_rehasher = nullptr) const;
 
-  tflite::StablehloConcatenateOptionsT *AsStablehloConcatenateOptions() {
+  tflite_micro::StablehloConcatenateOptionsT *AsStablehloConcatenateOptions() {
     return type == BuiltinOptions2_StablehloConcatenateOptions ?
-      reinterpret_cast<tflite::StablehloConcatenateOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloConcatenateOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloConcatenateOptionsT *AsStablehloConcatenateOptions() const {
+  const tflite_micro::StablehloConcatenateOptionsT *AsStablehloConcatenateOptions() const {
     return type == BuiltinOptions2_StablehloConcatenateOptions ?
-      reinterpret_cast<const tflite::StablehloConcatenateOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloConcatenateOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloBroadcastInDimOptionsT *AsStablehloBroadcastInDimOptions() {
+  tflite_micro::StablehloBroadcastInDimOptionsT *AsStablehloBroadcastInDimOptions() {
     return type == BuiltinOptions2_StablehloBroadcastInDimOptions ?
-      reinterpret_cast<tflite::StablehloBroadcastInDimOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloBroadcastInDimOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloBroadcastInDimOptionsT *AsStablehloBroadcastInDimOptions() const {
+  const tflite_micro::StablehloBroadcastInDimOptionsT *AsStablehloBroadcastInDimOptions() const {
     return type == BuiltinOptions2_StablehloBroadcastInDimOptions ?
-      reinterpret_cast<const tflite::StablehloBroadcastInDimOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloBroadcastInDimOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloSliceOptionsT *AsStablehloSliceOptions() {
+  tflite_micro::StablehloSliceOptionsT *AsStablehloSliceOptions() {
     return type == BuiltinOptions2_StablehloSliceOptions ?
-      reinterpret_cast<tflite::StablehloSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloSliceOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloSliceOptionsT *AsStablehloSliceOptions() const {
+  const tflite_micro::StablehloSliceOptionsT *AsStablehloSliceOptions() const {
     return type == BuiltinOptions2_StablehloSliceOptions ?
-      reinterpret_cast<const tflite::StablehloSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloSliceOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloConvolutionOptionsT *AsStablehloConvolutionOptions() {
+  tflite_micro::StablehloConvolutionOptionsT *AsStablehloConvolutionOptions() {
     return type == BuiltinOptions2_StablehloConvolutionOptions ?
-      reinterpret_cast<tflite::StablehloConvolutionOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloConvolutionOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloConvolutionOptionsT *AsStablehloConvolutionOptions() const {
+  const tflite_micro::StablehloConvolutionOptionsT *AsStablehloConvolutionOptions() const {
     return type == BuiltinOptions2_StablehloConvolutionOptions ?
-      reinterpret_cast<const tflite::StablehloConvolutionOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloConvolutionOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloCustomCallOptionsT *AsStablehloCustomCallOptions() {
+  tflite_micro::StablehloCustomCallOptionsT *AsStablehloCustomCallOptions() {
     return type == BuiltinOptions2_StablehloCustomCallOptions ?
-      reinterpret_cast<tflite::StablehloCustomCallOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloCustomCallOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloCustomCallOptionsT *AsStablehloCustomCallOptions() const {
+  const tflite_micro::StablehloCustomCallOptionsT *AsStablehloCustomCallOptions() const {
     return type == BuiltinOptions2_StablehloCustomCallOptions ?
-      reinterpret_cast<const tflite::StablehloCustomCallOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloCustomCallOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloReduceOptionsT *AsStablehloReduceOptions() {
+  tflite_micro::StablehloReduceOptionsT *AsStablehloReduceOptions() {
     return type == BuiltinOptions2_StablehloReduceOptions ?
-      reinterpret_cast<tflite::StablehloReduceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloReduceOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloReduceOptionsT *AsStablehloReduceOptions() const {
+  const tflite_micro::StablehloReduceOptionsT *AsStablehloReduceOptions() const {
     return type == BuiltinOptions2_StablehloReduceOptions ?
-      reinterpret_cast<const tflite::StablehloReduceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloReduceOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloScatterOptionsT *AsStablehloScatterOptions() {
+  tflite_micro::StablehloScatterOptionsT *AsStablehloScatterOptions() {
     return type == BuiltinOptions2_StablehloScatterOptions ?
-      reinterpret_cast<tflite::StablehloScatterOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloScatterOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloScatterOptionsT *AsStablehloScatterOptions() const {
+  const tflite_micro::StablehloScatterOptionsT *AsStablehloScatterOptions() const {
     return type == BuiltinOptions2_StablehloScatterOptions ?
-      reinterpret_cast<const tflite::StablehloScatterOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloScatterOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloCompareOptionsT *AsStablehloCompareOptions() {
+  tflite_micro::StablehloCompareOptionsT *AsStablehloCompareOptions() {
     return type == BuiltinOptions2_StablehloCompareOptions ?
-      reinterpret_cast<tflite::StablehloCompareOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloCompareOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloCompareOptionsT *AsStablehloCompareOptions() const {
+  const tflite_micro::StablehloCompareOptionsT *AsStablehloCompareOptions() const {
     return type == BuiltinOptions2_StablehloCompareOptions ?
-      reinterpret_cast<const tflite::StablehloCompareOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloCompareOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloDynamicSliceOptionsT *AsStablehloDynamicSliceOptions() {
+  tflite_micro::StablehloDynamicSliceOptionsT *AsStablehloDynamicSliceOptions() {
     return type == BuiltinOptions2_StablehloDynamicSliceOptions ?
-      reinterpret_cast<tflite::StablehloDynamicSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloDynamicSliceOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloDynamicSliceOptionsT *AsStablehloDynamicSliceOptions() const {
+  const tflite_micro::StablehloDynamicSliceOptionsT *AsStablehloDynamicSliceOptions() const {
     return type == BuiltinOptions2_StablehloDynamicSliceOptions ?
-      reinterpret_cast<const tflite::StablehloDynamicSliceOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloDynamicSliceOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloPadOptionsT *AsStablehloPadOptions() {
+  tflite_micro::StablehloPadOptionsT *AsStablehloPadOptions() {
     return type == BuiltinOptions2_StablehloPadOptions ?
-      reinterpret_cast<tflite::StablehloPadOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloPadOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloPadOptionsT *AsStablehloPadOptions() const {
+  const tflite_micro::StablehloPadOptionsT *AsStablehloPadOptions() const {
     return type == BuiltinOptions2_StablehloPadOptions ?
-      reinterpret_cast<const tflite::StablehloPadOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloPadOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloIotaOptionsT *AsStablehloIotaOptions() {
+  tflite_micro::StablehloIotaOptionsT *AsStablehloIotaOptions() {
     return type == BuiltinOptions2_StablehloIotaOptions ?
-      reinterpret_cast<tflite::StablehloIotaOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloIotaOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloIotaOptionsT *AsStablehloIotaOptions() const {
+  const tflite_micro::StablehloIotaOptionsT *AsStablehloIotaOptions() const {
     return type == BuiltinOptions2_StablehloIotaOptions ?
-      reinterpret_cast<const tflite::StablehloIotaOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloIotaOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloDotGeneralOptionsT *AsStablehloDotGeneralOptions() {
+  tflite_micro::StablehloDotGeneralOptionsT *AsStablehloDotGeneralOptions() {
     return type == BuiltinOptions2_StablehloDotGeneralOptions ?
-      reinterpret_cast<tflite::StablehloDotGeneralOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloDotGeneralOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloDotGeneralOptionsT *AsStablehloDotGeneralOptions() const {
+  const tflite_micro::StablehloDotGeneralOptionsT *AsStablehloDotGeneralOptions() const {
     return type == BuiltinOptions2_StablehloDotGeneralOptions ?
-      reinterpret_cast<const tflite::StablehloDotGeneralOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloDotGeneralOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloReduceWindowOptionsT *AsStablehloReduceWindowOptions() {
+  tflite_micro::StablehloReduceWindowOptionsT *AsStablehloReduceWindowOptions() {
     return type == BuiltinOptions2_StablehloReduceWindowOptions ?
-      reinterpret_cast<tflite::StablehloReduceWindowOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloReduceWindowOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloReduceWindowOptionsT *AsStablehloReduceWindowOptions() const {
+  const tflite_micro::StablehloReduceWindowOptionsT *AsStablehloReduceWindowOptions() const {
     return type == BuiltinOptions2_StablehloReduceWindowOptions ?
-      reinterpret_cast<const tflite::StablehloReduceWindowOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloReduceWindowOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloSortOptionsT *AsStablehloSortOptions() {
+  tflite_micro::StablehloSortOptionsT *AsStablehloSortOptions() {
     return type == BuiltinOptions2_StablehloSortOptions ?
-      reinterpret_cast<tflite::StablehloSortOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloSortOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloSortOptionsT *AsStablehloSortOptions() const {
+  const tflite_micro::StablehloSortOptionsT *AsStablehloSortOptions() const {
     return type == BuiltinOptions2_StablehloSortOptions ?
-      reinterpret_cast<const tflite::StablehloSortOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloSortOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloWhileOptionsT *AsStablehloWhileOptions() {
+  tflite_micro::StablehloWhileOptionsT *AsStablehloWhileOptions() {
     return type == BuiltinOptions2_StablehloWhileOptions ?
-      reinterpret_cast<tflite::StablehloWhileOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloWhileOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloWhileOptionsT *AsStablehloWhileOptions() const {
+  const tflite_micro::StablehloWhileOptionsT *AsStablehloWhileOptions() const {
     return type == BuiltinOptions2_StablehloWhileOptions ?
-      reinterpret_cast<const tflite::StablehloWhileOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloWhileOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloGatherOptionsT *AsStablehloGatherOptions() {
+  tflite_micro::StablehloGatherOptionsT *AsStablehloGatherOptions() {
     return type == BuiltinOptions2_StablehloGatherOptions ?
-      reinterpret_cast<tflite::StablehloGatherOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloGatherOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloGatherOptionsT *AsStablehloGatherOptions() const {
+  const tflite_micro::StablehloGatherOptionsT *AsStablehloGatherOptions() const {
     return type == BuiltinOptions2_StablehloGatherOptions ?
-      reinterpret_cast<const tflite::StablehloGatherOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloGatherOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloTransposeOptionsT *AsStablehloTransposeOptions() {
+  tflite_micro::StablehloTransposeOptionsT *AsStablehloTransposeOptions() {
     return type == BuiltinOptions2_StablehloTransposeOptions ?
-      reinterpret_cast<tflite::StablehloTransposeOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloTransposeOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloTransposeOptionsT *AsStablehloTransposeOptions() const {
+  const tflite_micro::StablehloTransposeOptionsT *AsStablehloTransposeOptions() const {
     return type == BuiltinOptions2_StablehloTransposeOptions ?
-      reinterpret_cast<const tflite::StablehloTransposeOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloTransposeOptionsT *>(value) : nullptr;
   }
-  tflite::DilateOptionsT *AsDilateOptions() {
+  tflite_micro::DilateOptionsT *AsDilateOptions() {
     return type == BuiltinOptions2_DilateOptions ?
-      reinterpret_cast<tflite::DilateOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::DilateOptionsT *>(value) : nullptr;
   }
-  const tflite::DilateOptionsT *AsDilateOptions() const {
+  const tflite_micro::DilateOptionsT *AsDilateOptions() const {
     return type == BuiltinOptions2_DilateOptions ?
-      reinterpret_cast<const tflite::DilateOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::DilateOptionsT *>(value) : nullptr;
   }
-  tflite::StablehloRngBitGeneratorOptionsT *AsStablehloRngBitGeneratorOptions() {
+  tflite_micro::StablehloRngBitGeneratorOptionsT *AsStablehloRngBitGeneratorOptions() {
     return type == BuiltinOptions2_StablehloRngBitGeneratorOptions ?
-      reinterpret_cast<tflite::StablehloRngBitGeneratorOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::StablehloRngBitGeneratorOptionsT *>(value) : nullptr;
   }
-  const tflite::StablehloRngBitGeneratorOptionsT *AsStablehloRngBitGeneratorOptions() const {
+  const tflite_micro::StablehloRngBitGeneratorOptionsT *AsStablehloRngBitGeneratorOptions() const {
     return type == BuiltinOptions2_StablehloRngBitGeneratorOptions ?
-      reinterpret_cast<const tflite::StablehloRngBitGeneratorOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::StablehloRngBitGeneratorOptionsT *>(value) : nullptr;
   }
-  tflite::ReduceWindowOptionsT *AsReduceWindowOptions() {
+  tflite_micro::ReduceWindowOptionsT *AsReduceWindowOptions() {
     return type == BuiltinOptions2_ReduceWindowOptions ?
-      reinterpret_cast<tflite::ReduceWindowOptionsT *>(value) : nullptr;
+      reinterpret_cast<tflite_micro::ReduceWindowOptionsT *>(value) : nullptr;
   }
-  const tflite::ReduceWindowOptionsT *AsReduceWindowOptions() const {
+  const tflite_micro::ReduceWindowOptionsT *AsReduceWindowOptions() const {
     return type == BuiltinOptions2_ReduceWindowOptions ?
-      reinterpret_cast<const tflite::ReduceWindowOptionsT *>(value) : nullptr;
+      reinterpret_cast<const tflite_micro::ReduceWindowOptionsT *>(value) : nullptr;
   }
 };
 
@@ -5050,7 +5050,7 @@ inline flatbuffers::Offset<CustomQuantization> CreateCustomQuantizationDirect(
     const std::vector<uint8_t> *custom = nullptr) {
   if (custom) { _fbb.ForceVectorAlignment(custom->size(), sizeof(uint8_t), 16); }
   auto custom__ = custom ? _fbb.CreateVector<uint8_t>(*custom) : 0;
-  return tflite::CreateCustomQuantization(
+  return tflite_micro::CreateCustomQuantization(
       _fbb,
       custom__);
 }
@@ -5063,7 +5063,7 @@ struct QuantizationParametersT : public flatbuffers::NativeTable {
   std::vector<float> max{};
   std::vector<float> scale{};
   std::vector<int64_t> zero_point{};
-  tflite::QuantizationDetailsUnion details{};
+  tflite_micro::QuantizationDetailsUnion details{};
   int32_t quantized_dimension = 0;
 };
 
@@ -5091,15 +5091,15 @@ struct QuantizationParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
   const flatbuffers::Vector<int64_t> *zero_point() const {
     return GetPointer<const flatbuffers::Vector<int64_t> *>(VT_ZERO_POINT);
   }
-  tflite::QuantizationDetails details_type() const {
-    return static_cast<tflite::QuantizationDetails>(GetField<uint8_t>(VT_DETAILS_TYPE, 0));
+  tflite_micro::QuantizationDetails details_type() const {
+    return static_cast<tflite_micro::QuantizationDetails>(GetField<uint8_t>(VT_DETAILS_TYPE, 0));
   }
   const void *details() const {
     return GetPointer<const void *>(VT_DETAILS);
   }
   template<typename T> const T *details_as() const;
-  const tflite::CustomQuantization *details_as_CustomQuantization() const {
-    return details_type() == tflite::QuantizationDetails_CustomQuantization ? static_cast<const tflite::CustomQuantization *>(details()) : nullptr;
+  const tflite_micro::CustomQuantization *details_as_CustomQuantization() const {
+    return details_type() == tflite_micro::QuantizationDetails_CustomQuantization ? static_cast<const tflite_micro::CustomQuantization *>(details()) : nullptr;
   }
   int32_t quantized_dimension() const {
     return GetField<int32_t>(VT_QUANTIZED_DIMENSION, 0);
@@ -5125,7 +5125,7 @@ struct QuantizationParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
   static flatbuffers::Offset<QuantizationParameters> Pack(flatbuffers::FlatBufferBuilder &_fbb, const QuantizationParametersT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
-template<> inline const tflite::CustomQuantization *QuantizationParameters::details_as<tflite::CustomQuantization>() const {
+template<> inline const tflite_micro::CustomQuantization *QuantizationParameters::details_as<tflite_micro::CustomQuantization>() const {
   return details_as_CustomQuantization();
 }
 
@@ -5145,7 +5145,7 @@ struct QuantizationParametersBuilder {
   void add_zero_point(flatbuffers::Offset<flatbuffers::Vector<int64_t>> zero_point) {
     fbb_.AddOffset(QuantizationParameters::VT_ZERO_POINT, zero_point);
   }
-  void add_details_type(tflite::QuantizationDetails details_type) {
+  void add_details_type(tflite_micro::QuantizationDetails details_type) {
     fbb_.AddElement<uint8_t>(QuantizationParameters::VT_DETAILS_TYPE, static_cast<uint8_t>(details_type), 0);
   }
   void add_details(flatbuffers::Offset<void> details) {
@@ -5171,7 +5171,7 @@ inline flatbuffers::Offset<QuantizationParameters> CreateQuantizationParameters(
     flatbuffers::Offset<flatbuffers::Vector<float>> max = 0,
     flatbuffers::Offset<flatbuffers::Vector<float>> scale = 0,
     flatbuffers::Offset<flatbuffers::Vector<int64_t>> zero_point = 0,
-    tflite::QuantizationDetails details_type = tflite::QuantizationDetails_NONE,
+    tflite_micro::QuantizationDetails details_type = tflite_micro::QuantizationDetails_NONE,
     flatbuffers::Offset<void> details = 0,
     int32_t quantized_dimension = 0) {
   QuantizationParametersBuilder builder_(_fbb);
@@ -5191,14 +5191,14 @@ inline flatbuffers::Offset<QuantizationParameters> CreateQuantizationParametersD
     const std::vector<float> *max = nullptr,
     const std::vector<float> *scale = nullptr,
     const std::vector<int64_t> *zero_point = nullptr,
-    tflite::QuantizationDetails details_type = tflite::QuantizationDetails_NONE,
+    tflite_micro::QuantizationDetails details_type = tflite_micro::QuantizationDetails_NONE,
     flatbuffers::Offset<void> details = 0,
     int32_t quantized_dimension = 0) {
   auto min__ = min ? _fbb.CreateVector<float>(*min) : 0;
   auto max__ = max ? _fbb.CreateVector<float>(*max) : 0;
   auto scale__ = scale ? _fbb.CreateVector<float>(*scale) : 0;
   auto zero_point__ = zero_point ? _fbb.CreateVector<int64_t>(*zero_point) : 0;
-  return tflite::CreateQuantizationParameters(
+  return tflite_micro::CreateQuantizationParameters(
       _fbb,
       min__,
       max__,
@@ -5266,7 +5266,7 @@ inline flatbuffers::Offset<Int32Vector> CreateInt32VectorDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *values = nullptr) {
   auto values__ = values ? _fbb.CreateVector<int32_t>(*values) : 0;
-  return tflite::CreateInt32Vector(
+  return tflite_micro::CreateInt32Vector(
       _fbb,
       values__);
 }
@@ -5329,7 +5329,7 @@ inline flatbuffers::Offset<Uint16Vector> CreateUint16VectorDirect(
     const std::vector<uint16_t> *values = nullptr) {
   if (values) { _fbb.ForceVectorAlignment(values->size(), sizeof(uint16_t), 4); }
   auto values__ = values ? _fbb.CreateVector<uint16_t>(*values) : 0;
-  return tflite::CreateUint16Vector(
+  return tflite_micro::CreateUint16Vector(
       _fbb,
       values__);
 }
@@ -5392,7 +5392,7 @@ inline flatbuffers::Offset<Uint8Vector> CreateUint8VectorDirect(
     const std::vector<uint8_t> *values = nullptr) {
   if (values) { _fbb.ForceVectorAlignment(values->size(), sizeof(uint8_t), 4); }
   auto values__ = values ? _fbb.CreateVector<uint8_t>(*values) : 0;
-  return tflite::CreateUint8Vector(
+  return tflite_micro::CreateUint8Vector(
       _fbb,
       values__);
 }
@@ -5401,10 +5401,10 @@ flatbuffers::Offset<Uint8Vector> CreateUint8Vector(flatbuffers::FlatBufferBuilde
 
 struct DimensionMetadataT : public flatbuffers::NativeTable {
   typedef DimensionMetadata TableType;
-  tflite::DimensionType format = tflite::DimensionType_DENSE;
+  tflite_micro::DimensionType format = tflite_micro::DimensionType_DENSE;
   int32_t dense_size = 0;
-  tflite::SparseIndexVectorUnion array_segments{};
-  tflite::SparseIndexVectorUnion array_indices{};
+  tflite_micro::SparseIndexVectorUnion array_segments{};
+  tflite_micro::SparseIndexVectorUnion array_indices{};
 };
 
 struct DimensionMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -5418,43 +5418,43 @@ struct DimensionMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_ARRAY_INDICES_TYPE = 12,
     VT_ARRAY_INDICES = 14
   };
-  tflite::DimensionType format() const {
-    return static_cast<tflite::DimensionType>(GetField<int8_t>(VT_FORMAT, 0));
+  tflite_micro::DimensionType format() const {
+    return static_cast<tflite_micro::DimensionType>(GetField<int8_t>(VT_FORMAT, 0));
   }
   int32_t dense_size() const {
     return GetField<int32_t>(VT_DENSE_SIZE, 0);
   }
-  tflite::SparseIndexVector array_segments_type() const {
-    return static_cast<tflite::SparseIndexVector>(GetField<uint8_t>(VT_ARRAY_SEGMENTS_TYPE, 0));
+  tflite_micro::SparseIndexVector array_segments_type() const {
+    return static_cast<tflite_micro::SparseIndexVector>(GetField<uint8_t>(VT_ARRAY_SEGMENTS_TYPE, 0));
   }
   const void *array_segments() const {
     return GetPointer<const void *>(VT_ARRAY_SEGMENTS);
   }
   template<typename T> const T *array_segments_as() const;
-  const tflite::Int32Vector *array_segments_as_Int32Vector() const {
-    return array_segments_type() == tflite::SparseIndexVector_Int32Vector ? static_cast<const tflite::Int32Vector *>(array_segments()) : nullptr;
+  const tflite_micro::Int32Vector *array_segments_as_Int32Vector() const {
+    return array_segments_type() == tflite_micro::SparseIndexVector_Int32Vector ? static_cast<const tflite_micro::Int32Vector *>(array_segments()) : nullptr;
   }
-  const tflite::Uint16Vector *array_segments_as_Uint16Vector() const {
-    return array_segments_type() == tflite::SparseIndexVector_Uint16Vector ? static_cast<const tflite::Uint16Vector *>(array_segments()) : nullptr;
+  const tflite_micro::Uint16Vector *array_segments_as_Uint16Vector() const {
+    return array_segments_type() == tflite_micro::SparseIndexVector_Uint16Vector ? static_cast<const tflite_micro::Uint16Vector *>(array_segments()) : nullptr;
   }
-  const tflite::Uint8Vector *array_segments_as_Uint8Vector() const {
-    return array_segments_type() == tflite::SparseIndexVector_Uint8Vector ? static_cast<const tflite::Uint8Vector *>(array_segments()) : nullptr;
+  const tflite_micro::Uint8Vector *array_segments_as_Uint8Vector() const {
+    return array_segments_type() == tflite_micro::SparseIndexVector_Uint8Vector ? static_cast<const tflite_micro::Uint8Vector *>(array_segments()) : nullptr;
   }
-  tflite::SparseIndexVector array_indices_type() const {
-    return static_cast<tflite::SparseIndexVector>(GetField<uint8_t>(VT_ARRAY_INDICES_TYPE, 0));
+  tflite_micro::SparseIndexVector array_indices_type() const {
+    return static_cast<tflite_micro::SparseIndexVector>(GetField<uint8_t>(VT_ARRAY_INDICES_TYPE, 0));
   }
   const void *array_indices() const {
     return GetPointer<const void *>(VT_ARRAY_INDICES);
   }
   template<typename T> const T *array_indices_as() const;
-  const tflite::Int32Vector *array_indices_as_Int32Vector() const {
-    return array_indices_type() == tflite::SparseIndexVector_Int32Vector ? static_cast<const tflite::Int32Vector *>(array_indices()) : nullptr;
+  const tflite_micro::Int32Vector *array_indices_as_Int32Vector() const {
+    return array_indices_type() == tflite_micro::SparseIndexVector_Int32Vector ? static_cast<const tflite_micro::Int32Vector *>(array_indices()) : nullptr;
   }
-  const tflite::Uint16Vector *array_indices_as_Uint16Vector() const {
-    return array_indices_type() == tflite::SparseIndexVector_Uint16Vector ? static_cast<const tflite::Uint16Vector *>(array_indices()) : nullptr;
+  const tflite_micro::Uint16Vector *array_indices_as_Uint16Vector() const {
+    return array_indices_type() == tflite_micro::SparseIndexVector_Uint16Vector ? static_cast<const tflite_micro::Uint16Vector *>(array_indices()) : nullptr;
   }
-  const tflite::Uint8Vector *array_indices_as_Uint8Vector() const {
-    return array_indices_type() == tflite::SparseIndexVector_Uint8Vector ? static_cast<const tflite::Uint8Vector *>(array_indices()) : nullptr;
+  const tflite_micro::Uint8Vector *array_indices_as_Uint8Vector() const {
+    return array_indices_type() == tflite_micro::SparseIndexVector_Uint8Vector ? static_cast<const tflite_micro::Uint8Vector *>(array_indices()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -5473,27 +5473,27 @@ struct DimensionMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static flatbuffers::Offset<DimensionMetadata> Pack(flatbuffers::FlatBufferBuilder &_fbb, const DimensionMetadataT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
-template<> inline const tflite::Int32Vector *DimensionMetadata::array_segments_as<tflite::Int32Vector>() const {
+template<> inline const tflite_micro::Int32Vector *DimensionMetadata::array_segments_as<tflite_micro::Int32Vector>() const {
   return array_segments_as_Int32Vector();
 }
 
-template<> inline const tflite::Uint16Vector *DimensionMetadata::array_segments_as<tflite::Uint16Vector>() const {
+template<> inline const tflite_micro::Uint16Vector *DimensionMetadata::array_segments_as<tflite_micro::Uint16Vector>() const {
   return array_segments_as_Uint16Vector();
 }
 
-template<> inline const tflite::Uint8Vector *DimensionMetadata::array_segments_as<tflite::Uint8Vector>() const {
+template<> inline const tflite_micro::Uint8Vector *DimensionMetadata::array_segments_as<tflite_micro::Uint8Vector>() const {
   return array_segments_as_Uint8Vector();
 }
 
-template<> inline const tflite::Int32Vector *DimensionMetadata::array_indices_as<tflite::Int32Vector>() const {
+template<> inline const tflite_micro::Int32Vector *DimensionMetadata::array_indices_as<tflite_micro::Int32Vector>() const {
   return array_indices_as_Int32Vector();
 }
 
-template<> inline const tflite::Uint16Vector *DimensionMetadata::array_indices_as<tflite::Uint16Vector>() const {
+template<> inline const tflite_micro::Uint16Vector *DimensionMetadata::array_indices_as<tflite_micro::Uint16Vector>() const {
   return array_indices_as_Uint16Vector();
 }
 
-template<> inline const tflite::Uint8Vector *DimensionMetadata::array_indices_as<tflite::Uint8Vector>() const {
+template<> inline const tflite_micro::Uint8Vector *DimensionMetadata::array_indices_as<tflite_micro::Uint8Vector>() const {
   return array_indices_as_Uint8Vector();
 }
 
@@ -5501,19 +5501,19 @@ struct DimensionMetadataBuilder {
   typedef DimensionMetadata Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_format(tflite::DimensionType format) {
+  void add_format(tflite_micro::DimensionType format) {
     fbb_.AddElement<int8_t>(DimensionMetadata::VT_FORMAT, static_cast<int8_t>(format), 0);
   }
   void add_dense_size(int32_t dense_size) {
     fbb_.AddElement<int32_t>(DimensionMetadata::VT_DENSE_SIZE, dense_size, 0);
   }
-  void add_array_segments_type(tflite::SparseIndexVector array_segments_type) {
+  void add_array_segments_type(tflite_micro::SparseIndexVector array_segments_type) {
     fbb_.AddElement<uint8_t>(DimensionMetadata::VT_ARRAY_SEGMENTS_TYPE, static_cast<uint8_t>(array_segments_type), 0);
   }
   void add_array_segments(flatbuffers::Offset<void> array_segments) {
     fbb_.AddOffset(DimensionMetadata::VT_ARRAY_SEGMENTS, array_segments);
   }
-  void add_array_indices_type(tflite::SparseIndexVector array_indices_type) {
+  void add_array_indices_type(tflite_micro::SparseIndexVector array_indices_type) {
     fbb_.AddElement<uint8_t>(DimensionMetadata::VT_ARRAY_INDICES_TYPE, static_cast<uint8_t>(array_indices_type), 0);
   }
   void add_array_indices(flatbuffers::Offset<void> array_indices) {
@@ -5532,11 +5532,11 @@ struct DimensionMetadataBuilder {
 
 inline flatbuffers::Offset<DimensionMetadata> CreateDimensionMetadata(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::DimensionType format = tflite::DimensionType_DENSE,
+    tflite_micro::DimensionType format = tflite_micro::DimensionType_DENSE,
     int32_t dense_size = 0,
-    tflite::SparseIndexVector array_segments_type = tflite::SparseIndexVector_NONE,
+    tflite_micro::SparseIndexVector array_segments_type = tflite_micro::SparseIndexVector_NONE,
     flatbuffers::Offset<void> array_segments = 0,
-    tflite::SparseIndexVector array_indices_type = tflite::SparseIndexVector_NONE,
+    tflite_micro::SparseIndexVector array_indices_type = tflite_micro::SparseIndexVector_NONE,
     flatbuffers::Offset<void> array_indices = 0) {
   DimensionMetadataBuilder builder_(_fbb);
   builder_.add_array_indices(array_indices);
@@ -5554,7 +5554,7 @@ struct SparsityParametersT : public flatbuffers::NativeTable {
   typedef SparsityParameters TableType;
   std::vector<int32_t> traversal_order{};
   std::vector<int32_t> block_map{};
-  std::vector<std::unique_ptr<tflite::DimensionMetadataT>> dim_metadata{};
+  std::vector<std::unique_ptr<tflite_micro::DimensionMetadataT>> dim_metadata{};
   SparsityParametersT() = default;
   SparsityParametersT(const SparsityParametersT &o);
   SparsityParametersT(SparsityParametersT&&) FLATBUFFERS_NOEXCEPT = default;
@@ -5575,8 +5575,8 @@ struct SparsityParameters FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<int32_t> *block_map() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_BLOCK_MAP);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::DimensionMetadata>> *dim_metadata() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::DimensionMetadata>> *>(VT_DIM_METADATA);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::DimensionMetadata>> *dim_metadata() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::DimensionMetadata>> *>(VT_DIM_METADATA);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -5604,7 +5604,7 @@ struct SparsityParametersBuilder {
   void add_block_map(flatbuffers::Offset<flatbuffers::Vector<int32_t>> block_map) {
     fbb_.AddOffset(SparsityParameters::VT_BLOCK_MAP, block_map);
   }
-  void add_dim_metadata(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::DimensionMetadata>>> dim_metadata) {
+  void add_dim_metadata(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::DimensionMetadata>>> dim_metadata) {
     fbb_.AddOffset(SparsityParameters::VT_DIM_METADATA, dim_metadata);
   }
   explicit SparsityParametersBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -5622,7 +5622,7 @@ inline flatbuffers::Offset<SparsityParameters> CreateSparsityParameters(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> traversal_order = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> block_map = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::DimensionMetadata>>> dim_metadata = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::DimensionMetadata>>> dim_metadata = 0) {
   SparsityParametersBuilder builder_(_fbb);
   builder_.add_dim_metadata(dim_metadata);
   builder_.add_block_map(block_map);
@@ -5634,11 +5634,11 @@ inline flatbuffers::Offset<SparsityParameters> CreateSparsityParametersDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *traversal_order = nullptr,
     const std::vector<int32_t> *block_map = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::DimensionMetadata>> *dim_metadata = nullptr) {
+    const std::vector<flatbuffers::Offset<tflite_micro::DimensionMetadata>> *dim_metadata = nullptr) {
   auto traversal_order__ = traversal_order ? _fbb.CreateVector<int32_t>(*traversal_order) : 0;
   auto block_map__ = block_map ? _fbb.CreateVector<int32_t>(*block_map) : 0;
-  auto dim_metadata__ = dim_metadata ? _fbb.CreateVector<flatbuffers::Offset<tflite::DimensionMetadata>>(*dim_metadata) : 0;
-  return tflite::CreateSparsityParameters(
+  auto dim_metadata__ = dim_metadata ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::DimensionMetadata>>(*dim_metadata) : 0;
+  return tflite_micro::CreateSparsityParameters(
       _fbb,
       traversal_order__,
       block_map__,
@@ -5650,7 +5650,7 @@ flatbuffers::Offset<SparsityParameters> CreateSparsityParameters(flatbuffers::Fl
 struct VariantSubTypeT : public flatbuffers::NativeTable {
   typedef VariantSubType TableType;
   std::vector<int32_t> shape{};
-  tflite::TensorType type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType type = tflite_micro::TensorType_FLOAT32;
   bool has_rank = false;
 };
 
@@ -5665,8 +5665,8 @@ struct VariantSubType FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<int32_t> *shape() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_SHAPE);
   }
-  tflite::TensorType type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_TYPE, 0));
+  tflite_micro::TensorType type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_TYPE, 0));
   }
   bool has_rank() const {
     return GetField<uint8_t>(VT_HAS_RANK, 0) != 0;
@@ -5691,7 +5691,7 @@ struct VariantSubTypeBuilder {
   void add_shape(flatbuffers::Offset<flatbuffers::Vector<int32_t>> shape) {
     fbb_.AddOffset(VariantSubType::VT_SHAPE, shape);
   }
-  void add_type(tflite::TensorType type) {
+  void add_type(tflite_micro::TensorType type) {
     fbb_.AddElement<int8_t>(VariantSubType::VT_TYPE, static_cast<int8_t>(type), 0);
   }
   void add_has_rank(bool has_rank) {
@@ -5711,7 +5711,7 @@ struct VariantSubTypeBuilder {
 inline flatbuffers::Offset<VariantSubType> CreateVariantSubType(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> shape = 0,
-    tflite::TensorType type = tflite::TensorType_FLOAT32,
+    tflite_micro::TensorType type = tflite_micro::TensorType_FLOAT32,
     bool has_rank = false) {
   VariantSubTypeBuilder builder_(_fbb);
   builder_.add_shape(shape);
@@ -5723,10 +5723,10 @@ inline flatbuffers::Offset<VariantSubType> CreateVariantSubType(
 inline flatbuffers::Offset<VariantSubType> CreateVariantSubTypeDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *shape = nullptr,
-    tflite::TensorType type = tflite::TensorType_FLOAT32,
+    tflite_micro::TensorType type = tflite_micro::TensorType_FLOAT32,
     bool has_rank = false) {
   auto shape__ = shape ? _fbb.CreateVector<int32_t>(*shape) : 0;
-  return tflite::CreateVariantSubType(
+  return tflite_micro::CreateVariantSubType(
       _fbb,
       shape__,
       type,
@@ -5738,15 +5738,15 @@ flatbuffers::Offset<VariantSubType> CreateVariantSubType(flatbuffers::FlatBuffer
 struct TensorT : public flatbuffers::NativeTable {
   typedef Tensor TableType;
   std::vector<int32_t> shape{};
-  tflite::TensorType type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType type = tflite_micro::TensorType_FLOAT32;
   uint32_t buffer = 0;
   std::string name{};
-  std::unique_ptr<tflite::QuantizationParametersT> quantization{};
+  std::unique_ptr<tflite_micro::QuantizationParametersT> quantization{};
   bool is_variable = false;
-  std::unique_ptr<tflite::SparsityParametersT> sparsity{};
+  std::unique_ptr<tflite_micro::SparsityParametersT> sparsity{};
   std::vector<int32_t> shape_signature{};
   bool has_rank = false;
-  std::vector<std::unique_ptr<tflite::VariantSubTypeT>> variant_tensors{};
+  std::vector<std::unique_ptr<tflite_micro::VariantSubTypeT>> variant_tensors{};
   TensorT() = default;
   TensorT(const TensorT &o);
   TensorT(TensorT&&) FLATBUFFERS_NOEXCEPT = default;
@@ -5771,8 +5771,8 @@ struct Tensor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<int32_t> *shape() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_SHAPE);
   }
-  tflite::TensorType type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_TYPE, 0));
+  tflite_micro::TensorType type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_TYPE, 0));
   }
   uint32_t buffer() const {
     return GetField<uint32_t>(VT_BUFFER, 0);
@@ -5780,14 +5780,14 @@ struct Tensor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
   }
-  const tflite::QuantizationParameters *quantization() const {
-    return GetPointer<const tflite::QuantizationParameters *>(VT_QUANTIZATION);
+  const tflite_micro::QuantizationParameters *quantization() const {
+    return GetPointer<const tflite_micro::QuantizationParameters *>(VT_QUANTIZATION);
   }
   bool is_variable() const {
     return GetField<uint8_t>(VT_IS_VARIABLE, 0) != 0;
   }
-  const tflite::SparsityParameters *sparsity() const {
-    return GetPointer<const tflite::SparsityParameters *>(VT_SPARSITY);
+  const tflite_micro::SparsityParameters *sparsity() const {
+    return GetPointer<const tflite_micro::SparsityParameters *>(VT_SPARSITY);
   }
   const flatbuffers::Vector<int32_t> *shape_signature() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_SHAPE_SIGNATURE);
@@ -5795,8 +5795,8 @@ struct Tensor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool has_rank() const {
     return GetField<uint8_t>(VT_HAS_RANK, 0) != 0;
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::VariantSubType>> *variant_tensors() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::VariantSubType>> *>(VT_VARIANT_TENSORS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::VariantSubType>> *variant_tensors() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::VariantSubType>> *>(VT_VARIANT_TENSORS);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -5831,7 +5831,7 @@ struct TensorBuilder {
   void add_shape(flatbuffers::Offset<flatbuffers::Vector<int32_t>> shape) {
     fbb_.AddOffset(Tensor::VT_SHAPE, shape);
   }
-  void add_type(tflite::TensorType type) {
+  void add_type(tflite_micro::TensorType type) {
     fbb_.AddElement<int8_t>(Tensor::VT_TYPE, static_cast<int8_t>(type), 0);
   }
   void add_buffer(uint32_t buffer) {
@@ -5840,13 +5840,13 @@ struct TensorBuilder {
   void add_name(flatbuffers::Offset<flatbuffers::String> name) {
     fbb_.AddOffset(Tensor::VT_NAME, name);
   }
-  void add_quantization(flatbuffers::Offset<tflite::QuantizationParameters> quantization) {
+  void add_quantization(flatbuffers::Offset<tflite_micro::QuantizationParameters> quantization) {
     fbb_.AddOffset(Tensor::VT_QUANTIZATION, quantization);
   }
   void add_is_variable(bool is_variable) {
     fbb_.AddElement<uint8_t>(Tensor::VT_IS_VARIABLE, static_cast<uint8_t>(is_variable), 0);
   }
-  void add_sparsity(flatbuffers::Offset<tflite::SparsityParameters> sparsity) {
+  void add_sparsity(flatbuffers::Offset<tflite_micro::SparsityParameters> sparsity) {
     fbb_.AddOffset(Tensor::VT_SPARSITY, sparsity);
   }
   void add_shape_signature(flatbuffers::Offset<flatbuffers::Vector<int32_t>> shape_signature) {
@@ -5855,7 +5855,7 @@ struct TensorBuilder {
   void add_has_rank(bool has_rank) {
     fbb_.AddElement<uint8_t>(Tensor::VT_HAS_RANK, static_cast<uint8_t>(has_rank), 0);
   }
-  void add_variant_tensors(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::VariantSubType>>> variant_tensors) {
+  void add_variant_tensors(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::VariantSubType>>> variant_tensors) {
     fbb_.AddOffset(Tensor::VT_VARIANT_TENSORS, variant_tensors);
   }
   explicit TensorBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -5872,15 +5872,15 @@ struct TensorBuilder {
 inline flatbuffers::Offset<Tensor> CreateTensor(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> shape = 0,
-    tflite::TensorType type = tflite::TensorType_FLOAT32,
+    tflite_micro::TensorType type = tflite_micro::TensorType_FLOAT32,
     uint32_t buffer = 0,
     flatbuffers::Offset<flatbuffers::String> name = 0,
-    flatbuffers::Offset<tflite::QuantizationParameters> quantization = 0,
+    flatbuffers::Offset<tflite_micro::QuantizationParameters> quantization = 0,
     bool is_variable = false,
-    flatbuffers::Offset<tflite::SparsityParameters> sparsity = 0,
+    flatbuffers::Offset<tflite_micro::SparsityParameters> sparsity = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> shape_signature = 0,
     bool has_rank = false,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::VariantSubType>>> variant_tensors = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::VariantSubType>>> variant_tensors = 0) {
   TensorBuilder builder_(_fbb);
   builder_.add_variant_tensors(variant_tensors);
   builder_.add_shape_signature(shape_signature);
@@ -5898,20 +5898,20 @@ inline flatbuffers::Offset<Tensor> CreateTensor(
 inline flatbuffers::Offset<Tensor> CreateTensorDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *shape = nullptr,
-    tflite::TensorType type = tflite::TensorType_FLOAT32,
+    tflite_micro::TensorType type = tflite_micro::TensorType_FLOAT32,
     uint32_t buffer = 0,
     const char *name = nullptr,
-    flatbuffers::Offset<tflite::QuantizationParameters> quantization = 0,
+    flatbuffers::Offset<tflite_micro::QuantizationParameters> quantization = 0,
     bool is_variable = false,
-    flatbuffers::Offset<tflite::SparsityParameters> sparsity = 0,
+    flatbuffers::Offset<tflite_micro::SparsityParameters> sparsity = 0,
     const std::vector<int32_t> *shape_signature = nullptr,
     bool has_rank = false,
-    const std::vector<flatbuffers::Offset<tflite::VariantSubType>> *variant_tensors = nullptr) {
+    const std::vector<flatbuffers::Offset<tflite_micro::VariantSubType>> *variant_tensors = nullptr) {
   auto shape__ = shape ? _fbb.CreateVector<int32_t>(*shape) : 0;
   auto name__ = name ? _fbb.CreateString(name) : 0;
   auto shape_signature__ = shape_signature ? _fbb.CreateVector<int32_t>(*shape_signature) : 0;
-  auto variant_tensors__ = variant_tensors ? _fbb.CreateVector<flatbuffers::Offset<tflite::VariantSubType>>(*variant_tensors) : 0;
-  return tflite::CreateTensor(
+  auto variant_tensors__ = variant_tensors ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::VariantSubType>>(*variant_tensors) : 0;
+  return tflite_micro::CreateTensor(
       _fbb,
       shape__,
       type,
@@ -6048,7 +6048,7 @@ inline flatbuffers::Offset<StablehloGatherOptions> CreateStablehloGatherOptionsD
   auto collapsed_slice_dims__ = collapsed_slice_dims ? _fbb.CreateVector<int64_t>(*collapsed_slice_dims) : 0;
   auto start_index_map__ = start_index_map ? _fbb.CreateVector<int64_t>(*start_index_map) : 0;
   auto slice_sizes__ = slice_sizes ? _fbb.CreateVector<int64_t>(*slice_sizes) : 0;
-  return tflite::CreateStablehloGatherOptions(
+  return tflite_micro::CreateStablehloGatherOptions(
       _fbb,
       offset_dims__,
       collapsed_slice_dims__,
@@ -6115,7 +6115,7 @@ inline flatbuffers::Offset<StablehloTransposeOptions> CreateStablehloTransposeOp
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int64_t> *permutation = nullptr) {
   auto permutation__ = permutation ? _fbb.CreateVector<int64_t>(*permutation) : 0;
-  return tflite::CreateStablehloTransposeOptions(
+  return tflite_micro::CreateStablehloTransposeOptions(
       _fbb,
       permutation__);
 }
@@ -6128,7 +6128,7 @@ struct StablehloDotGeneralOptionsT : public flatbuffers::NativeTable {
   std::vector<int64_t> rhs_batching_dimensions{};
   std::vector<int64_t> lhs_contracting_dimensions{};
   std::vector<int64_t> rhs_contracting_dimensions{};
-  std::vector<tflite::StablehloPrecisionConfig> precision_config{};
+  std::vector<tflite_micro::StablehloPrecisionConfig> precision_config{};
 };
 
 struct StablehloDotGeneralOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -6233,7 +6233,7 @@ inline flatbuffers::Offset<StablehloDotGeneralOptions> CreateStablehloDotGeneral
   auto lhs_contracting_dimensions__ = lhs_contracting_dimensions ? _fbb.CreateVector<int64_t>(*lhs_contracting_dimensions) : 0;
   auto rhs_contracting_dimensions__ = rhs_contracting_dimensions ? _fbb.CreateVector<int64_t>(*rhs_contracting_dimensions) : 0;
   auto precision_config__ = precision_config ? _fbb.CreateVector<uint32_t>(*precision_config) : 0;
-  return tflite::CreateStablehloDotGeneralOptions(
+  return tflite_micro::CreateStablehloDotGeneralOptions(
       _fbb,
       lhs_batching_dimensions__,
       rhs_batching_dimensions__,
@@ -6367,7 +6367,7 @@ inline flatbuffers::Offset<StablehloReduceWindowOptions> CreateStablehloReduceWi
   auto base_dilations__ = base_dilations ? _fbb.CreateVector<int64_t>(*base_dilations) : 0;
   auto window_dilations__ = window_dilations ? _fbb.CreateVector<int64_t>(*window_dilations) : 0;
   auto padding__ = padding ? _fbb.CreateVector<int64_t>(*padding) : 0;
-  return tflite::CreateStablehloReduceWindowOptions(
+  return tflite_micro::CreateStablehloReduceWindowOptions(
       _fbb,
       window_dimensions__,
       window_strides__,
@@ -6623,7 +6623,7 @@ inline flatbuffers::Offset<StablehloBroadcastInDimOptions> CreateStablehloBroadc
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int64_t> *broadcast_dimensions = nullptr) {
   auto broadcast_dimensions__ = broadcast_dimensions ? _fbb.CreateVector<int64_t>(*broadcast_dimensions) : 0;
-  return tflite::CreateStablehloBroadcastInDimOptions(
+  return tflite_micro::CreateStablehloBroadcastInDimOptions(
       _fbb,
       broadcast_dimensions__);
 }
@@ -6632,8 +6632,8 @@ flatbuffers::Offset<StablehloBroadcastInDimOptions> CreateStablehloBroadcastInDi
 
 struct StablehloCompareOptionsT : public flatbuffers::NativeTable {
   typedef StablehloCompareOptions TableType;
-  tflite::StablehloComparisonDirection comparison_direction = tflite::StablehloComparisonDirection_STABLEHLO_COMPARISON_DIRECTION_EQ;
-  tflite::StablehloComparisonType compare_type = tflite::StablehloComparisonType_STABLEHLO_COMPARISON_TYPE_NOTYPE;
+  tflite_micro::StablehloComparisonDirection comparison_direction = tflite_micro::StablehloComparisonDirection_STABLEHLO_COMPARISON_DIRECTION_EQ;
+  tflite_micro::StablehloComparisonType compare_type = tflite_micro::StablehloComparisonType_STABLEHLO_COMPARISON_TYPE_NOTYPE;
 };
 
 struct StablehloCompareOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -6643,11 +6643,11 @@ struct StablehloCompareOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Ta
     VT_COMPARISON_DIRECTION = 4,
     VT_COMPARE_TYPE = 6
   };
-  tflite::StablehloComparisonDirection comparison_direction() const {
-    return static_cast<tflite::StablehloComparisonDirection>(GetField<uint32_t>(VT_COMPARISON_DIRECTION, 0));
+  tflite_micro::StablehloComparisonDirection comparison_direction() const {
+    return static_cast<tflite_micro::StablehloComparisonDirection>(GetField<uint32_t>(VT_COMPARISON_DIRECTION, 0));
   }
-  tflite::StablehloComparisonType compare_type() const {
-    return static_cast<tflite::StablehloComparisonType>(GetField<uint32_t>(VT_COMPARE_TYPE, 0));
+  tflite_micro::StablehloComparisonType compare_type() const {
+    return static_cast<tflite_micro::StablehloComparisonType>(GetField<uint32_t>(VT_COMPARE_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -6664,10 +6664,10 @@ struct StablehloCompareOptionsBuilder {
   typedef StablehloCompareOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_comparison_direction(tflite::StablehloComparisonDirection comparison_direction) {
+  void add_comparison_direction(tflite_micro::StablehloComparisonDirection comparison_direction) {
     fbb_.AddElement<uint32_t>(StablehloCompareOptions::VT_COMPARISON_DIRECTION, static_cast<uint32_t>(comparison_direction), 0);
   }
-  void add_compare_type(tflite::StablehloComparisonType compare_type) {
+  void add_compare_type(tflite_micro::StablehloComparisonType compare_type) {
     fbb_.AddElement<uint32_t>(StablehloCompareOptions::VT_COMPARE_TYPE, static_cast<uint32_t>(compare_type), 0);
   }
   explicit StablehloCompareOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -6683,8 +6683,8 @@ struct StablehloCompareOptionsBuilder {
 
 inline flatbuffers::Offset<StablehloCompareOptions> CreateStablehloCompareOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::StablehloComparisonDirection comparison_direction = tflite::StablehloComparisonDirection_STABLEHLO_COMPARISON_DIRECTION_EQ,
-    tflite::StablehloComparisonType compare_type = tflite::StablehloComparisonType_STABLEHLO_COMPARISON_TYPE_NOTYPE) {
+    tflite_micro::StablehloComparisonDirection comparison_direction = tflite_micro::StablehloComparisonDirection_STABLEHLO_COMPARISON_DIRECTION_EQ,
+    tflite_micro::StablehloComparisonType compare_type = tflite_micro::StablehloComparisonType_STABLEHLO_COMPARISON_TYPE_NOTYPE) {
   StablehloCompareOptionsBuilder builder_(_fbb);
   builder_.add_compare_type(compare_type);
   builder_.add_comparison_direction(comparison_direction);
@@ -6748,7 +6748,7 @@ inline flatbuffers::Offset<StablehloDynamicSliceOptions> CreateStablehloDynamicS
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int64_t> *slice_sizes = nullptr) {
   auto slice_sizes__ = slice_sizes ? _fbb.CreateVector<int64_t>(*slice_sizes) : 0;
-  return tflite::CreateStablehloDynamicSliceOptions(
+  return tflite_micro::CreateStablehloDynamicSliceOptions(
       _fbb,
       slice_sizes__);
 }
@@ -6838,7 +6838,7 @@ inline flatbuffers::Offset<StablehloPadOptions> CreateStablehloPadOptionsDirect(
   auto edge_padding_low__ = edge_padding_low ? _fbb.CreateVector<int64_t>(*edge_padding_low) : 0;
   auto edge_padding_high__ = edge_padding_high ? _fbb.CreateVector<int64_t>(*edge_padding_high) : 0;
   auto interior_padding__ = interior_padding ? _fbb.CreateVector<int64_t>(*interior_padding) : 0;
-  return tflite::CreateStablehloPadOptions(
+  return tflite_micro::CreateStablehloPadOptions(
       _fbb,
       edge_padding_low__,
       edge_padding_high__,
@@ -7020,7 +7020,7 @@ inline flatbuffers::Offset<StablehloCustomCallOptions> CreateStablehloCustomCall
   auto backend_config__ = backend_config ? _fbb.CreateString(backend_config) : 0;
   auto called_computations__ = called_computations ? _fbb.CreateVector<int32_t>(*called_computations) : 0;
   auto custom_attributes__ = custom_attributes ? _fbb.CreateVector<uint8_t>(*custom_attributes) : 0;
-  return tflite::CreateStablehloCustomCallOptions(
+  return tflite_micro::CreateStablehloCustomCallOptions(
       _fbb,
       call_target_name__,
       has_side_effect,
@@ -7099,7 +7099,7 @@ inline flatbuffers::Offset<StablehloReduceOptions> CreateStablehloReduceOptionsD
     const std::vector<int64_t> *dimensions = nullptr,
     int32_t body_subgraph_index = 0) {
   auto dimensions__ = dimensions ? _fbb.CreateVector<int64_t>(*dimensions) : 0;
-  return tflite::CreateStablehloReduceOptions(
+  return tflite_micro::CreateStablehloReduceOptions(
       _fbb,
       dimensions__,
       body_subgraph_index);
@@ -7190,7 +7190,7 @@ inline flatbuffers::Offset<StablehloSliceOptions> CreateStablehloSliceOptionsDir
   auto start_indices__ = start_indices ? _fbb.CreateVector<int64_t>(*start_indices) : 0;
   auto limit_indices__ = limit_indices ? _fbb.CreateVector<int64_t>(*limit_indices) : 0;
   auto strides__ = strides ? _fbb.CreateVector<int64_t>(*strides) : 0;
-  return tflite::CreateStablehloSliceOptions(
+  return tflite_micro::CreateStablehloSliceOptions(
       _fbb,
       start_indices__,
       limit_indices__,
@@ -7217,7 +7217,7 @@ struct StablehloConvolutionOptionsT : public flatbuffers::NativeTable {
   std::vector<int64_t> output_spatial_dimensions{};
   int64_t feature_group_count = 0;
   int64_t batch_group_count = 0;
-  std::vector<tflite::StablehloPrecisionConfig> precision_config{};
+  std::vector<tflite_micro::StablehloPrecisionConfig> precision_config{};
 };
 
 struct StablehloConvolutionOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -7462,7 +7462,7 @@ inline flatbuffers::Offset<StablehloConvolutionOptions> CreateStablehloConvoluti
   auto kernel_spatial_dimensions__ = kernel_spatial_dimensions ? _fbb.CreateVector<int64_t>(*kernel_spatial_dimensions) : 0;
   auto output_spatial_dimensions__ = output_spatial_dimensions ? _fbb.CreateVector<int64_t>(*output_spatial_dimensions) : 0;
   auto precision_config__ = precision_config ? _fbb.CreateVector<uint32_t>(*precision_config) : 0;
-  return tflite::CreateStablehloConvolutionOptions(
+  return tflite_micro::CreateStablehloConvolutionOptions(
       _fbb,
       window_strides__,
       padding__,
@@ -7616,7 +7616,7 @@ inline flatbuffers::Offset<StablehloScatterOptions> CreateStablehloScatterOption
   auto update_window_dims__ = update_window_dims ? _fbb.CreateVector<int64_t>(*update_window_dims) : 0;
   auto inserted_window_dims__ = inserted_window_dims ? _fbb.CreateVector<int64_t>(*inserted_window_dims) : 0;
   auto scatter_dims_to_operand_dims__ = scatter_dims_to_operand_dims ? _fbb.CreateVector<int64_t>(*scatter_dims_to_operand_dims) : 0;
-  return tflite::CreateStablehloScatterOptions(
+  return tflite_micro::CreateStablehloScatterOptions(
       _fbb,
       indices_are_sorted,
       update_window_dims__,
@@ -7631,7 +7631,7 @@ flatbuffers::Offset<StablehloScatterOptions> CreateStablehloScatterOptions(flatb
 
 struct StablehloRngBitGeneratorOptionsT : public flatbuffers::NativeTable {
   typedef StablehloRngBitGeneratorOptions TableType;
-  tflite::RngAlgorithm algorithm = tflite::RngAlgorithm_DEFAULT;
+  tflite_micro::RngAlgorithm algorithm = tflite_micro::RngAlgorithm_DEFAULT;
 };
 
 struct StablehloRngBitGeneratorOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -7640,8 +7640,8 @@ struct StablehloRngBitGeneratorOptions FLATBUFFERS_FINAL_CLASS : private flatbuf
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_ALGORITHM = 4
   };
-  tflite::RngAlgorithm algorithm() const {
-    return static_cast<tflite::RngAlgorithm>(GetField<int8_t>(VT_ALGORITHM, 0));
+  tflite_micro::RngAlgorithm algorithm() const {
+    return static_cast<tflite_micro::RngAlgorithm>(GetField<int8_t>(VT_ALGORITHM, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -7657,7 +7657,7 @@ struct StablehloRngBitGeneratorOptionsBuilder {
   typedef StablehloRngBitGeneratorOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_algorithm(tflite::RngAlgorithm algorithm) {
+  void add_algorithm(tflite_micro::RngAlgorithm algorithm) {
     fbb_.AddElement<int8_t>(StablehloRngBitGeneratorOptions::VT_ALGORITHM, static_cast<int8_t>(algorithm), 0);
   }
   explicit StablehloRngBitGeneratorOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -7673,7 +7673,7 @@ struct StablehloRngBitGeneratorOptionsBuilder {
 
 inline flatbuffers::Offset<StablehloRngBitGeneratorOptions> CreateStablehloRngBitGeneratorOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::RngAlgorithm algorithm = tflite::RngAlgorithm_DEFAULT) {
+    tflite_micro::RngAlgorithm algorithm = tflite_micro::RngAlgorithm_DEFAULT) {
   StablehloRngBitGeneratorOptionsBuilder builder_(_fbb);
   builder_.add_algorithm(algorithm);
   return builder_.Finish();
@@ -7683,13 +7683,13 @@ flatbuffers::Offset<StablehloRngBitGeneratorOptions> CreateStablehloRngBitGenera
 
 struct Conv2DOptionsT : public flatbuffers::NativeTable {
   typedef Conv2DOptions TableType;
-  tflite::Padding padding = tflite::Padding_SAME;
+  tflite_micro::Padding padding = tflite_micro::Padding_SAME;
   int32_t stride_w = 0;
   int32_t stride_h = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   int32_t dilation_w_factor = 1;
   int32_t dilation_h_factor = 1;
-  tflite::TensorType quantized_bias_type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType quantized_bias_type = tflite_micro::TensorType_INT32;
 };
 
 struct Conv2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -7704,8 +7704,8 @@ struct Conv2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_DILATION_H_FACTOR = 14,
     VT_QUANTIZED_BIAS_TYPE = 16
   };
-  tflite::Padding padding() const {
-    return static_cast<tflite::Padding>(GetField<int8_t>(VT_PADDING, 0));
+  tflite_micro::Padding padding() const {
+    return static_cast<tflite_micro::Padding>(GetField<int8_t>(VT_PADDING, 0));
   }
   int32_t stride_w() const {
     return GetField<int32_t>(VT_STRIDE_W, 0);
@@ -7713,8 +7713,8 @@ struct Conv2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t stride_h() const {
     return GetField<int32_t>(VT_STRIDE_H, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   int32_t dilation_w_factor() const {
     return GetField<int32_t>(VT_DILATION_W_FACTOR, 1);
@@ -7722,8 +7722,8 @@ struct Conv2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t dilation_h_factor() const {
     return GetField<int32_t>(VT_DILATION_H_FACTOR, 1);
   }
-  tflite::TensorType quantized_bias_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_QUANTIZED_BIAS_TYPE, 0));
+  tflite_micro::TensorType quantized_bias_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_QUANTIZED_BIAS_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -7745,7 +7745,7 @@ struct Conv2DOptionsBuilder {
   typedef Conv2DOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_padding(tflite::Padding padding) {
+  void add_padding(tflite_micro::Padding padding) {
     fbb_.AddElement<int8_t>(Conv2DOptions::VT_PADDING, static_cast<int8_t>(padding), 0);
   }
   void add_stride_w(int32_t stride_w) {
@@ -7754,7 +7754,7 @@ struct Conv2DOptionsBuilder {
   void add_stride_h(int32_t stride_h) {
     fbb_.AddElement<int32_t>(Conv2DOptions::VT_STRIDE_H, stride_h, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(Conv2DOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_dilation_w_factor(int32_t dilation_w_factor) {
@@ -7763,7 +7763,7 @@ struct Conv2DOptionsBuilder {
   void add_dilation_h_factor(int32_t dilation_h_factor) {
     fbb_.AddElement<int32_t>(Conv2DOptions::VT_DILATION_H_FACTOR, dilation_h_factor, 1);
   }
-  void add_quantized_bias_type(tflite::TensorType quantized_bias_type) {
+  void add_quantized_bias_type(tflite_micro::TensorType quantized_bias_type) {
     fbb_.AddElement<int8_t>(Conv2DOptions::VT_QUANTIZED_BIAS_TYPE, static_cast<int8_t>(quantized_bias_type), 0);
   }
   explicit Conv2DOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -7779,13 +7779,13 @@ struct Conv2DOptionsBuilder {
 
 inline flatbuffers::Offset<Conv2DOptions> CreateConv2DOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::Padding padding = tflite::Padding_SAME,
+    tflite_micro::Padding padding = tflite_micro::Padding_SAME,
     int32_t stride_w = 0,
     int32_t stride_h = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     int32_t dilation_w_factor = 1,
     int32_t dilation_h_factor = 1,
-    tflite::TensorType quantized_bias_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType quantized_bias_type = tflite_micro::TensorType_FLOAT32) {
   Conv2DOptionsBuilder builder_(_fbb);
   builder_.add_dilation_h_factor(dilation_h_factor);
   builder_.add_dilation_w_factor(dilation_w_factor);
@@ -7801,11 +7801,11 @@ flatbuffers::Offset<Conv2DOptions> CreateConv2DOptions(flatbuffers::FlatBufferBu
 
 struct Conv3DOptionsT : public flatbuffers::NativeTable {
   typedef Conv3DOptions TableType;
-  tflite::Padding padding = tflite::Padding_SAME;
+  tflite_micro::Padding padding = tflite_micro::Padding_SAME;
   int32_t stride_d = 0;
   int32_t stride_w = 0;
   int32_t stride_h = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   int32_t dilation_d_factor = 1;
   int32_t dilation_w_factor = 1;
   int32_t dilation_h_factor = 1;
@@ -7824,8 +7824,8 @@ struct Conv3DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_DILATION_W_FACTOR = 16,
     VT_DILATION_H_FACTOR = 18
   };
-  tflite::Padding padding() const {
-    return static_cast<tflite::Padding>(GetField<int8_t>(VT_PADDING, 0));
+  tflite_micro::Padding padding() const {
+    return static_cast<tflite_micro::Padding>(GetField<int8_t>(VT_PADDING, 0));
   }
   int32_t stride_d() const {
     return GetField<int32_t>(VT_STRIDE_D, 0);
@@ -7836,8 +7836,8 @@ struct Conv3DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t stride_h() const {
     return GetField<int32_t>(VT_STRIDE_H, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   int32_t dilation_d_factor() const {
     return GetField<int32_t>(VT_DILATION_D_FACTOR, 1);
@@ -7869,7 +7869,7 @@ struct Conv3DOptionsBuilder {
   typedef Conv3DOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_padding(tflite::Padding padding) {
+  void add_padding(tflite_micro::Padding padding) {
     fbb_.AddElement<int8_t>(Conv3DOptions::VT_PADDING, static_cast<int8_t>(padding), 0);
   }
   void add_stride_d(int32_t stride_d) {
@@ -7881,7 +7881,7 @@ struct Conv3DOptionsBuilder {
   void add_stride_h(int32_t stride_h) {
     fbb_.AddElement<int32_t>(Conv3DOptions::VT_STRIDE_H, stride_h, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(Conv3DOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_dilation_d_factor(int32_t dilation_d_factor) {
@@ -7906,11 +7906,11 @@ struct Conv3DOptionsBuilder {
 
 inline flatbuffers::Offset<Conv3DOptions> CreateConv3DOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::Padding padding = tflite::Padding_SAME,
+    tflite_micro::Padding padding = tflite_micro::Padding_SAME,
     int32_t stride_d = 0,
     int32_t stride_w = 0,
     int32_t stride_h = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     int32_t dilation_d_factor = 1,
     int32_t dilation_w_factor = 1,
     int32_t dilation_h_factor = 1) {
@@ -7930,12 +7930,12 @@ flatbuffers::Offset<Conv3DOptions> CreateConv3DOptions(flatbuffers::FlatBufferBu
 
 struct Pool2DOptionsT : public flatbuffers::NativeTable {
   typedef Pool2DOptions TableType;
-  tflite::Padding padding = tflite::Padding_SAME;
+  tflite_micro::Padding padding = tflite_micro::Padding_SAME;
   int32_t stride_w = 0;
   int32_t stride_h = 0;
   int32_t filter_width = 0;
   int32_t filter_height = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
 };
 
 struct Pool2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -7949,8 +7949,8 @@ struct Pool2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_FILTER_HEIGHT = 12,
     VT_FUSED_ACTIVATION_FUNCTION = 14
   };
-  tflite::Padding padding() const {
-    return static_cast<tflite::Padding>(GetField<int8_t>(VT_PADDING, 0));
+  tflite_micro::Padding padding() const {
+    return static_cast<tflite_micro::Padding>(GetField<int8_t>(VT_PADDING, 0));
   }
   int32_t stride_w() const {
     return GetField<int32_t>(VT_STRIDE_W, 0);
@@ -7964,8 +7964,8 @@ struct Pool2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t filter_height() const {
     return GetField<int32_t>(VT_FILTER_HEIGHT, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -7986,7 +7986,7 @@ struct Pool2DOptionsBuilder {
   typedef Pool2DOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_padding(tflite::Padding padding) {
+  void add_padding(tflite_micro::Padding padding) {
     fbb_.AddElement<int8_t>(Pool2DOptions::VT_PADDING, static_cast<int8_t>(padding), 0);
   }
   void add_stride_w(int32_t stride_w) {
@@ -8001,7 +8001,7 @@ struct Pool2DOptionsBuilder {
   void add_filter_height(int32_t filter_height) {
     fbb_.AddElement<int32_t>(Pool2DOptions::VT_FILTER_HEIGHT, filter_height, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(Pool2DOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   explicit Pool2DOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -8017,12 +8017,12 @@ struct Pool2DOptionsBuilder {
 
 inline flatbuffers::Offset<Pool2DOptions> CreatePool2DOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::Padding padding = tflite::Padding_SAME,
+    tflite_micro::Padding padding = tflite_micro::Padding_SAME,
     int32_t stride_w = 0,
     int32_t stride_h = 0,
     int32_t filter_width = 0,
     int32_t filter_height = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE) {
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE) {
   Pool2DOptionsBuilder builder_(_fbb);
   builder_.add_filter_height(filter_height);
   builder_.add_filter_width(filter_width);
@@ -8037,11 +8037,11 @@ flatbuffers::Offset<Pool2DOptions> CreatePool2DOptions(flatbuffers::FlatBufferBu
 
 struct DepthwiseConv2DOptionsT : public flatbuffers::NativeTable {
   typedef DepthwiseConv2DOptions TableType;
-  tflite::Padding padding = tflite::Padding_SAME;
+  tflite_micro::Padding padding = tflite_micro::Padding_SAME;
   int32_t stride_w = 0;
   int32_t stride_h = 0;
   int32_t depth_multiplier = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   int32_t dilation_w_factor = 1;
   int32_t dilation_h_factor = 1;
 };
@@ -8058,8 +8058,8 @@ struct DepthwiseConv2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
     VT_DILATION_W_FACTOR = 14,
     VT_DILATION_H_FACTOR = 16
   };
-  tflite::Padding padding() const {
-    return static_cast<tflite::Padding>(GetField<int8_t>(VT_PADDING, 0));
+  tflite_micro::Padding padding() const {
+    return static_cast<tflite_micro::Padding>(GetField<int8_t>(VT_PADDING, 0));
   }
   int32_t stride_w() const {
     return GetField<int32_t>(VT_STRIDE_W, 0);
@@ -8070,8 +8070,8 @@ struct DepthwiseConv2DOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tab
   int32_t depth_multiplier() const {
     return GetField<int32_t>(VT_DEPTH_MULTIPLIER, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   int32_t dilation_w_factor() const {
     return GetField<int32_t>(VT_DILATION_W_FACTOR, 1);
@@ -8099,7 +8099,7 @@ struct DepthwiseConv2DOptionsBuilder {
   typedef DepthwiseConv2DOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_padding(tflite::Padding padding) {
+  void add_padding(tflite_micro::Padding padding) {
     fbb_.AddElement<int8_t>(DepthwiseConv2DOptions::VT_PADDING, static_cast<int8_t>(padding), 0);
   }
   void add_stride_w(int32_t stride_w) {
@@ -8111,7 +8111,7 @@ struct DepthwiseConv2DOptionsBuilder {
   void add_depth_multiplier(int32_t depth_multiplier) {
     fbb_.AddElement<int32_t>(DepthwiseConv2DOptions::VT_DEPTH_MULTIPLIER, depth_multiplier, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(DepthwiseConv2DOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_dilation_w_factor(int32_t dilation_w_factor) {
@@ -8133,11 +8133,11 @@ struct DepthwiseConv2DOptionsBuilder {
 
 inline flatbuffers::Offset<DepthwiseConv2DOptions> CreateDepthwiseConv2DOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::Padding padding = tflite::Padding_SAME,
+    tflite_micro::Padding padding = tflite_micro::Padding_SAME,
     int32_t stride_w = 0,
     int32_t stride_h = 0,
     int32_t depth_multiplier = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     int32_t dilation_w_factor = 1,
     int32_t dilation_h_factor = 1) {
   DepthwiseConv2DOptionsBuilder builder_(_fbb);
@@ -8234,7 +8234,7 @@ inline flatbuffers::Offset<ConcatEmbeddingsOptions> CreateConcatEmbeddingsOption
     const std::vector<int32_t> *embedding_dim_per_channel = nullptr) {
   auto num_columns_per_channel__ = num_columns_per_channel ? _fbb.CreateVector<int32_t>(*num_columns_per_channel) : 0;
   auto embedding_dim_per_channel__ = embedding_dim_per_channel ? _fbb.CreateVector<int32_t>(*embedding_dim_per_channel) : 0;
-  return tflite::CreateConcatEmbeddingsOptions(
+  return tflite_micro::CreateConcatEmbeddingsOptions(
       _fbb,
       num_channels,
       num_columns_per_channel__,
@@ -8245,7 +8245,7 @@ flatbuffers::Offset<ConcatEmbeddingsOptions> CreateConcatEmbeddingsOptions(flatb
 
 struct LSHProjectionOptionsT : public flatbuffers::NativeTable {
   typedef LSHProjectionOptions TableType;
-  tflite::LSHProjectionType type = tflite::LSHProjectionType_UNKNOWN;
+  tflite_micro::LSHProjectionType type = tflite_micro::LSHProjectionType_UNKNOWN;
 };
 
 struct LSHProjectionOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -8254,8 +8254,8 @@ struct LSHProjectionOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_TYPE = 4
   };
-  tflite::LSHProjectionType type() const {
-    return static_cast<tflite::LSHProjectionType>(GetField<int8_t>(VT_TYPE, 0));
+  tflite_micro::LSHProjectionType type() const {
+    return static_cast<tflite_micro::LSHProjectionType>(GetField<int8_t>(VT_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -8271,7 +8271,7 @@ struct LSHProjectionOptionsBuilder {
   typedef LSHProjectionOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_type(tflite::LSHProjectionType type) {
+  void add_type(tflite_micro::LSHProjectionType type) {
     fbb_.AddElement<int8_t>(LSHProjectionOptions::VT_TYPE, static_cast<int8_t>(type), 0);
   }
   explicit LSHProjectionOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -8287,7 +8287,7 @@ struct LSHProjectionOptionsBuilder {
 
 inline flatbuffers::Offset<LSHProjectionOptions> CreateLSHProjectionOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::LSHProjectionType type = tflite::LSHProjectionType_UNKNOWN) {
+    tflite_micro::LSHProjectionType type = tflite_micro::LSHProjectionType_UNKNOWN) {
   LSHProjectionOptionsBuilder builder_(_fbb);
   builder_.add_type(type);
   return builder_.Finish();
@@ -8298,7 +8298,7 @@ flatbuffers::Offset<LSHProjectionOptions> CreateLSHProjectionOptions(flatbuffers
 struct SVDFOptionsT : public flatbuffers::NativeTable {
   typedef SVDFOptions TableType;
   int32_t rank = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   bool asymmetric_quantize_inputs = false;
 };
 
@@ -8313,8 +8313,8 @@ struct SVDFOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t rank() const {
     return GetField<int32_t>(VT_RANK, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool asymmetric_quantize_inputs() const {
     return GetField<uint8_t>(VT_ASYMMETRIC_QUANTIZE_INPUTS, 0) != 0;
@@ -8338,7 +8338,7 @@ struct SVDFOptionsBuilder {
   void add_rank(int32_t rank) {
     fbb_.AddElement<int32_t>(SVDFOptions::VT_RANK, rank, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(SVDFOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_asymmetric_quantize_inputs(bool asymmetric_quantize_inputs) {
@@ -8358,7 +8358,7 @@ struct SVDFOptionsBuilder {
 inline flatbuffers::Offset<SVDFOptions> CreateSVDFOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
     int32_t rank = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     bool asymmetric_quantize_inputs = false) {
   SVDFOptionsBuilder builder_(_fbb);
   builder_.add_rank(rank);
@@ -8371,7 +8371,7 @@ flatbuffers::Offset<SVDFOptions> CreateSVDFOptions(flatbuffers::FlatBufferBuilde
 
 struct RNNOptionsT : public flatbuffers::NativeTable {
   typedef RNNOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   bool asymmetric_quantize_inputs = false;
 };
 
@@ -8382,8 +8382,8 @@ struct RNNOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_FUSED_ACTIVATION_FUNCTION = 4,
     VT_ASYMMETRIC_QUANTIZE_INPUTS = 6
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool asymmetric_quantize_inputs() const {
     return GetField<uint8_t>(VT_ASYMMETRIC_QUANTIZE_INPUTS, 0) != 0;
@@ -8403,7 +8403,7 @@ struct RNNOptionsBuilder {
   typedef RNNOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(RNNOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_asymmetric_quantize_inputs(bool asymmetric_quantize_inputs) {
@@ -8422,7 +8422,7 @@ struct RNNOptionsBuilder {
 
 inline flatbuffers::Offset<RNNOptions> CreateRNNOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     bool asymmetric_quantize_inputs = false) {
   RNNOptionsBuilder builder_(_fbb);
   builder_.add_asymmetric_quantize_inputs(asymmetric_quantize_inputs);
@@ -8435,7 +8435,7 @@ flatbuffers::Offset<RNNOptions> CreateRNNOptions(flatbuffers::FlatBufferBuilder 
 struct SequenceRNNOptionsT : public flatbuffers::NativeTable {
   typedef SequenceRNNOptions TableType;
   bool time_major = false;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   bool asymmetric_quantize_inputs = false;
 };
 
@@ -8450,8 +8450,8 @@ struct SequenceRNNOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   bool time_major() const {
     return GetField<uint8_t>(VT_TIME_MAJOR, 0) != 0;
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool asymmetric_quantize_inputs() const {
     return GetField<uint8_t>(VT_ASYMMETRIC_QUANTIZE_INPUTS, 0) != 0;
@@ -8475,7 +8475,7 @@ struct SequenceRNNOptionsBuilder {
   void add_time_major(bool time_major) {
     fbb_.AddElement<uint8_t>(SequenceRNNOptions::VT_TIME_MAJOR, static_cast<uint8_t>(time_major), 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(SequenceRNNOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_asymmetric_quantize_inputs(bool asymmetric_quantize_inputs) {
@@ -8495,7 +8495,7 @@ struct SequenceRNNOptionsBuilder {
 inline flatbuffers::Offset<SequenceRNNOptions> CreateSequenceRNNOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
     bool time_major = false,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     bool asymmetric_quantize_inputs = false) {
   SequenceRNNOptionsBuilder builder_(_fbb);
   builder_.add_asymmetric_quantize_inputs(asymmetric_quantize_inputs);
@@ -8509,7 +8509,7 @@ flatbuffers::Offset<SequenceRNNOptions> CreateSequenceRNNOptions(flatbuffers::Fl
 struct BidirectionalSequenceRNNOptionsT : public flatbuffers::NativeTable {
   typedef BidirectionalSequenceRNNOptions TableType;
   bool time_major = false;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   bool merge_outputs = false;
   bool asymmetric_quantize_inputs = false;
 };
@@ -8526,8 +8526,8 @@ struct BidirectionalSequenceRNNOptions FLATBUFFERS_FINAL_CLASS : private flatbuf
   bool time_major() const {
     return GetField<uint8_t>(VT_TIME_MAJOR, 0) != 0;
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool merge_outputs() const {
     return GetField<uint8_t>(VT_MERGE_OUTPUTS, 0) != 0;
@@ -8555,7 +8555,7 @@ struct BidirectionalSequenceRNNOptionsBuilder {
   void add_time_major(bool time_major) {
     fbb_.AddElement<uint8_t>(BidirectionalSequenceRNNOptions::VT_TIME_MAJOR, static_cast<uint8_t>(time_major), 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(BidirectionalSequenceRNNOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_merge_outputs(bool merge_outputs) {
@@ -8578,7 +8578,7 @@ struct BidirectionalSequenceRNNOptionsBuilder {
 inline flatbuffers::Offset<BidirectionalSequenceRNNOptions> CreateBidirectionalSequenceRNNOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
     bool time_major = false,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     bool merge_outputs = false,
     bool asymmetric_quantize_inputs = false) {
   BidirectionalSequenceRNNOptionsBuilder builder_(_fbb);
@@ -8593,11 +8593,11 @@ flatbuffers::Offset<BidirectionalSequenceRNNOptions> CreateBidirectionalSequence
 
 struct FullyConnectedOptionsT : public flatbuffers::NativeTable {
   typedef FullyConnectedOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
-  tflite::FullyConnectedOptionsWeightsFormat weights_format = tflite::FullyConnectedOptionsWeightsFormat_DEFAULT;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
+  tflite_micro::FullyConnectedOptionsWeightsFormat weights_format = tflite_micro::FullyConnectedOptionsWeightsFormat_DEFAULT;
   bool keep_num_dims = false;
   bool asymmetric_quantize_inputs = false;
-  tflite::TensorType quantized_bias_type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType quantized_bias_type = tflite_micro::TensorType_FLOAT32;
 };
 
 struct FullyConnectedOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -8610,11 +8610,11 @@ struct FullyConnectedOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tabl
     VT_ASYMMETRIC_QUANTIZE_INPUTS = 10,
     VT_QUANTIZED_BIAS_TYPE = 12
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
-  tflite::FullyConnectedOptionsWeightsFormat weights_format() const {
-    return static_cast<tflite::FullyConnectedOptionsWeightsFormat>(GetField<int8_t>(VT_WEIGHTS_FORMAT, 0));
+  tflite_micro::FullyConnectedOptionsWeightsFormat weights_format() const {
+    return static_cast<tflite_micro::FullyConnectedOptionsWeightsFormat>(GetField<int8_t>(VT_WEIGHTS_FORMAT, 0));
   }
   bool keep_num_dims() const {
     return GetField<uint8_t>(VT_KEEP_NUM_DIMS, 0) != 0;
@@ -8622,8 +8622,8 @@ struct FullyConnectedOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Tabl
   bool asymmetric_quantize_inputs() const {
     return GetField<uint8_t>(VT_ASYMMETRIC_QUANTIZE_INPUTS, 0) != 0;
   }
-  tflite::TensorType quantized_bias_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_QUANTIZED_BIAS_TYPE, 0));
+  tflite_micro::TensorType quantized_bias_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_QUANTIZED_BIAS_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -8643,10 +8643,10 @@ struct FullyConnectedOptionsBuilder {
   typedef FullyConnectedOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(FullyConnectedOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
-  void add_weights_format(tflite::FullyConnectedOptionsWeightsFormat weights_format) {
+  void add_weights_format(tflite_micro::FullyConnectedOptionsWeightsFormat weights_format) {
     fbb_.AddElement<int8_t>(FullyConnectedOptions::VT_WEIGHTS_FORMAT, static_cast<int8_t>(weights_format), 0);
   }
   void add_keep_num_dims(bool keep_num_dims) {
@@ -8655,7 +8655,7 @@ struct FullyConnectedOptionsBuilder {
   void add_asymmetric_quantize_inputs(bool asymmetric_quantize_inputs) {
     fbb_.AddElement<uint8_t>(FullyConnectedOptions::VT_ASYMMETRIC_QUANTIZE_INPUTS, static_cast<uint8_t>(asymmetric_quantize_inputs), 0);
   }
-  void add_quantized_bias_type(tflite::TensorType quantized_bias_type) {
+  void add_quantized_bias_type(tflite_micro::TensorType quantized_bias_type) {
     fbb_.AddElement<int8_t>(FullyConnectedOptions::VT_QUANTIZED_BIAS_TYPE, static_cast<int8_t>(quantized_bias_type), 0);
   }
   explicit FullyConnectedOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -8671,11 +8671,11 @@ struct FullyConnectedOptionsBuilder {
 
 inline flatbuffers::Offset<FullyConnectedOptions> CreateFullyConnectedOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
-    tflite::FullyConnectedOptionsWeightsFormat weights_format = tflite::FullyConnectedOptionsWeightsFormat_DEFAULT,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
+    tflite_micro::FullyConnectedOptionsWeightsFormat weights_format = tflite_micro::FullyConnectedOptionsWeightsFormat_DEFAULT,
     bool keep_num_dims = false,
     bool asymmetric_quantize_inputs = false,
-    tflite::TensorType quantized_bias_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType quantized_bias_type = tflite_micro::TensorType_FLOAT32) {
   FullyConnectedOptionsBuilder builder_(_fbb);
   builder_.add_quantized_bias_type(quantized_bias_type);
   builder_.add_asymmetric_quantize_inputs(asymmetric_quantize_inputs);
@@ -8742,7 +8742,7 @@ flatbuffers::Offset<SoftmaxOptions> CreateSoftmaxOptions(flatbuffers::FlatBuffer
 struct ConcatenationOptionsT : public flatbuffers::NativeTable {
   typedef ConcatenationOptions TableType;
   int32_t axis = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
 };
 
 struct ConcatenationOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -8755,8 +8755,8 @@ struct ConcatenationOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   int32_t axis() const {
     return GetField<int32_t>(VT_AXIS, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -8776,7 +8776,7 @@ struct ConcatenationOptionsBuilder {
   void add_axis(int32_t axis) {
     fbb_.AddElement<int32_t>(ConcatenationOptions::VT_AXIS, axis, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(ConcatenationOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   explicit ConcatenationOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -8793,7 +8793,7 @@ struct ConcatenationOptionsBuilder {
 inline flatbuffers::Offset<ConcatenationOptions> CreateConcatenationOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
     int32_t axis = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE) {
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE) {
   ConcatenationOptionsBuilder builder_(_fbb);
   builder_.add_axis(axis);
   builder_.add_fused_activation_function(fused_activation_function);
@@ -8804,7 +8804,7 @@ flatbuffers::Offset<ConcatenationOptions> CreateConcatenationOptions(flatbuffers
 
 struct AddOptionsT : public flatbuffers::NativeTable {
   typedef AddOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   bool pot_scale_int16 = true;
 };
 
@@ -8815,8 +8815,8 @@ struct AddOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_FUSED_ACTIVATION_FUNCTION = 4,
     VT_POT_SCALE_INT16 = 6
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool pot_scale_int16() const {
     return GetField<uint8_t>(VT_POT_SCALE_INT16, 1) != 0;
@@ -8836,7 +8836,7 @@ struct AddOptionsBuilder {
   typedef AddOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(AddOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_pot_scale_int16(bool pot_scale_int16) {
@@ -8855,7 +8855,7 @@ struct AddOptionsBuilder {
 
 inline flatbuffers::Offset<AddOptions> CreateAddOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     bool pot_scale_int16 = true) {
   AddOptionsBuilder builder_(_fbb);
   builder_.add_pot_scale_int16(pot_scale_int16);
@@ -8867,7 +8867,7 @@ flatbuffers::Offset<AddOptions> CreateAddOptions(flatbuffers::FlatBufferBuilder 
 
 struct MulOptionsT : public flatbuffers::NativeTable {
   typedef MulOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
 };
 
 struct MulOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -8876,8 +8876,8 @@ struct MulOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FUSED_ACTIVATION_FUNCTION = 4
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -8893,7 +8893,7 @@ struct MulOptionsBuilder {
   typedef MulOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(MulOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   explicit MulOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -8909,7 +8909,7 @@ struct MulOptionsBuilder {
 
 inline flatbuffers::Offset<MulOptions> CreateMulOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE) {
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE) {
   MulOptionsBuilder builder_(_fbb);
   builder_.add_fused_activation_function(fused_activation_function);
   return builder_.Finish();
@@ -8919,7 +8919,7 @@ flatbuffers::Offset<MulOptions> CreateMulOptions(flatbuffers::FlatBufferBuilder 
 
 struct L2NormOptionsT : public flatbuffers::NativeTable {
   typedef L2NormOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
 };
 
 struct L2NormOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -8928,8 +8928,8 @@ struct L2NormOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FUSED_ACTIVATION_FUNCTION = 4
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -8945,7 +8945,7 @@ struct L2NormOptionsBuilder {
   typedef L2NormOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(L2NormOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   explicit L2NormOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -8961,7 +8961,7 @@ struct L2NormOptionsBuilder {
 
 inline flatbuffers::Offset<L2NormOptions> CreateL2NormOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE) {
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE) {
   L2NormOptionsBuilder builder_(_fbb);
   builder_.add_fused_activation_function(fused_activation_function);
   return builder_.Finish();
@@ -9056,10 +9056,10 @@ flatbuffers::Offset<LocalResponseNormalizationOptions> CreateLocalResponseNormal
 
 struct LSTMOptionsT : public flatbuffers::NativeTable {
   typedef LSTMOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   float cell_clip = 0.0f;
   float proj_clip = 0.0f;
-  tflite::LSTMKernelType kernel_type = tflite::LSTMKernelType_FULL;
+  tflite_micro::LSTMKernelType kernel_type = tflite_micro::LSTMKernelType_FULL;
   bool asymmetric_quantize_inputs = false;
 };
 
@@ -9073,8 +9073,8 @@ struct LSTMOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_KERNEL_TYPE = 10,
     VT_ASYMMETRIC_QUANTIZE_INPUTS = 12
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   float cell_clip() const {
     return GetField<float>(VT_CELL_CLIP, 0.0f);
@@ -9082,8 +9082,8 @@ struct LSTMOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   float proj_clip() const {
     return GetField<float>(VT_PROJ_CLIP, 0.0f);
   }
-  tflite::LSTMKernelType kernel_type() const {
-    return static_cast<tflite::LSTMKernelType>(GetField<int8_t>(VT_KERNEL_TYPE, 0));
+  tflite_micro::LSTMKernelType kernel_type() const {
+    return static_cast<tflite_micro::LSTMKernelType>(GetField<int8_t>(VT_KERNEL_TYPE, 0));
   }
   bool asymmetric_quantize_inputs() const {
     return GetField<uint8_t>(VT_ASYMMETRIC_QUANTIZE_INPUTS, 0) != 0;
@@ -9106,7 +9106,7 @@ struct LSTMOptionsBuilder {
   typedef LSTMOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(LSTMOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_cell_clip(float cell_clip) {
@@ -9115,7 +9115,7 @@ struct LSTMOptionsBuilder {
   void add_proj_clip(float proj_clip) {
     fbb_.AddElement<float>(LSTMOptions::VT_PROJ_CLIP, proj_clip, 0.0f);
   }
-  void add_kernel_type(tflite::LSTMKernelType kernel_type) {
+  void add_kernel_type(tflite_micro::LSTMKernelType kernel_type) {
     fbb_.AddElement<int8_t>(LSTMOptions::VT_KERNEL_TYPE, static_cast<int8_t>(kernel_type), 0);
   }
   void add_asymmetric_quantize_inputs(bool asymmetric_quantize_inputs) {
@@ -9134,10 +9134,10 @@ struct LSTMOptionsBuilder {
 
 inline flatbuffers::Offset<LSTMOptions> CreateLSTMOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     float cell_clip = 0.0f,
     float proj_clip = 0.0f,
-    tflite::LSTMKernelType kernel_type = tflite::LSTMKernelType_FULL,
+    tflite_micro::LSTMKernelType kernel_type = tflite_micro::LSTMKernelType_FULL,
     bool asymmetric_quantize_inputs = false) {
   LSTMOptionsBuilder builder_(_fbb);
   builder_.add_proj_clip(proj_clip);
@@ -9152,7 +9152,7 @@ flatbuffers::Offset<LSTMOptions> CreateLSTMOptions(flatbuffers::FlatBufferBuilde
 
 struct UnidirectionalSequenceLSTMOptionsT : public flatbuffers::NativeTable {
   typedef UnidirectionalSequenceLSTMOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   float cell_clip = 0.0f;
   float proj_clip = 0.0f;
   bool time_major = false;
@@ -9171,8 +9171,8 @@ struct UnidirectionalSequenceLSTMOptions FLATBUFFERS_FINAL_CLASS : private flatb
     VT_ASYMMETRIC_QUANTIZE_INPUTS = 12,
     VT_DIAGONAL_RECURRENT_TENSORS = 14
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   float cell_clip() const {
     return GetField<float>(VT_CELL_CLIP, 0.0f);
@@ -9208,7 +9208,7 @@ struct UnidirectionalSequenceLSTMOptionsBuilder {
   typedef UnidirectionalSequenceLSTMOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(UnidirectionalSequenceLSTMOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_cell_clip(float cell_clip) {
@@ -9239,7 +9239,7 @@ struct UnidirectionalSequenceLSTMOptionsBuilder {
 
 inline flatbuffers::Offset<UnidirectionalSequenceLSTMOptions> CreateUnidirectionalSequenceLSTMOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     float cell_clip = 0.0f,
     float proj_clip = 0.0f,
     bool time_major = false,
@@ -9259,7 +9259,7 @@ flatbuffers::Offset<UnidirectionalSequenceLSTMOptions> CreateUnidirectionalSeque
 
 struct BidirectionalSequenceLSTMOptionsT : public flatbuffers::NativeTable {
   typedef BidirectionalSequenceLSTMOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   float cell_clip = 0.0f;
   float proj_clip = 0.0f;
   bool merge_outputs = false;
@@ -9278,8 +9278,8 @@ struct BidirectionalSequenceLSTMOptions FLATBUFFERS_FINAL_CLASS : private flatbu
     VT_TIME_MAJOR = 12,
     VT_ASYMMETRIC_QUANTIZE_INPUTS = 14
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   float cell_clip() const {
     return GetField<float>(VT_CELL_CLIP, 0.0f);
@@ -9315,7 +9315,7 @@ struct BidirectionalSequenceLSTMOptionsBuilder {
   typedef BidirectionalSequenceLSTMOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(BidirectionalSequenceLSTMOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_cell_clip(float cell_clip) {
@@ -9346,7 +9346,7 @@ struct BidirectionalSequenceLSTMOptionsBuilder {
 
 inline flatbuffers::Offset<BidirectionalSequenceLSTMOptions> CreateBidirectionalSequenceLSTMOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     float cell_clip = 0.0f,
     float proj_clip = 0.0f,
     bool merge_outputs = false,
@@ -9675,7 +9675,7 @@ inline flatbuffers::Offset<ReshapeOptions> CreateReshapeOptionsDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *new_shape = nullptr) {
   auto new_shape__ = new_shape ? _fbb.CreateVector<int32_t>(*new_shape) : 0;
-  return tflite::CreateReshapeOptions(
+  return tflite_micro::CreateReshapeOptions(
       _fbb,
       new_shape__);
 }
@@ -9940,7 +9940,7 @@ flatbuffers::Offset<DepthToSpaceOptions> CreateDepthToSpaceOptions(flatbuffers::
 
 struct SubOptionsT : public flatbuffers::NativeTable {
   typedef SubOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
   bool pot_scale_int16 = true;
 };
 
@@ -9951,8 +9951,8 @@ struct SubOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_FUSED_ACTIVATION_FUNCTION = 4,
     VT_POT_SCALE_INT16 = 6
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool pot_scale_int16() const {
     return GetField<uint8_t>(VT_POT_SCALE_INT16, 1) != 0;
@@ -9972,7 +9972,7 @@ struct SubOptionsBuilder {
   typedef SubOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(SubOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   void add_pot_scale_int16(bool pot_scale_int16) {
@@ -9991,7 +9991,7 @@ struct SubOptionsBuilder {
 
 inline flatbuffers::Offset<SubOptions> CreateSubOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
     bool pot_scale_int16 = true) {
   SubOptionsBuilder builder_(_fbb);
   builder_.add_pot_scale_int16(pot_scale_int16);
@@ -10003,7 +10003,7 @@ flatbuffers::Offset<SubOptions> CreateSubOptions(flatbuffers::FlatBufferBuilder 
 
 struct DivOptionsT : public flatbuffers::NativeTable {
   typedef DivOptions TableType;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
 };
 
 struct DivOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -10012,8 +10012,8 @@ struct DivOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_FUSED_ACTIVATION_FUNCTION = 4
   };
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -10029,7 +10029,7 @@ struct DivOptionsBuilder {
   typedef DivOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(DivOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
   explicit DivOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -10045,7 +10045,7 @@ struct DivOptionsBuilder {
 
 inline flatbuffers::Offset<DivOptions> CreateDivOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE) {
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE) {
   DivOptionsBuilder builder_(_fbb);
   builder_.add_fused_activation_function(fused_activation_function);
   return builder_.Finish();
@@ -10094,7 +10094,7 @@ flatbuffers::Offset<TopKV2Options> CreateTopKV2Options(flatbuffers::FlatBufferBu
 
 struct EmbeddingLookupSparseOptionsT : public flatbuffers::NativeTable {
   typedef EmbeddingLookupSparseOptions TableType;
-  tflite::CombinerType combiner = tflite::CombinerType_SUM;
+  tflite_micro::CombinerType combiner = tflite_micro::CombinerType_SUM;
 };
 
 struct EmbeddingLookupSparseOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -10103,8 +10103,8 @@ struct EmbeddingLookupSparseOptions FLATBUFFERS_FINAL_CLASS : private flatbuffer
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_COMBINER = 4
   };
-  tflite::CombinerType combiner() const {
-    return static_cast<tflite::CombinerType>(GetField<int8_t>(VT_COMBINER, 0));
+  tflite_micro::CombinerType combiner() const {
+    return static_cast<tflite_micro::CombinerType>(GetField<int8_t>(VT_COMBINER, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -10120,7 +10120,7 @@ struct EmbeddingLookupSparseOptionsBuilder {
   typedef EmbeddingLookupSparseOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_combiner(tflite::CombinerType combiner) {
+  void add_combiner(tflite_micro::CombinerType combiner) {
     fbb_.AddElement<int8_t>(EmbeddingLookupSparseOptions::VT_COMBINER, static_cast<int8_t>(combiner), 0);
   }
   explicit EmbeddingLookupSparseOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -10136,7 +10136,7 @@ struct EmbeddingLookupSparseOptionsBuilder {
 
 inline flatbuffers::Offset<EmbeddingLookupSparseOptions> CreateEmbeddingLookupSparseOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::CombinerType combiner = tflite::CombinerType_SUM) {
+    tflite_micro::CombinerType combiner = tflite_micro::CombinerType_SUM) {
   EmbeddingLookupSparseOptionsBuilder builder_(_fbb);
   builder_.add_combiner(combiner);
   return builder_.Finish();
@@ -10431,7 +10431,7 @@ inline flatbuffers::Offset<SqueezeOptions> CreateSqueezeOptionsDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<int32_t> *squeeze_dims = nullptr) {
   auto squeeze_dims__ = squeeze_dims ? _fbb.CreateVector<int32_t>(*squeeze_dims) : 0;
-  return tflite::CreateSqueezeOptions(
+  return tflite_micro::CreateSqueezeOptions(
       _fbb,
       squeeze_dims__);
 }
@@ -10690,8 +10690,8 @@ flatbuffers::Offset<LogSoftmaxOptions> CreateLogSoftmaxOptions(flatbuffers::Flat
 
 struct CastOptionsT : public flatbuffers::NativeTable {
   typedef CastOptions TableType;
-  tflite::TensorType in_data_type = tflite::TensorType_FLOAT32;
-  tflite::TensorType out_data_type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType in_data_type = tflite_micro::TensorType_FLOAT32;
+  tflite_micro::TensorType out_data_type = tflite_micro::TensorType_FLOAT32;
 };
 
 struct CastOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -10701,11 +10701,11 @@ struct CastOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_IN_DATA_TYPE = 4,
     VT_OUT_DATA_TYPE = 6
   };
-  tflite::TensorType in_data_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_IN_DATA_TYPE, 0));
+  tflite_micro::TensorType in_data_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_IN_DATA_TYPE, 0));
   }
-  tflite::TensorType out_data_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_OUT_DATA_TYPE, 0));
+  tflite_micro::TensorType out_data_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_OUT_DATA_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -10722,10 +10722,10 @@ struct CastOptionsBuilder {
   typedef CastOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_in_data_type(tflite::TensorType in_data_type) {
+  void add_in_data_type(tflite_micro::TensorType in_data_type) {
     fbb_.AddElement<int8_t>(CastOptions::VT_IN_DATA_TYPE, static_cast<int8_t>(in_data_type), 0);
   }
-  void add_out_data_type(tflite::TensorType out_data_type) {
+  void add_out_data_type(tflite_micro::TensorType out_data_type) {
     fbb_.AddElement<int8_t>(CastOptions::VT_OUT_DATA_TYPE, static_cast<int8_t>(out_data_type), 0);
   }
   explicit CastOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -10741,8 +10741,8 @@ struct CastOptionsBuilder {
 
 inline flatbuffers::Offset<CastOptions> CreateCastOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::TensorType in_data_type = tflite::TensorType_FLOAT32,
-    tflite::TensorType out_data_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType in_data_type = tflite_micro::TensorType_FLOAT32,
+    tflite_micro::TensorType out_data_type = tflite_micro::TensorType_FLOAT32) {
   CastOptionsBuilder builder_(_fbb);
   builder_.add_out_data_type(out_data_type);
   builder_.add_in_data_type(in_data_type);
@@ -10870,7 +10870,7 @@ flatbuffers::Offset<TileOptions> CreateTileOptions(flatbuffers::FlatBufferBuilde
 
 struct ArgMaxOptionsT : public flatbuffers::NativeTable {
   typedef ArgMaxOptions TableType;
-  tflite::TensorType output_type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType output_type = tflite_micro::TensorType_FLOAT32;
 };
 
 struct ArgMaxOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -10879,8 +10879,8 @@ struct ArgMaxOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_OUTPUT_TYPE = 4
   };
-  tflite::TensorType output_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_OUTPUT_TYPE, 0));
+  tflite_micro::TensorType output_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_OUTPUT_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -10896,7 +10896,7 @@ struct ArgMaxOptionsBuilder {
   typedef ArgMaxOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_output_type(tflite::TensorType output_type) {
+  void add_output_type(tflite_micro::TensorType output_type) {
     fbb_.AddElement<int8_t>(ArgMaxOptions::VT_OUTPUT_TYPE, static_cast<int8_t>(output_type), 0);
   }
   explicit ArgMaxOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -10912,7 +10912,7 @@ struct ArgMaxOptionsBuilder {
 
 inline flatbuffers::Offset<ArgMaxOptions> CreateArgMaxOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::TensorType output_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType output_type = tflite_micro::TensorType_FLOAT32) {
   ArgMaxOptionsBuilder builder_(_fbb);
   builder_.add_output_type(output_type);
   return builder_.Finish();
@@ -10922,7 +10922,7 @@ flatbuffers::Offset<ArgMaxOptions> CreateArgMaxOptions(flatbuffers::FlatBufferBu
 
 struct ArgMinOptionsT : public flatbuffers::NativeTable {
   typedef ArgMinOptions TableType;
-  tflite::TensorType output_type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType output_type = tflite_micro::TensorType_FLOAT32;
 };
 
 struct ArgMinOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -10931,8 +10931,8 @@ struct ArgMinOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_OUTPUT_TYPE = 4
   };
-  tflite::TensorType output_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_OUTPUT_TYPE, 0));
+  tflite_micro::TensorType output_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_OUTPUT_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -10948,7 +10948,7 @@ struct ArgMinOptionsBuilder {
   typedef ArgMinOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_output_type(tflite::TensorType output_type) {
+  void add_output_type(tflite_micro::TensorType output_type) {
     fbb_.AddElement<int8_t>(ArgMinOptions::VT_OUTPUT_TYPE, static_cast<int8_t>(output_type), 0);
   }
   explicit ArgMinOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -10964,7 +10964,7 @@ struct ArgMinOptionsBuilder {
 
 inline flatbuffers::Offset<ArgMinOptions> CreateArgMinOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::TensorType output_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType output_type = tflite_micro::TensorType_FLOAT32) {
   ArgMinOptionsBuilder builder_(_fbb);
   builder_.add_output_type(output_type);
   return builder_.Finish();
@@ -11247,11 +11247,11 @@ flatbuffers::Offset<SliceOptions> CreateSliceOptions(flatbuffers::FlatBufferBuil
 
 struct TransposeConvOptionsT : public flatbuffers::NativeTable {
   typedef TransposeConvOptions TableType;
-  tflite::Padding padding = tflite::Padding_SAME;
+  tflite_micro::Padding padding = tflite_micro::Padding_SAME;
   int32_t stride_w = 0;
   int32_t stride_h = 0;
-  tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE;
-  tflite::TensorType quantized_bias_type = tflite::TensorType_FLOAT32;
+  tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE;
+  tflite_micro::TensorType quantized_bias_type = tflite_micro::TensorType_FLOAT32;
 };
 
 struct TransposeConvOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -11264,8 +11264,8 @@ struct TransposeConvOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
     VT_FUSED_ACTIVATION_FUNCTION = 10,
     VT_QUANTIZED_BIAS_TYPE = 12
   };
-  tflite::Padding padding() const {
-    return static_cast<tflite::Padding>(GetField<int8_t>(VT_PADDING, 0));
+  tflite_micro::Padding padding() const {
+    return static_cast<tflite_micro::Padding>(GetField<int8_t>(VT_PADDING, 0));
   }
   int32_t stride_w() const {
     return GetField<int32_t>(VT_STRIDE_W, 0);
@@ -11273,11 +11273,11 @@ struct TransposeConvOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   int32_t stride_h() const {
     return GetField<int32_t>(VT_STRIDE_H, 0);
   }
-  tflite::ActivationFunctionType fused_activation_function() const {
-    return static_cast<tflite::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
+  tflite_micro::ActivationFunctionType fused_activation_function() const {
+    return static_cast<tflite_micro::ActivationFunctionType>(GetField<int8_t>(VT_FUSED_ACTIVATION_FUNCTION, 0));
   }
-  tflite::TensorType quantized_bias_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_QUANTIZED_BIAS_TYPE, 0));
+  tflite_micro::TensorType quantized_bias_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_QUANTIZED_BIAS_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -11297,7 +11297,7 @@ struct TransposeConvOptionsBuilder {
   typedef TransposeConvOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_padding(tflite::Padding padding) {
+  void add_padding(tflite_micro::Padding padding) {
     fbb_.AddElement<int8_t>(TransposeConvOptions::VT_PADDING, static_cast<int8_t>(padding), 0);
   }
   void add_stride_w(int32_t stride_w) {
@@ -11306,10 +11306,10 @@ struct TransposeConvOptionsBuilder {
   void add_stride_h(int32_t stride_h) {
     fbb_.AddElement<int32_t>(TransposeConvOptions::VT_STRIDE_H, stride_h, 0);
   }
-  void add_fused_activation_function(tflite::ActivationFunctionType fused_activation_function) {
+  void add_fused_activation_function(tflite_micro::ActivationFunctionType fused_activation_function) {
     fbb_.AddElement<int8_t>(TransposeConvOptions::VT_FUSED_ACTIVATION_FUNCTION, static_cast<int8_t>(fused_activation_function), 0);
   }
-  void add_quantized_bias_type(tflite::TensorType quantized_bias_type) {
+  void add_quantized_bias_type(tflite_micro::TensorType quantized_bias_type) {
     fbb_.AddElement<int8_t>(TransposeConvOptions::VT_QUANTIZED_BIAS_TYPE, static_cast<int8_t>(quantized_bias_type), 0);
   }
   explicit TransposeConvOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -11325,11 +11325,11 @@ struct TransposeConvOptionsBuilder {
 
 inline flatbuffers::Offset<TransposeConvOptions> CreateTransposeConvOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::Padding padding = tflite::Padding_SAME,
+    tflite_micro::Padding padding = tflite_micro::Padding_SAME,
     int32_t stride_w = 0,
     int32_t stride_h = 0,
-    tflite::ActivationFunctionType fused_activation_function = tflite::ActivationFunctionType_NONE,
-    tflite::TensorType quantized_bias_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::ActivationFunctionType fused_activation_function = tflite_micro::ActivationFunctionType_NONE,
+    tflite_micro::TensorType quantized_bias_type = tflite_micro::TensorType_FLOAT32) {
   TransposeConvOptionsBuilder builder_(_fbb);
   builder_.add_stride_h(stride_h);
   builder_.add_stride_w(stride_w);
@@ -11512,7 +11512,7 @@ flatbuffers::Offset<NotEqualOptions> CreateNotEqualOptions(flatbuffers::FlatBuff
 
 struct ShapeOptionsT : public flatbuffers::NativeTable {
   typedef ShapeOptions TableType;
-  tflite::TensorType out_type = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType out_type = tflite_micro::TensorType_FLOAT32;
 };
 
 struct ShapeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -11521,8 +11521,8 @@ struct ShapeOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_OUT_TYPE = 4
   };
-  tflite::TensorType out_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_OUT_TYPE, 0));
+  tflite_micro::TensorType out_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_OUT_TYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -11538,7 +11538,7 @@ struct ShapeOptionsBuilder {
   typedef ShapeOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_out_type(tflite::TensorType out_type) {
+  void add_out_type(tflite_micro::TensorType out_type) {
     fbb_.AddElement<int8_t>(ShapeOptions::VT_OUT_TYPE, static_cast<int8_t>(out_type), 0);
   }
   explicit ShapeOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -11554,7 +11554,7 @@ struct ShapeOptionsBuilder {
 
 inline flatbuffers::Offset<ShapeOptions> CreateShapeOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::TensorType out_type = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType out_type = tflite_micro::TensorType_FLOAT32) {
   ShapeOptionsBuilder builder_(_fbb);
   builder_.add_out_type(out_type);
   return builder_.Finish();
@@ -12425,7 +12425,7 @@ flatbuffers::Offset<SquaredDifferenceOptions> CreateSquaredDifferenceOptions(fla
 
 struct MirrorPadOptionsT : public flatbuffers::NativeTable {
   typedef MirrorPadOptions TableType;
-  tflite::MirrorPadMode mode = tflite::MirrorPadMode_REFLECT;
+  tflite_micro::MirrorPadMode mode = tflite_micro::MirrorPadMode_REFLECT;
 };
 
 struct MirrorPadOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -12434,8 +12434,8 @@ struct MirrorPadOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_MODE = 4
   };
-  tflite::MirrorPadMode mode() const {
-    return static_cast<tflite::MirrorPadMode>(GetField<int8_t>(VT_MODE, 0));
+  tflite_micro::MirrorPadMode mode() const {
+    return static_cast<tflite_micro::MirrorPadMode>(GetField<int8_t>(VT_MODE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -12451,7 +12451,7 @@ struct MirrorPadOptionsBuilder {
   typedef MirrorPadOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_mode(tflite::MirrorPadMode mode) {
+  void add_mode(tflite_micro::MirrorPadMode mode) {
     fbb_.AddElement<int8_t>(MirrorPadOptions::VT_MODE, static_cast<int8_t>(mode), 0);
   }
   explicit MirrorPadOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -12467,7 +12467,7 @@ struct MirrorPadOptionsBuilder {
 
 inline flatbuffers::Offset<MirrorPadOptions> CreateMirrorPadOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::MirrorPadMode mode = tflite::MirrorPadMode_REFLECT) {
+    tflite_micro::MirrorPadMode mode = tflite_micro::MirrorPadMode_REFLECT) {
   MirrorPadOptionsBuilder builder_(_fbb);
   builder_.add_mode(mode);
   return builder_.Finish();
@@ -12477,7 +12477,7 @@ flatbuffers::Offset<MirrorPadOptions> CreateMirrorPadOptions(flatbuffers::FlatBu
 
 struct UniqueOptionsT : public flatbuffers::NativeTable {
   typedef UniqueOptions TableType;
-  tflite::TensorType idx_out_type = tflite::TensorType_INT32;
+  tflite_micro::TensorType idx_out_type = tflite_micro::TensorType_INT32;
 };
 
 struct UniqueOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -12486,8 +12486,8 @@ struct UniqueOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_IDX_OUT_TYPE = 4
   };
-  tflite::TensorType idx_out_type() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_IDX_OUT_TYPE, 2));
+  tflite_micro::TensorType idx_out_type() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_IDX_OUT_TYPE, 2));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -12503,7 +12503,7 @@ struct UniqueOptionsBuilder {
   typedef UniqueOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_idx_out_type(tflite::TensorType idx_out_type) {
+  void add_idx_out_type(tflite_micro::TensorType idx_out_type) {
     fbb_.AddElement<int8_t>(UniqueOptions::VT_IDX_OUT_TYPE, static_cast<int8_t>(idx_out_type), 2);
   }
   explicit UniqueOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -12519,7 +12519,7 @@ struct UniqueOptionsBuilder {
 
 inline flatbuffers::Offset<UniqueOptions> CreateUniqueOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::TensorType idx_out_type = tflite::TensorType_INT32) {
+    tflite_micro::TensorType idx_out_type = tflite_micro::TensorType_INT32) {
   UniqueOptionsBuilder builder_(_fbb);
   builder_.add_idx_out_type(idx_out_type);
   return builder_.Finish();
@@ -13493,8 +13493,8 @@ flatbuffers::Offset<Rfft2dOptions> CreateRfft2dOptions(flatbuffers::FlatBufferBu
 struct HashtableOptionsT : public flatbuffers::NativeTable {
   typedef HashtableOptions TableType;
   int32_t table_id = 0;
-  tflite::TensorType key_dtype = tflite::TensorType_FLOAT32;
-  tflite::TensorType value_dtype = tflite::TensorType_FLOAT32;
+  tflite_micro::TensorType key_dtype = tflite_micro::TensorType_FLOAT32;
+  tflite_micro::TensorType value_dtype = tflite_micro::TensorType_FLOAT32;
 };
 
 struct HashtableOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -13508,11 +13508,11 @@ struct HashtableOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t table_id() const {
     return GetField<int32_t>(VT_TABLE_ID, 0);
   }
-  tflite::TensorType key_dtype() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_KEY_DTYPE, 0));
+  tflite_micro::TensorType key_dtype() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_KEY_DTYPE, 0));
   }
-  tflite::TensorType value_dtype() const {
-    return static_cast<tflite::TensorType>(GetField<int8_t>(VT_VALUE_DTYPE, 0));
+  tflite_micro::TensorType value_dtype() const {
+    return static_cast<tflite_micro::TensorType>(GetField<int8_t>(VT_VALUE_DTYPE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -13533,10 +13533,10 @@ struct HashtableOptionsBuilder {
   void add_table_id(int32_t table_id) {
     fbb_.AddElement<int32_t>(HashtableOptions::VT_TABLE_ID, table_id, 0);
   }
-  void add_key_dtype(tflite::TensorType key_dtype) {
+  void add_key_dtype(tflite_micro::TensorType key_dtype) {
     fbb_.AddElement<int8_t>(HashtableOptions::VT_KEY_DTYPE, static_cast<int8_t>(key_dtype), 0);
   }
-  void add_value_dtype(tflite::TensorType value_dtype) {
+  void add_value_dtype(tflite_micro::TensorType value_dtype) {
     fbb_.AddElement<int8_t>(HashtableOptions::VT_VALUE_DTYPE, static_cast<int8_t>(value_dtype), 0);
   }
   explicit HashtableOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -13553,8 +13553,8 @@ struct HashtableOptionsBuilder {
 inline flatbuffers::Offset<HashtableOptions> CreateHashtableOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
     int32_t table_id = 0,
-    tflite::TensorType key_dtype = tflite::TensorType_FLOAT32,
-    tflite::TensorType value_dtype = tflite::TensorType_FLOAT32) {
+    tflite_micro::TensorType key_dtype = tflite_micro::TensorType_FLOAT32,
+    tflite_micro::TensorType value_dtype = tflite_micro::TensorType_FLOAT32) {
   HashtableOptionsBuilder builder_(_fbb);
   builder_.add_table_id(table_id);
   builder_.add_value_dtype(value_dtype);
@@ -13750,7 +13750,7 @@ inline flatbuffers::Offset<VarHandleOptions> CreateVarHandleOptionsDirect(
     const char *shared_name = nullptr) {
   auto container__ = container ? _fbb.CreateString(container) : 0;
   auto shared_name__ = shared_name ? _fbb.CreateString(shared_name) : 0;
-  return tflite::CreateVarHandleOptions(
+  return tflite_micro::CreateVarHandleOptions(
       _fbb,
       container__,
       shared_name__);
@@ -13954,7 +13954,7 @@ inline flatbuffers::Offset<BucketizeOptions> CreateBucketizeOptionsDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<float> *boundaries = nullptr) {
   auto boundaries__ = boundaries ? _fbb.CreateVector<float>(*boundaries) : 0;
-  return tflite::CreateBucketizeOptions(
+  return tflite_micro::CreateBucketizeOptions(
       _fbb,
       boundaries__);
 }
@@ -14444,7 +14444,7 @@ flatbuffers::Offset<DilateOptions> CreateDilateOptions(flatbuffers::FlatBufferBu
 
 struct ReduceWindowOptionsT : public flatbuffers::NativeTable {
   typedef ReduceWindowOptions TableType;
-  tflite::ReduceWindowFunction reduce_function = tflite::ReduceWindowFunction_UNSUPPORTED;
+  tflite_micro::ReduceWindowFunction reduce_function = tflite_micro::ReduceWindowFunction_UNSUPPORTED;
 };
 
 struct ReduceWindowOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -14453,8 +14453,8 @@ struct ReduceWindowOptions FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table 
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_REDUCE_FUNCTION = 4
   };
-  tflite::ReduceWindowFunction reduce_function() const {
-    return static_cast<tflite::ReduceWindowFunction>(GetField<int32_t>(VT_REDUCE_FUNCTION, 0));
+  tflite_micro::ReduceWindowFunction reduce_function() const {
+    return static_cast<tflite_micro::ReduceWindowFunction>(GetField<int32_t>(VT_REDUCE_FUNCTION, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -14470,7 +14470,7 @@ struct ReduceWindowOptionsBuilder {
   typedef ReduceWindowOptions Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_reduce_function(tflite::ReduceWindowFunction reduce_function) {
+  void add_reduce_function(tflite_micro::ReduceWindowFunction reduce_function) {
     fbb_.AddElement<int32_t>(ReduceWindowOptions::VT_REDUCE_FUNCTION, static_cast<int32_t>(reduce_function), 0);
   }
   explicit ReduceWindowOptionsBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -14486,7 +14486,7 @@ struct ReduceWindowOptionsBuilder {
 
 inline flatbuffers::Offset<ReduceWindowOptions> CreateReduceWindowOptions(
     flatbuffers::FlatBufferBuilder &_fbb,
-    tflite::ReduceWindowFunction reduce_function = tflite::ReduceWindowFunction_UNSUPPORTED) {
+    tflite_micro::ReduceWindowFunction reduce_function = tflite_micro::ReduceWindowFunction_UNSUPPORTED) {
   ReduceWindowOptionsBuilder builder_(_fbb);
   builder_.add_reduce_function(reduce_function);
   return builder_.Finish();
@@ -14499,7 +14499,7 @@ struct OperatorCodeT : public flatbuffers::NativeTable {
   int8_t deprecated_builtin_code = 0;
   std::string custom_code{};
   int32_t version = 1;
-  tflite::BuiltinOperator builtin_code = tflite::BuiltinOperator_ADD;
+  tflite_micro::BuiltinOperator builtin_code = tflite_micro::BuiltinOperator_ADD;
 };
 
 struct OperatorCode FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -14520,8 +14520,8 @@ struct OperatorCode FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   int32_t version() const {
     return GetField<int32_t>(VT_VERSION, 1);
   }
-  tflite::BuiltinOperator builtin_code() const {
-    return static_cast<tflite::BuiltinOperator>(GetField<int32_t>(VT_BUILTIN_CODE, 0));
+  tflite_micro::BuiltinOperator builtin_code() const {
+    return static_cast<tflite_micro::BuiltinOperator>(GetField<int32_t>(VT_BUILTIN_CODE, 0));
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -14550,7 +14550,7 @@ struct OperatorCodeBuilder {
   void add_version(int32_t version) {
     fbb_.AddElement<int32_t>(OperatorCode::VT_VERSION, version, 1);
   }
-  void add_builtin_code(tflite::BuiltinOperator builtin_code) {
+  void add_builtin_code(tflite_micro::BuiltinOperator builtin_code) {
     fbb_.AddElement<int32_t>(OperatorCode::VT_BUILTIN_CODE, static_cast<int32_t>(builtin_code), 0);
   }
   explicit OperatorCodeBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -14569,7 +14569,7 @@ inline flatbuffers::Offset<OperatorCode> CreateOperatorCode(
     int8_t deprecated_builtin_code = 0,
     flatbuffers::Offset<flatbuffers::String> custom_code = 0,
     int32_t version = 1,
-    tflite::BuiltinOperator builtin_code = tflite::BuiltinOperator_ADD) {
+    tflite_micro::BuiltinOperator builtin_code = tflite_micro::BuiltinOperator_ADD) {
   OperatorCodeBuilder builder_(_fbb);
   builder_.add_builtin_code(builtin_code);
   builder_.add_version(version);
@@ -14583,9 +14583,9 @@ inline flatbuffers::Offset<OperatorCode> CreateOperatorCodeDirect(
     int8_t deprecated_builtin_code = 0,
     const char *custom_code = nullptr,
     int32_t version = 1,
-    tflite::BuiltinOperator builtin_code = tflite::BuiltinOperator_ADD) {
+    tflite_micro::BuiltinOperator builtin_code = tflite_micro::BuiltinOperator_ADD) {
   auto custom_code__ = custom_code ? _fbb.CreateString(custom_code) : 0;
-  return tflite::CreateOperatorCode(
+  return tflite_micro::CreateOperatorCode(
       _fbb,
       deprecated_builtin_code,
       custom_code__,
@@ -14600,14 +14600,14 @@ struct OperatorT : public flatbuffers::NativeTable {
   uint32_t opcode_index = 0;
   std::vector<int32_t> inputs{};
   std::vector<int32_t> outputs{};
-  tflite::BuiltinOptionsUnion builtin_options{};
+  tflite_micro::BuiltinOptionsUnion builtin_options{};
   std::vector<uint8_t> custom_options{};
-  tflite::CustomOptionsFormat custom_options_format = tflite::CustomOptionsFormat_FLEXBUFFERS;
+  tflite_micro::CustomOptionsFormat custom_options_format = tflite_micro::CustomOptionsFormat_FLEXBUFFERS;
   std::vector<bool> mutating_variable_inputs{};
   std::vector<int32_t> intermediates{};
   uint64_t large_custom_options_offset = 0;
   uint64_t large_custom_options_size = 0;
-  tflite::BuiltinOptions2Union builtin_options_2{};
+  tflite_micro::BuiltinOptions2Union builtin_options_2{};
 };
 
 struct Operator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
@@ -14637,396 +14637,396 @@ struct Operator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<int32_t> *outputs() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_OUTPUTS);
   }
-  tflite::BuiltinOptions builtin_options_type() const {
-    return static_cast<tflite::BuiltinOptions>(GetField<uint8_t>(VT_BUILTIN_OPTIONS_TYPE, 0));
+  tflite_micro::BuiltinOptions builtin_options_type() const {
+    return static_cast<tflite_micro::BuiltinOptions>(GetField<uint8_t>(VT_BUILTIN_OPTIONS_TYPE, 0));
   }
   const void *builtin_options() const {
     return GetPointer<const void *>(VT_BUILTIN_OPTIONS);
   }
   template<typename T> const T *builtin_options_as() const;
-  const tflite::Conv2DOptions *builtin_options_as_Conv2DOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_Conv2DOptions ? static_cast<const tflite::Conv2DOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::Conv2DOptions *builtin_options_as_Conv2DOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_Conv2DOptions ? static_cast<const tflite_micro::Conv2DOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::DepthwiseConv2DOptions *builtin_options_as_DepthwiseConv2DOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_DepthwiseConv2DOptions ? static_cast<const tflite::DepthwiseConv2DOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::DepthwiseConv2DOptions *builtin_options_as_DepthwiseConv2DOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_DepthwiseConv2DOptions ? static_cast<const tflite_micro::DepthwiseConv2DOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ConcatEmbeddingsOptions *builtin_options_as_ConcatEmbeddingsOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ConcatEmbeddingsOptions ? static_cast<const tflite::ConcatEmbeddingsOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ConcatEmbeddingsOptions *builtin_options_as_ConcatEmbeddingsOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ConcatEmbeddingsOptions ? static_cast<const tflite_micro::ConcatEmbeddingsOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LSHProjectionOptions *builtin_options_as_LSHProjectionOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LSHProjectionOptions ? static_cast<const tflite::LSHProjectionOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LSHProjectionOptions *builtin_options_as_LSHProjectionOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LSHProjectionOptions ? static_cast<const tflite_micro::LSHProjectionOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::Pool2DOptions *builtin_options_as_Pool2DOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_Pool2DOptions ? static_cast<const tflite::Pool2DOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::Pool2DOptions *builtin_options_as_Pool2DOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_Pool2DOptions ? static_cast<const tflite_micro::Pool2DOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SVDFOptions *builtin_options_as_SVDFOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SVDFOptions ? static_cast<const tflite::SVDFOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SVDFOptions *builtin_options_as_SVDFOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SVDFOptions ? static_cast<const tflite_micro::SVDFOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::RNNOptions *builtin_options_as_RNNOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_RNNOptions ? static_cast<const tflite::RNNOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::RNNOptions *builtin_options_as_RNNOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_RNNOptions ? static_cast<const tflite_micro::RNNOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::FullyConnectedOptions *builtin_options_as_FullyConnectedOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_FullyConnectedOptions ? static_cast<const tflite::FullyConnectedOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::FullyConnectedOptions *builtin_options_as_FullyConnectedOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_FullyConnectedOptions ? static_cast<const tflite_micro::FullyConnectedOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SoftmaxOptions *builtin_options_as_SoftmaxOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SoftmaxOptions ? static_cast<const tflite::SoftmaxOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SoftmaxOptions *builtin_options_as_SoftmaxOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SoftmaxOptions ? static_cast<const tflite_micro::SoftmaxOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ConcatenationOptions *builtin_options_as_ConcatenationOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ConcatenationOptions ? static_cast<const tflite::ConcatenationOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ConcatenationOptions *builtin_options_as_ConcatenationOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ConcatenationOptions ? static_cast<const tflite_micro::ConcatenationOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::AddOptions *builtin_options_as_AddOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_AddOptions ? static_cast<const tflite::AddOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::AddOptions *builtin_options_as_AddOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_AddOptions ? static_cast<const tflite_micro::AddOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::L2NormOptions *builtin_options_as_L2NormOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_L2NormOptions ? static_cast<const tflite::L2NormOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::L2NormOptions *builtin_options_as_L2NormOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_L2NormOptions ? static_cast<const tflite_micro::L2NormOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LocalResponseNormalizationOptions *builtin_options_as_LocalResponseNormalizationOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LocalResponseNormalizationOptions ? static_cast<const tflite::LocalResponseNormalizationOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LocalResponseNormalizationOptions *builtin_options_as_LocalResponseNormalizationOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LocalResponseNormalizationOptions ? static_cast<const tflite_micro::LocalResponseNormalizationOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LSTMOptions *builtin_options_as_LSTMOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LSTMOptions ? static_cast<const tflite::LSTMOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LSTMOptions *builtin_options_as_LSTMOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LSTMOptions ? static_cast<const tflite_micro::LSTMOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ResizeBilinearOptions *builtin_options_as_ResizeBilinearOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ResizeBilinearOptions ? static_cast<const tflite::ResizeBilinearOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ResizeBilinearOptions *builtin_options_as_ResizeBilinearOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ResizeBilinearOptions ? static_cast<const tflite_micro::ResizeBilinearOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::CallOptions *builtin_options_as_CallOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_CallOptions ? static_cast<const tflite::CallOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::CallOptions *builtin_options_as_CallOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_CallOptions ? static_cast<const tflite_micro::CallOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ReshapeOptions *builtin_options_as_ReshapeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ReshapeOptions ? static_cast<const tflite::ReshapeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ReshapeOptions *builtin_options_as_ReshapeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ReshapeOptions ? static_cast<const tflite_micro::ReshapeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SkipGramOptions *builtin_options_as_SkipGramOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SkipGramOptions ? static_cast<const tflite::SkipGramOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SkipGramOptions *builtin_options_as_SkipGramOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SkipGramOptions ? static_cast<const tflite_micro::SkipGramOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SpaceToDepthOptions *builtin_options_as_SpaceToDepthOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SpaceToDepthOptions ? static_cast<const tflite::SpaceToDepthOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SpaceToDepthOptions *builtin_options_as_SpaceToDepthOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SpaceToDepthOptions ? static_cast<const tflite_micro::SpaceToDepthOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::EmbeddingLookupSparseOptions *builtin_options_as_EmbeddingLookupSparseOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_EmbeddingLookupSparseOptions ? static_cast<const tflite::EmbeddingLookupSparseOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::EmbeddingLookupSparseOptions *builtin_options_as_EmbeddingLookupSparseOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_EmbeddingLookupSparseOptions ? static_cast<const tflite_micro::EmbeddingLookupSparseOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::MulOptions *builtin_options_as_MulOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_MulOptions ? static_cast<const tflite::MulOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::MulOptions *builtin_options_as_MulOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_MulOptions ? static_cast<const tflite_micro::MulOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::PadOptions *builtin_options_as_PadOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_PadOptions ? static_cast<const tflite::PadOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::PadOptions *builtin_options_as_PadOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_PadOptions ? static_cast<const tflite_micro::PadOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::GatherOptions *builtin_options_as_GatherOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_GatherOptions ? static_cast<const tflite::GatherOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::GatherOptions *builtin_options_as_GatherOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_GatherOptions ? static_cast<const tflite_micro::GatherOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BatchToSpaceNDOptions *builtin_options_as_BatchToSpaceNDOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BatchToSpaceNDOptions ? static_cast<const tflite::BatchToSpaceNDOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BatchToSpaceNDOptions *builtin_options_as_BatchToSpaceNDOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BatchToSpaceNDOptions ? static_cast<const tflite_micro::BatchToSpaceNDOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SpaceToBatchNDOptions *builtin_options_as_SpaceToBatchNDOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SpaceToBatchNDOptions ? static_cast<const tflite::SpaceToBatchNDOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SpaceToBatchNDOptions *builtin_options_as_SpaceToBatchNDOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SpaceToBatchNDOptions ? static_cast<const tflite_micro::SpaceToBatchNDOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::TransposeOptions *builtin_options_as_TransposeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_TransposeOptions ? static_cast<const tflite::TransposeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::TransposeOptions *builtin_options_as_TransposeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_TransposeOptions ? static_cast<const tflite_micro::TransposeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ReducerOptions *builtin_options_as_ReducerOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ReducerOptions ? static_cast<const tflite::ReducerOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ReducerOptions *builtin_options_as_ReducerOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ReducerOptions ? static_cast<const tflite_micro::ReducerOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SubOptions *builtin_options_as_SubOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SubOptions ? static_cast<const tflite::SubOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SubOptions *builtin_options_as_SubOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SubOptions ? static_cast<const tflite_micro::SubOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::DivOptions *builtin_options_as_DivOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_DivOptions ? static_cast<const tflite::DivOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::DivOptions *builtin_options_as_DivOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_DivOptions ? static_cast<const tflite_micro::DivOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SqueezeOptions *builtin_options_as_SqueezeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SqueezeOptions ? static_cast<const tflite::SqueezeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SqueezeOptions *builtin_options_as_SqueezeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SqueezeOptions ? static_cast<const tflite_micro::SqueezeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SequenceRNNOptions *builtin_options_as_SequenceRNNOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SequenceRNNOptions ? static_cast<const tflite::SequenceRNNOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SequenceRNNOptions *builtin_options_as_SequenceRNNOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SequenceRNNOptions ? static_cast<const tflite_micro::SequenceRNNOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::StridedSliceOptions *builtin_options_as_StridedSliceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_StridedSliceOptions ? static_cast<const tflite::StridedSliceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::StridedSliceOptions *builtin_options_as_StridedSliceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_StridedSliceOptions ? static_cast<const tflite_micro::StridedSliceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ExpOptions *builtin_options_as_ExpOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ExpOptions ? static_cast<const tflite::ExpOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ExpOptions *builtin_options_as_ExpOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ExpOptions ? static_cast<const tflite_micro::ExpOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::TopKV2Options *builtin_options_as_TopKV2Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_TopKV2Options ? static_cast<const tflite::TopKV2Options *>(builtin_options()) : nullptr;
+  const tflite_micro::TopKV2Options *builtin_options_as_TopKV2Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_TopKV2Options ? static_cast<const tflite_micro::TopKV2Options *>(builtin_options()) : nullptr;
   }
-  const tflite::SplitOptions *builtin_options_as_SplitOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SplitOptions ? static_cast<const tflite::SplitOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SplitOptions *builtin_options_as_SplitOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SplitOptions ? static_cast<const tflite_micro::SplitOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LogSoftmaxOptions *builtin_options_as_LogSoftmaxOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LogSoftmaxOptions ? static_cast<const tflite::LogSoftmaxOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LogSoftmaxOptions *builtin_options_as_LogSoftmaxOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LogSoftmaxOptions ? static_cast<const tflite_micro::LogSoftmaxOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::CastOptions *builtin_options_as_CastOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_CastOptions ? static_cast<const tflite::CastOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::CastOptions *builtin_options_as_CastOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_CastOptions ? static_cast<const tflite_micro::CastOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::DequantizeOptions *builtin_options_as_DequantizeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_DequantizeOptions ? static_cast<const tflite::DequantizeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::DequantizeOptions *builtin_options_as_DequantizeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_DequantizeOptions ? static_cast<const tflite_micro::DequantizeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::MaximumMinimumOptions *builtin_options_as_MaximumMinimumOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_MaximumMinimumOptions ? static_cast<const tflite::MaximumMinimumOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::MaximumMinimumOptions *builtin_options_as_MaximumMinimumOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_MaximumMinimumOptions ? static_cast<const tflite_micro::MaximumMinimumOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ArgMaxOptions *builtin_options_as_ArgMaxOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ArgMaxOptions ? static_cast<const tflite::ArgMaxOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ArgMaxOptions *builtin_options_as_ArgMaxOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ArgMaxOptions ? static_cast<const tflite_micro::ArgMaxOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LessOptions *builtin_options_as_LessOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LessOptions ? static_cast<const tflite::LessOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LessOptions *builtin_options_as_LessOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LessOptions ? static_cast<const tflite_micro::LessOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::NegOptions *builtin_options_as_NegOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_NegOptions ? static_cast<const tflite::NegOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::NegOptions *builtin_options_as_NegOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_NegOptions ? static_cast<const tflite_micro::NegOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::PadV2Options *builtin_options_as_PadV2Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_PadV2Options ? static_cast<const tflite::PadV2Options *>(builtin_options()) : nullptr;
+  const tflite_micro::PadV2Options *builtin_options_as_PadV2Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_PadV2Options ? static_cast<const tflite_micro::PadV2Options *>(builtin_options()) : nullptr;
   }
-  const tflite::GreaterOptions *builtin_options_as_GreaterOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_GreaterOptions ? static_cast<const tflite::GreaterOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::GreaterOptions *builtin_options_as_GreaterOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_GreaterOptions ? static_cast<const tflite_micro::GreaterOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::GreaterEqualOptions *builtin_options_as_GreaterEqualOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_GreaterEqualOptions ? static_cast<const tflite::GreaterEqualOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::GreaterEqualOptions *builtin_options_as_GreaterEqualOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_GreaterEqualOptions ? static_cast<const tflite_micro::GreaterEqualOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LessEqualOptions *builtin_options_as_LessEqualOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LessEqualOptions ? static_cast<const tflite::LessEqualOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LessEqualOptions *builtin_options_as_LessEqualOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LessEqualOptions ? static_cast<const tflite_micro::LessEqualOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SelectOptions *builtin_options_as_SelectOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SelectOptions ? static_cast<const tflite::SelectOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SelectOptions *builtin_options_as_SelectOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SelectOptions ? static_cast<const tflite_micro::SelectOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SliceOptions *builtin_options_as_SliceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SliceOptions ? static_cast<const tflite::SliceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SliceOptions *builtin_options_as_SliceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SliceOptions ? static_cast<const tflite_micro::SliceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::TransposeConvOptions *builtin_options_as_TransposeConvOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_TransposeConvOptions ? static_cast<const tflite::TransposeConvOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::TransposeConvOptions *builtin_options_as_TransposeConvOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_TransposeConvOptions ? static_cast<const tflite_micro::TransposeConvOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SparseToDenseOptions *builtin_options_as_SparseToDenseOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SparseToDenseOptions ? static_cast<const tflite::SparseToDenseOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SparseToDenseOptions *builtin_options_as_SparseToDenseOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SparseToDenseOptions ? static_cast<const tflite_micro::SparseToDenseOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::TileOptions *builtin_options_as_TileOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_TileOptions ? static_cast<const tflite::TileOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::TileOptions *builtin_options_as_TileOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_TileOptions ? static_cast<const tflite_micro::TileOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ExpandDimsOptions *builtin_options_as_ExpandDimsOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ExpandDimsOptions ? static_cast<const tflite::ExpandDimsOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ExpandDimsOptions *builtin_options_as_ExpandDimsOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ExpandDimsOptions ? static_cast<const tflite_micro::ExpandDimsOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::EqualOptions *builtin_options_as_EqualOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_EqualOptions ? static_cast<const tflite::EqualOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::EqualOptions *builtin_options_as_EqualOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_EqualOptions ? static_cast<const tflite_micro::EqualOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::NotEqualOptions *builtin_options_as_NotEqualOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_NotEqualOptions ? static_cast<const tflite::NotEqualOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::NotEqualOptions *builtin_options_as_NotEqualOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_NotEqualOptions ? static_cast<const tflite_micro::NotEqualOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ShapeOptions *builtin_options_as_ShapeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ShapeOptions ? static_cast<const tflite::ShapeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ShapeOptions *builtin_options_as_ShapeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ShapeOptions ? static_cast<const tflite_micro::ShapeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::PowOptions *builtin_options_as_PowOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_PowOptions ? static_cast<const tflite::PowOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::PowOptions *builtin_options_as_PowOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_PowOptions ? static_cast<const tflite_micro::PowOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ArgMinOptions *builtin_options_as_ArgMinOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ArgMinOptions ? static_cast<const tflite::ArgMinOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ArgMinOptions *builtin_options_as_ArgMinOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ArgMinOptions ? static_cast<const tflite_micro::ArgMinOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::FakeQuantOptions *builtin_options_as_FakeQuantOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_FakeQuantOptions ? static_cast<const tflite::FakeQuantOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::FakeQuantOptions *builtin_options_as_FakeQuantOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_FakeQuantOptions ? static_cast<const tflite_micro::FakeQuantOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::PackOptions *builtin_options_as_PackOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_PackOptions ? static_cast<const tflite::PackOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::PackOptions *builtin_options_as_PackOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_PackOptions ? static_cast<const tflite_micro::PackOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LogicalOrOptions *builtin_options_as_LogicalOrOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LogicalOrOptions ? static_cast<const tflite::LogicalOrOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LogicalOrOptions *builtin_options_as_LogicalOrOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LogicalOrOptions ? static_cast<const tflite_micro::LogicalOrOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::OneHotOptions *builtin_options_as_OneHotOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_OneHotOptions ? static_cast<const tflite::OneHotOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::OneHotOptions *builtin_options_as_OneHotOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_OneHotOptions ? static_cast<const tflite_micro::OneHotOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LogicalAndOptions *builtin_options_as_LogicalAndOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LogicalAndOptions ? static_cast<const tflite::LogicalAndOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LogicalAndOptions *builtin_options_as_LogicalAndOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LogicalAndOptions ? static_cast<const tflite_micro::LogicalAndOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LogicalNotOptions *builtin_options_as_LogicalNotOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LogicalNotOptions ? static_cast<const tflite::LogicalNotOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LogicalNotOptions *builtin_options_as_LogicalNotOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LogicalNotOptions ? static_cast<const tflite_micro::LogicalNotOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UnpackOptions *builtin_options_as_UnpackOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UnpackOptions ? static_cast<const tflite::UnpackOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UnpackOptions *builtin_options_as_UnpackOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UnpackOptions ? static_cast<const tflite_micro::UnpackOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::FloorDivOptions *builtin_options_as_FloorDivOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_FloorDivOptions ? static_cast<const tflite::FloorDivOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::FloorDivOptions *builtin_options_as_FloorDivOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_FloorDivOptions ? static_cast<const tflite_micro::FloorDivOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SquareOptions *builtin_options_as_SquareOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SquareOptions ? static_cast<const tflite::SquareOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SquareOptions *builtin_options_as_SquareOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SquareOptions ? static_cast<const tflite_micro::SquareOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ZerosLikeOptions *builtin_options_as_ZerosLikeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ZerosLikeOptions ? static_cast<const tflite::ZerosLikeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ZerosLikeOptions *builtin_options_as_ZerosLikeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ZerosLikeOptions ? static_cast<const tflite_micro::ZerosLikeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::FillOptions *builtin_options_as_FillOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_FillOptions ? static_cast<const tflite::FillOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::FillOptions *builtin_options_as_FillOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_FillOptions ? static_cast<const tflite_micro::FillOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BidirectionalSequenceLSTMOptions *builtin_options_as_BidirectionalSequenceLSTMOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BidirectionalSequenceLSTMOptions ? static_cast<const tflite::BidirectionalSequenceLSTMOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BidirectionalSequenceLSTMOptions *builtin_options_as_BidirectionalSequenceLSTMOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BidirectionalSequenceLSTMOptions ? static_cast<const tflite_micro::BidirectionalSequenceLSTMOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BidirectionalSequenceRNNOptions *builtin_options_as_BidirectionalSequenceRNNOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BidirectionalSequenceRNNOptions ? static_cast<const tflite::BidirectionalSequenceRNNOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BidirectionalSequenceRNNOptions *builtin_options_as_BidirectionalSequenceRNNOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BidirectionalSequenceRNNOptions ? static_cast<const tflite_micro::BidirectionalSequenceRNNOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UnidirectionalSequenceLSTMOptions *builtin_options_as_UnidirectionalSequenceLSTMOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UnidirectionalSequenceLSTMOptions ? static_cast<const tflite::UnidirectionalSequenceLSTMOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UnidirectionalSequenceLSTMOptions *builtin_options_as_UnidirectionalSequenceLSTMOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UnidirectionalSequenceLSTMOptions ? static_cast<const tflite_micro::UnidirectionalSequenceLSTMOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::FloorModOptions *builtin_options_as_FloorModOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_FloorModOptions ? static_cast<const tflite::FloorModOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::FloorModOptions *builtin_options_as_FloorModOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_FloorModOptions ? static_cast<const tflite_micro::FloorModOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::RangeOptions *builtin_options_as_RangeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_RangeOptions ? static_cast<const tflite::RangeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::RangeOptions *builtin_options_as_RangeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_RangeOptions ? static_cast<const tflite_micro::RangeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ResizeNearestNeighborOptions *builtin_options_as_ResizeNearestNeighborOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ResizeNearestNeighborOptions ? static_cast<const tflite::ResizeNearestNeighborOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ResizeNearestNeighborOptions *builtin_options_as_ResizeNearestNeighborOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ResizeNearestNeighborOptions ? static_cast<const tflite_micro::ResizeNearestNeighborOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::LeakyReluOptions *builtin_options_as_LeakyReluOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_LeakyReluOptions ? static_cast<const tflite::LeakyReluOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::LeakyReluOptions *builtin_options_as_LeakyReluOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_LeakyReluOptions ? static_cast<const tflite_micro::LeakyReluOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SquaredDifferenceOptions *builtin_options_as_SquaredDifferenceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SquaredDifferenceOptions ? static_cast<const tflite::SquaredDifferenceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SquaredDifferenceOptions *builtin_options_as_SquaredDifferenceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SquaredDifferenceOptions ? static_cast<const tflite_micro::SquaredDifferenceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::MirrorPadOptions *builtin_options_as_MirrorPadOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_MirrorPadOptions ? static_cast<const tflite::MirrorPadOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::MirrorPadOptions *builtin_options_as_MirrorPadOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_MirrorPadOptions ? static_cast<const tflite_micro::MirrorPadOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::AbsOptions *builtin_options_as_AbsOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_AbsOptions ? static_cast<const tflite::AbsOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::AbsOptions *builtin_options_as_AbsOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_AbsOptions ? static_cast<const tflite_micro::AbsOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SplitVOptions *builtin_options_as_SplitVOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SplitVOptions ? static_cast<const tflite::SplitVOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SplitVOptions *builtin_options_as_SplitVOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SplitVOptions ? static_cast<const tflite_micro::SplitVOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UniqueOptions *builtin_options_as_UniqueOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UniqueOptions ? static_cast<const tflite::UniqueOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UniqueOptions *builtin_options_as_UniqueOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UniqueOptions ? static_cast<const tflite_micro::UniqueOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ReverseV2Options *builtin_options_as_ReverseV2Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ReverseV2Options ? static_cast<const tflite::ReverseV2Options *>(builtin_options()) : nullptr;
+  const tflite_micro::ReverseV2Options *builtin_options_as_ReverseV2Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ReverseV2Options ? static_cast<const tflite_micro::ReverseV2Options *>(builtin_options()) : nullptr;
   }
-  const tflite::AddNOptions *builtin_options_as_AddNOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_AddNOptions ? static_cast<const tflite::AddNOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::AddNOptions *builtin_options_as_AddNOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_AddNOptions ? static_cast<const tflite_micro::AddNOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::GatherNdOptions *builtin_options_as_GatherNdOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_GatherNdOptions ? static_cast<const tflite::GatherNdOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::GatherNdOptions *builtin_options_as_GatherNdOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_GatherNdOptions ? static_cast<const tflite_micro::GatherNdOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::CosOptions *builtin_options_as_CosOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_CosOptions ? static_cast<const tflite::CosOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::CosOptions *builtin_options_as_CosOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_CosOptions ? static_cast<const tflite_micro::CosOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::WhereOptions *builtin_options_as_WhereOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_WhereOptions ? static_cast<const tflite::WhereOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::WhereOptions *builtin_options_as_WhereOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_WhereOptions ? static_cast<const tflite_micro::WhereOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::RankOptions *builtin_options_as_RankOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_RankOptions ? static_cast<const tflite::RankOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::RankOptions *builtin_options_as_RankOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_RankOptions ? static_cast<const tflite_micro::RankOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ReverseSequenceOptions *builtin_options_as_ReverseSequenceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ReverseSequenceOptions ? static_cast<const tflite::ReverseSequenceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ReverseSequenceOptions *builtin_options_as_ReverseSequenceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ReverseSequenceOptions ? static_cast<const tflite_micro::ReverseSequenceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::MatrixDiagOptions *builtin_options_as_MatrixDiagOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_MatrixDiagOptions ? static_cast<const tflite::MatrixDiagOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::MatrixDiagOptions *builtin_options_as_MatrixDiagOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_MatrixDiagOptions ? static_cast<const tflite_micro::MatrixDiagOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::QuantizeOptions *builtin_options_as_QuantizeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_QuantizeOptions ? static_cast<const tflite::QuantizeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::QuantizeOptions *builtin_options_as_QuantizeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_QuantizeOptions ? static_cast<const tflite_micro::QuantizeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::MatrixSetDiagOptions *builtin_options_as_MatrixSetDiagOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_MatrixSetDiagOptions ? static_cast<const tflite::MatrixSetDiagOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::MatrixSetDiagOptions *builtin_options_as_MatrixSetDiagOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_MatrixSetDiagOptions ? static_cast<const tflite_micro::MatrixSetDiagOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::HardSwishOptions *builtin_options_as_HardSwishOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_HardSwishOptions ? static_cast<const tflite::HardSwishOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::HardSwishOptions *builtin_options_as_HardSwishOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_HardSwishOptions ? static_cast<const tflite_micro::HardSwishOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::IfOptions *builtin_options_as_IfOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_IfOptions ? static_cast<const tflite::IfOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::IfOptions *builtin_options_as_IfOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_IfOptions ? static_cast<const tflite_micro::IfOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::WhileOptions *builtin_options_as_WhileOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_WhileOptions ? static_cast<const tflite::WhileOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::WhileOptions *builtin_options_as_WhileOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_WhileOptions ? static_cast<const tflite_micro::WhileOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::DepthToSpaceOptions *builtin_options_as_DepthToSpaceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_DepthToSpaceOptions ? static_cast<const tflite::DepthToSpaceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::DepthToSpaceOptions *builtin_options_as_DepthToSpaceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_DepthToSpaceOptions ? static_cast<const tflite_micro::DepthToSpaceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::NonMaxSuppressionV4Options *builtin_options_as_NonMaxSuppressionV4Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_NonMaxSuppressionV4Options ? static_cast<const tflite::NonMaxSuppressionV4Options *>(builtin_options()) : nullptr;
+  const tflite_micro::NonMaxSuppressionV4Options *builtin_options_as_NonMaxSuppressionV4Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_NonMaxSuppressionV4Options ? static_cast<const tflite_micro::NonMaxSuppressionV4Options *>(builtin_options()) : nullptr;
   }
-  const tflite::NonMaxSuppressionV5Options *builtin_options_as_NonMaxSuppressionV5Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_NonMaxSuppressionV5Options ? static_cast<const tflite::NonMaxSuppressionV5Options *>(builtin_options()) : nullptr;
+  const tflite_micro::NonMaxSuppressionV5Options *builtin_options_as_NonMaxSuppressionV5Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_NonMaxSuppressionV5Options ? static_cast<const tflite_micro::NonMaxSuppressionV5Options *>(builtin_options()) : nullptr;
   }
-  const tflite::ScatterNdOptions *builtin_options_as_ScatterNdOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ScatterNdOptions ? static_cast<const tflite::ScatterNdOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ScatterNdOptions *builtin_options_as_ScatterNdOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ScatterNdOptions ? static_cast<const tflite_micro::ScatterNdOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SelectV2Options *builtin_options_as_SelectV2Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SelectV2Options ? static_cast<const tflite::SelectV2Options *>(builtin_options()) : nullptr;
+  const tflite_micro::SelectV2Options *builtin_options_as_SelectV2Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SelectV2Options ? static_cast<const tflite_micro::SelectV2Options *>(builtin_options()) : nullptr;
   }
-  const tflite::DensifyOptions *builtin_options_as_DensifyOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_DensifyOptions ? static_cast<const tflite::DensifyOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::DensifyOptions *builtin_options_as_DensifyOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_DensifyOptions ? static_cast<const tflite_micro::DensifyOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::SegmentSumOptions *builtin_options_as_SegmentSumOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SegmentSumOptions ? static_cast<const tflite::SegmentSumOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SegmentSumOptions *builtin_options_as_SegmentSumOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SegmentSumOptions ? static_cast<const tflite_micro::SegmentSumOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BatchMatMulOptions *builtin_options_as_BatchMatMulOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BatchMatMulOptions ? static_cast<const tflite::BatchMatMulOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BatchMatMulOptions *builtin_options_as_BatchMatMulOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BatchMatMulOptions ? static_cast<const tflite_micro::BatchMatMulOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::CumsumOptions *builtin_options_as_CumsumOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_CumsumOptions ? static_cast<const tflite::CumsumOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::CumsumOptions *builtin_options_as_CumsumOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_CumsumOptions ? static_cast<const tflite_micro::CumsumOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::CallOnceOptions *builtin_options_as_CallOnceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_CallOnceOptions ? static_cast<const tflite::CallOnceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::CallOnceOptions *builtin_options_as_CallOnceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_CallOnceOptions ? static_cast<const tflite_micro::CallOnceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BroadcastToOptions *builtin_options_as_BroadcastToOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BroadcastToOptions ? static_cast<const tflite::BroadcastToOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BroadcastToOptions *builtin_options_as_BroadcastToOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BroadcastToOptions ? static_cast<const tflite_micro::BroadcastToOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::Rfft2dOptions *builtin_options_as_Rfft2dOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_Rfft2dOptions ? static_cast<const tflite::Rfft2dOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::Rfft2dOptions *builtin_options_as_Rfft2dOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_Rfft2dOptions ? static_cast<const tflite_micro::Rfft2dOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::Conv3DOptions *builtin_options_as_Conv3DOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_Conv3DOptions ? static_cast<const tflite::Conv3DOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::Conv3DOptions *builtin_options_as_Conv3DOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_Conv3DOptions ? static_cast<const tflite_micro::Conv3DOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::HashtableOptions *builtin_options_as_HashtableOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_HashtableOptions ? static_cast<const tflite::HashtableOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::HashtableOptions *builtin_options_as_HashtableOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_HashtableOptions ? static_cast<const tflite_micro::HashtableOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::HashtableFindOptions *builtin_options_as_HashtableFindOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_HashtableFindOptions ? static_cast<const tflite::HashtableFindOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::HashtableFindOptions *builtin_options_as_HashtableFindOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_HashtableFindOptions ? static_cast<const tflite_micro::HashtableFindOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::HashtableImportOptions *builtin_options_as_HashtableImportOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_HashtableImportOptions ? static_cast<const tflite::HashtableImportOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::HashtableImportOptions *builtin_options_as_HashtableImportOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_HashtableImportOptions ? static_cast<const tflite_micro::HashtableImportOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::HashtableSizeOptions *builtin_options_as_HashtableSizeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_HashtableSizeOptions ? static_cast<const tflite::HashtableSizeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::HashtableSizeOptions *builtin_options_as_HashtableSizeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_HashtableSizeOptions ? static_cast<const tflite_micro::HashtableSizeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::VarHandleOptions *builtin_options_as_VarHandleOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_VarHandleOptions ? static_cast<const tflite::VarHandleOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::VarHandleOptions *builtin_options_as_VarHandleOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_VarHandleOptions ? static_cast<const tflite_micro::VarHandleOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ReadVariableOptions *builtin_options_as_ReadVariableOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ReadVariableOptions ? static_cast<const tflite::ReadVariableOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::ReadVariableOptions *builtin_options_as_ReadVariableOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ReadVariableOptions ? static_cast<const tflite_micro::ReadVariableOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::AssignVariableOptions *builtin_options_as_AssignVariableOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_AssignVariableOptions ? static_cast<const tflite::AssignVariableOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::AssignVariableOptions *builtin_options_as_AssignVariableOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_AssignVariableOptions ? static_cast<const tflite_micro::AssignVariableOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::RandomOptions *builtin_options_as_RandomOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_RandomOptions ? static_cast<const tflite::RandomOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::RandomOptions *builtin_options_as_RandomOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_RandomOptions ? static_cast<const tflite_micro::RandomOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BucketizeOptions *builtin_options_as_BucketizeOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BucketizeOptions ? static_cast<const tflite::BucketizeOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BucketizeOptions *builtin_options_as_BucketizeOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BucketizeOptions ? static_cast<const tflite_micro::BucketizeOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::GeluOptions *builtin_options_as_GeluOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_GeluOptions ? static_cast<const tflite::GeluOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::GeluOptions *builtin_options_as_GeluOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_GeluOptions ? static_cast<const tflite_micro::GeluOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::DynamicUpdateSliceOptions *builtin_options_as_DynamicUpdateSliceOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_DynamicUpdateSliceOptions ? static_cast<const tflite::DynamicUpdateSliceOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::DynamicUpdateSliceOptions *builtin_options_as_DynamicUpdateSliceOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_DynamicUpdateSliceOptions ? static_cast<const tflite_micro::DynamicUpdateSliceOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UnsortedSegmentProdOptions *builtin_options_as_UnsortedSegmentProdOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UnsortedSegmentProdOptions ? static_cast<const tflite::UnsortedSegmentProdOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UnsortedSegmentProdOptions *builtin_options_as_UnsortedSegmentProdOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UnsortedSegmentProdOptions ? static_cast<const tflite_micro::UnsortedSegmentProdOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UnsortedSegmentMaxOptions *builtin_options_as_UnsortedSegmentMaxOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UnsortedSegmentMaxOptions ? static_cast<const tflite::UnsortedSegmentMaxOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UnsortedSegmentMaxOptions *builtin_options_as_UnsortedSegmentMaxOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UnsortedSegmentMaxOptions ? static_cast<const tflite_micro::UnsortedSegmentMaxOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UnsortedSegmentMinOptions *builtin_options_as_UnsortedSegmentMinOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UnsortedSegmentMinOptions ? static_cast<const tflite::UnsortedSegmentMinOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UnsortedSegmentMinOptions *builtin_options_as_UnsortedSegmentMinOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UnsortedSegmentMinOptions ? static_cast<const tflite_micro::UnsortedSegmentMinOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::UnsortedSegmentSumOptions *builtin_options_as_UnsortedSegmentSumOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_UnsortedSegmentSumOptions ? static_cast<const tflite::UnsortedSegmentSumOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::UnsortedSegmentSumOptions *builtin_options_as_UnsortedSegmentSumOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_UnsortedSegmentSumOptions ? static_cast<const tflite_micro::UnsortedSegmentSumOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::ATan2Options *builtin_options_as_ATan2Options() const {
-    return builtin_options_type() == tflite::BuiltinOptions_ATan2Options ? static_cast<const tflite::ATan2Options *>(builtin_options()) : nullptr;
+  const tflite_micro::ATan2Options *builtin_options_as_ATan2Options() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_ATan2Options ? static_cast<const tflite_micro::ATan2Options *>(builtin_options()) : nullptr;
   }
-  const tflite::SignOptions *builtin_options_as_SignOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_SignOptions ? static_cast<const tflite::SignOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::SignOptions *builtin_options_as_SignOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_SignOptions ? static_cast<const tflite_micro::SignOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BitcastOptions *builtin_options_as_BitcastOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BitcastOptions ? static_cast<const tflite::BitcastOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BitcastOptions *builtin_options_as_BitcastOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BitcastOptions ? static_cast<const tflite_micro::BitcastOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::BitwiseXorOptions *builtin_options_as_BitwiseXorOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_BitwiseXorOptions ? static_cast<const tflite::BitwiseXorOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::BitwiseXorOptions *builtin_options_as_BitwiseXorOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_BitwiseXorOptions ? static_cast<const tflite_micro::BitwiseXorOptions *>(builtin_options()) : nullptr;
   }
-  const tflite::RightShiftOptions *builtin_options_as_RightShiftOptions() const {
-    return builtin_options_type() == tflite::BuiltinOptions_RightShiftOptions ? static_cast<const tflite::RightShiftOptions *>(builtin_options()) : nullptr;
+  const tflite_micro::RightShiftOptions *builtin_options_as_RightShiftOptions() const {
+    return builtin_options_type() == tflite_micro::BuiltinOptions_RightShiftOptions ? static_cast<const tflite_micro::RightShiftOptions *>(builtin_options()) : nullptr;
   }
   const flatbuffers::Vector<uint8_t> *custom_options() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CUSTOM_OPTIONS);
   }
-  tflite::CustomOptionsFormat custom_options_format() const {
-    return static_cast<tflite::CustomOptionsFormat>(GetField<int8_t>(VT_CUSTOM_OPTIONS_FORMAT, 0));
+  tflite_micro::CustomOptionsFormat custom_options_format() const {
+    return static_cast<tflite_micro::CustomOptionsFormat>(GetField<int8_t>(VT_CUSTOM_OPTIONS_FORMAT, 0));
   }
   const flatbuffers::Vector<uint8_t> *mutating_variable_inputs() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_MUTATING_VARIABLE_INPUTS);
@@ -15040,72 +15040,72 @@ struct Operator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint64_t large_custom_options_size() const {
     return GetField<uint64_t>(VT_LARGE_CUSTOM_OPTIONS_SIZE, 0);
   }
-  tflite::BuiltinOptions2 builtin_options_2_type() const {
-    return static_cast<tflite::BuiltinOptions2>(GetField<uint8_t>(VT_BUILTIN_OPTIONS_2_TYPE, 0));
+  tflite_micro::BuiltinOptions2 builtin_options_2_type() const {
+    return static_cast<tflite_micro::BuiltinOptions2>(GetField<uint8_t>(VT_BUILTIN_OPTIONS_2_TYPE, 0));
   }
   const void *builtin_options_2() const {
     return GetPointer<const void *>(VT_BUILTIN_OPTIONS_2);
   }
   template<typename T> const T *builtin_options_2_as() const;
-  const tflite::StablehloConcatenateOptions *builtin_options_2_as_StablehloConcatenateOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloConcatenateOptions ? static_cast<const tflite::StablehloConcatenateOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloConcatenateOptions *builtin_options_2_as_StablehloConcatenateOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloConcatenateOptions ? static_cast<const tflite_micro::StablehloConcatenateOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloBroadcastInDimOptions *builtin_options_2_as_StablehloBroadcastInDimOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloBroadcastInDimOptions ? static_cast<const tflite::StablehloBroadcastInDimOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloBroadcastInDimOptions *builtin_options_2_as_StablehloBroadcastInDimOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloBroadcastInDimOptions ? static_cast<const tflite_micro::StablehloBroadcastInDimOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloSliceOptions *builtin_options_2_as_StablehloSliceOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloSliceOptions ? static_cast<const tflite::StablehloSliceOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloSliceOptions *builtin_options_2_as_StablehloSliceOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloSliceOptions ? static_cast<const tflite_micro::StablehloSliceOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloConvolutionOptions *builtin_options_2_as_StablehloConvolutionOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloConvolutionOptions ? static_cast<const tflite::StablehloConvolutionOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloConvolutionOptions *builtin_options_2_as_StablehloConvolutionOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloConvolutionOptions ? static_cast<const tflite_micro::StablehloConvolutionOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloCustomCallOptions *builtin_options_2_as_StablehloCustomCallOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloCustomCallOptions ? static_cast<const tflite::StablehloCustomCallOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloCustomCallOptions *builtin_options_2_as_StablehloCustomCallOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloCustomCallOptions ? static_cast<const tflite_micro::StablehloCustomCallOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloReduceOptions *builtin_options_2_as_StablehloReduceOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloReduceOptions ? static_cast<const tflite::StablehloReduceOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloReduceOptions *builtin_options_2_as_StablehloReduceOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloReduceOptions ? static_cast<const tflite_micro::StablehloReduceOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloScatterOptions *builtin_options_2_as_StablehloScatterOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloScatterOptions ? static_cast<const tflite::StablehloScatterOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloScatterOptions *builtin_options_2_as_StablehloScatterOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloScatterOptions ? static_cast<const tflite_micro::StablehloScatterOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloCompareOptions *builtin_options_2_as_StablehloCompareOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloCompareOptions ? static_cast<const tflite::StablehloCompareOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloCompareOptions *builtin_options_2_as_StablehloCompareOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloCompareOptions ? static_cast<const tflite_micro::StablehloCompareOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloDynamicSliceOptions *builtin_options_2_as_StablehloDynamicSliceOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloDynamicSliceOptions ? static_cast<const tflite::StablehloDynamicSliceOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloDynamicSliceOptions *builtin_options_2_as_StablehloDynamicSliceOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloDynamicSliceOptions ? static_cast<const tflite_micro::StablehloDynamicSliceOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloPadOptions *builtin_options_2_as_StablehloPadOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloPadOptions ? static_cast<const tflite::StablehloPadOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloPadOptions *builtin_options_2_as_StablehloPadOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloPadOptions ? static_cast<const tflite_micro::StablehloPadOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloIotaOptions *builtin_options_2_as_StablehloIotaOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloIotaOptions ? static_cast<const tflite::StablehloIotaOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloIotaOptions *builtin_options_2_as_StablehloIotaOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloIotaOptions ? static_cast<const tflite_micro::StablehloIotaOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloDotGeneralOptions *builtin_options_2_as_StablehloDotGeneralOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloDotGeneralOptions ? static_cast<const tflite::StablehloDotGeneralOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloDotGeneralOptions *builtin_options_2_as_StablehloDotGeneralOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloDotGeneralOptions ? static_cast<const tflite_micro::StablehloDotGeneralOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloReduceWindowOptions *builtin_options_2_as_StablehloReduceWindowOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloReduceWindowOptions ? static_cast<const tflite::StablehloReduceWindowOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloReduceWindowOptions *builtin_options_2_as_StablehloReduceWindowOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloReduceWindowOptions ? static_cast<const tflite_micro::StablehloReduceWindowOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloSortOptions *builtin_options_2_as_StablehloSortOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloSortOptions ? static_cast<const tflite::StablehloSortOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloSortOptions *builtin_options_2_as_StablehloSortOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloSortOptions ? static_cast<const tflite_micro::StablehloSortOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloWhileOptions *builtin_options_2_as_StablehloWhileOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloWhileOptions ? static_cast<const tflite::StablehloWhileOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloWhileOptions *builtin_options_2_as_StablehloWhileOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloWhileOptions ? static_cast<const tflite_micro::StablehloWhileOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloGatherOptions *builtin_options_2_as_StablehloGatherOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloGatherOptions ? static_cast<const tflite::StablehloGatherOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloGatherOptions *builtin_options_2_as_StablehloGatherOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloGatherOptions ? static_cast<const tflite_micro::StablehloGatherOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloTransposeOptions *builtin_options_2_as_StablehloTransposeOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloTransposeOptions ? static_cast<const tflite::StablehloTransposeOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloTransposeOptions *builtin_options_2_as_StablehloTransposeOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloTransposeOptions ? static_cast<const tflite_micro::StablehloTransposeOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::DilateOptions *builtin_options_2_as_DilateOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_DilateOptions ? static_cast<const tflite::DilateOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::DilateOptions *builtin_options_2_as_DilateOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_DilateOptions ? static_cast<const tflite_micro::DilateOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::StablehloRngBitGeneratorOptions *builtin_options_2_as_StablehloRngBitGeneratorOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_StablehloRngBitGeneratorOptions ? static_cast<const tflite::StablehloRngBitGeneratorOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::StablehloRngBitGeneratorOptions *builtin_options_2_as_StablehloRngBitGeneratorOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_StablehloRngBitGeneratorOptions ? static_cast<const tflite_micro::StablehloRngBitGeneratorOptions *>(builtin_options_2()) : nullptr;
   }
-  const tflite::ReduceWindowOptions *builtin_options_2_as_ReduceWindowOptions() const {
-    return builtin_options_2_type() == tflite::BuiltinOptions2_ReduceWindowOptions ? static_cast<const tflite::ReduceWindowOptions *>(builtin_options_2()) : nullptr;
+  const tflite_micro::ReduceWindowOptions *builtin_options_2_as_ReduceWindowOptions() const {
+    return builtin_options_2_type() == tflite_micro::BuiltinOptions2_ReduceWindowOptions ? static_cast<const tflite_micro::ReduceWindowOptions *>(builtin_options_2()) : nullptr;
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -15136,587 +15136,587 @@ struct Operator FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   static flatbuffers::Offset<Operator> Pack(flatbuffers::FlatBufferBuilder &_fbb, const OperatorT* _o, const flatbuffers::rehasher_function_t *_rehasher = nullptr);
 };
 
-template<> inline const tflite::Conv2DOptions *Operator::builtin_options_as<tflite::Conv2DOptions>() const {
+template<> inline const tflite_micro::Conv2DOptions *Operator::builtin_options_as<tflite_micro::Conv2DOptions>() const {
   return builtin_options_as_Conv2DOptions();
 }
 
-template<> inline const tflite::DepthwiseConv2DOptions *Operator::builtin_options_as<tflite::DepthwiseConv2DOptions>() const {
+template<> inline const tflite_micro::DepthwiseConv2DOptions *Operator::builtin_options_as<tflite_micro::DepthwiseConv2DOptions>() const {
   return builtin_options_as_DepthwiseConv2DOptions();
 }
 
-template<> inline const tflite::ConcatEmbeddingsOptions *Operator::builtin_options_as<tflite::ConcatEmbeddingsOptions>() const {
+template<> inline const tflite_micro::ConcatEmbeddingsOptions *Operator::builtin_options_as<tflite_micro::ConcatEmbeddingsOptions>() const {
   return builtin_options_as_ConcatEmbeddingsOptions();
 }
 
-template<> inline const tflite::LSHProjectionOptions *Operator::builtin_options_as<tflite::LSHProjectionOptions>() const {
+template<> inline const tflite_micro::LSHProjectionOptions *Operator::builtin_options_as<tflite_micro::LSHProjectionOptions>() const {
   return builtin_options_as_LSHProjectionOptions();
 }
 
-template<> inline const tflite::Pool2DOptions *Operator::builtin_options_as<tflite::Pool2DOptions>() const {
+template<> inline const tflite_micro::Pool2DOptions *Operator::builtin_options_as<tflite_micro::Pool2DOptions>() const {
   return builtin_options_as_Pool2DOptions();
 }
 
-template<> inline const tflite::SVDFOptions *Operator::builtin_options_as<tflite::SVDFOptions>() const {
+template<> inline const tflite_micro::SVDFOptions *Operator::builtin_options_as<tflite_micro::SVDFOptions>() const {
   return builtin_options_as_SVDFOptions();
 }
 
-template<> inline const tflite::RNNOptions *Operator::builtin_options_as<tflite::RNNOptions>() const {
+template<> inline const tflite_micro::RNNOptions *Operator::builtin_options_as<tflite_micro::RNNOptions>() const {
   return builtin_options_as_RNNOptions();
 }
 
-template<> inline const tflite::FullyConnectedOptions *Operator::builtin_options_as<tflite::FullyConnectedOptions>() const {
+template<> inline const tflite_micro::FullyConnectedOptions *Operator::builtin_options_as<tflite_micro::FullyConnectedOptions>() const {
   return builtin_options_as_FullyConnectedOptions();
 }
 
-template<> inline const tflite::SoftmaxOptions *Operator::builtin_options_as<tflite::SoftmaxOptions>() const {
+template<> inline const tflite_micro::SoftmaxOptions *Operator::builtin_options_as<tflite_micro::SoftmaxOptions>() const {
   return builtin_options_as_SoftmaxOptions();
 }
 
-template<> inline const tflite::ConcatenationOptions *Operator::builtin_options_as<tflite::ConcatenationOptions>() const {
+template<> inline const tflite_micro::ConcatenationOptions *Operator::builtin_options_as<tflite_micro::ConcatenationOptions>() const {
   return builtin_options_as_ConcatenationOptions();
 }
 
-template<> inline const tflite::AddOptions *Operator::builtin_options_as<tflite::AddOptions>() const {
+template<> inline const tflite_micro::AddOptions *Operator::builtin_options_as<tflite_micro::AddOptions>() const {
   return builtin_options_as_AddOptions();
 }
 
-template<> inline const tflite::L2NormOptions *Operator::builtin_options_as<tflite::L2NormOptions>() const {
+template<> inline const tflite_micro::L2NormOptions *Operator::builtin_options_as<tflite_micro::L2NormOptions>() const {
   return builtin_options_as_L2NormOptions();
 }
 
-template<> inline const tflite::LocalResponseNormalizationOptions *Operator::builtin_options_as<tflite::LocalResponseNormalizationOptions>() const {
+template<> inline const tflite_micro::LocalResponseNormalizationOptions *Operator::builtin_options_as<tflite_micro::LocalResponseNormalizationOptions>() const {
   return builtin_options_as_LocalResponseNormalizationOptions();
 }
 
-template<> inline const tflite::LSTMOptions *Operator::builtin_options_as<tflite::LSTMOptions>() const {
+template<> inline const tflite_micro::LSTMOptions *Operator::builtin_options_as<tflite_micro::LSTMOptions>() const {
   return builtin_options_as_LSTMOptions();
 }
 
-template<> inline const tflite::ResizeBilinearOptions *Operator::builtin_options_as<tflite::ResizeBilinearOptions>() const {
+template<> inline const tflite_micro::ResizeBilinearOptions *Operator::builtin_options_as<tflite_micro::ResizeBilinearOptions>() const {
   return builtin_options_as_ResizeBilinearOptions();
 }
 
-template<> inline const tflite::CallOptions *Operator::builtin_options_as<tflite::CallOptions>() const {
+template<> inline const tflite_micro::CallOptions *Operator::builtin_options_as<tflite_micro::CallOptions>() const {
   return builtin_options_as_CallOptions();
 }
 
-template<> inline const tflite::ReshapeOptions *Operator::builtin_options_as<tflite::ReshapeOptions>() const {
+template<> inline const tflite_micro::ReshapeOptions *Operator::builtin_options_as<tflite_micro::ReshapeOptions>() const {
   return builtin_options_as_ReshapeOptions();
 }
 
-template<> inline const tflite::SkipGramOptions *Operator::builtin_options_as<tflite::SkipGramOptions>() const {
+template<> inline const tflite_micro::SkipGramOptions *Operator::builtin_options_as<tflite_micro::SkipGramOptions>() const {
   return builtin_options_as_SkipGramOptions();
 }
 
-template<> inline const tflite::SpaceToDepthOptions *Operator::builtin_options_as<tflite::SpaceToDepthOptions>() const {
+template<> inline const tflite_micro::SpaceToDepthOptions *Operator::builtin_options_as<tflite_micro::SpaceToDepthOptions>() const {
   return builtin_options_as_SpaceToDepthOptions();
 }
 
-template<> inline const tflite::EmbeddingLookupSparseOptions *Operator::builtin_options_as<tflite::EmbeddingLookupSparseOptions>() const {
+template<> inline const tflite_micro::EmbeddingLookupSparseOptions *Operator::builtin_options_as<tflite_micro::EmbeddingLookupSparseOptions>() const {
   return builtin_options_as_EmbeddingLookupSparseOptions();
 }
 
-template<> inline const tflite::MulOptions *Operator::builtin_options_as<tflite::MulOptions>() const {
+template<> inline const tflite_micro::MulOptions *Operator::builtin_options_as<tflite_micro::MulOptions>() const {
   return builtin_options_as_MulOptions();
 }
 
-template<> inline const tflite::PadOptions *Operator::builtin_options_as<tflite::PadOptions>() const {
+template<> inline const tflite_micro::PadOptions *Operator::builtin_options_as<tflite_micro::PadOptions>() const {
   return builtin_options_as_PadOptions();
 }
 
-template<> inline const tflite::GatherOptions *Operator::builtin_options_as<tflite::GatherOptions>() const {
+template<> inline const tflite_micro::GatherOptions *Operator::builtin_options_as<tflite_micro::GatherOptions>() const {
   return builtin_options_as_GatherOptions();
 }
 
-template<> inline const tflite::BatchToSpaceNDOptions *Operator::builtin_options_as<tflite::BatchToSpaceNDOptions>() const {
+template<> inline const tflite_micro::BatchToSpaceNDOptions *Operator::builtin_options_as<tflite_micro::BatchToSpaceNDOptions>() const {
   return builtin_options_as_BatchToSpaceNDOptions();
 }
 
-template<> inline const tflite::SpaceToBatchNDOptions *Operator::builtin_options_as<tflite::SpaceToBatchNDOptions>() const {
+template<> inline const tflite_micro::SpaceToBatchNDOptions *Operator::builtin_options_as<tflite_micro::SpaceToBatchNDOptions>() const {
   return builtin_options_as_SpaceToBatchNDOptions();
 }
 
-template<> inline const tflite::TransposeOptions *Operator::builtin_options_as<tflite::TransposeOptions>() const {
+template<> inline const tflite_micro::TransposeOptions *Operator::builtin_options_as<tflite_micro::TransposeOptions>() const {
   return builtin_options_as_TransposeOptions();
 }
 
-template<> inline const tflite::ReducerOptions *Operator::builtin_options_as<tflite::ReducerOptions>() const {
+template<> inline const tflite_micro::ReducerOptions *Operator::builtin_options_as<tflite_micro::ReducerOptions>() const {
   return builtin_options_as_ReducerOptions();
 }
 
-template<> inline const tflite::SubOptions *Operator::builtin_options_as<tflite::SubOptions>() const {
+template<> inline const tflite_micro::SubOptions *Operator::builtin_options_as<tflite_micro::SubOptions>() const {
   return builtin_options_as_SubOptions();
 }
 
-template<> inline const tflite::DivOptions *Operator::builtin_options_as<tflite::DivOptions>() const {
+template<> inline const tflite_micro::DivOptions *Operator::builtin_options_as<tflite_micro::DivOptions>() const {
   return builtin_options_as_DivOptions();
 }
 
-template<> inline const tflite::SqueezeOptions *Operator::builtin_options_as<tflite::SqueezeOptions>() const {
+template<> inline const tflite_micro::SqueezeOptions *Operator::builtin_options_as<tflite_micro::SqueezeOptions>() const {
   return builtin_options_as_SqueezeOptions();
 }
 
-template<> inline const tflite::SequenceRNNOptions *Operator::builtin_options_as<tflite::SequenceRNNOptions>() const {
+template<> inline const tflite_micro::SequenceRNNOptions *Operator::builtin_options_as<tflite_micro::SequenceRNNOptions>() const {
   return builtin_options_as_SequenceRNNOptions();
 }
 
-template<> inline const tflite::StridedSliceOptions *Operator::builtin_options_as<tflite::StridedSliceOptions>() const {
+template<> inline const tflite_micro::StridedSliceOptions *Operator::builtin_options_as<tflite_micro::StridedSliceOptions>() const {
   return builtin_options_as_StridedSliceOptions();
 }
 
-template<> inline const tflite::ExpOptions *Operator::builtin_options_as<tflite::ExpOptions>() const {
+template<> inline const tflite_micro::ExpOptions *Operator::builtin_options_as<tflite_micro::ExpOptions>() const {
   return builtin_options_as_ExpOptions();
 }
 
-template<> inline const tflite::TopKV2Options *Operator::builtin_options_as<tflite::TopKV2Options>() const {
+template<> inline const tflite_micro::TopKV2Options *Operator::builtin_options_as<tflite_micro::TopKV2Options>() const {
   return builtin_options_as_TopKV2Options();
 }
 
-template<> inline const tflite::SplitOptions *Operator::builtin_options_as<tflite::SplitOptions>() const {
+template<> inline const tflite_micro::SplitOptions *Operator::builtin_options_as<tflite_micro::SplitOptions>() const {
   return builtin_options_as_SplitOptions();
 }
 
-template<> inline const tflite::LogSoftmaxOptions *Operator::builtin_options_as<tflite::LogSoftmaxOptions>() const {
+template<> inline const tflite_micro::LogSoftmaxOptions *Operator::builtin_options_as<tflite_micro::LogSoftmaxOptions>() const {
   return builtin_options_as_LogSoftmaxOptions();
 }
 
-template<> inline const tflite::CastOptions *Operator::builtin_options_as<tflite::CastOptions>() const {
+template<> inline const tflite_micro::CastOptions *Operator::builtin_options_as<tflite_micro::CastOptions>() const {
   return builtin_options_as_CastOptions();
 }
 
-template<> inline const tflite::DequantizeOptions *Operator::builtin_options_as<tflite::DequantizeOptions>() const {
+template<> inline const tflite_micro::DequantizeOptions *Operator::builtin_options_as<tflite_micro::DequantizeOptions>() const {
   return builtin_options_as_DequantizeOptions();
 }
 
-template<> inline const tflite::MaximumMinimumOptions *Operator::builtin_options_as<tflite::MaximumMinimumOptions>() const {
+template<> inline const tflite_micro::MaximumMinimumOptions *Operator::builtin_options_as<tflite_micro::MaximumMinimumOptions>() const {
   return builtin_options_as_MaximumMinimumOptions();
 }
 
-template<> inline const tflite::ArgMaxOptions *Operator::builtin_options_as<tflite::ArgMaxOptions>() const {
+template<> inline const tflite_micro::ArgMaxOptions *Operator::builtin_options_as<tflite_micro::ArgMaxOptions>() const {
   return builtin_options_as_ArgMaxOptions();
 }
 
-template<> inline const tflite::LessOptions *Operator::builtin_options_as<tflite::LessOptions>() const {
+template<> inline const tflite_micro::LessOptions *Operator::builtin_options_as<tflite_micro::LessOptions>() const {
   return builtin_options_as_LessOptions();
 }
 
-template<> inline const tflite::NegOptions *Operator::builtin_options_as<tflite::NegOptions>() const {
+template<> inline const tflite_micro::NegOptions *Operator::builtin_options_as<tflite_micro::NegOptions>() const {
   return builtin_options_as_NegOptions();
 }
 
-template<> inline const tflite::PadV2Options *Operator::builtin_options_as<tflite::PadV2Options>() const {
+template<> inline const tflite_micro::PadV2Options *Operator::builtin_options_as<tflite_micro::PadV2Options>() const {
   return builtin_options_as_PadV2Options();
 }
 
-template<> inline const tflite::GreaterOptions *Operator::builtin_options_as<tflite::GreaterOptions>() const {
+template<> inline const tflite_micro::GreaterOptions *Operator::builtin_options_as<tflite_micro::GreaterOptions>() const {
   return builtin_options_as_GreaterOptions();
 }
 
-template<> inline const tflite::GreaterEqualOptions *Operator::builtin_options_as<tflite::GreaterEqualOptions>() const {
+template<> inline const tflite_micro::GreaterEqualOptions *Operator::builtin_options_as<tflite_micro::GreaterEqualOptions>() const {
   return builtin_options_as_GreaterEqualOptions();
 }
 
-template<> inline const tflite::LessEqualOptions *Operator::builtin_options_as<tflite::LessEqualOptions>() const {
+template<> inline const tflite_micro::LessEqualOptions *Operator::builtin_options_as<tflite_micro::LessEqualOptions>() const {
   return builtin_options_as_LessEqualOptions();
 }
 
-template<> inline const tflite::SelectOptions *Operator::builtin_options_as<tflite::SelectOptions>() const {
+template<> inline const tflite_micro::SelectOptions *Operator::builtin_options_as<tflite_micro::SelectOptions>() const {
   return builtin_options_as_SelectOptions();
 }
 
-template<> inline const tflite::SliceOptions *Operator::builtin_options_as<tflite::SliceOptions>() const {
+template<> inline const tflite_micro::SliceOptions *Operator::builtin_options_as<tflite_micro::SliceOptions>() const {
   return builtin_options_as_SliceOptions();
 }
 
-template<> inline const tflite::TransposeConvOptions *Operator::builtin_options_as<tflite::TransposeConvOptions>() const {
+template<> inline const tflite_micro::TransposeConvOptions *Operator::builtin_options_as<tflite_micro::TransposeConvOptions>() const {
   return builtin_options_as_TransposeConvOptions();
 }
 
-template<> inline const tflite::SparseToDenseOptions *Operator::builtin_options_as<tflite::SparseToDenseOptions>() const {
+template<> inline const tflite_micro::SparseToDenseOptions *Operator::builtin_options_as<tflite_micro::SparseToDenseOptions>() const {
   return builtin_options_as_SparseToDenseOptions();
 }
 
-template<> inline const tflite::TileOptions *Operator::builtin_options_as<tflite::TileOptions>() const {
+template<> inline const tflite_micro::TileOptions *Operator::builtin_options_as<tflite_micro::TileOptions>() const {
   return builtin_options_as_TileOptions();
 }
 
-template<> inline const tflite::ExpandDimsOptions *Operator::builtin_options_as<tflite::ExpandDimsOptions>() const {
+template<> inline const tflite_micro::ExpandDimsOptions *Operator::builtin_options_as<tflite_micro::ExpandDimsOptions>() const {
   return builtin_options_as_ExpandDimsOptions();
 }
 
-template<> inline const tflite::EqualOptions *Operator::builtin_options_as<tflite::EqualOptions>() const {
+template<> inline const tflite_micro::EqualOptions *Operator::builtin_options_as<tflite_micro::EqualOptions>() const {
   return builtin_options_as_EqualOptions();
 }
 
-template<> inline const tflite::NotEqualOptions *Operator::builtin_options_as<tflite::NotEqualOptions>() const {
+template<> inline const tflite_micro::NotEqualOptions *Operator::builtin_options_as<tflite_micro::NotEqualOptions>() const {
   return builtin_options_as_NotEqualOptions();
 }
 
-template<> inline const tflite::ShapeOptions *Operator::builtin_options_as<tflite::ShapeOptions>() const {
+template<> inline const tflite_micro::ShapeOptions *Operator::builtin_options_as<tflite_micro::ShapeOptions>() const {
   return builtin_options_as_ShapeOptions();
 }
 
-template<> inline const tflite::PowOptions *Operator::builtin_options_as<tflite::PowOptions>() const {
+template<> inline const tflite_micro::PowOptions *Operator::builtin_options_as<tflite_micro::PowOptions>() const {
   return builtin_options_as_PowOptions();
 }
 
-template<> inline const tflite::ArgMinOptions *Operator::builtin_options_as<tflite::ArgMinOptions>() const {
+template<> inline const tflite_micro::ArgMinOptions *Operator::builtin_options_as<tflite_micro::ArgMinOptions>() const {
   return builtin_options_as_ArgMinOptions();
 }
 
-template<> inline const tflite::FakeQuantOptions *Operator::builtin_options_as<tflite::FakeQuantOptions>() const {
+template<> inline const tflite_micro::FakeQuantOptions *Operator::builtin_options_as<tflite_micro::FakeQuantOptions>() const {
   return builtin_options_as_FakeQuantOptions();
 }
 
-template<> inline const tflite::PackOptions *Operator::builtin_options_as<tflite::PackOptions>() const {
+template<> inline const tflite_micro::PackOptions *Operator::builtin_options_as<tflite_micro::PackOptions>() const {
   return builtin_options_as_PackOptions();
 }
 
-template<> inline const tflite::LogicalOrOptions *Operator::builtin_options_as<tflite::LogicalOrOptions>() const {
+template<> inline const tflite_micro::LogicalOrOptions *Operator::builtin_options_as<tflite_micro::LogicalOrOptions>() const {
   return builtin_options_as_LogicalOrOptions();
 }
 
-template<> inline const tflite::OneHotOptions *Operator::builtin_options_as<tflite::OneHotOptions>() const {
+template<> inline const tflite_micro::OneHotOptions *Operator::builtin_options_as<tflite_micro::OneHotOptions>() const {
   return builtin_options_as_OneHotOptions();
 }
 
-template<> inline const tflite::LogicalAndOptions *Operator::builtin_options_as<tflite::LogicalAndOptions>() const {
+template<> inline const tflite_micro::LogicalAndOptions *Operator::builtin_options_as<tflite_micro::LogicalAndOptions>() const {
   return builtin_options_as_LogicalAndOptions();
 }
 
-template<> inline const tflite::LogicalNotOptions *Operator::builtin_options_as<tflite::LogicalNotOptions>() const {
+template<> inline const tflite_micro::LogicalNotOptions *Operator::builtin_options_as<tflite_micro::LogicalNotOptions>() const {
   return builtin_options_as_LogicalNotOptions();
 }
 
-template<> inline const tflite::UnpackOptions *Operator::builtin_options_as<tflite::UnpackOptions>() const {
+template<> inline const tflite_micro::UnpackOptions *Operator::builtin_options_as<tflite_micro::UnpackOptions>() const {
   return builtin_options_as_UnpackOptions();
 }
 
-template<> inline const tflite::FloorDivOptions *Operator::builtin_options_as<tflite::FloorDivOptions>() const {
+template<> inline const tflite_micro::FloorDivOptions *Operator::builtin_options_as<tflite_micro::FloorDivOptions>() const {
   return builtin_options_as_FloorDivOptions();
 }
 
-template<> inline const tflite::SquareOptions *Operator::builtin_options_as<tflite::SquareOptions>() const {
+template<> inline const tflite_micro::SquareOptions *Operator::builtin_options_as<tflite_micro::SquareOptions>() const {
   return builtin_options_as_SquareOptions();
 }
 
-template<> inline const tflite::ZerosLikeOptions *Operator::builtin_options_as<tflite::ZerosLikeOptions>() const {
+template<> inline const tflite_micro::ZerosLikeOptions *Operator::builtin_options_as<tflite_micro::ZerosLikeOptions>() const {
   return builtin_options_as_ZerosLikeOptions();
 }
 
-template<> inline const tflite::FillOptions *Operator::builtin_options_as<tflite::FillOptions>() const {
+template<> inline const tflite_micro::FillOptions *Operator::builtin_options_as<tflite_micro::FillOptions>() const {
   return builtin_options_as_FillOptions();
 }
 
-template<> inline const tflite::BidirectionalSequenceLSTMOptions *Operator::builtin_options_as<tflite::BidirectionalSequenceLSTMOptions>() const {
+template<> inline const tflite_micro::BidirectionalSequenceLSTMOptions *Operator::builtin_options_as<tflite_micro::BidirectionalSequenceLSTMOptions>() const {
   return builtin_options_as_BidirectionalSequenceLSTMOptions();
 }
 
-template<> inline const tflite::BidirectionalSequenceRNNOptions *Operator::builtin_options_as<tflite::BidirectionalSequenceRNNOptions>() const {
+template<> inline const tflite_micro::BidirectionalSequenceRNNOptions *Operator::builtin_options_as<tflite_micro::BidirectionalSequenceRNNOptions>() const {
   return builtin_options_as_BidirectionalSequenceRNNOptions();
 }
 
-template<> inline const tflite::UnidirectionalSequenceLSTMOptions *Operator::builtin_options_as<tflite::UnidirectionalSequenceLSTMOptions>() const {
+template<> inline const tflite_micro::UnidirectionalSequenceLSTMOptions *Operator::builtin_options_as<tflite_micro::UnidirectionalSequenceLSTMOptions>() const {
   return builtin_options_as_UnidirectionalSequenceLSTMOptions();
 }
 
-template<> inline const tflite::FloorModOptions *Operator::builtin_options_as<tflite::FloorModOptions>() const {
+template<> inline const tflite_micro::FloorModOptions *Operator::builtin_options_as<tflite_micro::FloorModOptions>() const {
   return builtin_options_as_FloorModOptions();
 }
 
-template<> inline const tflite::RangeOptions *Operator::builtin_options_as<tflite::RangeOptions>() const {
+template<> inline const tflite_micro::RangeOptions *Operator::builtin_options_as<tflite_micro::RangeOptions>() const {
   return builtin_options_as_RangeOptions();
 }
 
-template<> inline const tflite::ResizeNearestNeighborOptions *Operator::builtin_options_as<tflite::ResizeNearestNeighborOptions>() const {
+template<> inline const tflite_micro::ResizeNearestNeighborOptions *Operator::builtin_options_as<tflite_micro::ResizeNearestNeighborOptions>() const {
   return builtin_options_as_ResizeNearestNeighborOptions();
 }
 
-template<> inline const tflite::LeakyReluOptions *Operator::builtin_options_as<tflite::LeakyReluOptions>() const {
+template<> inline const tflite_micro::LeakyReluOptions *Operator::builtin_options_as<tflite_micro::LeakyReluOptions>() const {
   return builtin_options_as_LeakyReluOptions();
 }
 
-template<> inline const tflite::SquaredDifferenceOptions *Operator::builtin_options_as<tflite::SquaredDifferenceOptions>() const {
+template<> inline const tflite_micro::SquaredDifferenceOptions *Operator::builtin_options_as<tflite_micro::SquaredDifferenceOptions>() const {
   return builtin_options_as_SquaredDifferenceOptions();
 }
 
-template<> inline const tflite::MirrorPadOptions *Operator::builtin_options_as<tflite::MirrorPadOptions>() const {
+template<> inline const tflite_micro::MirrorPadOptions *Operator::builtin_options_as<tflite_micro::MirrorPadOptions>() const {
   return builtin_options_as_MirrorPadOptions();
 }
 
-template<> inline const tflite::AbsOptions *Operator::builtin_options_as<tflite::AbsOptions>() const {
+template<> inline const tflite_micro::AbsOptions *Operator::builtin_options_as<tflite_micro::AbsOptions>() const {
   return builtin_options_as_AbsOptions();
 }
 
-template<> inline const tflite::SplitVOptions *Operator::builtin_options_as<tflite::SplitVOptions>() const {
+template<> inline const tflite_micro::SplitVOptions *Operator::builtin_options_as<tflite_micro::SplitVOptions>() const {
   return builtin_options_as_SplitVOptions();
 }
 
-template<> inline const tflite::UniqueOptions *Operator::builtin_options_as<tflite::UniqueOptions>() const {
+template<> inline const tflite_micro::UniqueOptions *Operator::builtin_options_as<tflite_micro::UniqueOptions>() const {
   return builtin_options_as_UniqueOptions();
 }
 
-template<> inline const tflite::ReverseV2Options *Operator::builtin_options_as<tflite::ReverseV2Options>() const {
+template<> inline const tflite_micro::ReverseV2Options *Operator::builtin_options_as<tflite_micro::ReverseV2Options>() const {
   return builtin_options_as_ReverseV2Options();
 }
 
-template<> inline const tflite::AddNOptions *Operator::builtin_options_as<tflite::AddNOptions>() const {
+template<> inline const tflite_micro::AddNOptions *Operator::builtin_options_as<tflite_micro::AddNOptions>() const {
   return builtin_options_as_AddNOptions();
 }
 
-template<> inline const tflite::GatherNdOptions *Operator::builtin_options_as<tflite::GatherNdOptions>() const {
+template<> inline const tflite_micro::GatherNdOptions *Operator::builtin_options_as<tflite_micro::GatherNdOptions>() const {
   return builtin_options_as_GatherNdOptions();
 }
 
-template<> inline const tflite::CosOptions *Operator::builtin_options_as<tflite::CosOptions>() const {
+template<> inline const tflite_micro::CosOptions *Operator::builtin_options_as<tflite_micro::CosOptions>() const {
   return builtin_options_as_CosOptions();
 }
 
-template<> inline const tflite::WhereOptions *Operator::builtin_options_as<tflite::WhereOptions>() const {
+template<> inline const tflite_micro::WhereOptions *Operator::builtin_options_as<tflite_micro::WhereOptions>() const {
   return builtin_options_as_WhereOptions();
 }
 
-template<> inline const tflite::RankOptions *Operator::builtin_options_as<tflite::RankOptions>() const {
+template<> inline const tflite_micro::RankOptions *Operator::builtin_options_as<tflite_micro::RankOptions>() const {
   return builtin_options_as_RankOptions();
 }
 
-template<> inline const tflite::ReverseSequenceOptions *Operator::builtin_options_as<tflite::ReverseSequenceOptions>() const {
+template<> inline const tflite_micro::ReverseSequenceOptions *Operator::builtin_options_as<tflite_micro::ReverseSequenceOptions>() const {
   return builtin_options_as_ReverseSequenceOptions();
 }
 
-template<> inline const tflite::MatrixDiagOptions *Operator::builtin_options_as<tflite::MatrixDiagOptions>() const {
+template<> inline const tflite_micro::MatrixDiagOptions *Operator::builtin_options_as<tflite_micro::MatrixDiagOptions>() const {
   return builtin_options_as_MatrixDiagOptions();
 }
 
-template<> inline const tflite::QuantizeOptions *Operator::builtin_options_as<tflite::QuantizeOptions>() const {
+template<> inline const tflite_micro::QuantizeOptions *Operator::builtin_options_as<tflite_micro::QuantizeOptions>() const {
   return builtin_options_as_QuantizeOptions();
 }
 
-template<> inline const tflite::MatrixSetDiagOptions *Operator::builtin_options_as<tflite::MatrixSetDiagOptions>() const {
+template<> inline const tflite_micro::MatrixSetDiagOptions *Operator::builtin_options_as<tflite_micro::MatrixSetDiagOptions>() const {
   return builtin_options_as_MatrixSetDiagOptions();
 }
 
-template<> inline const tflite::HardSwishOptions *Operator::builtin_options_as<tflite::HardSwishOptions>() const {
+template<> inline const tflite_micro::HardSwishOptions *Operator::builtin_options_as<tflite_micro::HardSwishOptions>() const {
   return builtin_options_as_HardSwishOptions();
 }
 
-template<> inline const tflite::IfOptions *Operator::builtin_options_as<tflite::IfOptions>() const {
+template<> inline const tflite_micro::IfOptions *Operator::builtin_options_as<tflite_micro::IfOptions>() const {
   return builtin_options_as_IfOptions();
 }
 
-template<> inline const tflite::WhileOptions *Operator::builtin_options_as<tflite::WhileOptions>() const {
+template<> inline const tflite_micro::WhileOptions *Operator::builtin_options_as<tflite_micro::WhileOptions>() const {
   return builtin_options_as_WhileOptions();
 }
 
-template<> inline const tflite::DepthToSpaceOptions *Operator::builtin_options_as<tflite::DepthToSpaceOptions>() const {
+template<> inline const tflite_micro::DepthToSpaceOptions *Operator::builtin_options_as<tflite_micro::DepthToSpaceOptions>() const {
   return builtin_options_as_DepthToSpaceOptions();
 }
 
-template<> inline const tflite::NonMaxSuppressionV4Options *Operator::builtin_options_as<tflite::NonMaxSuppressionV4Options>() const {
+template<> inline const tflite_micro::NonMaxSuppressionV4Options *Operator::builtin_options_as<tflite_micro::NonMaxSuppressionV4Options>() const {
   return builtin_options_as_NonMaxSuppressionV4Options();
 }
 
-template<> inline const tflite::NonMaxSuppressionV5Options *Operator::builtin_options_as<tflite::NonMaxSuppressionV5Options>() const {
+template<> inline const tflite_micro::NonMaxSuppressionV5Options *Operator::builtin_options_as<tflite_micro::NonMaxSuppressionV5Options>() const {
   return builtin_options_as_NonMaxSuppressionV5Options();
 }
 
-template<> inline const tflite::ScatterNdOptions *Operator::builtin_options_as<tflite::ScatterNdOptions>() const {
+template<> inline const tflite_micro::ScatterNdOptions *Operator::builtin_options_as<tflite_micro::ScatterNdOptions>() const {
   return builtin_options_as_ScatterNdOptions();
 }
 
-template<> inline const tflite::SelectV2Options *Operator::builtin_options_as<tflite::SelectV2Options>() const {
+template<> inline const tflite_micro::SelectV2Options *Operator::builtin_options_as<tflite_micro::SelectV2Options>() const {
   return builtin_options_as_SelectV2Options();
 }
 
-template<> inline const tflite::DensifyOptions *Operator::builtin_options_as<tflite::DensifyOptions>() const {
+template<> inline const tflite_micro::DensifyOptions *Operator::builtin_options_as<tflite_micro::DensifyOptions>() const {
   return builtin_options_as_DensifyOptions();
 }
 
-template<> inline const tflite::SegmentSumOptions *Operator::builtin_options_as<tflite::SegmentSumOptions>() const {
+template<> inline const tflite_micro::SegmentSumOptions *Operator::builtin_options_as<tflite_micro::SegmentSumOptions>() const {
   return builtin_options_as_SegmentSumOptions();
 }
 
-template<> inline const tflite::BatchMatMulOptions *Operator::builtin_options_as<tflite::BatchMatMulOptions>() const {
+template<> inline const tflite_micro::BatchMatMulOptions *Operator::builtin_options_as<tflite_micro::BatchMatMulOptions>() const {
   return builtin_options_as_BatchMatMulOptions();
 }
 
-template<> inline const tflite::CumsumOptions *Operator::builtin_options_as<tflite::CumsumOptions>() const {
+template<> inline const tflite_micro::CumsumOptions *Operator::builtin_options_as<tflite_micro::CumsumOptions>() const {
   return builtin_options_as_CumsumOptions();
 }
 
-template<> inline const tflite::CallOnceOptions *Operator::builtin_options_as<tflite::CallOnceOptions>() const {
+template<> inline const tflite_micro::CallOnceOptions *Operator::builtin_options_as<tflite_micro::CallOnceOptions>() const {
   return builtin_options_as_CallOnceOptions();
 }
 
-template<> inline const tflite::BroadcastToOptions *Operator::builtin_options_as<tflite::BroadcastToOptions>() const {
+template<> inline const tflite_micro::BroadcastToOptions *Operator::builtin_options_as<tflite_micro::BroadcastToOptions>() const {
   return builtin_options_as_BroadcastToOptions();
 }
 
-template<> inline const tflite::Rfft2dOptions *Operator::builtin_options_as<tflite::Rfft2dOptions>() const {
+template<> inline const tflite_micro::Rfft2dOptions *Operator::builtin_options_as<tflite_micro::Rfft2dOptions>() const {
   return builtin_options_as_Rfft2dOptions();
 }
 
-template<> inline const tflite::Conv3DOptions *Operator::builtin_options_as<tflite::Conv3DOptions>() const {
+template<> inline const tflite_micro::Conv3DOptions *Operator::builtin_options_as<tflite_micro::Conv3DOptions>() const {
   return builtin_options_as_Conv3DOptions();
 }
 
-template<> inline const tflite::HashtableOptions *Operator::builtin_options_as<tflite::HashtableOptions>() const {
+template<> inline const tflite_micro::HashtableOptions *Operator::builtin_options_as<tflite_micro::HashtableOptions>() const {
   return builtin_options_as_HashtableOptions();
 }
 
-template<> inline const tflite::HashtableFindOptions *Operator::builtin_options_as<tflite::HashtableFindOptions>() const {
+template<> inline const tflite_micro::HashtableFindOptions *Operator::builtin_options_as<tflite_micro::HashtableFindOptions>() const {
   return builtin_options_as_HashtableFindOptions();
 }
 
-template<> inline const tflite::HashtableImportOptions *Operator::builtin_options_as<tflite::HashtableImportOptions>() const {
+template<> inline const tflite_micro::HashtableImportOptions *Operator::builtin_options_as<tflite_micro::HashtableImportOptions>() const {
   return builtin_options_as_HashtableImportOptions();
 }
 
-template<> inline const tflite::HashtableSizeOptions *Operator::builtin_options_as<tflite::HashtableSizeOptions>() const {
+template<> inline const tflite_micro::HashtableSizeOptions *Operator::builtin_options_as<tflite_micro::HashtableSizeOptions>() const {
   return builtin_options_as_HashtableSizeOptions();
 }
 
-template<> inline const tflite::VarHandleOptions *Operator::builtin_options_as<tflite::VarHandleOptions>() const {
+template<> inline const tflite_micro::VarHandleOptions *Operator::builtin_options_as<tflite_micro::VarHandleOptions>() const {
   return builtin_options_as_VarHandleOptions();
 }
 
-template<> inline const tflite::ReadVariableOptions *Operator::builtin_options_as<tflite::ReadVariableOptions>() const {
+template<> inline const tflite_micro::ReadVariableOptions *Operator::builtin_options_as<tflite_micro::ReadVariableOptions>() const {
   return builtin_options_as_ReadVariableOptions();
 }
 
-template<> inline const tflite::AssignVariableOptions *Operator::builtin_options_as<tflite::AssignVariableOptions>() const {
+template<> inline const tflite_micro::AssignVariableOptions *Operator::builtin_options_as<tflite_micro::AssignVariableOptions>() const {
   return builtin_options_as_AssignVariableOptions();
 }
 
-template<> inline const tflite::RandomOptions *Operator::builtin_options_as<tflite::RandomOptions>() const {
+template<> inline const tflite_micro::RandomOptions *Operator::builtin_options_as<tflite_micro::RandomOptions>() const {
   return builtin_options_as_RandomOptions();
 }
 
-template<> inline const tflite::BucketizeOptions *Operator::builtin_options_as<tflite::BucketizeOptions>() const {
+template<> inline const tflite_micro::BucketizeOptions *Operator::builtin_options_as<tflite_micro::BucketizeOptions>() const {
   return builtin_options_as_BucketizeOptions();
 }
 
-template<> inline const tflite::GeluOptions *Operator::builtin_options_as<tflite::GeluOptions>() const {
+template<> inline const tflite_micro::GeluOptions *Operator::builtin_options_as<tflite_micro::GeluOptions>() const {
   return builtin_options_as_GeluOptions();
 }
 
-template<> inline const tflite::DynamicUpdateSliceOptions *Operator::builtin_options_as<tflite::DynamicUpdateSliceOptions>() const {
+template<> inline const tflite_micro::DynamicUpdateSliceOptions *Operator::builtin_options_as<tflite_micro::DynamicUpdateSliceOptions>() const {
   return builtin_options_as_DynamicUpdateSliceOptions();
 }
 
-template<> inline const tflite::UnsortedSegmentProdOptions *Operator::builtin_options_as<tflite::UnsortedSegmentProdOptions>() const {
+template<> inline const tflite_micro::UnsortedSegmentProdOptions *Operator::builtin_options_as<tflite_micro::UnsortedSegmentProdOptions>() const {
   return builtin_options_as_UnsortedSegmentProdOptions();
 }
 
-template<> inline const tflite::UnsortedSegmentMaxOptions *Operator::builtin_options_as<tflite::UnsortedSegmentMaxOptions>() const {
+template<> inline const tflite_micro::UnsortedSegmentMaxOptions *Operator::builtin_options_as<tflite_micro::UnsortedSegmentMaxOptions>() const {
   return builtin_options_as_UnsortedSegmentMaxOptions();
 }
 
-template<> inline const tflite::UnsortedSegmentMinOptions *Operator::builtin_options_as<tflite::UnsortedSegmentMinOptions>() const {
+template<> inline const tflite_micro::UnsortedSegmentMinOptions *Operator::builtin_options_as<tflite_micro::UnsortedSegmentMinOptions>() const {
   return builtin_options_as_UnsortedSegmentMinOptions();
 }
 
-template<> inline const tflite::UnsortedSegmentSumOptions *Operator::builtin_options_as<tflite::UnsortedSegmentSumOptions>() const {
+template<> inline const tflite_micro::UnsortedSegmentSumOptions *Operator::builtin_options_as<tflite_micro::UnsortedSegmentSumOptions>() const {
   return builtin_options_as_UnsortedSegmentSumOptions();
 }
 
-template<> inline const tflite::ATan2Options *Operator::builtin_options_as<tflite::ATan2Options>() const {
+template<> inline const tflite_micro::ATan2Options *Operator::builtin_options_as<tflite_micro::ATan2Options>() const {
   return builtin_options_as_ATan2Options();
 }
 
-template<> inline const tflite::SignOptions *Operator::builtin_options_as<tflite::SignOptions>() const {
+template<> inline const tflite_micro::SignOptions *Operator::builtin_options_as<tflite_micro::SignOptions>() const {
   return builtin_options_as_SignOptions();
 }
 
-template<> inline const tflite::BitcastOptions *Operator::builtin_options_as<tflite::BitcastOptions>() const {
+template<> inline const tflite_micro::BitcastOptions *Operator::builtin_options_as<tflite_micro::BitcastOptions>() const {
   return builtin_options_as_BitcastOptions();
 }
 
-template<> inline const tflite::BitwiseXorOptions *Operator::builtin_options_as<tflite::BitwiseXorOptions>() const {
+template<> inline const tflite_micro::BitwiseXorOptions *Operator::builtin_options_as<tflite_micro::BitwiseXorOptions>() const {
   return builtin_options_as_BitwiseXorOptions();
 }
 
-template<> inline const tflite::RightShiftOptions *Operator::builtin_options_as<tflite::RightShiftOptions>() const {
+template<> inline const tflite_micro::RightShiftOptions *Operator::builtin_options_as<tflite_micro::RightShiftOptions>() const {
   return builtin_options_as_RightShiftOptions();
 }
 
-template<> inline const tflite::StablehloConcatenateOptions *Operator::builtin_options_2_as<tflite::StablehloConcatenateOptions>() const {
+template<> inline const tflite_micro::StablehloConcatenateOptions *Operator::builtin_options_2_as<tflite_micro::StablehloConcatenateOptions>() const {
   return builtin_options_2_as_StablehloConcatenateOptions();
 }
 
-template<> inline const tflite::StablehloBroadcastInDimOptions *Operator::builtin_options_2_as<tflite::StablehloBroadcastInDimOptions>() const {
+template<> inline const tflite_micro::StablehloBroadcastInDimOptions *Operator::builtin_options_2_as<tflite_micro::StablehloBroadcastInDimOptions>() const {
   return builtin_options_2_as_StablehloBroadcastInDimOptions();
 }
 
-template<> inline const tflite::StablehloSliceOptions *Operator::builtin_options_2_as<tflite::StablehloSliceOptions>() const {
+template<> inline const tflite_micro::StablehloSliceOptions *Operator::builtin_options_2_as<tflite_micro::StablehloSliceOptions>() const {
   return builtin_options_2_as_StablehloSliceOptions();
 }
 
-template<> inline const tflite::StablehloConvolutionOptions *Operator::builtin_options_2_as<tflite::StablehloConvolutionOptions>() const {
+template<> inline const tflite_micro::StablehloConvolutionOptions *Operator::builtin_options_2_as<tflite_micro::StablehloConvolutionOptions>() const {
   return builtin_options_2_as_StablehloConvolutionOptions();
 }
 
-template<> inline const tflite::StablehloCustomCallOptions *Operator::builtin_options_2_as<tflite::StablehloCustomCallOptions>() const {
+template<> inline const tflite_micro::StablehloCustomCallOptions *Operator::builtin_options_2_as<tflite_micro::StablehloCustomCallOptions>() const {
   return builtin_options_2_as_StablehloCustomCallOptions();
 }
 
-template<> inline const tflite::StablehloReduceOptions *Operator::builtin_options_2_as<tflite::StablehloReduceOptions>() const {
+template<> inline const tflite_micro::StablehloReduceOptions *Operator::builtin_options_2_as<tflite_micro::StablehloReduceOptions>() const {
   return builtin_options_2_as_StablehloReduceOptions();
 }
 
-template<> inline const tflite::StablehloScatterOptions *Operator::builtin_options_2_as<tflite::StablehloScatterOptions>() const {
+template<> inline const tflite_micro::StablehloScatterOptions *Operator::builtin_options_2_as<tflite_micro::StablehloScatterOptions>() const {
   return builtin_options_2_as_StablehloScatterOptions();
 }
 
-template<> inline const tflite::StablehloCompareOptions *Operator::builtin_options_2_as<tflite::StablehloCompareOptions>() const {
+template<> inline const tflite_micro::StablehloCompareOptions *Operator::builtin_options_2_as<tflite_micro::StablehloCompareOptions>() const {
   return builtin_options_2_as_StablehloCompareOptions();
 }
 
-template<> inline const tflite::StablehloDynamicSliceOptions *Operator::builtin_options_2_as<tflite::StablehloDynamicSliceOptions>() const {
+template<> inline const tflite_micro::StablehloDynamicSliceOptions *Operator::builtin_options_2_as<tflite_micro::StablehloDynamicSliceOptions>() const {
   return builtin_options_2_as_StablehloDynamicSliceOptions();
 }
 
-template<> inline const tflite::StablehloPadOptions *Operator::builtin_options_2_as<tflite::StablehloPadOptions>() const {
+template<> inline const tflite_micro::StablehloPadOptions *Operator::builtin_options_2_as<tflite_micro::StablehloPadOptions>() const {
   return builtin_options_2_as_StablehloPadOptions();
 }
 
-template<> inline const tflite::StablehloIotaOptions *Operator::builtin_options_2_as<tflite::StablehloIotaOptions>() const {
+template<> inline const tflite_micro::StablehloIotaOptions *Operator::builtin_options_2_as<tflite_micro::StablehloIotaOptions>() const {
   return builtin_options_2_as_StablehloIotaOptions();
 }
 
-template<> inline const tflite::StablehloDotGeneralOptions *Operator::builtin_options_2_as<tflite::StablehloDotGeneralOptions>() const {
+template<> inline const tflite_micro::StablehloDotGeneralOptions *Operator::builtin_options_2_as<tflite_micro::StablehloDotGeneralOptions>() const {
   return builtin_options_2_as_StablehloDotGeneralOptions();
 }
 
-template<> inline const tflite::StablehloReduceWindowOptions *Operator::builtin_options_2_as<tflite::StablehloReduceWindowOptions>() const {
+template<> inline const tflite_micro::StablehloReduceWindowOptions *Operator::builtin_options_2_as<tflite_micro::StablehloReduceWindowOptions>() const {
   return builtin_options_2_as_StablehloReduceWindowOptions();
 }
 
-template<> inline const tflite::StablehloSortOptions *Operator::builtin_options_2_as<tflite::StablehloSortOptions>() const {
+template<> inline const tflite_micro::StablehloSortOptions *Operator::builtin_options_2_as<tflite_micro::StablehloSortOptions>() const {
   return builtin_options_2_as_StablehloSortOptions();
 }
 
-template<> inline const tflite::StablehloWhileOptions *Operator::builtin_options_2_as<tflite::StablehloWhileOptions>() const {
+template<> inline const tflite_micro::StablehloWhileOptions *Operator::builtin_options_2_as<tflite_micro::StablehloWhileOptions>() const {
   return builtin_options_2_as_StablehloWhileOptions();
 }
 
-template<> inline const tflite::StablehloGatherOptions *Operator::builtin_options_2_as<tflite::StablehloGatherOptions>() const {
+template<> inline const tflite_micro::StablehloGatherOptions *Operator::builtin_options_2_as<tflite_micro::StablehloGatherOptions>() const {
   return builtin_options_2_as_StablehloGatherOptions();
 }
 
-template<> inline const tflite::StablehloTransposeOptions *Operator::builtin_options_2_as<tflite::StablehloTransposeOptions>() const {
+template<> inline const tflite_micro::StablehloTransposeOptions *Operator::builtin_options_2_as<tflite_micro::StablehloTransposeOptions>() const {
   return builtin_options_2_as_StablehloTransposeOptions();
 }
 
-template<> inline const tflite::DilateOptions *Operator::builtin_options_2_as<tflite::DilateOptions>() const {
+template<> inline const tflite_micro::DilateOptions *Operator::builtin_options_2_as<tflite_micro::DilateOptions>() const {
   return builtin_options_2_as_DilateOptions();
 }
 
-template<> inline const tflite::StablehloRngBitGeneratorOptions *Operator::builtin_options_2_as<tflite::StablehloRngBitGeneratorOptions>() const {
+template<> inline const tflite_micro::StablehloRngBitGeneratorOptions *Operator::builtin_options_2_as<tflite_micro::StablehloRngBitGeneratorOptions>() const {
   return builtin_options_2_as_StablehloRngBitGeneratorOptions();
 }
 
-template<> inline const tflite::ReduceWindowOptions *Operator::builtin_options_2_as<tflite::ReduceWindowOptions>() const {
+template<> inline const tflite_micro::ReduceWindowOptions *Operator::builtin_options_2_as<tflite_micro::ReduceWindowOptions>() const {
   return builtin_options_2_as_ReduceWindowOptions();
 }
 
@@ -15733,7 +15733,7 @@ struct OperatorBuilder {
   void add_outputs(flatbuffers::Offset<flatbuffers::Vector<int32_t>> outputs) {
     fbb_.AddOffset(Operator::VT_OUTPUTS, outputs);
   }
-  void add_builtin_options_type(tflite::BuiltinOptions builtin_options_type) {
+  void add_builtin_options_type(tflite_micro::BuiltinOptions builtin_options_type) {
     fbb_.AddElement<uint8_t>(Operator::VT_BUILTIN_OPTIONS_TYPE, static_cast<uint8_t>(builtin_options_type), 0);
   }
   void add_builtin_options(flatbuffers::Offset<void> builtin_options) {
@@ -15742,7 +15742,7 @@ struct OperatorBuilder {
   void add_custom_options(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> custom_options) {
     fbb_.AddOffset(Operator::VT_CUSTOM_OPTIONS, custom_options);
   }
-  void add_custom_options_format(tflite::CustomOptionsFormat custom_options_format) {
+  void add_custom_options_format(tflite_micro::CustomOptionsFormat custom_options_format) {
     fbb_.AddElement<int8_t>(Operator::VT_CUSTOM_OPTIONS_FORMAT, static_cast<int8_t>(custom_options_format), 0);
   }
   void add_mutating_variable_inputs(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mutating_variable_inputs) {
@@ -15757,7 +15757,7 @@ struct OperatorBuilder {
   void add_large_custom_options_size(uint64_t large_custom_options_size) {
     fbb_.AddElement<uint64_t>(Operator::VT_LARGE_CUSTOM_OPTIONS_SIZE, large_custom_options_size, 0);
   }
-  void add_builtin_options_2_type(tflite::BuiltinOptions2 builtin_options_2_type) {
+  void add_builtin_options_2_type(tflite_micro::BuiltinOptions2 builtin_options_2_type) {
     fbb_.AddElement<uint8_t>(Operator::VT_BUILTIN_OPTIONS_2_TYPE, static_cast<uint8_t>(builtin_options_2_type), 0);
   }
   void add_builtin_options_2(flatbuffers::Offset<void> builtin_options_2) {
@@ -15779,15 +15779,15 @@ inline flatbuffers::Offset<Operator> CreateOperator(
     uint32_t opcode_index = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> inputs = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> outputs = 0,
-    tflite::BuiltinOptions builtin_options_type = tflite::BuiltinOptions_NONE,
+    tflite_micro::BuiltinOptions builtin_options_type = tflite_micro::BuiltinOptions_NONE,
     flatbuffers::Offset<void> builtin_options = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> custom_options = 0,
-    tflite::CustomOptionsFormat custom_options_format = tflite::CustomOptionsFormat_FLEXBUFFERS,
+    tflite_micro::CustomOptionsFormat custom_options_format = tflite_micro::CustomOptionsFormat_FLEXBUFFERS,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> mutating_variable_inputs = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> intermediates = 0,
     uint64_t large_custom_options_offset = 0,
     uint64_t large_custom_options_size = 0,
-    tflite::BuiltinOptions2 builtin_options_2_type = tflite::BuiltinOptions2_NONE,
+    tflite_micro::BuiltinOptions2 builtin_options_2_type = tflite_micro::BuiltinOptions2_NONE,
     flatbuffers::Offset<void> builtin_options_2 = 0) {
   OperatorBuilder builder_(_fbb);
   builder_.add_large_custom_options_size(large_custom_options_size);
@@ -15811,22 +15811,22 @@ inline flatbuffers::Offset<Operator> CreateOperatorDirect(
     uint32_t opcode_index = 0,
     const std::vector<int32_t> *inputs = nullptr,
     const std::vector<int32_t> *outputs = nullptr,
-    tflite::BuiltinOptions builtin_options_type = tflite::BuiltinOptions_NONE,
+    tflite_micro::BuiltinOptions builtin_options_type = tflite_micro::BuiltinOptions_NONE,
     flatbuffers::Offset<void> builtin_options = 0,
     const std::vector<uint8_t> *custom_options = nullptr,
-    tflite::CustomOptionsFormat custom_options_format = tflite::CustomOptionsFormat_FLEXBUFFERS,
+    tflite_micro::CustomOptionsFormat custom_options_format = tflite_micro::CustomOptionsFormat_FLEXBUFFERS,
     const std::vector<uint8_t> *mutating_variable_inputs = nullptr,
     const std::vector<int32_t> *intermediates = nullptr,
     uint64_t large_custom_options_offset = 0,
     uint64_t large_custom_options_size = 0,
-    tflite::BuiltinOptions2 builtin_options_2_type = tflite::BuiltinOptions2_NONE,
+    tflite_micro::BuiltinOptions2 builtin_options_2_type = tflite_micro::BuiltinOptions2_NONE,
     flatbuffers::Offset<void> builtin_options_2 = 0) {
   auto inputs__ = inputs ? _fbb.CreateVector<int32_t>(*inputs) : 0;
   auto outputs__ = outputs ? _fbb.CreateVector<int32_t>(*outputs) : 0;
   auto custom_options__ = custom_options ? _fbb.CreateVector<uint8_t>(*custom_options) : 0;
   auto mutating_variable_inputs__ = mutating_variable_inputs ? _fbb.CreateVector<uint8_t>(*mutating_variable_inputs) : 0;
   auto intermediates__ = intermediates ? _fbb.CreateVector<int32_t>(*intermediates) : 0;
-  return tflite::CreateOperator(
+  return tflite_micro::CreateOperator(
       _fbb,
       opcode_index,
       inputs__,
@@ -15847,10 +15847,10 @@ flatbuffers::Offset<Operator> CreateOperator(flatbuffers::FlatBufferBuilder &_fb
 
 struct SubGraphT : public flatbuffers::NativeTable {
   typedef SubGraph TableType;
-  std::vector<std::unique_ptr<tflite::TensorT>> tensors{};
+  std::vector<std::unique_ptr<tflite_micro::TensorT>> tensors{};
   std::vector<int32_t> inputs{};
   std::vector<int32_t> outputs{};
-  std::vector<std::unique_ptr<tflite::OperatorT>> operators{};
+  std::vector<std::unique_ptr<tflite_micro::OperatorT>> operators{};
   std::string name{};
   SubGraphT() = default;
   SubGraphT(const SubGraphT &o);
@@ -15868,8 +15868,8 @@ struct SubGraph FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_OPERATORS = 10,
     VT_NAME = 12
   };
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::Tensor>> *tensors() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::Tensor>> *>(VT_TENSORS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Tensor>> *tensors() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Tensor>> *>(VT_TENSORS);
   }
   const flatbuffers::Vector<int32_t> *inputs() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_INPUTS);
@@ -15877,8 +15877,8 @@ struct SubGraph FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<int32_t> *outputs() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_OUTPUTS);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::Operator>> *operators() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::Operator>> *>(VT_OPERATORS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Operator>> *operators() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Operator>> *>(VT_OPERATORS);
   }
   const flatbuffers::String *name() const {
     return GetPointer<const flatbuffers::String *>(VT_NAME);
@@ -15908,7 +15908,7 @@ struct SubGraphBuilder {
   typedef SubGraph Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_tensors(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Tensor>>> tensors) {
+  void add_tensors(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Tensor>>> tensors) {
     fbb_.AddOffset(SubGraph::VT_TENSORS, tensors);
   }
   void add_inputs(flatbuffers::Offset<flatbuffers::Vector<int32_t>> inputs) {
@@ -15917,7 +15917,7 @@ struct SubGraphBuilder {
   void add_outputs(flatbuffers::Offset<flatbuffers::Vector<int32_t>> outputs) {
     fbb_.AddOffset(SubGraph::VT_OUTPUTS, outputs);
   }
-  void add_operators(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Operator>>> operators) {
+  void add_operators(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Operator>>> operators) {
     fbb_.AddOffset(SubGraph::VT_OPERATORS, operators);
   }
   void add_name(flatbuffers::Offset<flatbuffers::String> name) {
@@ -15936,10 +15936,10 @@ struct SubGraphBuilder {
 
 inline flatbuffers::Offset<SubGraph> CreateSubGraph(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Tensor>>> tensors = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Tensor>>> tensors = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> inputs = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> outputs = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Operator>>> operators = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Operator>>> operators = 0,
     flatbuffers::Offset<flatbuffers::String> name = 0) {
   SubGraphBuilder builder_(_fbb);
   builder_.add_name(name);
@@ -15952,17 +15952,17 @@ inline flatbuffers::Offset<SubGraph> CreateSubGraph(
 
 inline flatbuffers::Offset<SubGraph> CreateSubGraphDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<tflite::Tensor>> *tensors = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::Tensor>> *tensors = nullptr,
     const std::vector<int32_t> *inputs = nullptr,
     const std::vector<int32_t> *outputs = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::Operator>> *operators = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::Operator>> *operators = nullptr,
     const char *name = nullptr) {
-  auto tensors__ = tensors ? _fbb.CreateVector<flatbuffers::Offset<tflite::Tensor>>(*tensors) : 0;
+  auto tensors__ = tensors ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Tensor>>(*tensors) : 0;
   auto inputs__ = inputs ? _fbb.CreateVector<int32_t>(*inputs) : 0;
   auto outputs__ = outputs ? _fbb.CreateVector<int32_t>(*outputs) : 0;
-  auto operators__ = operators ? _fbb.CreateVector<flatbuffers::Offset<tflite::Operator>>(*operators) : 0;
+  auto operators__ = operators ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Operator>>(*operators) : 0;
   auto name__ = name ? _fbb.CreateString(name) : 0;
-  return tflite::CreateSubGraph(
+  return tflite_micro::CreateSubGraph(
       _fbb,
       tensors__,
       inputs__,
@@ -16053,7 +16053,7 @@ inline flatbuffers::Offset<Buffer> CreateBufferDirect(
     uint64_t size = 0) {
   if (data) { _fbb.ForceVectorAlignment(data->size(), sizeof(uint8_t), 16); }
   auto data__ = data ? _fbb.CreateVector<uint8_t>(*data) : 0;
-  return tflite::CreateBuffer(
+  return tflite_micro::CreateBuffer(
       _fbb,
       data__,
       offset,
@@ -16129,7 +16129,7 @@ inline flatbuffers::Offset<Metadata> CreateMetadataDirect(
     const char *name = nullptr,
     uint32_t buffer = 0) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
-  return tflite::CreateMetadata(
+  return tflite_micro::CreateMetadata(
       _fbb,
       name__,
       buffer);
@@ -16204,7 +16204,7 @@ inline flatbuffers::Offset<TensorMap> CreateTensorMapDirect(
     const char *name = nullptr,
     uint32_t tensor_index = 0) {
   auto name__ = name ? _fbb.CreateString(name) : 0;
-  return tflite::CreateTensorMap(
+  return tflite_micro::CreateTensorMap(
       _fbb,
       name__,
       tensor_index);
@@ -16214,8 +16214,8 @@ flatbuffers::Offset<TensorMap> CreateTensorMap(flatbuffers::FlatBufferBuilder &_
 
 struct SignatureDefT : public flatbuffers::NativeTable {
   typedef SignatureDef TableType;
-  std::vector<std::unique_ptr<tflite::TensorMapT>> inputs{};
-  std::vector<std::unique_ptr<tflite::TensorMapT>> outputs{};
+  std::vector<std::unique_ptr<tflite_micro::TensorMapT>> inputs{};
+  std::vector<std::unique_ptr<tflite_micro::TensorMapT>> outputs{};
   std::string signature_key{};
   uint32_t subgraph_index = 0;
   SignatureDefT() = default;
@@ -16233,11 +16233,11 @@ struct SignatureDef FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_SIGNATURE_KEY = 8,
     VT_SUBGRAPH_INDEX = 12
   };
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>> *inputs() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>> *>(VT_INPUTS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>> *inputs() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>> *>(VT_INPUTS);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>> *outputs() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>> *>(VT_OUTPUTS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>> *outputs() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>> *>(VT_OUTPUTS);
   }
   const flatbuffers::String *signature_key() const {
     return GetPointer<const flatbuffers::String *>(VT_SIGNATURE_KEY);
@@ -16267,10 +16267,10 @@ struct SignatureDefBuilder {
   typedef SignatureDef Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_inputs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>>> inputs) {
+  void add_inputs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>>> inputs) {
     fbb_.AddOffset(SignatureDef::VT_INPUTS, inputs);
   }
-  void add_outputs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>>> outputs) {
+  void add_outputs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>>> outputs) {
     fbb_.AddOffset(SignatureDef::VT_OUTPUTS, outputs);
   }
   void add_signature_key(flatbuffers::Offset<flatbuffers::String> signature_key) {
@@ -16292,8 +16292,8 @@ struct SignatureDefBuilder {
 
 inline flatbuffers::Offset<SignatureDef> CreateSignatureDef(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>>> inputs = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::TensorMap>>> outputs = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>>> inputs = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::TensorMap>>> outputs = 0,
     flatbuffers::Offset<flatbuffers::String> signature_key = 0,
     uint32_t subgraph_index = 0) {
   SignatureDefBuilder builder_(_fbb);
@@ -16306,14 +16306,14 @@ inline flatbuffers::Offset<SignatureDef> CreateSignatureDef(
 
 inline flatbuffers::Offset<SignatureDef> CreateSignatureDefDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<tflite::TensorMap>> *inputs = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::TensorMap>> *outputs = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::TensorMap>> *inputs = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::TensorMap>> *outputs = nullptr,
     const char *signature_key = nullptr,
     uint32_t subgraph_index = 0) {
-  auto inputs__ = inputs ? _fbb.CreateVector<flatbuffers::Offset<tflite::TensorMap>>(*inputs) : 0;
-  auto outputs__ = outputs ? _fbb.CreateVector<flatbuffers::Offset<tflite::TensorMap>>(*outputs) : 0;
+  auto inputs__ = inputs ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::TensorMap>>(*inputs) : 0;
+  auto outputs__ = outputs ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::TensorMap>>(*outputs) : 0;
   auto signature_key__ = signature_key ? _fbb.CreateString(signature_key) : 0;
-  return tflite::CreateSignatureDef(
+  return tflite_micro::CreateSignatureDef(
       _fbb,
       inputs__,
       outputs__,
@@ -16326,13 +16326,13 @@ flatbuffers::Offset<SignatureDef> CreateSignatureDef(flatbuffers::FlatBufferBuil
 struct ModelT : public flatbuffers::NativeTable {
   typedef Model TableType;
   uint32_t version = 0;
-  std::vector<std::unique_ptr<tflite::OperatorCodeT>> operator_codes{};
-  std::vector<std::unique_ptr<tflite::SubGraphT>> subgraphs{};
+  std::vector<std::unique_ptr<tflite_micro::OperatorCodeT>> operator_codes{};
+  std::vector<std::unique_ptr<tflite_micro::SubGraphT>> subgraphs{};
   std::string description{};
-  std::vector<std::unique_ptr<tflite::BufferT>> buffers{};
+  std::vector<std::unique_ptr<tflite_micro::BufferT>> buffers{};
   std::vector<int32_t> metadata_buffer{};
-  std::vector<std::unique_ptr<tflite::MetadataT>> metadata{};
-  std::vector<std::unique_ptr<tflite::SignatureDefT>> signature_defs{};
+  std::vector<std::unique_ptr<tflite_micro::MetadataT>> metadata{};
+  std::vector<std::unique_ptr<tflite_micro::SignatureDefT>> signature_defs{};
   ModelT() = default;
   ModelT(const ModelT &o);
   ModelT(ModelT&&) FLATBUFFERS_NOEXCEPT = default;
@@ -16355,26 +16355,26 @@ struct Model FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   uint32_t version() const {
     return GetField<uint32_t>(VT_VERSION, 0);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::OperatorCode>> *operator_codes() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::OperatorCode>> *>(VT_OPERATOR_CODES);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::OperatorCode>> *operator_codes() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::OperatorCode>> *>(VT_OPERATOR_CODES);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::SubGraph>> *subgraphs() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::SubGraph>> *>(VT_SUBGRAPHS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SubGraph>> *subgraphs() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SubGraph>> *>(VT_SUBGRAPHS);
   }
   const flatbuffers::String *description() const {
     return GetPointer<const flatbuffers::String *>(VT_DESCRIPTION);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::Buffer>> *buffers() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::Buffer>> *>(VT_BUFFERS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Buffer>> *buffers() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Buffer>> *>(VT_BUFFERS);
   }
   const flatbuffers::Vector<int32_t> *metadata_buffer() const {
     return GetPointer<const flatbuffers::Vector<int32_t> *>(VT_METADATA_BUFFER);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::Metadata>> *metadata() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::Metadata>> *>(VT_METADATA);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Metadata>> *metadata() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Metadata>> *>(VT_METADATA);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<tflite::SignatureDef>> *signature_defs() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite::SignatureDef>> *>(VT_SIGNATURE_DEFS);
+  const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SignatureDef>> *signature_defs() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SignatureDef>> *>(VT_SIGNATURE_DEFS);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -16412,25 +16412,25 @@ struct ModelBuilder {
   void add_version(uint32_t version) {
     fbb_.AddElement<uint32_t>(Model::VT_VERSION, version, 0);
   }
-  void add_operator_codes(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::OperatorCode>>> operator_codes) {
+  void add_operator_codes(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::OperatorCode>>> operator_codes) {
     fbb_.AddOffset(Model::VT_OPERATOR_CODES, operator_codes);
   }
-  void add_subgraphs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::SubGraph>>> subgraphs) {
+  void add_subgraphs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SubGraph>>> subgraphs) {
     fbb_.AddOffset(Model::VT_SUBGRAPHS, subgraphs);
   }
   void add_description(flatbuffers::Offset<flatbuffers::String> description) {
     fbb_.AddOffset(Model::VT_DESCRIPTION, description);
   }
-  void add_buffers(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Buffer>>> buffers) {
+  void add_buffers(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Buffer>>> buffers) {
     fbb_.AddOffset(Model::VT_BUFFERS, buffers);
   }
   void add_metadata_buffer(flatbuffers::Offset<flatbuffers::Vector<int32_t>> metadata_buffer) {
     fbb_.AddOffset(Model::VT_METADATA_BUFFER, metadata_buffer);
   }
-  void add_metadata(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Metadata>>> metadata) {
+  void add_metadata(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Metadata>>> metadata) {
     fbb_.AddOffset(Model::VT_METADATA, metadata);
   }
-  void add_signature_defs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::SignatureDef>>> signature_defs) {
+  void add_signature_defs(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SignatureDef>>> signature_defs) {
     fbb_.AddOffset(Model::VT_SIGNATURE_DEFS, signature_defs);
   }
   explicit ModelBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -16447,13 +16447,13 @@ struct ModelBuilder {
 inline flatbuffers::Offset<Model> CreateModel(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t version = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::OperatorCode>>> operator_codes = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::SubGraph>>> subgraphs = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::OperatorCode>>> operator_codes = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SubGraph>>> subgraphs = 0,
     flatbuffers::Offset<flatbuffers::String> description = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Buffer>>> buffers = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Buffer>>> buffers = 0,
     flatbuffers::Offset<flatbuffers::Vector<int32_t>> metadata_buffer = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::Metadata>>> metadata = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite::SignatureDef>>> signature_defs = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::Metadata>>> metadata = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<tflite_micro::SignatureDef>>> signature_defs = 0) {
   ModelBuilder builder_(_fbb);
   builder_.add_signature_defs(signature_defs);
   builder_.add_metadata(metadata);
@@ -16469,21 +16469,21 @@ inline flatbuffers::Offset<Model> CreateModel(
 inline flatbuffers::Offset<Model> CreateModelDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     uint32_t version = 0,
-    const std::vector<flatbuffers::Offset<tflite::OperatorCode>> *operator_codes = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::SubGraph>> *subgraphs = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::OperatorCode>> *operator_codes = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::SubGraph>> *subgraphs = nullptr,
     const char *description = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::Buffer>> *buffers = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::Buffer>> *buffers = nullptr,
     const std::vector<int32_t> *metadata_buffer = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::Metadata>> *metadata = nullptr,
-    const std::vector<flatbuffers::Offset<tflite::SignatureDef>> *signature_defs = nullptr) {
-  auto operator_codes__ = operator_codes ? _fbb.CreateVector<flatbuffers::Offset<tflite::OperatorCode>>(*operator_codes) : 0;
-  auto subgraphs__ = subgraphs ? _fbb.CreateVector<flatbuffers::Offset<tflite::SubGraph>>(*subgraphs) : 0;
+    const std::vector<flatbuffers::Offset<tflite_micro::Metadata>> *metadata = nullptr,
+    const std::vector<flatbuffers::Offset<tflite_micro::SignatureDef>> *signature_defs = nullptr) {
+  auto operator_codes__ = operator_codes ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::OperatorCode>>(*operator_codes) : 0;
+  auto subgraphs__ = subgraphs ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::SubGraph>>(*subgraphs) : 0;
   auto description__ = description ? _fbb.CreateString(description) : 0;
-  auto buffers__ = buffers ? _fbb.CreateVector<flatbuffers::Offset<tflite::Buffer>>(*buffers) : 0;
+  auto buffers__ = buffers ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Buffer>>(*buffers) : 0;
   auto metadata_buffer__ = metadata_buffer ? _fbb.CreateVector<int32_t>(*metadata_buffer) : 0;
-  auto metadata__ = metadata ? _fbb.CreateVector<flatbuffers::Offset<tflite::Metadata>>(*metadata) : 0;
-  auto signature_defs__ = signature_defs ? _fbb.CreateVector<flatbuffers::Offset<tflite::SignatureDef>>(*signature_defs) : 0;
-  return tflite::CreateModel(
+  auto metadata__ = metadata ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Metadata>>(*metadata) : 0;
+  auto signature_defs__ = signature_defs ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::SignatureDef>>(*signature_defs) : 0;
+  return tflite_micro::CreateModel(
       _fbb,
       version,
       operator_codes__,
@@ -16519,7 +16519,7 @@ inline flatbuffers::Offset<CustomQuantization> CreateCustomQuantization(flatbuff
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CustomQuantizationT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   _fbb.ForceVectorAlignment(_o->custom.size(), sizeof(uint8_t), 16);
   auto _custom = _o->custom.size() ? _fbb.CreateVector(_o->custom) : 0;
-  return tflite::CreateCustomQuantization(
+  return tflite_micro::CreateCustomQuantization(
       _fbb,
       _custom);
 }
@@ -16538,7 +16538,7 @@ inline void QuantizationParameters::UnPackTo(QuantizationParametersT *_o, const 
   { auto _e = scale(); if (_e) { _o->scale.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->scale[_i] = _e->Get(_i); } } }
   { auto _e = zero_point(); if (_e) { _o->zero_point.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->zero_point[_i] = _e->Get(_i); } } }
   { auto _e = details_type(); _o->details.type = _e; }
-  { auto _e = details(); if (_e) _o->details.value = tflite::QuantizationDetailsUnion::UnPack(_e, details_type(), _resolver); }
+  { auto _e = details(); if (_e) _o->details.value = tflite_micro::QuantizationDetailsUnion::UnPack(_e, details_type(), _resolver); }
   { auto _e = quantized_dimension(); _o->quantized_dimension = _e; }
 }
 
@@ -16557,7 +16557,7 @@ inline flatbuffers::Offset<QuantizationParameters> CreateQuantizationParameters(
   auto _details_type = _o->details.type;
   auto _details = _o->details.Pack(_fbb);
   auto _quantized_dimension = _o->quantized_dimension;
-  return tflite::CreateQuantizationParameters(
+  return tflite_micro::CreateQuantizationParameters(
       _fbb,
       _min,
       _max,
@@ -16589,7 +16589,7 @@ inline flatbuffers::Offset<Int32Vector> CreateInt32Vector(flatbuffers::FlatBuffe
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const Int32VectorT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _values = _o->values.size() ? _fbb.CreateVector(_o->values) : 0;
-  return tflite::CreateInt32Vector(
+  return tflite_micro::CreateInt32Vector(
       _fbb,
       _values);
 }
@@ -16616,7 +16616,7 @@ inline flatbuffers::Offset<Uint16Vector> CreateUint16Vector(flatbuffers::FlatBuf
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const Uint16VectorT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   _fbb.ForceVectorAlignment(_o->values.size(), sizeof(uint16_t), 4);
   auto _values = _o->values.size() ? _fbb.CreateVector(_o->values) : 0;
-  return tflite::CreateUint16Vector(
+  return tflite_micro::CreateUint16Vector(
       _fbb,
       _values);
 }
@@ -16643,7 +16643,7 @@ inline flatbuffers::Offset<Uint8Vector> CreateUint8Vector(flatbuffers::FlatBuffe
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const Uint8VectorT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   _fbb.ForceVectorAlignment(_o->values.size(), sizeof(uint8_t), 4);
   auto _values = _o->values.size() ? _fbb.CreateVector(_o->values) : 0;
-  return tflite::CreateUint8Vector(
+  return tflite_micro::CreateUint8Vector(
       _fbb,
       _values);
 }
@@ -16660,9 +16660,9 @@ inline void DimensionMetadata::UnPackTo(DimensionMetadataT *_o, const flatbuffer
   { auto _e = format(); _o->format = _e; }
   { auto _e = dense_size(); _o->dense_size = _e; }
   { auto _e = array_segments_type(); _o->array_segments.type = _e; }
-  { auto _e = array_segments(); if (_e) _o->array_segments.value = tflite::SparseIndexVectorUnion::UnPack(_e, array_segments_type(), _resolver); }
+  { auto _e = array_segments(); if (_e) _o->array_segments.value = tflite_micro::SparseIndexVectorUnion::UnPack(_e, array_segments_type(), _resolver); }
   { auto _e = array_indices_type(); _o->array_indices.type = _e; }
-  { auto _e = array_indices(); if (_e) _o->array_indices.value = tflite::SparseIndexVectorUnion::UnPack(_e, array_indices_type(), _resolver); }
+  { auto _e = array_indices(); if (_e) _o->array_indices.value = tflite_micro::SparseIndexVectorUnion::UnPack(_e, array_indices_type(), _resolver); }
 }
 
 inline flatbuffers::Offset<DimensionMetadata> DimensionMetadata::Pack(flatbuffers::FlatBufferBuilder &_fbb, const DimensionMetadataT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -16679,7 +16679,7 @@ inline flatbuffers::Offset<DimensionMetadata> CreateDimensionMetadata(flatbuffer
   auto _array_segments = _o->array_segments.Pack(_fbb);
   auto _array_indices_type = _o->array_indices.type;
   auto _array_indices = _o->array_indices.Pack(_fbb);
-  return tflite::CreateDimensionMetadata(
+  return tflite_micro::CreateDimensionMetadata(
       _fbb,
       _format,
       _dense_size,
@@ -16693,7 +16693,7 @@ inline SparsityParametersT::SparsityParametersT(const SparsityParametersT &o)
       : traversal_order(o.traversal_order),
         block_map(o.block_map) {
   dim_metadata.reserve(o.dim_metadata.size());
-  for (const auto &dim_metadata_ : o.dim_metadata) { dim_metadata.emplace_back((dim_metadata_) ? new tflite::DimensionMetadataT(*dim_metadata_) : nullptr); }
+  for (const auto &dim_metadata_ : o.dim_metadata) { dim_metadata.emplace_back((dim_metadata_) ? new tflite_micro::DimensionMetadataT(*dim_metadata_) : nullptr); }
 }
 
 inline SparsityParametersT &SparsityParametersT::operator=(SparsityParametersT o) FLATBUFFERS_NOEXCEPT {
@@ -16714,7 +16714,7 @@ inline void SparsityParameters::UnPackTo(SparsityParametersT *_o, const flatbuff
   (void)_resolver;
   { auto _e = traversal_order(); if (_e) { _o->traversal_order.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->traversal_order[_i] = _e->Get(_i); } } }
   { auto _e = block_map(); if (_e) { _o->block_map.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->block_map[_i] = _e->Get(_i); } } }
-  { auto _e = dim_metadata(); if (_e) { _o->dim_metadata.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->dim_metadata[_i]) { _e->Get(_i)->UnPackTo(_o->dim_metadata[_i].get(), _resolver); } else { _o->dim_metadata[_i] = std::unique_ptr<tflite::DimensionMetadataT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = dim_metadata(); if (_e) { _o->dim_metadata.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->dim_metadata[_i]) { _e->Get(_i)->UnPackTo(_o->dim_metadata[_i].get(), _resolver); } else { _o->dim_metadata[_i] = std::unique_ptr<tflite_micro::DimensionMetadataT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
 }
 
 inline flatbuffers::Offset<SparsityParameters> SparsityParameters::Pack(flatbuffers::FlatBufferBuilder &_fbb, const SparsityParametersT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -16727,8 +16727,8 @@ inline flatbuffers::Offset<SparsityParameters> CreateSparsityParameters(flatbuff
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SparsityParametersT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _traversal_order = _o->traversal_order.size() ? _fbb.CreateVector(_o->traversal_order) : 0;
   auto _block_map = _o->block_map.size() ? _fbb.CreateVector(_o->block_map) : 0;
-  auto _dim_metadata = _o->dim_metadata.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::DimensionMetadata>> (_o->dim_metadata.size(), [](size_t i, _VectorArgs *__va) { return CreateDimensionMetadata(*__va->__fbb, __va->__o->dim_metadata[i].get(), __va->__rehasher); }, &_va ) : 0;
-  return tflite::CreateSparsityParameters(
+  auto _dim_metadata = _o->dim_metadata.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::DimensionMetadata>> (_o->dim_metadata.size(), [](size_t i, _VectorArgs *__va) { return CreateDimensionMetadata(*__va->__fbb, __va->__o->dim_metadata[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return tflite_micro::CreateSparsityParameters(
       _fbb,
       _traversal_order,
       _block_map,
@@ -16760,7 +16760,7 @@ inline flatbuffers::Offset<VariantSubType> CreateVariantSubType(flatbuffers::Fla
   auto _shape = _o->shape.size() ? _fbb.CreateVector(_o->shape) : 0;
   auto _type = _o->type;
   auto _has_rank = _o->has_rank;
-  return tflite::CreateVariantSubType(
+  return tflite_micro::CreateVariantSubType(
       _fbb,
       _shape,
       _type,
@@ -16772,13 +16772,13 @@ inline TensorT::TensorT(const TensorT &o)
         type(o.type),
         buffer(o.buffer),
         name(o.name),
-        quantization((o.quantization) ? new tflite::QuantizationParametersT(*o.quantization) : nullptr),
+        quantization((o.quantization) ? new tflite_micro::QuantizationParametersT(*o.quantization) : nullptr),
         is_variable(o.is_variable),
-        sparsity((o.sparsity) ? new tflite::SparsityParametersT(*o.sparsity) : nullptr),
+        sparsity((o.sparsity) ? new tflite_micro::SparsityParametersT(*o.sparsity) : nullptr),
         shape_signature(o.shape_signature),
         has_rank(o.has_rank) {
   variant_tensors.reserve(o.variant_tensors.size());
-  for (const auto &variant_tensors_ : o.variant_tensors) { variant_tensors.emplace_back((variant_tensors_) ? new tflite::VariantSubTypeT(*variant_tensors_) : nullptr); }
+  for (const auto &variant_tensors_ : o.variant_tensors) { variant_tensors.emplace_back((variant_tensors_) ? new tflite_micro::VariantSubTypeT(*variant_tensors_) : nullptr); }
 }
 
 inline TensorT &TensorT::operator=(TensorT o) FLATBUFFERS_NOEXCEPT {
@@ -16808,12 +16808,12 @@ inline void Tensor::UnPackTo(TensorT *_o, const flatbuffers::resolver_function_t
   { auto _e = type(); _o->type = _e; }
   { auto _e = buffer(); _o->buffer = _e; }
   { auto _e = name(); if (_e) _o->name = _e->str(); }
-  { auto _e = quantization(); if (_e) { if(_o->quantization) { _e->UnPackTo(_o->quantization.get(), _resolver); } else { _o->quantization = std::unique_ptr<tflite::QuantizationParametersT>(_e->UnPack(_resolver)); } } }
+  { auto _e = quantization(); if (_e) { if(_o->quantization) { _e->UnPackTo(_o->quantization.get(), _resolver); } else { _o->quantization = std::unique_ptr<tflite_micro::QuantizationParametersT>(_e->UnPack(_resolver)); } } }
   { auto _e = is_variable(); _o->is_variable = _e; }
-  { auto _e = sparsity(); if (_e) { if(_o->sparsity) { _e->UnPackTo(_o->sparsity.get(), _resolver); } else { _o->sparsity = std::unique_ptr<tflite::SparsityParametersT>(_e->UnPack(_resolver)); } } }
+  { auto _e = sparsity(); if (_e) { if(_o->sparsity) { _e->UnPackTo(_o->sparsity.get(), _resolver); } else { _o->sparsity = std::unique_ptr<tflite_micro::SparsityParametersT>(_e->UnPack(_resolver)); } } }
   { auto _e = shape_signature(); if (_e) { _o->shape_signature.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->shape_signature[_i] = _e->Get(_i); } } }
   { auto _e = has_rank(); _o->has_rank = _e; }
-  { auto _e = variant_tensors(); if (_e) { _o->variant_tensors.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->variant_tensors[_i]) { _e->Get(_i)->UnPackTo(_o->variant_tensors[_i].get(), _resolver); } else { _o->variant_tensors[_i] = std::unique_ptr<tflite::VariantSubTypeT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = variant_tensors(); if (_e) { _o->variant_tensors.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->variant_tensors[_i]) { _e->Get(_i)->UnPackTo(_o->variant_tensors[_i].get(), _resolver); } else { _o->variant_tensors[_i] = std::unique_ptr<tflite_micro::VariantSubTypeT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
 }
 
 inline flatbuffers::Offset<Tensor> Tensor::Pack(flatbuffers::FlatBufferBuilder &_fbb, const TensorT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -16833,8 +16833,8 @@ inline flatbuffers::Offset<Tensor> CreateTensor(flatbuffers::FlatBufferBuilder &
   auto _sparsity = _o->sparsity ? CreateSparsityParameters(_fbb, _o->sparsity.get(), _rehasher) : 0;
   auto _shape_signature = _o->shape_signature.size() ? _fbb.CreateVector(_o->shape_signature) : 0;
   auto _has_rank = _o->has_rank;
-  auto _variant_tensors = _o->variant_tensors.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::VariantSubType>> (_o->variant_tensors.size(), [](size_t i, _VectorArgs *__va) { return CreateVariantSubType(*__va->__fbb, __va->__o->variant_tensors[i].get(), __va->__rehasher); }, &_va ) : 0;
-  return tflite::CreateTensor(
+  auto _variant_tensors = _o->variant_tensors.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::VariantSubType>> (_o->variant_tensors.size(), [](size_t i, _VectorArgs *__va) { return CreateVariantSubType(*__va->__fbb, __va->__o->variant_tensors[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return tflite_micro::CreateTensor(
       _fbb,
       _shape,
       _type,
@@ -16879,7 +16879,7 @@ inline flatbuffers::Offset<StablehloGatherOptions> CreateStablehloGatherOptions(
   auto _index_vector_dim = _o->index_vector_dim;
   auto _slice_sizes = _o->slice_sizes.size() ? _fbb.CreateVector(_o->slice_sizes) : 0;
   auto _indices_are_sorted = _o->indices_are_sorted;
-  return tflite::CreateStablehloGatherOptions(
+  return tflite_micro::CreateStablehloGatherOptions(
       _fbb,
       _offset_dims,
       _collapsed_slice_dims,
@@ -16910,7 +16910,7 @@ inline flatbuffers::Offset<StablehloTransposeOptions> CreateStablehloTransposeOp
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloTransposeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _permutation = _o->permutation.size() ? _fbb.CreateVector(_o->permutation) : 0;
-  return tflite::CreateStablehloTransposeOptions(
+  return tflite_micro::CreateStablehloTransposeOptions(
       _fbb,
       _permutation);
 }
@@ -16928,7 +16928,7 @@ inline void StablehloDotGeneralOptions::UnPackTo(StablehloDotGeneralOptionsT *_o
   { auto _e = rhs_batching_dimensions(); if (_e) { _o->rhs_batching_dimensions.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->rhs_batching_dimensions[_i] = _e->Get(_i); } } }
   { auto _e = lhs_contracting_dimensions(); if (_e) { _o->lhs_contracting_dimensions.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->lhs_contracting_dimensions[_i] = _e->Get(_i); } } }
   { auto _e = rhs_contracting_dimensions(); if (_e) { _o->rhs_contracting_dimensions.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->rhs_contracting_dimensions[_i] = _e->Get(_i); } } }
-  { auto _e = precision_config(); if (_e) { _o->precision_config.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->precision_config[_i] = static_cast<tflite::StablehloPrecisionConfig>(_e->Get(_i)); } } }
+  { auto _e = precision_config(); if (_e) { _o->precision_config.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->precision_config[_i] = static_cast<tflite_micro::StablehloPrecisionConfig>(_e->Get(_i)); } } }
 }
 
 inline flatbuffers::Offset<StablehloDotGeneralOptions> StablehloDotGeneralOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const StablehloDotGeneralOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -16944,7 +16944,7 @@ inline flatbuffers::Offset<StablehloDotGeneralOptions> CreateStablehloDotGeneral
   auto _lhs_contracting_dimensions = _o->lhs_contracting_dimensions.size() ? _fbb.CreateVector(_o->lhs_contracting_dimensions) : 0;
   auto _rhs_contracting_dimensions = _o->rhs_contracting_dimensions.size() ? _fbb.CreateVector(_o->rhs_contracting_dimensions) : 0;
   auto _precision_config = _o->precision_config.size() ? _fbb.CreateVectorScalarCast<uint32_t>(flatbuffers::data(_o->precision_config), _o->precision_config.size()) : 0;
-  return tflite::CreateStablehloDotGeneralOptions(
+  return tflite_micro::CreateStablehloDotGeneralOptions(
       _fbb,
       _lhs_batching_dimensions,
       _rhs_batching_dimensions,
@@ -16984,7 +16984,7 @@ inline flatbuffers::Offset<StablehloReduceWindowOptions> CreateStablehloReduceWi
   auto _window_dilations = _o->window_dilations.size() ? _fbb.CreateVector(_o->window_dilations) : 0;
   auto _padding = _o->padding.size() ? _fbb.CreateVector(_o->padding) : 0;
   auto _body_subgraph_index = _o->body_subgraph_index;
-  return tflite::CreateStablehloReduceWindowOptions(
+  return tflite_micro::CreateStablehloReduceWindowOptions(
       _fbb,
       _window_dimensions,
       _window_strides,
@@ -17017,7 +17017,7 @@ inline flatbuffers::Offset<StablehloWhileOptions> CreateStablehloWhileOptions(fl
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloWhileOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _cond_subgraph_index = _o->cond_subgraph_index;
   auto _body_subgraph_index = _o->body_subgraph_index;
-  return tflite::CreateStablehloWhileOptions(
+  return tflite_micro::CreateStablehloWhileOptions(
       _fbb,
       _cond_subgraph_index,
       _body_subgraph_index);
@@ -17048,7 +17048,7 @@ inline flatbuffers::Offset<StablehloSortOptions> CreateStablehloSortOptions(flat
   auto _dimension = _o->dimension;
   auto _is_stable = _o->is_stable;
   auto _comparator_subgraph_index = _o->comparator_subgraph_index;
-  return tflite::CreateStablehloSortOptions(
+  return tflite_micro::CreateStablehloSortOptions(
       _fbb,
       _dimension,
       _is_stable,
@@ -17076,7 +17076,7 @@ inline flatbuffers::Offset<StablehloConcatenateOptions> CreateStablehloConcatena
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloConcatenateOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _dimension = _o->dimension;
-  return tflite::CreateStablehloConcatenateOptions(
+  return tflite_micro::CreateStablehloConcatenateOptions(
       _fbb,
       _dimension);
 }
@@ -17102,7 +17102,7 @@ inline flatbuffers::Offset<StablehloBroadcastInDimOptions> CreateStablehloBroadc
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloBroadcastInDimOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _broadcast_dimensions = _o->broadcast_dimensions.size() ? _fbb.CreateVector(_o->broadcast_dimensions) : 0;
-  return tflite::CreateStablehloBroadcastInDimOptions(
+  return tflite_micro::CreateStablehloBroadcastInDimOptions(
       _fbb,
       _broadcast_dimensions);
 }
@@ -17130,7 +17130,7 @@ inline flatbuffers::Offset<StablehloCompareOptions> CreateStablehloCompareOption
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloCompareOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _comparison_direction = _o->comparison_direction;
   auto _compare_type = _o->compare_type;
-  return tflite::CreateStablehloCompareOptions(
+  return tflite_micro::CreateStablehloCompareOptions(
       _fbb,
       _comparison_direction,
       _compare_type);
@@ -17157,7 +17157,7 @@ inline flatbuffers::Offset<StablehloDynamicSliceOptions> CreateStablehloDynamicS
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloDynamicSliceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _slice_sizes = _o->slice_sizes.size() ? _fbb.CreateVector(_o->slice_sizes) : 0;
-  return tflite::CreateStablehloDynamicSliceOptions(
+  return tflite_micro::CreateStablehloDynamicSliceOptions(
       _fbb,
       _slice_sizes);
 }
@@ -17187,7 +17187,7 @@ inline flatbuffers::Offset<StablehloPadOptions> CreateStablehloPadOptions(flatbu
   auto _edge_padding_low = _o->edge_padding_low.size() ? _fbb.CreateVector(_o->edge_padding_low) : 0;
   auto _edge_padding_high = _o->edge_padding_high.size() ? _fbb.CreateVector(_o->edge_padding_high) : 0;
   auto _interior_padding = _o->interior_padding.size() ? _fbb.CreateVector(_o->interior_padding) : 0;
-  return tflite::CreateStablehloPadOptions(
+  return tflite_micro::CreateStablehloPadOptions(
       _fbb,
       _edge_padding_low,
       _edge_padding_high,
@@ -17215,7 +17215,7 @@ inline flatbuffers::Offset<StablehloIotaOptions> CreateStablehloIotaOptions(flat
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloIotaOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _iota_dimension = _o->iota_dimension;
-  return tflite::CreateStablehloIotaOptions(
+  return tflite_micro::CreateStablehloIotaOptions(
       _fbb,
       _iota_dimension);
 }
@@ -17251,7 +17251,7 @@ inline flatbuffers::Offset<StablehloCustomCallOptions> CreateStablehloCustomCall
   auto _api_version = _o->api_version;
   auto _called_computations = _o->called_computations.size() ? _fbb.CreateVector(_o->called_computations) : 0;
   auto _custom_attributes = _o->custom_attributes.size() ? _fbb.CreateVector(_o->custom_attributes) : 0;
-  return tflite::CreateStablehloCustomCallOptions(
+  return tflite_micro::CreateStablehloCustomCallOptions(
       _fbb,
       _call_target_name,
       _has_side_effect,
@@ -17284,7 +17284,7 @@ inline flatbuffers::Offset<StablehloReduceOptions> CreateStablehloReduceOptions(
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloReduceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _dimensions = _o->dimensions.size() ? _fbb.CreateVector(_o->dimensions) : 0;
   auto _body_subgraph_index = _o->body_subgraph_index;
-  return tflite::CreateStablehloReduceOptions(
+  return tflite_micro::CreateStablehloReduceOptions(
       _fbb,
       _dimensions,
       _body_subgraph_index);
@@ -17315,7 +17315,7 @@ inline flatbuffers::Offset<StablehloSliceOptions> CreateStablehloSliceOptions(fl
   auto _start_indices = _o->start_indices.size() ? _fbb.CreateVector(_o->start_indices) : 0;
   auto _limit_indices = _o->limit_indices.size() ? _fbb.CreateVector(_o->limit_indices) : 0;
   auto _strides = _o->strides.size() ? _fbb.CreateVector(_o->strides) : 0;
-  return tflite::CreateStablehloSliceOptions(
+  return tflite_micro::CreateStablehloSliceOptions(
       _fbb,
       _start_indices,
       _limit_indices,
@@ -17347,7 +17347,7 @@ inline void StablehloConvolutionOptions::UnPackTo(StablehloConvolutionOptionsT *
   { auto _e = output_spatial_dimensions(); if (_e) { _o->output_spatial_dimensions.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->output_spatial_dimensions[_i] = _e->Get(_i); } } }
   { auto _e = feature_group_count(); _o->feature_group_count = _e; }
   { auto _e = batch_group_count(); _o->batch_group_count = _e; }
-  { auto _e = precision_config(); if (_e) { _o->precision_config.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->precision_config[_i] = static_cast<tflite::StablehloPrecisionConfig>(_e->Get(_i)); } } }
+  { auto _e = precision_config(); if (_e) { _o->precision_config.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->precision_config[_i] = static_cast<tflite_micro::StablehloPrecisionConfig>(_e->Get(_i)); } } }
 }
 
 inline flatbuffers::Offset<StablehloConvolutionOptions> StablehloConvolutionOptions::Pack(flatbuffers::FlatBufferBuilder &_fbb, const StablehloConvolutionOptionsT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -17375,7 +17375,7 @@ inline flatbuffers::Offset<StablehloConvolutionOptions> CreateStablehloConvoluti
   auto _feature_group_count = _o->feature_group_count;
   auto _batch_group_count = _o->batch_group_count;
   auto _precision_config = _o->precision_config.size() ? _fbb.CreateVectorScalarCast<uint32_t>(flatbuffers::data(_o->precision_config), _o->precision_config.size()) : 0;
-  return tflite::CreateStablehloConvolutionOptions(
+  return tflite_micro::CreateStablehloConvolutionOptions(
       _fbb,
       _window_strides,
       _padding,
@@ -17429,7 +17429,7 @@ inline flatbuffers::Offset<StablehloScatterOptions> CreateStablehloScatterOption
   auto _index_vector_dim = _o->index_vector_dim;
   auto _unique_indices = _o->unique_indices;
   auto _update_computation_subgraph_index = _o->update_computation_subgraph_index;
-  return tflite::CreateStablehloScatterOptions(
+  return tflite_micro::CreateStablehloScatterOptions(
       _fbb,
       _indices_are_sorted,
       _update_window_dims,
@@ -17461,7 +17461,7 @@ inline flatbuffers::Offset<StablehloRngBitGeneratorOptions> CreateStablehloRngBi
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const StablehloRngBitGeneratorOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _algorithm = _o->algorithm;
-  return tflite::CreateStablehloRngBitGeneratorOptions(
+  return tflite_micro::CreateStablehloRngBitGeneratorOptions(
       _fbb,
       _algorithm);
 }
@@ -17499,7 +17499,7 @@ inline flatbuffers::Offset<Conv2DOptions> CreateConv2DOptions(flatbuffers::FlatB
   auto _dilation_w_factor = _o->dilation_w_factor;
   auto _dilation_h_factor = _o->dilation_h_factor;
   auto _quantized_bias_type = _o->quantized_bias_type;
-  return tflite::CreateConv2DOptions(
+  return tflite_micro::CreateConv2DOptions(
       _fbb,
       _padding,
       _stride_w,
@@ -17545,7 +17545,7 @@ inline flatbuffers::Offset<Conv3DOptions> CreateConv3DOptions(flatbuffers::FlatB
   auto _dilation_d_factor = _o->dilation_d_factor;
   auto _dilation_w_factor = _o->dilation_w_factor;
   auto _dilation_h_factor = _o->dilation_h_factor;
-  return tflite::CreateConv3DOptions(
+  return tflite_micro::CreateConv3DOptions(
       _fbb,
       _padding,
       _stride_d,
@@ -17588,7 +17588,7 @@ inline flatbuffers::Offset<Pool2DOptions> CreatePool2DOptions(flatbuffers::FlatB
   auto _filter_width = _o->filter_width;
   auto _filter_height = _o->filter_height;
   auto _fused_activation_function = _o->fused_activation_function;
-  return tflite::CreatePool2DOptions(
+  return tflite_micro::CreatePool2DOptions(
       _fbb,
       _padding,
       _stride_w,
@@ -17631,7 +17631,7 @@ inline flatbuffers::Offset<DepthwiseConv2DOptions> CreateDepthwiseConv2DOptions(
   auto _fused_activation_function = _o->fused_activation_function;
   auto _dilation_w_factor = _o->dilation_w_factor;
   auto _dilation_h_factor = _o->dilation_h_factor;
-  return tflite::CreateDepthwiseConv2DOptions(
+  return tflite_micro::CreateDepthwiseConv2DOptions(
       _fbb,
       _padding,
       _stride_w,
@@ -17667,7 +17667,7 @@ inline flatbuffers::Offset<ConcatEmbeddingsOptions> CreateConcatEmbeddingsOption
   auto _num_channels = _o->num_channels;
   auto _num_columns_per_channel = _o->num_columns_per_channel.size() ? _fbb.CreateVector(_o->num_columns_per_channel) : 0;
   auto _embedding_dim_per_channel = _o->embedding_dim_per_channel.size() ? _fbb.CreateVector(_o->embedding_dim_per_channel) : 0;
-  return tflite::CreateConcatEmbeddingsOptions(
+  return tflite_micro::CreateConcatEmbeddingsOptions(
       _fbb,
       _num_channels,
       _num_columns_per_channel,
@@ -17695,7 +17695,7 @@ inline flatbuffers::Offset<LSHProjectionOptions> CreateLSHProjectionOptions(flat
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LSHProjectionOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _type = _o->type;
-  return tflite::CreateLSHProjectionOptions(
+  return tflite_micro::CreateLSHProjectionOptions(
       _fbb,
       _type);
 }
@@ -17725,7 +17725,7 @@ inline flatbuffers::Offset<SVDFOptions> CreateSVDFOptions(flatbuffers::FlatBuffe
   auto _rank = _o->rank;
   auto _fused_activation_function = _o->fused_activation_function;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateSVDFOptions(
+  return tflite_micro::CreateSVDFOptions(
       _fbb,
       _rank,
       _fused_activation_function,
@@ -17755,7 +17755,7 @@ inline flatbuffers::Offset<RNNOptions> CreateRNNOptions(flatbuffers::FlatBufferB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const RNNOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _fused_activation_function = _o->fused_activation_function;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateRNNOptions(
+  return tflite_micro::CreateRNNOptions(
       _fbb,
       _fused_activation_function,
       _asymmetric_quantize_inputs);
@@ -17786,7 +17786,7 @@ inline flatbuffers::Offset<SequenceRNNOptions> CreateSequenceRNNOptions(flatbuff
   auto _time_major = _o->time_major;
   auto _fused_activation_function = _o->fused_activation_function;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateSequenceRNNOptions(
+  return tflite_micro::CreateSequenceRNNOptions(
       _fbb,
       _time_major,
       _fused_activation_function,
@@ -17820,7 +17820,7 @@ inline flatbuffers::Offset<BidirectionalSequenceRNNOptions> CreateBidirectionalS
   auto _fused_activation_function = _o->fused_activation_function;
   auto _merge_outputs = _o->merge_outputs;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateBidirectionalSequenceRNNOptions(
+  return tflite_micro::CreateBidirectionalSequenceRNNOptions(
       _fbb,
       _time_major,
       _fused_activation_function,
@@ -17857,7 +17857,7 @@ inline flatbuffers::Offset<FullyConnectedOptions> CreateFullyConnectedOptions(fl
   auto _keep_num_dims = _o->keep_num_dims;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
   auto _quantized_bias_type = _o->quantized_bias_type;
-  return tflite::CreateFullyConnectedOptions(
+  return tflite_micro::CreateFullyConnectedOptions(
       _fbb,
       _fused_activation_function,
       _weights_format,
@@ -17887,7 +17887,7 @@ inline flatbuffers::Offset<SoftmaxOptions> CreateSoftmaxOptions(flatbuffers::Fla
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SoftmaxOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _beta = _o->beta;
-  return tflite::CreateSoftmaxOptions(
+  return tflite_micro::CreateSoftmaxOptions(
       _fbb,
       _beta);
 }
@@ -17915,7 +17915,7 @@ inline flatbuffers::Offset<ConcatenationOptions> CreateConcatenationOptions(flat
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ConcatenationOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _axis = _o->axis;
   auto _fused_activation_function = _o->fused_activation_function;
-  return tflite::CreateConcatenationOptions(
+  return tflite_micro::CreateConcatenationOptions(
       _fbb,
       _axis,
       _fused_activation_function);
@@ -17944,7 +17944,7 @@ inline flatbuffers::Offset<AddOptions> CreateAddOptions(flatbuffers::FlatBufferB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AddOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _fused_activation_function = _o->fused_activation_function;
   auto _pot_scale_int16 = _o->pot_scale_int16;
-  return tflite::CreateAddOptions(
+  return tflite_micro::CreateAddOptions(
       _fbb,
       _fused_activation_function,
       _pot_scale_int16);
@@ -17971,7 +17971,7 @@ inline flatbuffers::Offset<MulOptions> CreateMulOptions(flatbuffers::FlatBufferB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MulOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _fused_activation_function = _o->fused_activation_function;
-  return tflite::CreateMulOptions(
+  return tflite_micro::CreateMulOptions(
       _fbb,
       _fused_activation_function);
 }
@@ -17997,7 +17997,7 @@ inline flatbuffers::Offset<L2NormOptions> CreateL2NormOptions(flatbuffers::FlatB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const L2NormOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _fused_activation_function = _o->fused_activation_function;
-  return tflite::CreateL2NormOptions(
+  return tflite_micro::CreateL2NormOptions(
       _fbb,
       _fused_activation_function);
 }
@@ -18029,7 +18029,7 @@ inline flatbuffers::Offset<LocalResponseNormalizationOptions> CreateLocalRespons
   auto _bias = _o->bias;
   auto _alpha = _o->alpha;
   auto _beta = _o->beta;
-  return tflite::CreateLocalResponseNormalizationOptions(
+  return tflite_micro::CreateLocalResponseNormalizationOptions(
       _fbb,
       _radius,
       _bias,
@@ -18066,7 +18066,7 @@ inline flatbuffers::Offset<LSTMOptions> CreateLSTMOptions(flatbuffers::FlatBuffe
   auto _proj_clip = _o->proj_clip;
   auto _kernel_type = _o->kernel_type;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateLSTMOptions(
+  return tflite_micro::CreateLSTMOptions(
       _fbb,
       _fused_activation_function,
       _cell_clip,
@@ -18106,7 +18106,7 @@ inline flatbuffers::Offset<UnidirectionalSequenceLSTMOptions> CreateUnidirection
   auto _time_major = _o->time_major;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
   auto _diagonal_recurrent_tensors = _o->diagonal_recurrent_tensors;
-  return tflite::CreateUnidirectionalSequenceLSTMOptions(
+  return tflite_micro::CreateUnidirectionalSequenceLSTMOptions(
       _fbb,
       _fused_activation_function,
       _cell_clip,
@@ -18147,7 +18147,7 @@ inline flatbuffers::Offset<BidirectionalSequenceLSTMOptions> CreateBidirectional
   auto _merge_outputs = _o->merge_outputs;
   auto _time_major = _o->time_major;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateBidirectionalSequenceLSTMOptions(
+  return tflite_micro::CreateBidirectionalSequenceLSTMOptions(
       _fbb,
       _fused_activation_function,
       _cell_clip,
@@ -18180,7 +18180,7 @@ inline flatbuffers::Offset<ResizeBilinearOptions> CreateResizeBilinearOptions(fl
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ResizeBilinearOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _align_corners = _o->align_corners;
   auto _half_pixel_centers = _o->half_pixel_centers;
-  return tflite::CreateResizeBilinearOptions(
+  return tflite_micro::CreateResizeBilinearOptions(
       _fbb,
       _align_corners,
       _half_pixel_centers);
@@ -18209,7 +18209,7 @@ inline flatbuffers::Offset<ResizeNearestNeighborOptions> CreateResizeNearestNeig
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ResizeNearestNeighborOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _align_corners = _o->align_corners;
   auto _half_pixel_centers = _o->half_pixel_centers;
-  return tflite::CreateResizeNearestNeighborOptions(
+  return tflite_micro::CreateResizeNearestNeighborOptions(
       _fbb,
       _align_corners,
       _half_pixel_centers);
@@ -18236,7 +18236,7 @@ inline flatbuffers::Offset<CallOptions> CreateCallOptions(flatbuffers::FlatBuffe
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CallOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _subgraph = _o->subgraph;
-  return tflite::CreateCallOptions(
+  return tflite_micro::CreateCallOptions(
       _fbb,
       _subgraph);
 }
@@ -18260,7 +18260,7 @@ inline flatbuffers::Offset<PadOptions> CreatePadOptions(flatbuffers::FlatBufferB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const PadOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreatePadOptions(
+  return tflite_micro::CreatePadOptions(
       _fbb);
 }
 
@@ -18283,7 +18283,7 @@ inline flatbuffers::Offset<PadV2Options> CreatePadV2Options(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const PadV2OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreatePadV2Options(
+  return tflite_micro::CreatePadV2Options(
       _fbb);
 }
 
@@ -18308,7 +18308,7 @@ inline flatbuffers::Offset<ReshapeOptions> CreateReshapeOptions(flatbuffers::Fla
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ReshapeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _new_shape = _o->new_shape.size() ? _fbb.CreateVector(_o->new_shape) : 0;
-  return tflite::CreateReshapeOptions(
+  return tflite_micro::CreateReshapeOptions(
       _fbb,
       _new_shape);
 }
@@ -18332,7 +18332,7 @@ inline flatbuffers::Offset<SpaceToBatchNDOptions> CreateSpaceToBatchNDOptions(fl
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SpaceToBatchNDOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSpaceToBatchNDOptions(
+  return tflite_micro::CreateSpaceToBatchNDOptions(
       _fbb);
 }
 
@@ -18355,7 +18355,7 @@ inline flatbuffers::Offset<BatchToSpaceNDOptions> CreateBatchToSpaceNDOptions(fl
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const BatchToSpaceNDOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateBatchToSpaceNDOptions(
+  return tflite_micro::CreateBatchToSpaceNDOptions(
       _fbb);
 }
 
@@ -18384,7 +18384,7 @@ inline flatbuffers::Offset<SkipGramOptions> CreateSkipGramOptions(flatbuffers::F
   auto _ngram_size = _o->ngram_size;
   auto _max_skip_size = _o->max_skip_size;
   auto _include_all_ngrams = _o->include_all_ngrams;
-  return tflite::CreateSkipGramOptions(
+  return tflite_micro::CreateSkipGramOptions(
       _fbb,
       _ngram_size,
       _max_skip_size,
@@ -18412,7 +18412,7 @@ inline flatbuffers::Offset<SpaceToDepthOptions> CreateSpaceToDepthOptions(flatbu
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SpaceToDepthOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _block_size = _o->block_size;
-  return tflite::CreateSpaceToDepthOptions(
+  return tflite_micro::CreateSpaceToDepthOptions(
       _fbb,
       _block_size);
 }
@@ -18438,7 +18438,7 @@ inline flatbuffers::Offset<DepthToSpaceOptions> CreateDepthToSpaceOptions(flatbu
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DepthToSpaceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _block_size = _o->block_size;
-  return tflite::CreateDepthToSpaceOptions(
+  return tflite_micro::CreateDepthToSpaceOptions(
       _fbb,
       _block_size);
 }
@@ -18466,7 +18466,7 @@ inline flatbuffers::Offset<SubOptions> CreateSubOptions(flatbuffers::FlatBufferB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SubOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _fused_activation_function = _o->fused_activation_function;
   auto _pot_scale_int16 = _o->pot_scale_int16;
-  return tflite::CreateSubOptions(
+  return tflite_micro::CreateSubOptions(
       _fbb,
       _fused_activation_function,
       _pot_scale_int16);
@@ -18493,7 +18493,7 @@ inline flatbuffers::Offset<DivOptions> CreateDivOptions(flatbuffers::FlatBufferB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DivOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _fused_activation_function = _o->fused_activation_function;
-  return tflite::CreateDivOptions(
+  return tflite_micro::CreateDivOptions(
       _fbb,
       _fused_activation_function);
 }
@@ -18517,7 +18517,7 @@ inline flatbuffers::Offset<TopKV2Options> CreateTopKV2Options(flatbuffers::FlatB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TopKV2OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateTopKV2Options(
+  return tflite_micro::CreateTopKV2Options(
       _fbb);
 }
 
@@ -18542,7 +18542,7 @@ inline flatbuffers::Offset<EmbeddingLookupSparseOptions> CreateEmbeddingLookupSp
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const EmbeddingLookupSparseOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _combiner = _o->combiner;
-  return tflite::CreateEmbeddingLookupSparseOptions(
+  return tflite_micro::CreateEmbeddingLookupSparseOptions(
       _fbb,
       _combiner);
 }
@@ -18570,7 +18570,7 @@ inline flatbuffers::Offset<GatherOptions> CreateGatherOptions(flatbuffers::FlatB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const GatherOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _axis = _o->axis;
   auto _batch_dims = _o->batch_dims;
-  return tflite::CreateGatherOptions(
+  return tflite_micro::CreateGatherOptions(
       _fbb,
       _axis,
       _batch_dims);
@@ -18595,7 +18595,7 @@ inline flatbuffers::Offset<TransposeOptions> CreateTransposeOptions(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TransposeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateTransposeOptions(
+  return tflite_micro::CreateTransposeOptions(
       _fbb);
 }
 
@@ -18618,7 +18618,7 @@ inline flatbuffers::Offset<ExpOptions> CreateExpOptions(flatbuffers::FlatBufferB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ExpOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateExpOptions(
+  return tflite_micro::CreateExpOptions(
       _fbb);
 }
 
@@ -18641,7 +18641,7 @@ inline flatbuffers::Offset<CosOptions> CreateCosOptions(flatbuffers::FlatBufferB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CosOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateCosOptions(
+  return tflite_micro::CreateCosOptions(
       _fbb);
 }
 
@@ -18666,7 +18666,7 @@ inline flatbuffers::Offset<ReducerOptions> CreateReducerOptions(flatbuffers::Fla
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ReducerOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _keep_dims = _o->keep_dims;
-  return tflite::CreateReducerOptions(
+  return tflite_micro::CreateReducerOptions(
       _fbb,
       _keep_dims);
 }
@@ -18692,7 +18692,7 @@ inline flatbuffers::Offset<SqueezeOptions> CreateSqueezeOptions(flatbuffers::Fla
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SqueezeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _squeeze_dims = _o->squeeze_dims.size() ? _fbb.CreateVector(_o->squeeze_dims) : 0;
-  return tflite::CreateSqueezeOptions(
+  return tflite_micro::CreateSqueezeOptions(
       _fbb,
       _squeeze_dims);
 }
@@ -18718,7 +18718,7 @@ inline flatbuffers::Offset<SplitOptions> CreateSplitOptions(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SplitOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _num_splits = _o->num_splits;
-  return tflite::CreateSplitOptions(
+  return tflite_micro::CreateSplitOptions(
       _fbb,
       _num_splits);
 }
@@ -18744,7 +18744,7 @@ inline flatbuffers::Offset<SplitVOptions> CreateSplitVOptions(flatbuffers::FlatB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SplitVOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _num_splits = _o->num_splits;
-  return tflite::CreateSplitVOptions(
+  return tflite_micro::CreateSplitVOptions(
       _fbb,
       _num_splits);
 }
@@ -18780,7 +18780,7 @@ inline flatbuffers::Offset<StridedSliceOptions> CreateStridedSliceOptions(flatbu
   auto _new_axis_mask = _o->new_axis_mask;
   auto _shrink_axis_mask = _o->shrink_axis_mask;
   auto _offset = _o->offset;
-  return tflite::CreateStridedSliceOptions(
+  return tflite_micro::CreateStridedSliceOptions(
       _fbb,
       _begin_mask,
       _end_mask,
@@ -18809,7 +18809,7 @@ inline flatbuffers::Offset<LogSoftmaxOptions> CreateLogSoftmaxOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LogSoftmaxOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateLogSoftmaxOptions(
+  return tflite_micro::CreateLogSoftmaxOptions(
       _fbb);
 }
 
@@ -18836,7 +18836,7 @@ inline flatbuffers::Offset<CastOptions> CreateCastOptions(flatbuffers::FlatBuffe
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CastOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _in_data_type = _o->in_data_type;
   auto _out_data_type = _o->out_data_type;
-  return tflite::CreateCastOptions(
+  return tflite_micro::CreateCastOptions(
       _fbb,
       _in_data_type,
       _out_data_type);
@@ -18861,7 +18861,7 @@ inline flatbuffers::Offset<DequantizeOptions> CreateDequantizeOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DequantizeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateDequantizeOptions(
+  return tflite_micro::CreateDequantizeOptions(
       _fbb);
 }
 
@@ -18884,7 +18884,7 @@ inline flatbuffers::Offset<MaximumMinimumOptions> CreateMaximumMinimumOptions(fl
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MaximumMinimumOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateMaximumMinimumOptions(
+  return tflite_micro::CreateMaximumMinimumOptions(
       _fbb);
 }
 
@@ -18907,7 +18907,7 @@ inline flatbuffers::Offset<TileOptions> CreateTileOptions(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TileOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateTileOptions(
+  return tflite_micro::CreateTileOptions(
       _fbb);
 }
 
@@ -18932,7 +18932,7 @@ inline flatbuffers::Offset<ArgMaxOptions> CreateArgMaxOptions(flatbuffers::FlatB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ArgMaxOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _output_type = _o->output_type;
-  return tflite::CreateArgMaxOptions(
+  return tflite_micro::CreateArgMaxOptions(
       _fbb,
       _output_type);
 }
@@ -18958,7 +18958,7 @@ inline flatbuffers::Offset<ArgMinOptions> CreateArgMinOptions(flatbuffers::FlatB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ArgMinOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _output_type = _o->output_type;
-  return tflite::CreateArgMinOptions(
+  return tflite_micro::CreateArgMinOptions(
       _fbb,
       _output_type);
 }
@@ -18982,7 +18982,7 @@ inline flatbuffers::Offset<GreaterOptions> CreateGreaterOptions(flatbuffers::Fla
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const GreaterOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateGreaterOptions(
+  return tflite_micro::CreateGreaterOptions(
       _fbb);
 }
 
@@ -19005,7 +19005,7 @@ inline flatbuffers::Offset<GreaterEqualOptions> CreateGreaterEqualOptions(flatbu
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const GreaterEqualOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateGreaterEqualOptions(
+  return tflite_micro::CreateGreaterEqualOptions(
       _fbb);
 }
 
@@ -19028,7 +19028,7 @@ inline flatbuffers::Offset<LessOptions> CreateLessOptions(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LessOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateLessOptions(
+  return tflite_micro::CreateLessOptions(
       _fbb);
 }
 
@@ -19051,7 +19051,7 @@ inline flatbuffers::Offset<LessEqualOptions> CreateLessEqualOptions(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LessEqualOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateLessEqualOptions(
+  return tflite_micro::CreateLessEqualOptions(
       _fbb);
 }
 
@@ -19074,7 +19074,7 @@ inline flatbuffers::Offset<NegOptions> CreateNegOptions(flatbuffers::FlatBufferB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const NegOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateNegOptions(
+  return tflite_micro::CreateNegOptions(
       _fbb);
 }
 
@@ -19097,7 +19097,7 @@ inline flatbuffers::Offset<SelectOptions> CreateSelectOptions(flatbuffers::FlatB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SelectOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSelectOptions(
+  return tflite_micro::CreateSelectOptions(
       _fbb);
 }
 
@@ -19120,7 +19120,7 @@ inline flatbuffers::Offset<SliceOptions> CreateSliceOptions(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SliceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSliceOptions(
+  return tflite_micro::CreateSliceOptions(
       _fbb);
 }
 
@@ -19153,7 +19153,7 @@ inline flatbuffers::Offset<TransposeConvOptions> CreateTransposeConvOptions(flat
   auto _stride_h = _o->stride_h;
   auto _fused_activation_function = _o->fused_activation_function;
   auto _quantized_bias_type = _o->quantized_bias_type;
-  return tflite::CreateTransposeConvOptions(
+  return tflite_micro::CreateTransposeConvOptions(
       _fbb,
       _padding,
       _stride_w,
@@ -19181,7 +19181,7 @@ inline flatbuffers::Offset<ExpandDimsOptions> CreateExpandDimsOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ExpandDimsOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateExpandDimsOptions(
+  return tflite_micro::CreateExpandDimsOptions(
       _fbb);
 }
 
@@ -19206,7 +19206,7 @@ inline flatbuffers::Offset<SparseToDenseOptions> CreateSparseToDenseOptions(flat
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SparseToDenseOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _validate_indices = _o->validate_indices;
-  return tflite::CreateSparseToDenseOptions(
+  return tflite_micro::CreateSparseToDenseOptions(
       _fbb,
       _validate_indices);
 }
@@ -19230,7 +19230,7 @@ inline flatbuffers::Offset<EqualOptions> CreateEqualOptions(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const EqualOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateEqualOptions(
+  return tflite_micro::CreateEqualOptions(
       _fbb);
 }
 
@@ -19253,7 +19253,7 @@ inline flatbuffers::Offset<NotEqualOptions> CreateNotEqualOptions(flatbuffers::F
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const NotEqualOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateNotEqualOptions(
+  return tflite_micro::CreateNotEqualOptions(
       _fbb);
 }
 
@@ -19278,7 +19278,7 @@ inline flatbuffers::Offset<ShapeOptions> CreateShapeOptions(flatbuffers::FlatBuf
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ShapeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _out_type = _o->out_type;
-  return tflite::CreateShapeOptions(
+  return tflite_micro::CreateShapeOptions(
       _fbb,
       _out_type);
 }
@@ -19302,7 +19302,7 @@ inline flatbuffers::Offset<RankOptions> CreateRankOptions(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const RankOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateRankOptions(
+  return tflite_micro::CreateRankOptions(
       _fbb);
 }
 
@@ -19325,7 +19325,7 @@ inline flatbuffers::Offset<PowOptions> CreatePowOptions(flatbuffers::FlatBufferB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const PowOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreatePowOptions(
+  return tflite_micro::CreatePowOptions(
       _fbb);
 }
 
@@ -19356,7 +19356,7 @@ inline flatbuffers::Offset<FakeQuantOptions> CreateFakeQuantOptions(flatbuffers:
   auto _max = _o->max;
   auto _num_bits = _o->num_bits;
   auto _narrow_range = _o->narrow_range;
-  return tflite::CreateFakeQuantOptions(
+  return tflite_micro::CreateFakeQuantOptions(
       _fbb,
       _min,
       _max,
@@ -19387,7 +19387,7 @@ inline flatbuffers::Offset<PackOptions> CreatePackOptions(flatbuffers::FlatBuffe
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const PackOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _values_count = _o->values_count;
   auto _axis = _o->axis;
-  return tflite::CreatePackOptions(
+  return tflite_micro::CreatePackOptions(
       _fbb,
       _values_count,
       _axis);
@@ -19412,7 +19412,7 @@ inline flatbuffers::Offset<LogicalOrOptions> CreateLogicalOrOptions(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LogicalOrOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateLogicalOrOptions(
+  return tflite_micro::CreateLogicalOrOptions(
       _fbb);
 }
 
@@ -19437,7 +19437,7 @@ inline flatbuffers::Offset<OneHotOptions> CreateOneHotOptions(flatbuffers::FlatB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const OneHotOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _axis = _o->axis;
-  return tflite::CreateOneHotOptions(
+  return tflite_micro::CreateOneHotOptions(
       _fbb,
       _axis);
 }
@@ -19461,7 +19461,7 @@ inline flatbuffers::Offset<AbsOptions> CreateAbsOptions(flatbuffers::FlatBufferB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AbsOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateAbsOptions(
+  return tflite_micro::CreateAbsOptions(
       _fbb);
 }
 
@@ -19484,7 +19484,7 @@ inline flatbuffers::Offset<HardSwishOptions> CreateHardSwishOptions(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const HardSwishOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateHardSwishOptions(
+  return tflite_micro::CreateHardSwishOptions(
       _fbb);
 }
 
@@ -19507,7 +19507,7 @@ inline flatbuffers::Offset<LogicalAndOptions> CreateLogicalAndOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LogicalAndOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateLogicalAndOptions(
+  return tflite_micro::CreateLogicalAndOptions(
       _fbb);
 }
 
@@ -19530,7 +19530,7 @@ inline flatbuffers::Offset<LogicalNotOptions> CreateLogicalNotOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LogicalNotOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateLogicalNotOptions(
+  return tflite_micro::CreateLogicalNotOptions(
       _fbb);
 }
 
@@ -19557,7 +19557,7 @@ inline flatbuffers::Offset<UnpackOptions> CreateUnpackOptions(flatbuffers::FlatB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const UnpackOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _num = _o->num;
   auto _axis = _o->axis;
-  return tflite::CreateUnpackOptions(
+  return tflite_micro::CreateUnpackOptions(
       _fbb,
       _num,
       _axis);
@@ -19582,7 +19582,7 @@ inline flatbuffers::Offset<FloorDivOptions> CreateFloorDivOptions(flatbuffers::F
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FloorDivOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateFloorDivOptions(
+  return tflite_micro::CreateFloorDivOptions(
       _fbb);
 }
 
@@ -19605,7 +19605,7 @@ inline flatbuffers::Offset<SquareOptions> CreateSquareOptions(flatbuffers::FlatB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SquareOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSquareOptions(
+  return tflite_micro::CreateSquareOptions(
       _fbb);
 }
 
@@ -19628,7 +19628,7 @@ inline flatbuffers::Offset<ZerosLikeOptions> CreateZerosLikeOptions(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ZerosLikeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateZerosLikeOptions(
+  return tflite_micro::CreateZerosLikeOptions(
       _fbb);
 }
 
@@ -19651,7 +19651,7 @@ inline flatbuffers::Offset<FillOptions> CreateFillOptions(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FillOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateFillOptions(
+  return tflite_micro::CreateFillOptions(
       _fbb);
 }
 
@@ -19674,7 +19674,7 @@ inline flatbuffers::Offset<FloorModOptions> CreateFloorModOptions(flatbuffers::F
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const FloorModOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateFloorModOptions(
+  return tflite_micro::CreateFloorModOptions(
       _fbb);
 }
 
@@ -19697,7 +19697,7 @@ inline flatbuffers::Offset<RangeOptions> CreateRangeOptions(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const RangeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateRangeOptions(
+  return tflite_micro::CreateRangeOptions(
       _fbb);
 }
 
@@ -19722,7 +19722,7 @@ inline flatbuffers::Offset<LeakyReluOptions> CreateLeakyReluOptions(flatbuffers:
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const LeakyReluOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _alpha = _o->alpha;
-  return tflite::CreateLeakyReluOptions(
+  return tflite_micro::CreateLeakyReluOptions(
       _fbb,
       _alpha);
 }
@@ -19746,7 +19746,7 @@ inline flatbuffers::Offset<SquaredDifferenceOptions> CreateSquaredDifferenceOpti
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SquaredDifferenceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSquaredDifferenceOptions(
+  return tflite_micro::CreateSquaredDifferenceOptions(
       _fbb);
 }
 
@@ -19771,7 +19771,7 @@ inline flatbuffers::Offset<MirrorPadOptions> CreateMirrorPadOptions(flatbuffers:
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MirrorPadOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _mode = _o->mode;
-  return tflite::CreateMirrorPadOptions(
+  return tflite_micro::CreateMirrorPadOptions(
       _fbb,
       _mode);
 }
@@ -19797,7 +19797,7 @@ inline flatbuffers::Offset<UniqueOptions> CreateUniqueOptions(flatbuffers::FlatB
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const UniqueOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _idx_out_type = _o->idx_out_type;
-  return tflite::CreateUniqueOptions(
+  return tflite_micro::CreateUniqueOptions(
       _fbb,
       _idx_out_type);
 }
@@ -19821,7 +19821,7 @@ inline flatbuffers::Offset<ReverseV2Options> CreateReverseV2Options(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ReverseV2OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateReverseV2Options(
+  return tflite_micro::CreateReverseV2Options(
       _fbb);
 }
 
@@ -19844,7 +19844,7 @@ inline flatbuffers::Offset<AddNOptions> CreateAddNOptions(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AddNOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateAddNOptions(
+  return tflite_micro::CreateAddNOptions(
       _fbb);
 }
 
@@ -19867,7 +19867,7 @@ inline flatbuffers::Offset<GatherNdOptions> CreateGatherNdOptions(flatbuffers::F
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const GatherNdOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateGatherNdOptions(
+  return tflite_micro::CreateGatherNdOptions(
       _fbb);
 }
 
@@ -19890,7 +19890,7 @@ inline flatbuffers::Offset<WhereOptions> CreateWhereOptions(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const WhereOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateWhereOptions(
+  return tflite_micro::CreateWhereOptions(
       _fbb);
 }
 
@@ -19917,7 +19917,7 @@ inline flatbuffers::Offset<ReverseSequenceOptions> CreateReverseSequenceOptions(
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ReverseSequenceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _seq_dim = _o->seq_dim;
   auto _batch_dim = _o->batch_dim;
-  return tflite::CreateReverseSequenceOptions(
+  return tflite_micro::CreateReverseSequenceOptions(
       _fbb,
       _seq_dim,
       _batch_dim);
@@ -19942,7 +19942,7 @@ inline flatbuffers::Offset<MatrixDiagOptions> CreateMatrixDiagOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MatrixDiagOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateMatrixDiagOptions(
+  return tflite_micro::CreateMatrixDiagOptions(
       _fbb);
 }
 
@@ -19965,7 +19965,7 @@ inline flatbuffers::Offset<QuantizeOptions> CreateQuantizeOptions(flatbuffers::F
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const QuantizeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateQuantizeOptions(
+  return tflite_micro::CreateQuantizeOptions(
       _fbb);
 }
 
@@ -19988,7 +19988,7 @@ inline flatbuffers::Offset<MatrixSetDiagOptions> CreateMatrixSetDiagOptions(flat
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MatrixSetDiagOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateMatrixSetDiagOptions(
+  return tflite_micro::CreateMatrixSetDiagOptions(
       _fbb);
 }
 
@@ -20015,7 +20015,7 @@ inline flatbuffers::Offset<IfOptions> CreateIfOptions(flatbuffers::FlatBufferBui
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const IfOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _then_subgraph_index = _o->then_subgraph_index;
   auto _else_subgraph_index = _o->else_subgraph_index;
-  return tflite::CreateIfOptions(
+  return tflite_micro::CreateIfOptions(
       _fbb,
       _then_subgraph_index,
       _else_subgraph_index);
@@ -20042,7 +20042,7 @@ inline flatbuffers::Offset<CallOnceOptions> CreateCallOnceOptions(flatbuffers::F
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CallOnceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _init_subgraph_index = _o->init_subgraph_index;
-  return tflite::CreateCallOnceOptions(
+  return tflite_micro::CreateCallOnceOptions(
       _fbb,
       _init_subgraph_index);
 }
@@ -20070,7 +20070,7 @@ inline flatbuffers::Offset<WhileOptions> CreateWhileOptions(flatbuffers::FlatBuf
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const WhileOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _cond_subgraph_index = _o->cond_subgraph_index;
   auto _body_subgraph_index = _o->body_subgraph_index;
-  return tflite::CreateWhileOptions(
+  return tflite_micro::CreateWhileOptions(
       _fbb,
       _cond_subgraph_index,
       _body_subgraph_index);
@@ -20095,7 +20095,7 @@ inline flatbuffers::Offset<NonMaxSuppressionV4Options> CreateNonMaxSuppressionV4
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const NonMaxSuppressionV4OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateNonMaxSuppressionV4Options(
+  return tflite_micro::CreateNonMaxSuppressionV4Options(
       _fbb);
 }
 
@@ -20118,7 +20118,7 @@ inline flatbuffers::Offset<NonMaxSuppressionV5Options> CreateNonMaxSuppressionV5
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const NonMaxSuppressionV5OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateNonMaxSuppressionV5Options(
+  return tflite_micro::CreateNonMaxSuppressionV5Options(
       _fbb);
 }
 
@@ -20141,7 +20141,7 @@ inline flatbuffers::Offset<ScatterNdOptions> CreateScatterNdOptions(flatbuffers:
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ScatterNdOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateScatterNdOptions(
+  return tflite_micro::CreateScatterNdOptions(
       _fbb);
 }
 
@@ -20164,7 +20164,7 @@ inline flatbuffers::Offset<SelectV2Options> CreateSelectV2Options(flatbuffers::F
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SelectV2OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSelectV2Options(
+  return tflite_micro::CreateSelectV2Options(
       _fbb);
 }
 
@@ -20187,7 +20187,7 @@ inline flatbuffers::Offset<DensifyOptions> CreateDensifyOptions(flatbuffers::Fla
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DensifyOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateDensifyOptions(
+  return tflite_micro::CreateDensifyOptions(
       _fbb);
 }
 
@@ -20210,7 +20210,7 @@ inline flatbuffers::Offset<SegmentSumOptions> CreateSegmentSumOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SegmentSumOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSegmentSumOptions(
+  return tflite_micro::CreateSegmentSumOptions(
       _fbb);
 }
 
@@ -20239,7 +20239,7 @@ inline flatbuffers::Offset<BatchMatMulOptions> CreateBatchMatMulOptions(flatbuff
   auto _adj_x = _o->adj_x;
   auto _adj_y = _o->adj_y;
   auto _asymmetric_quantize_inputs = _o->asymmetric_quantize_inputs;
-  return tflite::CreateBatchMatMulOptions(
+  return tflite_micro::CreateBatchMatMulOptions(
       _fbb,
       _adj_x,
       _adj_y,
@@ -20269,7 +20269,7 @@ inline flatbuffers::Offset<CumsumOptions> CreateCumsumOptions(flatbuffers::FlatB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const CumsumOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _exclusive = _o->exclusive;
   auto _reverse = _o->reverse;
-  return tflite::CreateCumsumOptions(
+  return tflite_micro::CreateCumsumOptions(
       _fbb,
       _exclusive,
       _reverse);
@@ -20294,7 +20294,7 @@ inline flatbuffers::Offset<BroadcastToOptions> CreateBroadcastToOptions(flatbuff
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const BroadcastToOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateBroadcastToOptions(
+  return tflite_micro::CreateBroadcastToOptions(
       _fbb);
 }
 
@@ -20317,7 +20317,7 @@ inline flatbuffers::Offset<Rfft2dOptions> CreateRfft2dOptions(flatbuffers::FlatB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const Rfft2dOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateRfft2dOptions(
+  return tflite_micro::CreateRfft2dOptions(
       _fbb);
 }
 
@@ -20346,7 +20346,7 @@ inline flatbuffers::Offset<HashtableOptions> CreateHashtableOptions(flatbuffers:
   auto _table_id = _o->table_id;
   auto _key_dtype = _o->key_dtype;
   auto _value_dtype = _o->value_dtype;
-  return tflite::CreateHashtableOptions(
+  return tflite_micro::CreateHashtableOptions(
       _fbb,
       _table_id,
       _key_dtype,
@@ -20372,7 +20372,7 @@ inline flatbuffers::Offset<HashtableFindOptions> CreateHashtableFindOptions(flat
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const HashtableFindOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateHashtableFindOptions(
+  return tflite_micro::CreateHashtableFindOptions(
       _fbb);
 }
 
@@ -20395,7 +20395,7 @@ inline flatbuffers::Offset<HashtableImportOptions> CreateHashtableImportOptions(
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const HashtableImportOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateHashtableImportOptions(
+  return tflite_micro::CreateHashtableImportOptions(
       _fbb);
 }
 
@@ -20418,7 +20418,7 @@ inline flatbuffers::Offset<HashtableSizeOptions> CreateHashtableSizeOptions(flat
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const HashtableSizeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateHashtableSizeOptions(
+  return tflite_micro::CreateHashtableSizeOptions(
       _fbb);
 }
 
@@ -20445,7 +20445,7 @@ inline flatbuffers::Offset<VarHandleOptions> CreateVarHandleOptions(flatbuffers:
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const VarHandleOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _container = _o->container.empty() ? 0 : _fbb.CreateString(_o->container);
   auto _shared_name = _o->shared_name.empty() ? 0 : _fbb.CreateString(_o->shared_name);
-  return tflite::CreateVarHandleOptions(
+  return tflite_micro::CreateVarHandleOptions(
       _fbb,
       _container,
       _shared_name);
@@ -20470,7 +20470,7 @@ inline flatbuffers::Offset<ReadVariableOptions> CreateReadVariableOptions(flatbu
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ReadVariableOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateReadVariableOptions(
+  return tflite_micro::CreateReadVariableOptions(
       _fbb);
 }
 
@@ -20493,7 +20493,7 @@ inline flatbuffers::Offset<AssignVariableOptions> CreateAssignVariableOptions(fl
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const AssignVariableOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateAssignVariableOptions(
+  return tflite_micro::CreateAssignVariableOptions(
       _fbb);
 }
 
@@ -20520,7 +20520,7 @@ inline flatbuffers::Offset<RandomOptions> CreateRandomOptions(flatbuffers::FlatB
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const RandomOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _seed = _o->seed;
   auto _seed2 = _o->seed2;
-  return tflite::CreateRandomOptions(
+  return tflite_micro::CreateRandomOptions(
       _fbb,
       _seed,
       _seed2);
@@ -20547,7 +20547,7 @@ inline flatbuffers::Offset<BucketizeOptions> CreateBucketizeOptions(flatbuffers:
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const BucketizeOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _boundaries = _o->boundaries.size() ? _fbb.CreateVector(_o->boundaries) : 0;
-  return tflite::CreateBucketizeOptions(
+  return tflite_micro::CreateBucketizeOptions(
       _fbb,
       _boundaries);
 }
@@ -20573,7 +20573,7 @@ inline flatbuffers::Offset<GeluOptions> CreateGeluOptions(flatbuffers::FlatBuffe
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const GeluOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _approximate = _o->approximate;
-  return tflite::CreateGeluOptions(
+  return tflite_micro::CreateGeluOptions(
       _fbb,
       _approximate);
 }
@@ -20597,7 +20597,7 @@ inline flatbuffers::Offset<DynamicUpdateSliceOptions> CreateDynamicUpdateSliceOp
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DynamicUpdateSliceOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateDynamicUpdateSliceOptions(
+  return tflite_micro::CreateDynamicUpdateSliceOptions(
       _fbb);
 }
 
@@ -20620,7 +20620,7 @@ inline flatbuffers::Offset<UnsortedSegmentProdOptions> CreateUnsortedSegmentProd
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const UnsortedSegmentProdOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateUnsortedSegmentProdOptions(
+  return tflite_micro::CreateUnsortedSegmentProdOptions(
       _fbb);
 }
 
@@ -20643,7 +20643,7 @@ inline flatbuffers::Offset<UnsortedSegmentMaxOptions> CreateUnsortedSegmentMaxOp
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const UnsortedSegmentMaxOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateUnsortedSegmentMaxOptions(
+  return tflite_micro::CreateUnsortedSegmentMaxOptions(
       _fbb);
 }
 
@@ -20666,7 +20666,7 @@ inline flatbuffers::Offset<UnsortedSegmentSumOptions> CreateUnsortedSegmentSumOp
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const UnsortedSegmentSumOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateUnsortedSegmentSumOptions(
+  return tflite_micro::CreateUnsortedSegmentSumOptions(
       _fbb);
 }
 
@@ -20689,7 +20689,7 @@ inline flatbuffers::Offset<ATan2Options> CreateATan2Options(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ATan2OptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateATan2Options(
+  return tflite_micro::CreateATan2Options(
       _fbb);
 }
 
@@ -20712,7 +20712,7 @@ inline flatbuffers::Offset<UnsortedSegmentMinOptions> CreateUnsortedSegmentMinOp
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const UnsortedSegmentMinOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateUnsortedSegmentMinOptions(
+  return tflite_micro::CreateUnsortedSegmentMinOptions(
       _fbb);
 }
 
@@ -20735,7 +20735,7 @@ inline flatbuffers::Offset<SignOptions> CreateSignOptions(flatbuffers::FlatBuffe
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SignOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateSignOptions(
+  return tflite_micro::CreateSignOptions(
       _fbb);
 }
 
@@ -20758,7 +20758,7 @@ inline flatbuffers::Offset<BitcastOptions> CreateBitcastOptions(flatbuffers::Fla
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const BitcastOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateBitcastOptions(
+  return tflite_micro::CreateBitcastOptions(
       _fbb);
 }
 
@@ -20781,7 +20781,7 @@ inline flatbuffers::Offset<BitwiseXorOptions> CreateBitwiseXorOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const BitwiseXorOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateBitwiseXorOptions(
+  return tflite_micro::CreateBitwiseXorOptions(
       _fbb);
 }
 
@@ -20804,7 +20804,7 @@ inline flatbuffers::Offset<RightShiftOptions> CreateRightShiftOptions(flatbuffer
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const RightShiftOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateRightShiftOptions(
+  return tflite_micro::CreateRightShiftOptions(
       _fbb);
 }
 
@@ -20827,7 +20827,7 @@ inline flatbuffers::Offset<DilateOptions> CreateDilateOptions(flatbuffers::FlatB
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const DilateOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  return tflite::CreateDilateOptions(
+  return tflite_micro::CreateDilateOptions(
       _fbb);
 }
 
@@ -20852,7 +20852,7 @@ inline flatbuffers::Offset<ReduceWindowOptions> CreateReduceWindowOptions(flatbu
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ReduceWindowOptionsT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _reduce_function = _o->reduce_function;
-  return tflite::CreateReduceWindowOptions(
+  return tflite_micro::CreateReduceWindowOptions(
       _fbb,
       _reduce_function);
 }
@@ -20884,7 +20884,7 @@ inline flatbuffers::Offset<OperatorCode> CreateOperatorCode(flatbuffers::FlatBuf
   auto _custom_code = _o->custom_code.empty() ? 0 : _fbb.CreateString(_o->custom_code);
   auto _version = _o->version;
   auto _builtin_code = _o->builtin_code;
-  return tflite::CreateOperatorCode(
+  return tflite_micro::CreateOperatorCode(
       _fbb,
       _deprecated_builtin_code,
       _custom_code,
@@ -20905,7 +20905,7 @@ inline void Operator::UnPackTo(OperatorT *_o, const flatbuffers::resolver_functi
   { auto _e = inputs(); if (_e) { _o->inputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->inputs[_i] = _e->Get(_i); } } }
   { auto _e = outputs(); if (_e) { _o->outputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->outputs[_i] = _e->Get(_i); } } }
   { auto _e = builtin_options_type(); _o->builtin_options.type = _e; }
-  { auto _e = builtin_options(); if (_e) _o->builtin_options.value = tflite::BuiltinOptionsUnion::UnPack(_e, builtin_options_type(), _resolver); }
+  { auto _e = builtin_options(); if (_e) _o->builtin_options.value = tflite_micro::BuiltinOptionsUnion::UnPack(_e, builtin_options_type(), _resolver); }
   { auto _e = custom_options(); if (_e) { _o->custom_options.resize(_e->size()); std::copy(_e->begin(), _e->end(), _o->custom_options.begin()); } }
   { auto _e = custom_options_format(); _o->custom_options_format = _e; }
   { auto _e = mutating_variable_inputs(); if (_e) { _o->mutating_variable_inputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->mutating_variable_inputs[_i] = _e->Get(_i) != 0; } } }
@@ -20913,7 +20913,7 @@ inline void Operator::UnPackTo(OperatorT *_o, const flatbuffers::resolver_functi
   { auto _e = large_custom_options_offset(); _o->large_custom_options_offset = _e; }
   { auto _e = large_custom_options_size(); _o->large_custom_options_size = _e; }
   { auto _e = builtin_options_2_type(); _o->builtin_options_2.type = _e; }
-  { auto _e = builtin_options_2(); if (_e) _o->builtin_options_2.value = tflite::BuiltinOptions2Union::UnPack(_e, builtin_options_2_type(), _resolver); }
+  { auto _e = builtin_options_2(); if (_e) _o->builtin_options_2.value = tflite_micro::BuiltinOptions2Union::UnPack(_e, builtin_options_2_type(), _resolver); }
 }
 
 inline flatbuffers::Offset<Operator> Operator::Pack(flatbuffers::FlatBufferBuilder &_fbb, const OperatorT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -20937,7 +20937,7 @@ inline flatbuffers::Offset<Operator> CreateOperator(flatbuffers::FlatBufferBuild
   auto _large_custom_options_size = _o->large_custom_options_size;
   auto _builtin_options_2_type = _o->builtin_options_2.type;
   auto _builtin_options_2 = _o->builtin_options_2.Pack(_fbb);
-  return tflite::CreateOperator(
+  return tflite_micro::CreateOperator(
       _fbb,
       _opcode_index,
       _inputs,
@@ -20959,9 +20959,9 @@ inline SubGraphT::SubGraphT(const SubGraphT &o)
         outputs(o.outputs),
         name(o.name) {
   tensors.reserve(o.tensors.size());
-  for (const auto &tensors_ : o.tensors) { tensors.emplace_back((tensors_) ? new tflite::TensorT(*tensors_) : nullptr); }
+  for (const auto &tensors_ : o.tensors) { tensors.emplace_back((tensors_) ? new tflite_micro::TensorT(*tensors_) : nullptr); }
   operators.reserve(o.operators.size());
-  for (const auto &operators_ : o.operators) { operators.emplace_back((operators_) ? new tflite::OperatorT(*operators_) : nullptr); }
+  for (const auto &operators_ : o.operators) { operators.emplace_back((operators_) ? new tflite_micro::OperatorT(*operators_) : nullptr); }
 }
 
 inline SubGraphT &SubGraphT::operator=(SubGraphT o) FLATBUFFERS_NOEXCEPT {
@@ -20982,10 +20982,10 @@ inline SubGraphT *SubGraph::UnPack(const flatbuffers::resolver_function_t *_reso
 inline void SubGraph::UnPackTo(SubGraphT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = tensors(); if (_e) { _o->tensors.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->tensors[_i]) { _e->Get(_i)->UnPackTo(_o->tensors[_i].get(), _resolver); } else { _o->tensors[_i] = std::unique_ptr<tflite::TensorT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = tensors(); if (_e) { _o->tensors.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->tensors[_i]) { _e->Get(_i)->UnPackTo(_o->tensors[_i].get(), _resolver); } else { _o->tensors[_i] = std::unique_ptr<tflite_micro::TensorT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
   { auto _e = inputs(); if (_e) { _o->inputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->inputs[_i] = _e->Get(_i); } } }
   { auto _e = outputs(); if (_e) { _o->outputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->outputs[_i] = _e->Get(_i); } } }
-  { auto _e = operators(); if (_e) { _o->operators.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->operators[_i]) { _e->Get(_i)->UnPackTo(_o->operators[_i].get(), _resolver); } else { _o->operators[_i] = std::unique_ptr<tflite::OperatorT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = operators(); if (_e) { _o->operators.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->operators[_i]) { _e->Get(_i)->UnPackTo(_o->operators[_i].get(), _resolver); } else { _o->operators[_i] = std::unique_ptr<tflite_micro::OperatorT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
   { auto _e = name(); if (_e) _o->name = _e->str(); }
 }
 
@@ -20997,12 +20997,12 @@ inline flatbuffers::Offset<SubGraph> CreateSubGraph(flatbuffers::FlatBufferBuild
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SubGraphT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _tensors = _o->tensors.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::Tensor>> (_o->tensors.size(), [](size_t i, _VectorArgs *__va) { return CreateTensor(*__va->__fbb, __va->__o->tensors[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _tensors = _o->tensors.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Tensor>> (_o->tensors.size(), [](size_t i, _VectorArgs *__va) { return CreateTensor(*__va->__fbb, __va->__o->tensors[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _inputs = _o->inputs.size() ? _fbb.CreateVector(_o->inputs) : 0;
   auto _outputs = _o->outputs.size() ? _fbb.CreateVector(_o->outputs) : 0;
-  auto _operators = _o->operators.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::Operator>> (_o->operators.size(), [](size_t i, _VectorArgs *__va) { return CreateOperator(*__va->__fbb, __va->__o->operators[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _operators = _o->operators.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Operator>> (_o->operators.size(), [](size_t i, _VectorArgs *__va) { return CreateOperator(*__va->__fbb, __va->__o->operators[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
-  return tflite::CreateSubGraph(
+  return tflite_micro::CreateSubGraph(
       _fbb,
       _tensors,
       _inputs,
@@ -21037,7 +21037,7 @@ inline flatbuffers::Offset<Buffer> CreateBuffer(flatbuffers::FlatBufferBuilder &
   auto _data = _o->data.size() ? _fbb.CreateVector(_o->data) : 0;
   auto _offset = _o->offset;
   auto _size = _o->size;
-  return tflite::CreateBuffer(
+  return tflite_micro::CreateBuffer(
       _fbb,
       _data,
       _offset,
@@ -21067,7 +21067,7 @@ inline flatbuffers::Offset<Metadata> CreateMetadata(flatbuffers::FlatBufferBuild
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const MetadataT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _buffer = _o->buffer;
-  return tflite::CreateMetadata(
+  return tflite_micro::CreateMetadata(
       _fbb,
       _name,
       _buffer);
@@ -21096,7 +21096,7 @@ inline flatbuffers::Offset<TensorMap> CreateTensorMap(flatbuffers::FlatBufferBui
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const TensorMapT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _name = _o->name.empty() ? 0 : _fbb.CreateString(_o->name);
   auto _tensor_index = _o->tensor_index;
-  return tflite::CreateTensorMap(
+  return tflite_micro::CreateTensorMap(
       _fbb,
       _name,
       _tensor_index);
@@ -21106,9 +21106,9 @@ inline SignatureDefT::SignatureDefT(const SignatureDefT &o)
       : signature_key(o.signature_key),
         subgraph_index(o.subgraph_index) {
   inputs.reserve(o.inputs.size());
-  for (const auto &inputs_ : o.inputs) { inputs.emplace_back((inputs_) ? new tflite::TensorMapT(*inputs_) : nullptr); }
+  for (const auto &inputs_ : o.inputs) { inputs.emplace_back((inputs_) ? new tflite_micro::TensorMapT(*inputs_) : nullptr); }
   outputs.reserve(o.outputs.size());
-  for (const auto &outputs_ : o.outputs) { outputs.emplace_back((outputs_) ? new tflite::TensorMapT(*outputs_) : nullptr); }
+  for (const auto &outputs_ : o.outputs) { outputs.emplace_back((outputs_) ? new tflite_micro::TensorMapT(*outputs_) : nullptr); }
 }
 
 inline SignatureDefT &SignatureDefT::operator=(SignatureDefT o) FLATBUFFERS_NOEXCEPT {
@@ -21128,8 +21128,8 @@ inline SignatureDefT *SignatureDef::UnPack(const flatbuffers::resolver_function_
 inline void SignatureDef::UnPackTo(SignatureDefT *_o, const flatbuffers::resolver_function_t *_resolver) const {
   (void)_o;
   (void)_resolver;
-  { auto _e = inputs(); if (_e) { _o->inputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->inputs[_i]) { _e->Get(_i)->UnPackTo(_o->inputs[_i].get(), _resolver); } else { _o->inputs[_i] = std::unique_ptr<tflite::TensorMapT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
-  { auto _e = outputs(); if (_e) { _o->outputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->outputs[_i]) { _e->Get(_i)->UnPackTo(_o->outputs[_i].get(), _resolver); } else { _o->outputs[_i] = std::unique_ptr<tflite::TensorMapT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = inputs(); if (_e) { _o->inputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->inputs[_i]) { _e->Get(_i)->UnPackTo(_o->inputs[_i].get(), _resolver); } else { _o->inputs[_i] = std::unique_ptr<tflite_micro::TensorMapT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = outputs(); if (_e) { _o->outputs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->outputs[_i]) { _e->Get(_i)->UnPackTo(_o->outputs[_i].get(), _resolver); } else { _o->outputs[_i] = std::unique_ptr<tflite_micro::TensorMapT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
   { auto _e = signature_key(); if (_e) _o->signature_key = _e->str(); }
   { auto _e = subgraph_index(); _o->subgraph_index = _e; }
 }
@@ -21142,11 +21142,11 @@ inline flatbuffers::Offset<SignatureDef> CreateSignatureDef(flatbuffers::FlatBuf
   (void)_rehasher;
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const SignatureDefT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
-  auto _inputs = _o->inputs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::TensorMap>> (_o->inputs.size(), [](size_t i, _VectorArgs *__va) { return CreateTensorMap(*__va->__fbb, __va->__o->inputs[i].get(), __va->__rehasher); }, &_va ) : 0;
-  auto _outputs = _o->outputs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::TensorMap>> (_o->outputs.size(), [](size_t i, _VectorArgs *__va) { return CreateTensorMap(*__va->__fbb, __va->__o->outputs[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _inputs = _o->inputs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::TensorMap>> (_o->inputs.size(), [](size_t i, _VectorArgs *__va) { return CreateTensorMap(*__va->__fbb, __va->__o->inputs[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _outputs = _o->outputs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::TensorMap>> (_o->outputs.size(), [](size_t i, _VectorArgs *__va) { return CreateTensorMap(*__va->__fbb, __va->__o->outputs[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _signature_key = _o->signature_key.empty() ? 0 : _fbb.CreateString(_o->signature_key);
   auto _subgraph_index = _o->subgraph_index;
-  return tflite::CreateSignatureDef(
+  return tflite_micro::CreateSignatureDef(
       _fbb,
       _inputs,
       _outputs,
@@ -21159,15 +21159,15 @@ inline ModelT::ModelT(const ModelT &o)
         description(o.description),
         metadata_buffer(o.metadata_buffer) {
   operator_codes.reserve(o.operator_codes.size());
-  for (const auto &operator_codes_ : o.operator_codes) { operator_codes.emplace_back((operator_codes_) ? new tflite::OperatorCodeT(*operator_codes_) : nullptr); }
+  for (const auto &operator_codes_ : o.operator_codes) { operator_codes.emplace_back((operator_codes_) ? new tflite_micro::OperatorCodeT(*operator_codes_) : nullptr); }
   subgraphs.reserve(o.subgraphs.size());
-  for (const auto &subgraphs_ : o.subgraphs) { subgraphs.emplace_back((subgraphs_) ? new tflite::SubGraphT(*subgraphs_) : nullptr); }
+  for (const auto &subgraphs_ : o.subgraphs) { subgraphs.emplace_back((subgraphs_) ? new tflite_micro::SubGraphT(*subgraphs_) : nullptr); }
   buffers.reserve(o.buffers.size());
-  for (const auto &buffers_ : o.buffers) { buffers.emplace_back((buffers_) ? new tflite::BufferT(*buffers_) : nullptr); }
+  for (const auto &buffers_ : o.buffers) { buffers.emplace_back((buffers_) ? new tflite_micro::BufferT(*buffers_) : nullptr); }
   metadata.reserve(o.metadata.size());
-  for (const auto &metadata_ : o.metadata) { metadata.emplace_back((metadata_) ? new tflite::MetadataT(*metadata_) : nullptr); }
+  for (const auto &metadata_ : o.metadata) { metadata.emplace_back((metadata_) ? new tflite_micro::MetadataT(*metadata_) : nullptr); }
   signature_defs.reserve(o.signature_defs.size());
-  for (const auto &signature_defs_ : o.signature_defs) { signature_defs.emplace_back((signature_defs_) ? new tflite::SignatureDefT(*signature_defs_) : nullptr); }
+  for (const auto &signature_defs_ : o.signature_defs) { signature_defs.emplace_back((signature_defs_) ? new tflite_micro::SignatureDefT(*signature_defs_) : nullptr); }
 }
 
 inline ModelT &ModelT::operator=(ModelT o) FLATBUFFERS_NOEXCEPT {
@@ -21192,13 +21192,13 @@ inline void Model::UnPackTo(ModelT *_o, const flatbuffers::resolver_function_t *
   (void)_o;
   (void)_resolver;
   { auto _e = version(); _o->version = _e; }
-  { auto _e = operator_codes(); if (_e) { _o->operator_codes.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->operator_codes[_i]) { _e->Get(_i)->UnPackTo(_o->operator_codes[_i].get(), _resolver); } else { _o->operator_codes[_i] = std::unique_ptr<tflite::OperatorCodeT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
-  { auto _e = subgraphs(); if (_e) { _o->subgraphs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->subgraphs[_i]) { _e->Get(_i)->UnPackTo(_o->subgraphs[_i].get(), _resolver); } else { _o->subgraphs[_i] = std::unique_ptr<tflite::SubGraphT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = operator_codes(); if (_e) { _o->operator_codes.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->operator_codes[_i]) { _e->Get(_i)->UnPackTo(_o->operator_codes[_i].get(), _resolver); } else { _o->operator_codes[_i] = std::unique_ptr<tflite_micro::OperatorCodeT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = subgraphs(); if (_e) { _o->subgraphs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->subgraphs[_i]) { _e->Get(_i)->UnPackTo(_o->subgraphs[_i].get(), _resolver); } else { _o->subgraphs[_i] = std::unique_ptr<tflite_micro::SubGraphT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
   { auto _e = description(); if (_e) _o->description = _e->str(); }
-  { auto _e = buffers(); if (_e) { _o->buffers.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->buffers[_i]) { _e->Get(_i)->UnPackTo(_o->buffers[_i].get(), _resolver); } else { _o->buffers[_i] = std::unique_ptr<tflite::BufferT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = buffers(); if (_e) { _o->buffers.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->buffers[_i]) { _e->Get(_i)->UnPackTo(_o->buffers[_i].get(), _resolver); } else { _o->buffers[_i] = std::unique_ptr<tflite_micro::BufferT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
   { auto _e = metadata_buffer(); if (_e) { _o->metadata_buffer.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { _o->metadata_buffer[_i] = _e->Get(_i); } } }
-  { auto _e = metadata(); if (_e) { _o->metadata.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->metadata[_i]) { _e->Get(_i)->UnPackTo(_o->metadata[_i].get(), _resolver); } else { _o->metadata[_i] = std::unique_ptr<tflite::MetadataT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
-  { auto _e = signature_defs(); if (_e) { _o->signature_defs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->signature_defs[_i]) { _e->Get(_i)->UnPackTo(_o->signature_defs[_i].get(), _resolver); } else { _o->signature_defs[_i] = std::unique_ptr<tflite::SignatureDefT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = metadata(); if (_e) { _o->metadata.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->metadata[_i]) { _e->Get(_i)->UnPackTo(_o->metadata[_i].get(), _resolver); } else { _o->metadata[_i] = std::unique_ptr<tflite_micro::MetadataT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
+  { auto _e = signature_defs(); if (_e) { _o->signature_defs.resize(_e->size()); for (flatbuffers::uoffset_t _i = 0; _i < _e->size(); _i++) { if(_o->signature_defs[_i]) { _e->Get(_i)->UnPackTo(_o->signature_defs[_i].get(), _resolver); } else { _o->signature_defs[_i] = std::unique_ptr<tflite_micro::SignatureDefT>(_e->Get(_i)->UnPack(_resolver)); }; } } }
 }
 
 inline flatbuffers::Offset<Model> Model::Pack(flatbuffers::FlatBufferBuilder &_fbb, const ModelT* _o, const flatbuffers::rehasher_function_t *_rehasher) {
@@ -21210,14 +21210,14 @@ inline flatbuffers::Offset<Model> CreateModel(flatbuffers::FlatBufferBuilder &_f
   (void)_o;
   struct _VectorArgs { flatbuffers::FlatBufferBuilder *__fbb; const ModelT* __o; const flatbuffers::rehasher_function_t *__rehasher; } _va = { &_fbb, _o, _rehasher}; (void)_va;
   auto _version = _o->version;
-  auto _operator_codes = _o->operator_codes.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::OperatorCode>> (_o->operator_codes.size(), [](size_t i, _VectorArgs *__va) { return CreateOperatorCode(*__va->__fbb, __va->__o->operator_codes[i].get(), __va->__rehasher); }, &_va ) : 0;
-  auto _subgraphs = _o->subgraphs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::SubGraph>> (_o->subgraphs.size(), [](size_t i, _VectorArgs *__va) { return CreateSubGraph(*__va->__fbb, __va->__o->subgraphs[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _operator_codes = _o->operator_codes.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::OperatorCode>> (_o->operator_codes.size(), [](size_t i, _VectorArgs *__va) { return CreateOperatorCode(*__va->__fbb, __va->__o->operator_codes[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _subgraphs = _o->subgraphs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::SubGraph>> (_o->subgraphs.size(), [](size_t i, _VectorArgs *__va) { return CreateSubGraph(*__va->__fbb, __va->__o->subgraphs[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _description = _o->description.empty() ? 0 : _fbb.CreateString(_o->description);
-  auto _buffers = _o->buffers.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::Buffer>> (_o->buffers.size(), [](size_t i, _VectorArgs *__va) { return CreateBuffer(*__va->__fbb, __va->__o->buffers[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _buffers = _o->buffers.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Buffer>> (_o->buffers.size(), [](size_t i, _VectorArgs *__va) { return CreateBuffer(*__va->__fbb, __va->__o->buffers[i].get(), __va->__rehasher); }, &_va ) : 0;
   auto _metadata_buffer = _o->metadata_buffer.size() ? _fbb.CreateVector(_o->metadata_buffer) : 0;
-  auto _metadata = _o->metadata.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::Metadata>> (_o->metadata.size(), [](size_t i, _VectorArgs *__va) { return CreateMetadata(*__va->__fbb, __va->__o->metadata[i].get(), __va->__rehasher); }, &_va ) : 0;
-  auto _signature_defs = _o->signature_defs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite::SignatureDef>> (_o->signature_defs.size(), [](size_t i, _VectorArgs *__va) { return CreateSignatureDef(*__va->__fbb, __va->__o->signature_defs[i].get(), __va->__rehasher); }, &_va ) : 0;
-  return tflite::CreateModel(
+  auto _metadata = _o->metadata.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::Metadata>> (_o->metadata.size(), [](size_t i, _VectorArgs *__va) { return CreateMetadata(*__va->__fbb, __va->__o->metadata[i].get(), __va->__rehasher); }, &_va ) : 0;
+  auto _signature_defs = _o->signature_defs.size() ? _fbb.CreateVector<flatbuffers::Offset<tflite_micro::SignatureDef>> (_o->signature_defs.size(), [](size_t i, _VectorArgs *__va) { return CreateSignatureDef(*__va->__fbb, __va->__o->signature_defs[i].get(), __va->__rehasher); }, &_va ) : 0;
+  return tflite_micro::CreateModel(
       _fbb,
       _version,
       _operator_codes,
@@ -21235,7 +21235,7 @@ inline bool VerifyQuantizationDetails(flatbuffers::Verifier &verifier, const voi
       return true;
     }
     case QuantizationDetails_CustomQuantization: {
-      auto ptr = reinterpret_cast<const tflite::CustomQuantization *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CustomQuantization *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;
@@ -21258,7 +21258,7 @@ inline void *QuantizationDetailsUnion::UnPack(const void *obj, QuantizationDetai
   (void)resolver;
   switch (type) {
     case QuantizationDetails_CustomQuantization: {
-      auto ptr = reinterpret_cast<const tflite::CustomQuantization *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CustomQuantization *>(obj);
       return ptr->UnPack(resolver);
     }
     default: return nullptr;
@@ -21269,7 +21269,7 @@ inline flatbuffers::Offset<void> QuantizationDetailsUnion::Pack(flatbuffers::Fla
   (void)_rehasher;
   switch (type) {
     case QuantizationDetails_CustomQuantization: {
-      auto ptr = reinterpret_cast<const tflite::CustomQuantizationT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::CustomQuantizationT *>(value);
       return CreateCustomQuantization(_fbb, ptr, _rehasher).Union();
     }
     default: return 0;
@@ -21279,7 +21279,7 @@ inline flatbuffers::Offset<void> QuantizationDetailsUnion::Pack(flatbuffers::Fla
 inline QuantizationDetailsUnion::QuantizationDetailsUnion(const QuantizationDetailsUnion &u) : type(u.type), value(nullptr) {
   switch (type) {
     case QuantizationDetails_CustomQuantization: {
-      value = new tflite::CustomQuantizationT(*reinterpret_cast<tflite::CustomQuantizationT *>(u.value));
+      value = new tflite_micro::CustomQuantizationT(*reinterpret_cast<tflite_micro::CustomQuantizationT *>(u.value));
       break;
     }
     default:
@@ -21290,7 +21290,7 @@ inline QuantizationDetailsUnion::QuantizationDetailsUnion(const QuantizationDeta
 inline void QuantizationDetailsUnion::Reset() {
   switch (type) {
     case QuantizationDetails_CustomQuantization: {
-      auto ptr = reinterpret_cast<tflite::CustomQuantizationT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::CustomQuantizationT *>(value);
       delete ptr;
       break;
     }
@@ -21306,15 +21306,15 @@ inline bool VerifySparseIndexVector(flatbuffers::Verifier &verifier, const void 
       return true;
     }
     case SparseIndexVector_Int32Vector: {
-      auto ptr = reinterpret_cast<const tflite::Int32Vector *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Int32Vector *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case SparseIndexVector_Uint16Vector: {
-      auto ptr = reinterpret_cast<const tflite::Uint16Vector *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Uint16Vector *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case SparseIndexVector_Uint8Vector: {
-      auto ptr = reinterpret_cast<const tflite::Uint8Vector *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Uint8Vector *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;
@@ -21337,15 +21337,15 @@ inline void *SparseIndexVectorUnion::UnPack(const void *obj, SparseIndexVector t
   (void)resolver;
   switch (type) {
     case SparseIndexVector_Int32Vector: {
-      auto ptr = reinterpret_cast<const tflite::Int32Vector *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Int32Vector *>(obj);
       return ptr->UnPack(resolver);
     }
     case SparseIndexVector_Uint16Vector: {
-      auto ptr = reinterpret_cast<const tflite::Uint16Vector *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Uint16Vector *>(obj);
       return ptr->UnPack(resolver);
     }
     case SparseIndexVector_Uint8Vector: {
-      auto ptr = reinterpret_cast<const tflite::Uint8Vector *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Uint8Vector *>(obj);
       return ptr->UnPack(resolver);
     }
     default: return nullptr;
@@ -21356,15 +21356,15 @@ inline flatbuffers::Offset<void> SparseIndexVectorUnion::Pack(flatbuffers::FlatB
   (void)_rehasher;
   switch (type) {
     case SparseIndexVector_Int32Vector: {
-      auto ptr = reinterpret_cast<const tflite::Int32VectorT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Int32VectorT *>(value);
       return CreateInt32Vector(_fbb, ptr, _rehasher).Union();
     }
     case SparseIndexVector_Uint16Vector: {
-      auto ptr = reinterpret_cast<const tflite::Uint16VectorT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Uint16VectorT *>(value);
       return CreateUint16Vector(_fbb, ptr, _rehasher).Union();
     }
     case SparseIndexVector_Uint8Vector: {
-      auto ptr = reinterpret_cast<const tflite::Uint8VectorT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Uint8VectorT *>(value);
       return CreateUint8Vector(_fbb, ptr, _rehasher).Union();
     }
     default: return 0;
@@ -21374,15 +21374,15 @@ inline flatbuffers::Offset<void> SparseIndexVectorUnion::Pack(flatbuffers::FlatB
 inline SparseIndexVectorUnion::SparseIndexVectorUnion(const SparseIndexVectorUnion &u) : type(u.type), value(nullptr) {
   switch (type) {
     case SparseIndexVector_Int32Vector: {
-      value = new tflite::Int32VectorT(*reinterpret_cast<tflite::Int32VectorT *>(u.value));
+      value = new tflite_micro::Int32VectorT(*reinterpret_cast<tflite_micro::Int32VectorT *>(u.value));
       break;
     }
     case SparseIndexVector_Uint16Vector: {
-      value = new tflite::Uint16VectorT(*reinterpret_cast<tflite::Uint16VectorT *>(u.value));
+      value = new tflite_micro::Uint16VectorT(*reinterpret_cast<tflite_micro::Uint16VectorT *>(u.value));
       break;
     }
     case SparseIndexVector_Uint8Vector: {
-      value = new tflite::Uint8VectorT(*reinterpret_cast<tflite::Uint8VectorT *>(u.value));
+      value = new tflite_micro::Uint8VectorT(*reinterpret_cast<tflite_micro::Uint8VectorT *>(u.value));
       break;
     }
     default:
@@ -21393,17 +21393,17 @@ inline SparseIndexVectorUnion::SparseIndexVectorUnion(const SparseIndexVectorUni
 inline void SparseIndexVectorUnion::Reset() {
   switch (type) {
     case SparseIndexVector_Int32Vector: {
-      auto ptr = reinterpret_cast<tflite::Int32VectorT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Int32VectorT *>(value);
       delete ptr;
       break;
     }
     case SparseIndexVector_Uint16Vector: {
-      auto ptr = reinterpret_cast<tflite::Uint16VectorT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Uint16VectorT *>(value);
       delete ptr;
       break;
     }
     case SparseIndexVector_Uint8Vector: {
-      auto ptr = reinterpret_cast<tflite::Uint8VectorT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Uint8VectorT *>(value);
       delete ptr;
       break;
     }
@@ -21419,507 +21419,507 @@ inline bool VerifyBuiltinOptions(flatbuffers::Verifier &verifier, const void *ob
       return true;
     }
     case BuiltinOptions_Conv2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Conv2DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Conv2DOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_DepthwiseConv2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::DepthwiseConv2DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DepthwiseConv2DOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ConcatEmbeddingsOptions: {
-      auto ptr = reinterpret_cast<const tflite::ConcatEmbeddingsOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ConcatEmbeddingsOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LSHProjectionOptions: {
-      auto ptr = reinterpret_cast<const tflite::LSHProjectionOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LSHProjectionOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_Pool2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Pool2DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Pool2DOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SVDFOptions: {
-      auto ptr = reinterpret_cast<const tflite::SVDFOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SVDFOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_RNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::RNNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RNNOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_FullyConnectedOptions: {
-      auto ptr = reinterpret_cast<const tflite::FullyConnectedOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FullyConnectedOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SoftmaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::SoftmaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SoftmaxOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ConcatenationOptions: {
-      auto ptr = reinterpret_cast<const tflite::ConcatenationOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ConcatenationOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_AddOptions: {
-      auto ptr = reinterpret_cast<const tflite::AddOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AddOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_L2NormOptions: {
-      auto ptr = reinterpret_cast<const tflite::L2NormOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::L2NormOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LocalResponseNormalizationOptions: {
-      auto ptr = reinterpret_cast<const tflite::LocalResponseNormalizationOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LocalResponseNormalizationOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::LSTMOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LSTMOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ResizeBilinearOptions: {
-      auto ptr = reinterpret_cast<const tflite::ResizeBilinearOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ResizeBilinearOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_CallOptions: {
-      auto ptr = reinterpret_cast<const tflite::CallOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CallOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ReshapeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReshapeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReshapeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SkipGramOptions: {
-      auto ptr = reinterpret_cast<const tflite::SkipGramOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SkipGramOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SpaceToDepthOptions: {
-      auto ptr = reinterpret_cast<const tflite::SpaceToDepthOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SpaceToDepthOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_EmbeddingLookupSparseOptions: {
-      auto ptr = reinterpret_cast<const tflite::EmbeddingLookupSparseOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::EmbeddingLookupSparseOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_MulOptions: {
-      auto ptr = reinterpret_cast<const tflite::MulOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MulOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_PadOptions: {
-      auto ptr = reinterpret_cast<const tflite::PadOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PadOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_GatherOptions: {
-      auto ptr = reinterpret_cast<const tflite::GatherOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GatherOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BatchToSpaceNDOptions: {
-      auto ptr = reinterpret_cast<const tflite::BatchToSpaceNDOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BatchToSpaceNDOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SpaceToBatchNDOptions: {
-      auto ptr = reinterpret_cast<const tflite::SpaceToBatchNDOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SpaceToBatchNDOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_TransposeOptions: {
-      auto ptr = reinterpret_cast<const tflite::TransposeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TransposeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ReducerOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReducerOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReducerOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SubOptions: {
-      auto ptr = reinterpret_cast<const tflite::SubOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SubOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_DivOptions: {
-      auto ptr = reinterpret_cast<const tflite::DivOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DivOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SqueezeOptions: {
-      auto ptr = reinterpret_cast<const tflite::SqueezeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SqueezeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SequenceRNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::SequenceRNNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SequenceRNNOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_StridedSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StridedSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StridedSliceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ExpOptions: {
-      auto ptr = reinterpret_cast<const tflite::ExpOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ExpOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_TopKV2Options: {
-      auto ptr = reinterpret_cast<const tflite::TopKV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TopKV2Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SplitOptions: {
-      auto ptr = reinterpret_cast<const tflite::SplitOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SplitOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LogSoftmaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogSoftmaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogSoftmaxOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_CastOptions: {
-      auto ptr = reinterpret_cast<const tflite::CastOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CastOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_DequantizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::DequantizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DequantizeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_MaximumMinimumOptions: {
-      auto ptr = reinterpret_cast<const tflite::MaximumMinimumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MaximumMinimumOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ArgMaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::ArgMaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ArgMaxOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LessOptions: {
-      auto ptr = reinterpret_cast<const tflite::LessOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LessOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_NegOptions: {
-      auto ptr = reinterpret_cast<const tflite::NegOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NegOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_PadV2Options: {
-      auto ptr = reinterpret_cast<const tflite::PadV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PadV2Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_GreaterOptions: {
-      auto ptr = reinterpret_cast<const tflite::GreaterOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GreaterOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_GreaterEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::GreaterEqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GreaterEqualOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LessEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::LessEqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LessEqualOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SelectOptions: {
-      auto ptr = reinterpret_cast<const tflite::SelectOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SelectOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::SliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SliceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_TransposeConvOptions: {
-      auto ptr = reinterpret_cast<const tflite::TransposeConvOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TransposeConvOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SparseToDenseOptions: {
-      auto ptr = reinterpret_cast<const tflite::SparseToDenseOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SparseToDenseOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_TileOptions: {
-      auto ptr = reinterpret_cast<const tflite::TileOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TileOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ExpandDimsOptions: {
-      auto ptr = reinterpret_cast<const tflite::ExpandDimsOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ExpandDimsOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_EqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::EqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::EqualOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_NotEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::NotEqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NotEqualOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ShapeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ShapeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ShapeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_PowOptions: {
-      auto ptr = reinterpret_cast<const tflite::PowOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PowOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ArgMinOptions: {
-      auto ptr = reinterpret_cast<const tflite::ArgMinOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ArgMinOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_FakeQuantOptions: {
-      auto ptr = reinterpret_cast<const tflite::FakeQuantOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FakeQuantOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_PackOptions: {
-      auto ptr = reinterpret_cast<const tflite::PackOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PackOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LogicalOrOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalOrOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalOrOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_OneHotOptions: {
-      auto ptr = reinterpret_cast<const tflite::OneHotOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::OneHotOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LogicalAndOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalAndOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalAndOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LogicalNotOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalNotOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalNotOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UnpackOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnpackOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnpackOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_FloorDivOptions: {
-      auto ptr = reinterpret_cast<const tflite::FloorDivOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FloorDivOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SquareOptions: {
-      auto ptr = reinterpret_cast<const tflite::SquareOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SquareOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ZerosLikeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ZerosLikeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ZerosLikeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_FillOptions: {
-      auto ptr = reinterpret_cast<const tflite::FillOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FillOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::BidirectionalSequenceLSTMOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BidirectionalSequenceLSTMOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BidirectionalSequenceRNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::BidirectionalSequenceRNNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BidirectionalSequenceRNNOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UnidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnidirectionalSequenceLSTMOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnidirectionalSequenceLSTMOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_FloorModOptions: {
-      auto ptr = reinterpret_cast<const tflite::FloorModOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FloorModOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_RangeOptions: {
-      auto ptr = reinterpret_cast<const tflite::RangeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RangeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ResizeNearestNeighborOptions: {
-      auto ptr = reinterpret_cast<const tflite::ResizeNearestNeighborOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ResizeNearestNeighborOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_LeakyReluOptions: {
-      auto ptr = reinterpret_cast<const tflite::LeakyReluOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LeakyReluOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SquaredDifferenceOptions: {
-      auto ptr = reinterpret_cast<const tflite::SquaredDifferenceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SquaredDifferenceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_MirrorPadOptions: {
-      auto ptr = reinterpret_cast<const tflite::MirrorPadOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MirrorPadOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_AbsOptions: {
-      auto ptr = reinterpret_cast<const tflite::AbsOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AbsOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SplitVOptions: {
-      auto ptr = reinterpret_cast<const tflite::SplitVOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SplitVOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UniqueOptions: {
-      auto ptr = reinterpret_cast<const tflite::UniqueOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UniqueOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ReverseV2Options: {
-      auto ptr = reinterpret_cast<const tflite::ReverseV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReverseV2Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_AddNOptions: {
-      auto ptr = reinterpret_cast<const tflite::AddNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AddNOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_GatherNdOptions: {
-      auto ptr = reinterpret_cast<const tflite::GatherNdOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GatherNdOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_CosOptions: {
-      auto ptr = reinterpret_cast<const tflite::CosOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CosOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_WhereOptions: {
-      auto ptr = reinterpret_cast<const tflite::WhereOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::WhereOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_RankOptions: {
-      auto ptr = reinterpret_cast<const tflite::RankOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RankOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ReverseSequenceOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReverseSequenceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReverseSequenceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_MatrixDiagOptions: {
-      auto ptr = reinterpret_cast<const tflite::MatrixDiagOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MatrixDiagOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_QuantizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::QuantizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::QuantizeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_MatrixSetDiagOptions: {
-      auto ptr = reinterpret_cast<const tflite::MatrixSetDiagOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MatrixSetDiagOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_HardSwishOptions: {
-      auto ptr = reinterpret_cast<const tflite::HardSwishOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HardSwishOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_IfOptions: {
-      auto ptr = reinterpret_cast<const tflite::IfOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::IfOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_WhileOptions: {
-      auto ptr = reinterpret_cast<const tflite::WhileOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::WhileOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_DepthToSpaceOptions: {
-      auto ptr = reinterpret_cast<const tflite::DepthToSpaceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DepthToSpaceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_NonMaxSuppressionV4Options: {
-      auto ptr = reinterpret_cast<const tflite::NonMaxSuppressionV4Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NonMaxSuppressionV4Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_NonMaxSuppressionV5Options: {
-      auto ptr = reinterpret_cast<const tflite::NonMaxSuppressionV5Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NonMaxSuppressionV5Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ScatterNdOptions: {
-      auto ptr = reinterpret_cast<const tflite::ScatterNdOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ScatterNdOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SelectV2Options: {
-      auto ptr = reinterpret_cast<const tflite::SelectV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SelectV2Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_DensifyOptions: {
-      auto ptr = reinterpret_cast<const tflite::DensifyOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DensifyOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SegmentSumOptions: {
-      auto ptr = reinterpret_cast<const tflite::SegmentSumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SegmentSumOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BatchMatMulOptions: {
-      auto ptr = reinterpret_cast<const tflite::BatchMatMulOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BatchMatMulOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_CumsumOptions: {
-      auto ptr = reinterpret_cast<const tflite::CumsumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CumsumOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_CallOnceOptions: {
-      auto ptr = reinterpret_cast<const tflite::CallOnceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CallOnceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BroadcastToOptions: {
-      auto ptr = reinterpret_cast<const tflite::BroadcastToOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BroadcastToOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_Rfft2dOptions: {
-      auto ptr = reinterpret_cast<const tflite::Rfft2dOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Rfft2dOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_Conv3DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Conv3DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Conv3DOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_HashtableOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_HashtableFindOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableFindOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableFindOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_HashtableImportOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableImportOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableImportOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_HashtableSizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableSizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableSizeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_VarHandleOptions: {
-      auto ptr = reinterpret_cast<const tflite::VarHandleOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::VarHandleOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ReadVariableOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReadVariableOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReadVariableOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_AssignVariableOptions: {
-      auto ptr = reinterpret_cast<const tflite::AssignVariableOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AssignVariableOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_RandomOptions: {
-      auto ptr = reinterpret_cast<const tflite::RandomOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RandomOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BucketizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::BucketizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BucketizeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_GeluOptions: {
-      auto ptr = reinterpret_cast<const tflite::GeluOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GeluOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_DynamicUpdateSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::DynamicUpdateSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DynamicUpdateSliceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UnsortedSegmentProdOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentProdOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentProdOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UnsortedSegmentMaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentMaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentMaxOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UnsortedSegmentMinOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentMinOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentMinOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_UnsortedSegmentSumOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentSumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentSumOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_ATan2Options: {
-      auto ptr = reinterpret_cast<const tflite::ATan2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ATan2Options *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_SignOptions: {
-      auto ptr = reinterpret_cast<const tflite::SignOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SignOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BitcastOptions: {
-      auto ptr = reinterpret_cast<const tflite::BitcastOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BitcastOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_BitwiseXorOptions: {
-      auto ptr = reinterpret_cast<const tflite::BitwiseXorOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BitwiseXorOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions_RightShiftOptions: {
-      auto ptr = reinterpret_cast<const tflite::RightShiftOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RightShiftOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;
@@ -21942,507 +21942,507 @@ inline void *BuiltinOptionsUnion::UnPack(const void *obj, BuiltinOptions type, c
   (void)resolver;
   switch (type) {
     case BuiltinOptions_Conv2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Conv2DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Conv2DOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_DepthwiseConv2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::DepthwiseConv2DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DepthwiseConv2DOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ConcatEmbeddingsOptions: {
-      auto ptr = reinterpret_cast<const tflite::ConcatEmbeddingsOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ConcatEmbeddingsOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LSHProjectionOptions: {
-      auto ptr = reinterpret_cast<const tflite::LSHProjectionOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LSHProjectionOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_Pool2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Pool2DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Pool2DOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SVDFOptions: {
-      auto ptr = reinterpret_cast<const tflite::SVDFOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SVDFOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_RNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::RNNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RNNOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_FullyConnectedOptions: {
-      auto ptr = reinterpret_cast<const tflite::FullyConnectedOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FullyConnectedOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SoftmaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::SoftmaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SoftmaxOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ConcatenationOptions: {
-      auto ptr = reinterpret_cast<const tflite::ConcatenationOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ConcatenationOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_AddOptions: {
-      auto ptr = reinterpret_cast<const tflite::AddOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AddOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_L2NormOptions: {
-      auto ptr = reinterpret_cast<const tflite::L2NormOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::L2NormOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LocalResponseNormalizationOptions: {
-      auto ptr = reinterpret_cast<const tflite::LocalResponseNormalizationOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LocalResponseNormalizationOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::LSTMOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LSTMOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ResizeBilinearOptions: {
-      auto ptr = reinterpret_cast<const tflite::ResizeBilinearOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ResizeBilinearOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_CallOptions: {
-      auto ptr = reinterpret_cast<const tflite::CallOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CallOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ReshapeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReshapeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReshapeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SkipGramOptions: {
-      auto ptr = reinterpret_cast<const tflite::SkipGramOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SkipGramOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SpaceToDepthOptions: {
-      auto ptr = reinterpret_cast<const tflite::SpaceToDepthOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SpaceToDepthOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_EmbeddingLookupSparseOptions: {
-      auto ptr = reinterpret_cast<const tflite::EmbeddingLookupSparseOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::EmbeddingLookupSparseOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_MulOptions: {
-      auto ptr = reinterpret_cast<const tflite::MulOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MulOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_PadOptions: {
-      auto ptr = reinterpret_cast<const tflite::PadOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PadOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_GatherOptions: {
-      auto ptr = reinterpret_cast<const tflite::GatherOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GatherOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BatchToSpaceNDOptions: {
-      auto ptr = reinterpret_cast<const tflite::BatchToSpaceNDOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BatchToSpaceNDOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SpaceToBatchNDOptions: {
-      auto ptr = reinterpret_cast<const tflite::SpaceToBatchNDOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SpaceToBatchNDOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_TransposeOptions: {
-      auto ptr = reinterpret_cast<const tflite::TransposeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TransposeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ReducerOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReducerOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReducerOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SubOptions: {
-      auto ptr = reinterpret_cast<const tflite::SubOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SubOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_DivOptions: {
-      auto ptr = reinterpret_cast<const tflite::DivOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DivOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SqueezeOptions: {
-      auto ptr = reinterpret_cast<const tflite::SqueezeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SqueezeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SequenceRNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::SequenceRNNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SequenceRNNOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_StridedSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StridedSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StridedSliceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ExpOptions: {
-      auto ptr = reinterpret_cast<const tflite::ExpOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ExpOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_TopKV2Options: {
-      auto ptr = reinterpret_cast<const tflite::TopKV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TopKV2Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SplitOptions: {
-      auto ptr = reinterpret_cast<const tflite::SplitOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SplitOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LogSoftmaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogSoftmaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogSoftmaxOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_CastOptions: {
-      auto ptr = reinterpret_cast<const tflite::CastOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CastOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_DequantizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::DequantizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DequantizeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_MaximumMinimumOptions: {
-      auto ptr = reinterpret_cast<const tflite::MaximumMinimumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MaximumMinimumOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ArgMaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::ArgMaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ArgMaxOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LessOptions: {
-      auto ptr = reinterpret_cast<const tflite::LessOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LessOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_NegOptions: {
-      auto ptr = reinterpret_cast<const tflite::NegOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NegOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_PadV2Options: {
-      auto ptr = reinterpret_cast<const tflite::PadV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PadV2Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_GreaterOptions: {
-      auto ptr = reinterpret_cast<const tflite::GreaterOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GreaterOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_GreaterEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::GreaterEqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GreaterEqualOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LessEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::LessEqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LessEqualOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SelectOptions: {
-      auto ptr = reinterpret_cast<const tflite::SelectOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SelectOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::SliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SliceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_TransposeConvOptions: {
-      auto ptr = reinterpret_cast<const tflite::TransposeConvOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TransposeConvOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SparseToDenseOptions: {
-      auto ptr = reinterpret_cast<const tflite::SparseToDenseOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SparseToDenseOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_TileOptions: {
-      auto ptr = reinterpret_cast<const tflite::TileOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::TileOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ExpandDimsOptions: {
-      auto ptr = reinterpret_cast<const tflite::ExpandDimsOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ExpandDimsOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_EqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::EqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::EqualOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_NotEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::NotEqualOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NotEqualOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ShapeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ShapeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ShapeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_PowOptions: {
-      auto ptr = reinterpret_cast<const tflite::PowOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PowOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ArgMinOptions: {
-      auto ptr = reinterpret_cast<const tflite::ArgMinOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ArgMinOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_FakeQuantOptions: {
-      auto ptr = reinterpret_cast<const tflite::FakeQuantOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FakeQuantOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_PackOptions: {
-      auto ptr = reinterpret_cast<const tflite::PackOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::PackOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LogicalOrOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalOrOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalOrOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_OneHotOptions: {
-      auto ptr = reinterpret_cast<const tflite::OneHotOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::OneHotOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LogicalAndOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalAndOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalAndOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LogicalNotOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalNotOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalNotOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UnpackOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnpackOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnpackOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_FloorDivOptions: {
-      auto ptr = reinterpret_cast<const tflite::FloorDivOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FloorDivOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SquareOptions: {
-      auto ptr = reinterpret_cast<const tflite::SquareOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SquareOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ZerosLikeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ZerosLikeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ZerosLikeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_FillOptions: {
-      auto ptr = reinterpret_cast<const tflite::FillOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FillOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::BidirectionalSequenceLSTMOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BidirectionalSequenceLSTMOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BidirectionalSequenceRNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::BidirectionalSequenceRNNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BidirectionalSequenceRNNOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UnidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnidirectionalSequenceLSTMOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnidirectionalSequenceLSTMOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_FloorModOptions: {
-      auto ptr = reinterpret_cast<const tflite::FloorModOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::FloorModOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_RangeOptions: {
-      auto ptr = reinterpret_cast<const tflite::RangeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RangeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ResizeNearestNeighborOptions: {
-      auto ptr = reinterpret_cast<const tflite::ResizeNearestNeighborOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ResizeNearestNeighborOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_LeakyReluOptions: {
-      auto ptr = reinterpret_cast<const tflite::LeakyReluOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::LeakyReluOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SquaredDifferenceOptions: {
-      auto ptr = reinterpret_cast<const tflite::SquaredDifferenceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SquaredDifferenceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_MirrorPadOptions: {
-      auto ptr = reinterpret_cast<const tflite::MirrorPadOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MirrorPadOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_AbsOptions: {
-      auto ptr = reinterpret_cast<const tflite::AbsOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AbsOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SplitVOptions: {
-      auto ptr = reinterpret_cast<const tflite::SplitVOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SplitVOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UniqueOptions: {
-      auto ptr = reinterpret_cast<const tflite::UniqueOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UniqueOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ReverseV2Options: {
-      auto ptr = reinterpret_cast<const tflite::ReverseV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReverseV2Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_AddNOptions: {
-      auto ptr = reinterpret_cast<const tflite::AddNOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AddNOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_GatherNdOptions: {
-      auto ptr = reinterpret_cast<const tflite::GatherNdOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GatherNdOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_CosOptions: {
-      auto ptr = reinterpret_cast<const tflite::CosOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CosOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_WhereOptions: {
-      auto ptr = reinterpret_cast<const tflite::WhereOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::WhereOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_RankOptions: {
-      auto ptr = reinterpret_cast<const tflite::RankOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RankOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ReverseSequenceOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReverseSequenceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReverseSequenceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_MatrixDiagOptions: {
-      auto ptr = reinterpret_cast<const tflite::MatrixDiagOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MatrixDiagOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_QuantizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::QuantizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::QuantizeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_MatrixSetDiagOptions: {
-      auto ptr = reinterpret_cast<const tflite::MatrixSetDiagOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::MatrixSetDiagOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_HardSwishOptions: {
-      auto ptr = reinterpret_cast<const tflite::HardSwishOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HardSwishOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_IfOptions: {
-      auto ptr = reinterpret_cast<const tflite::IfOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::IfOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_WhileOptions: {
-      auto ptr = reinterpret_cast<const tflite::WhileOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::WhileOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_DepthToSpaceOptions: {
-      auto ptr = reinterpret_cast<const tflite::DepthToSpaceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DepthToSpaceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_NonMaxSuppressionV4Options: {
-      auto ptr = reinterpret_cast<const tflite::NonMaxSuppressionV4Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NonMaxSuppressionV4Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_NonMaxSuppressionV5Options: {
-      auto ptr = reinterpret_cast<const tflite::NonMaxSuppressionV5Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::NonMaxSuppressionV5Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ScatterNdOptions: {
-      auto ptr = reinterpret_cast<const tflite::ScatterNdOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ScatterNdOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SelectV2Options: {
-      auto ptr = reinterpret_cast<const tflite::SelectV2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SelectV2Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_DensifyOptions: {
-      auto ptr = reinterpret_cast<const tflite::DensifyOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DensifyOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SegmentSumOptions: {
-      auto ptr = reinterpret_cast<const tflite::SegmentSumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SegmentSumOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BatchMatMulOptions: {
-      auto ptr = reinterpret_cast<const tflite::BatchMatMulOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BatchMatMulOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_CumsumOptions: {
-      auto ptr = reinterpret_cast<const tflite::CumsumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CumsumOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_CallOnceOptions: {
-      auto ptr = reinterpret_cast<const tflite::CallOnceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::CallOnceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BroadcastToOptions: {
-      auto ptr = reinterpret_cast<const tflite::BroadcastToOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BroadcastToOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_Rfft2dOptions: {
-      auto ptr = reinterpret_cast<const tflite::Rfft2dOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Rfft2dOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_Conv3DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Conv3DOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::Conv3DOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_HashtableOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_HashtableFindOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableFindOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableFindOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_HashtableImportOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableImportOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableImportOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_HashtableSizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableSizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableSizeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_VarHandleOptions: {
-      auto ptr = reinterpret_cast<const tflite::VarHandleOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::VarHandleOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ReadVariableOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReadVariableOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReadVariableOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_AssignVariableOptions: {
-      auto ptr = reinterpret_cast<const tflite::AssignVariableOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::AssignVariableOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_RandomOptions: {
-      auto ptr = reinterpret_cast<const tflite::RandomOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RandomOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BucketizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::BucketizeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BucketizeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_GeluOptions: {
-      auto ptr = reinterpret_cast<const tflite::GeluOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::GeluOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_DynamicUpdateSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::DynamicUpdateSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DynamicUpdateSliceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UnsortedSegmentProdOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentProdOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentProdOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UnsortedSegmentMaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentMaxOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentMaxOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UnsortedSegmentMinOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentMinOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentMinOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_UnsortedSegmentSumOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentSumOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentSumOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_ATan2Options: {
-      auto ptr = reinterpret_cast<const tflite::ATan2Options *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ATan2Options *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_SignOptions: {
-      auto ptr = reinterpret_cast<const tflite::SignOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::SignOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BitcastOptions: {
-      auto ptr = reinterpret_cast<const tflite::BitcastOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BitcastOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_BitwiseXorOptions: {
-      auto ptr = reinterpret_cast<const tflite::BitwiseXorOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::BitwiseXorOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions_RightShiftOptions: {
-      auto ptr = reinterpret_cast<const tflite::RightShiftOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::RightShiftOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     default: return nullptr;
@@ -22453,507 +22453,507 @@ inline flatbuffers::Offset<void> BuiltinOptionsUnion::Pack(flatbuffers::FlatBuff
   (void)_rehasher;
   switch (type) {
     case BuiltinOptions_Conv2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Conv2DOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Conv2DOptionsT *>(value);
       return CreateConv2DOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_DepthwiseConv2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::DepthwiseConv2DOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DepthwiseConv2DOptionsT *>(value);
       return CreateDepthwiseConv2DOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ConcatEmbeddingsOptions: {
-      auto ptr = reinterpret_cast<const tflite::ConcatEmbeddingsOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ConcatEmbeddingsOptionsT *>(value);
       return CreateConcatEmbeddingsOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LSHProjectionOptions: {
-      auto ptr = reinterpret_cast<const tflite::LSHProjectionOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LSHProjectionOptionsT *>(value);
       return CreateLSHProjectionOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_Pool2DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Pool2DOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Pool2DOptionsT *>(value);
       return CreatePool2DOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SVDFOptions: {
-      auto ptr = reinterpret_cast<const tflite::SVDFOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SVDFOptionsT *>(value);
       return CreateSVDFOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_RNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::RNNOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::RNNOptionsT *>(value);
       return CreateRNNOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_FullyConnectedOptions: {
-      auto ptr = reinterpret_cast<const tflite::FullyConnectedOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::FullyConnectedOptionsT *>(value);
       return CreateFullyConnectedOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SoftmaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::SoftmaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SoftmaxOptionsT *>(value);
       return CreateSoftmaxOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ConcatenationOptions: {
-      auto ptr = reinterpret_cast<const tflite::ConcatenationOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ConcatenationOptionsT *>(value);
       return CreateConcatenationOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_AddOptions: {
-      auto ptr = reinterpret_cast<const tflite::AddOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::AddOptionsT *>(value);
       return CreateAddOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_L2NormOptions: {
-      auto ptr = reinterpret_cast<const tflite::L2NormOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::L2NormOptionsT *>(value);
       return CreateL2NormOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LocalResponseNormalizationOptions: {
-      auto ptr = reinterpret_cast<const tflite::LocalResponseNormalizationOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LocalResponseNormalizationOptionsT *>(value);
       return CreateLocalResponseNormalizationOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::LSTMOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LSTMOptionsT *>(value);
       return CreateLSTMOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ResizeBilinearOptions: {
-      auto ptr = reinterpret_cast<const tflite::ResizeBilinearOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ResizeBilinearOptionsT *>(value);
       return CreateResizeBilinearOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_CallOptions: {
-      auto ptr = reinterpret_cast<const tflite::CallOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::CallOptionsT *>(value);
       return CreateCallOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ReshapeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReshapeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ReshapeOptionsT *>(value);
       return CreateReshapeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SkipGramOptions: {
-      auto ptr = reinterpret_cast<const tflite::SkipGramOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SkipGramOptionsT *>(value);
       return CreateSkipGramOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SpaceToDepthOptions: {
-      auto ptr = reinterpret_cast<const tflite::SpaceToDepthOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SpaceToDepthOptionsT *>(value);
       return CreateSpaceToDepthOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_EmbeddingLookupSparseOptions: {
-      auto ptr = reinterpret_cast<const tflite::EmbeddingLookupSparseOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::EmbeddingLookupSparseOptionsT *>(value);
       return CreateEmbeddingLookupSparseOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_MulOptions: {
-      auto ptr = reinterpret_cast<const tflite::MulOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::MulOptionsT *>(value);
       return CreateMulOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_PadOptions: {
-      auto ptr = reinterpret_cast<const tflite::PadOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::PadOptionsT *>(value);
       return CreatePadOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_GatherOptions: {
-      auto ptr = reinterpret_cast<const tflite::GatherOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::GatherOptionsT *>(value);
       return CreateGatherOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BatchToSpaceNDOptions: {
-      auto ptr = reinterpret_cast<const tflite::BatchToSpaceNDOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BatchToSpaceNDOptionsT *>(value);
       return CreateBatchToSpaceNDOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SpaceToBatchNDOptions: {
-      auto ptr = reinterpret_cast<const tflite::SpaceToBatchNDOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SpaceToBatchNDOptionsT *>(value);
       return CreateSpaceToBatchNDOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_TransposeOptions: {
-      auto ptr = reinterpret_cast<const tflite::TransposeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::TransposeOptionsT *>(value);
       return CreateTransposeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ReducerOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReducerOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ReducerOptionsT *>(value);
       return CreateReducerOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SubOptions: {
-      auto ptr = reinterpret_cast<const tflite::SubOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SubOptionsT *>(value);
       return CreateSubOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_DivOptions: {
-      auto ptr = reinterpret_cast<const tflite::DivOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DivOptionsT *>(value);
       return CreateDivOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SqueezeOptions: {
-      auto ptr = reinterpret_cast<const tflite::SqueezeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SqueezeOptionsT *>(value);
       return CreateSqueezeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SequenceRNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::SequenceRNNOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SequenceRNNOptionsT *>(value);
       return CreateSequenceRNNOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_StridedSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StridedSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StridedSliceOptionsT *>(value);
       return CreateStridedSliceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ExpOptions: {
-      auto ptr = reinterpret_cast<const tflite::ExpOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ExpOptionsT *>(value);
       return CreateExpOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_TopKV2Options: {
-      auto ptr = reinterpret_cast<const tflite::TopKV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::TopKV2OptionsT *>(value);
       return CreateTopKV2Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SplitOptions: {
-      auto ptr = reinterpret_cast<const tflite::SplitOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SplitOptionsT *>(value);
       return CreateSplitOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LogSoftmaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogSoftmaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LogSoftmaxOptionsT *>(value);
       return CreateLogSoftmaxOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_CastOptions: {
-      auto ptr = reinterpret_cast<const tflite::CastOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::CastOptionsT *>(value);
       return CreateCastOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_DequantizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::DequantizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DequantizeOptionsT *>(value);
       return CreateDequantizeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_MaximumMinimumOptions: {
-      auto ptr = reinterpret_cast<const tflite::MaximumMinimumOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::MaximumMinimumOptionsT *>(value);
       return CreateMaximumMinimumOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ArgMaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::ArgMaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ArgMaxOptionsT *>(value);
       return CreateArgMaxOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LessOptions: {
-      auto ptr = reinterpret_cast<const tflite::LessOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LessOptionsT *>(value);
       return CreateLessOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_NegOptions: {
-      auto ptr = reinterpret_cast<const tflite::NegOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::NegOptionsT *>(value);
       return CreateNegOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_PadV2Options: {
-      auto ptr = reinterpret_cast<const tflite::PadV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::PadV2OptionsT *>(value);
       return CreatePadV2Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_GreaterOptions: {
-      auto ptr = reinterpret_cast<const tflite::GreaterOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::GreaterOptionsT *>(value);
       return CreateGreaterOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_GreaterEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::GreaterEqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::GreaterEqualOptionsT *>(value);
       return CreateGreaterEqualOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LessEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::LessEqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LessEqualOptionsT *>(value);
       return CreateLessEqualOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SelectOptions: {
-      auto ptr = reinterpret_cast<const tflite::SelectOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SelectOptionsT *>(value);
       return CreateSelectOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::SliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SliceOptionsT *>(value);
       return CreateSliceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_TransposeConvOptions: {
-      auto ptr = reinterpret_cast<const tflite::TransposeConvOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::TransposeConvOptionsT *>(value);
       return CreateTransposeConvOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SparseToDenseOptions: {
-      auto ptr = reinterpret_cast<const tflite::SparseToDenseOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SparseToDenseOptionsT *>(value);
       return CreateSparseToDenseOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_TileOptions: {
-      auto ptr = reinterpret_cast<const tflite::TileOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::TileOptionsT *>(value);
       return CreateTileOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ExpandDimsOptions: {
-      auto ptr = reinterpret_cast<const tflite::ExpandDimsOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ExpandDimsOptionsT *>(value);
       return CreateExpandDimsOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_EqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::EqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::EqualOptionsT *>(value);
       return CreateEqualOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_NotEqualOptions: {
-      auto ptr = reinterpret_cast<const tflite::NotEqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::NotEqualOptionsT *>(value);
       return CreateNotEqualOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ShapeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ShapeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ShapeOptionsT *>(value);
       return CreateShapeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_PowOptions: {
-      auto ptr = reinterpret_cast<const tflite::PowOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::PowOptionsT *>(value);
       return CreatePowOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ArgMinOptions: {
-      auto ptr = reinterpret_cast<const tflite::ArgMinOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ArgMinOptionsT *>(value);
       return CreateArgMinOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_FakeQuantOptions: {
-      auto ptr = reinterpret_cast<const tflite::FakeQuantOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::FakeQuantOptionsT *>(value);
       return CreateFakeQuantOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_PackOptions: {
-      auto ptr = reinterpret_cast<const tflite::PackOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::PackOptionsT *>(value);
       return CreatePackOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LogicalOrOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalOrOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalOrOptionsT *>(value);
       return CreateLogicalOrOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_OneHotOptions: {
-      auto ptr = reinterpret_cast<const tflite::OneHotOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::OneHotOptionsT *>(value);
       return CreateOneHotOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LogicalAndOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalAndOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalAndOptionsT *>(value);
       return CreateLogicalAndOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LogicalNotOptions: {
-      auto ptr = reinterpret_cast<const tflite::LogicalNotOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LogicalNotOptionsT *>(value);
       return CreateLogicalNotOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UnpackOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnpackOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UnpackOptionsT *>(value);
       return CreateUnpackOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_FloorDivOptions: {
-      auto ptr = reinterpret_cast<const tflite::FloorDivOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::FloorDivOptionsT *>(value);
       return CreateFloorDivOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SquareOptions: {
-      auto ptr = reinterpret_cast<const tflite::SquareOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SquareOptionsT *>(value);
       return CreateSquareOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ZerosLikeOptions: {
-      auto ptr = reinterpret_cast<const tflite::ZerosLikeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ZerosLikeOptionsT *>(value);
       return CreateZerosLikeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_FillOptions: {
-      auto ptr = reinterpret_cast<const tflite::FillOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::FillOptionsT *>(value);
       return CreateFillOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::BidirectionalSequenceLSTMOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BidirectionalSequenceLSTMOptionsT *>(value);
       return CreateBidirectionalSequenceLSTMOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BidirectionalSequenceRNNOptions: {
-      auto ptr = reinterpret_cast<const tflite::BidirectionalSequenceRNNOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BidirectionalSequenceRNNOptionsT *>(value);
       return CreateBidirectionalSequenceRNNOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UnidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnidirectionalSequenceLSTMOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UnidirectionalSequenceLSTMOptionsT *>(value);
       return CreateUnidirectionalSequenceLSTMOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_FloorModOptions: {
-      auto ptr = reinterpret_cast<const tflite::FloorModOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::FloorModOptionsT *>(value);
       return CreateFloorModOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_RangeOptions: {
-      auto ptr = reinterpret_cast<const tflite::RangeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::RangeOptionsT *>(value);
       return CreateRangeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ResizeNearestNeighborOptions: {
-      auto ptr = reinterpret_cast<const tflite::ResizeNearestNeighborOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ResizeNearestNeighborOptionsT *>(value);
       return CreateResizeNearestNeighborOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_LeakyReluOptions: {
-      auto ptr = reinterpret_cast<const tflite::LeakyReluOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::LeakyReluOptionsT *>(value);
       return CreateLeakyReluOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SquaredDifferenceOptions: {
-      auto ptr = reinterpret_cast<const tflite::SquaredDifferenceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SquaredDifferenceOptionsT *>(value);
       return CreateSquaredDifferenceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_MirrorPadOptions: {
-      auto ptr = reinterpret_cast<const tflite::MirrorPadOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::MirrorPadOptionsT *>(value);
       return CreateMirrorPadOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_AbsOptions: {
-      auto ptr = reinterpret_cast<const tflite::AbsOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::AbsOptionsT *>(value);
       return CreateAbsOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SplitVOptions: {
-      auto ptr = reinterpret_cast<const tflite::SplitVOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SplitVOptionsT *>(value);
       return CreateSplitVOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UniqueOptions: {
-      auto ptr = reinterpret_cast<const tflite::UniqueOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UniqueOptionsT *>(value);
       return CreateUniqueOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ReverseV2Options: {
-      auto ptr = reinterpret_cast<const tflite::ReverseV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ReverseV2OptionsT *>(value);
       return CreateReverseV2Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_AddNOptions: {
-      auto ptr = reinterpret_cast<const tflite::AddNOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::AddNOptionsT *>(value);
       return CreateAddNOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_GatherNdOptions: {
-      auto ptr = reinterpret_cast<const tflite::GatherNdOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::GatherNdOptionsT *>(value);
       return CreateGatherNdOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_CosOptions: {
-      auto ptr = reinterpret_cast<const tflite::CosOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::CosOptionsT *>(value);
       return CreateCosOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_WhereOptions: {
-      auto ptr = reinterpret_cast<const tflite::WhereOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::WhereOptionsT *>(value);
       return CreateWhereOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_RankOptions: {
-      auto ptr = reinterpret_cast<const tflite::RankOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::RankOptionsT *>(value);
       return CreateRankOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ReverseSequenceOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReverseSequenceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ReverseSequenceOptionsT *>(value);
       return CreateReverseSequenceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_MatrixDiagOptions: {
-      auto ptr = reinterpret_cast<const tflite::MatrixDiagOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::MatrixDiagOptionsT *>(value);
       return CreateMatrixDiagOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_QuantizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::QuantizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::QuantizeOptionsT *>(value);
       return CreateQuantizeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_MatrixSetDiagOptions: {
-      auto ptr = reinterpret_cast<const tflite::MatrixSetDiagOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::MatrixSetDiagOptionsT *>(value);
       return CreateMatrixSetDiagOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_HardSwishOptions: {
-      auto ptr = reinterpret_cast<const tflite::HardSwishOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::HardSwishOptionsT *>(value);
       return CreateHardSwishOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_IfOptions: {
-      auto ptr = reinterpret_cast<const tflite::IfOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::IfOptionsT *>(value);
       return CreateIfOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_WhileOptions: {
-      auto ptr = reinterpret_cast<const tflite::WhileOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::WhileOptionsT *>(value);
       return CreateWhileOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_DepthToSpaceOptions: {
-      auto ptr = reinterpret_cast<const tflite::DepthToSpaceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DepthToSpaceOptionsT *>(value);
       return CreateDepthToSpaceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_NonMaxSuppressionV4Options: {
-      auto ptr = reinterpret_cast<const tflite::NonMaxSuppressionV4OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::NonMaxSuppressionV4OptionsT *>(value);
       return CreateNonMaxSuppressionV4Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_NonMaxSuppressionV5Options: {
-      auto ptr = reinterpret_cast<const tflite::NonMaxSuppressionV5OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::NonMaxSuppressionV5OptionsT *>(value);
       return CreateNonMaxSuppressionV5Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ScatterNdOptions: {
-      auto ptr = reinterpret_cast<const tflite::ScatterNdOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ScatterNdOptionsT *>(value);
       return CreateScatterNdOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SelectV2Options: {
-      auto ptr = reinterpret_cast<const tflite::SelectV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SelectV2OptionsT *>(value);
       return CreateSelectV2Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_DensifyOptions: {
-      auto ptr = reinterpret_cast<const tflite::DensifyOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DensifyOptionsT *>(value);
       return CreateDensifyOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SegmentSumOptions: {
-      auto ptr = reinterpret_cast<const tflite::SegmentSumOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SegmentSumOptionsT *>(value);
       return CreateSegmentSumOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BatchMatMulOptions: {
-      auto ptr = reinterpret_cast<const tflite::BatchMatMulOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BatchMatMulOptionsT *>(value);
       return CreateBatchMatMulOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_CumsumOptions: {
-      auto ptr = reinterpret_cast<const tflite::CumsumOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::CumsumOptionsT *>(value);
       return CreateCumsumOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_CallOnceOptions: {
-      auto ptr = reinterpret_cast<const tflite::CallOnceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::CallOnceOptionsT *>(value);
       return CreateCallOnceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BroadcastToOptions: {
-      auto ptr = reinterpret_cast<const tflite::BroadcastToOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BroadcastToOptionsT *>(value);
       return CreateBroadcastToOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_Rfft2dOptions: {
-      auto ptr = reinterpret_cast<const tflite::Rfft2dOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Rfft2dOptionsT *>(value);
       return CreateRfft2dOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_Conv3DOptions: {
-      auto ptr = reinterpret_cast<const tflite::Conv3DOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::Conv3DOptionsT *>(value);
       return CreateConv3DOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_HashtableOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableOptionsT *>(value);
       return CreateHashtableOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_HashtableFindOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableFindOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableFindOptionsT *>(value);
       return CreateHashtableFindOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_HashtableImportOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableImportOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableImportOptionsT *>(value);
       return CreateHashtableImportOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_HashtableSizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::HashtableSizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::HashtableSizeOptionsT *>(value);
       return CreateHashtableSizeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_VarHandleOptions: {
-      auto ptr = reinterpret_cast<const tflite::VarHandleOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::VarHandleOptionsT *>(value);
       return CreateVarHandleOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ReadVariableOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReadVariableOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ReadVariableOptionsT *>(value);
       return CreateReadVariableOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_AssignVariableOptions: {
-      auto ptr = reinterpret_cast<const tflite::AssignVariableOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::AssignVariableOptionsT *>(value);
       return CreateAssignVariableOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_RandomOptions: {
-      auto ptr = reinterpret_cast<const tflite::RandomOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::RandomOptionsT *>(value);
       return CreateRandomOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BucketizeOptions: {
-      auto ptr = reinterpret_cast<const tflite::BucketizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BucketizeOptionsT *>(value);
       return CreateBucketizeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_GeluOptions: {
-      auto ptr = reinterpret_cast<const tflite::GeluOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::GeluOptionsT *>(value);
       return CreateGeluOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_DynamicUpdateSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::DynamicUpdateSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DynamicUpdateSliceOptionsT *>(value);
       return CreateDynamicUpdateSliceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UnsortedSegmentProdOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentProdOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentProdOptionsT *>(value);
       return CreateUnsortedSegmentProdOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UnsortedSegmentMaxOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentMaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentMaxOptionsT *>(value);
       return CreateUnsortedSegmentMaxOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UnsortedSegmentMinOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentMinOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentMinOptionsT *>(value);
       return CreateUnsortedSegmentMinOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_UnsortedSegmentSumOptions: {
-      auto ptr = reinterpret_cast<const tflite::UnsortedSegmentSumOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::UnsortedSegmentSumOptionsT *>(value);
       return CreateUnsortedSegmentSumOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_ATan2Options: {
-      auto ptr = reinterpret_cast<const tflite::ATan2OptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ATan2OptionsT *>(value);
       return CreateATan2Options(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_SignOptions: {
-      auto ptr = reinterpret_cast<const tflite::SignOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::SignOptionsT *>(value);
       return CreateSignOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BitcastOptions: {
-      auto ptr = reinterpret_cast<const tflite::BitcastOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BitcastOptionsT *>(value);
       return CreateBitcastOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_BitwiseXorOptions: {
-      auto ptr = reinterpret_cast<const tflite::BitwiseXorOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::BitwiseXorOptionsT *>(value);
       return CreateBitwiseXorOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions_RightShiftOptions: {
-      auto ptr = reinterpret_cast<const tflite::RightShiftOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::RightShiftOptionsT *>(value);
       return CreateRightShiftOptions(_fbb, ptr, _rehasher).Union();
     }
     default: return 0;
@@ -22963,507 +22963,507 @@ inline flatbuffers::Offset<void> BuiltinOptionsUnion::Pack(flatbuffers::FlatBuff
 inline BuiltinOptionsUnion::BuiltinOptionsUnion(const BuiltinOptionsUnion &u) : type(u.type), value(nullptr) {
   switch (type) {
     case BuiltinOptions_Conv2DOptions: {
-      value = new tflite::Conv2DOptionsT(*reinterpret_cast<tflite::Conv2DOptionsT *>(u.value));
+      value = new tflite_micro::Conv2DOptionsT(*reinterpret_cast<tflite_micro::Conv2DOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_DepthwiseConv2DOptions: {
-      value = new tflite::DepthwiseConv2DOptionsT(*reinterpret_cast<tflite::DepthwiseConv2DOptionsT *>(u.value));
+      value = new tflite_micro::DepthwiseConv2DOptionsT(*reinterpret_cast<tflite_micro::DepthwiseConv2DOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ConcatEmbeddingsOptions: {
-      value = new tflite::ConcatEmbeddingsOptionsT(*reinterpret_cast<tflite::ConcatEmbeddingsOptionsT *>(u.value));
+      value = new tflite_micro::ConcatEmbeddingsOptionsT(*reinterpret_cast<tflite_micro::ConcatEmbeddingsOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LSHProjectionOptions: {
-      value = new tflite::LSHProjectionOptionsT(*reinterpret_cast<tflite::LSHProjectionOptionsT *>(u.value));
+      value = new tflite_micro::LSHProjectionOptionsT(*reinterpret_cast<tflite_micro::LSHProjectionOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_Pool2DOptions: {
-      value = new tflite::Pool2DOptionsT(*reinterpret_cast<tflite::Pool2DOptionsT *>(u.value));
+      value = new tflite_micro::Pool2DOptionsT(*reinterpret_cast<tflite_micro::Pool2DOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SVDFOptions: {
-      value = new tflite::SVDFOptionsT(*reinterpret_cast<tflite::SVDFOptionsT *>(u.value));
+      value = new tflite_micro::SVDFOptionsT(*reinterpret_cast<tflite_micro::SVDFOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_RNNOptions: {
-      value = new tflite::RNNOptionsT(*reinterpret_cast<tflite::RNNOptionsT *>(u.value));
+      value = new tflite_micro::RNNOptionsT(*reinterpret_cast<tflite_micro::RNNOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_FullyConnectedOptions: {
-      value = new tflite::FullyConnectedOptionsT(*reinterpret_cast<tflite::FullyConnectedOptionsT *>(u.value));
+      value = new tflite_micro::FullyConnectedOptionsT(*reinterpret_cast<tflite_micro::FullyConnectedOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SoftmaxOptions: {
-      value = new tflite::SoftmaxOptionsT(*reinterpret_cast<tflite::SoftmaxOptionsT *>(u.value));
+      value = new tflite_micro::SoftmaxOptionsT(*reinterpret_cast<tflite_micro::SoftmaxOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ConcatenationOptions: {
-      value = new tflite::ConcatenationOptionsT(*reinterpret_cast<tflite::ConcatenationOptionsT *>(u.value));
+      value = new tflite_micro::ConcatenationOptionsT(*reinterpret_cast<tflite_micro::ConcatenationOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_AddOptions: {
-      value = new tflite::AddOptionsT(*reinterpret_cast<tflite::AddOptionsT *>(u.value));
+      value = new tflite_micro::AddOptionsT(*reinterpret_cast<tflite_micro::AddOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_L2NormOptions: {
-      value = new tflite::L2NormOptionsT(*reinterpret_cast<tflite::L2NormOptionsT *>(u.value));
+      value = new tflite_micro::L2NormOptionsT(*reinterpret_cast<tflite_micro::L2NormOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LocalResponseNormalizationOptions: {
-      value = new tflite::LocalResponseNormalizationOptionsT(*reinterpret_cast<tflite::LocalResponseNormalizationOptionsT *>(u.value));
+      value = new tflite_micro::LocalResponseNormalizationOptionsT(*reinterpret_cast<tflite_micro::LocalResponseNormalizationOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LSTMOptions: {
-      value = new tflite::LSTMOptionsT(*reinterpret_cast<tflite::LSTMOptionsT *>(u.value));
+      value = new tflite_micro::LSTMOptionsT(*reinterpret_cast<tflite_micro::LSTMOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ResizeBilinearOptions: {
-      value = new tflite::ResizeBilinearOptionsT(*reinterpret_cast<tflite::ResizeBilinearOptionsT *>(u.value));
+      value = new tflite_micro::ResizeBilinearOptionsT(*reinterpret_cast<tflite_micro::ResizeBilinearOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_CallOptions: {
-      value = new tflite::CallOptionsT(*reinterpret_cast<tflite::CallOptionsT *>(u.value));
+      value = new tflite_micro::CallOptionsT(*reinterpret_cast<tflite_micro::CallOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ReshapeOptions: {
-      value = new tflite::ReshapeOptionsT(*reinterpret_cast<tflite::ReshapeOptionsT *>(u.value));
+      value = new tflite_micro::ReshapeOptionsT(*reinterpret_cast<tflite_micro::ReshapeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SkipGramOptions: {
-      value = new tflite::SkipGramOptionsT(*reinterpret_cast<tflite::SkipGramOptionsT *>(u.value));
+      value = new tflite_micro::SkipGramOptionsT(*reinterpret_cast<tflite_micro::SkipGramOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SpaceToDepthOptions: {
-      value = new tflite::SpaceToDepthOptionsT(*reinterpret_cast<tflite::SpaceToDepthOptionsT *>(u.value));
+      value = new tflite_micro::SpaceToDepthOptionsT(*reinterpret_cast<tflite_micro::SpaceToDepthOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_EmbeddingLookupSparseOptions: {
-      value = new tflite::EmbeddingLookupSparseOptionsT(*reinterpret_cast<tflite::EmbeddingLookupSparseOptionsT *>(u.value));
+      value = new tflite_micro::EmbeddingLookupSparseOptionsT(*reinterpret_cast<tflite_micro::EmbeddingLookupSparseOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_MulOptions: {
-      value = new tflite::MulOptionsT(*reinterpret_cast<tflite::MulOptionsT *>(u.value));
+      value = new tflite_micro::MulOptionsT(*reinterpret_cast<tflite_micro::MulOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_PadOptions: {
-      value = new tflite::PadOptionsT(*reinterpret_cast<tflite::PadOptionsT *>(u.value));
+      value = new tflite_micro::PadOptionsT(*reinterpret_cast<tflite_micro::PadOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_GatherOptions: {
-      value = new tflite::GatherOptionsT(*reinterpret_cast<tflite::GatherOptionsT *>(u.value));
+      value = new tflite_micro::GatherOptionsT(*reinterpret_cast<tflite_micro::GatherOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BatchToSpaceNDOptions: {
-      value = new tflite::BatchToSpaceNDOptionsT(*reinterpret_cast<tflite::BatchToSpaceNDOptionsT *>(u.value));
+      value = new tflite_micro::BatchToSpaceNDOptionsT(*reinterpret_cast<tflite_micro::BatchToSpaceNDOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SpaceToBatchNDOptions: {
-      value = new tflite::SpaceToBatchNDOptionsT(*reinterpret_cast<tflite::SpaceToBatchNDOptionsT *>(u.value));
+      value = new tflite_micro::SpaceToBatchNDOptionsT(*reinterpret_cast<tflite_micro::SpaceToBatchNDOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_TransposeOptions: {
-      value = new tflite::TransposeOptionsT(*reinterpret_cast<tflite::TransposeOptionsT *>(u.value));
+      value = new tflite_micro::TransposeOptionsT(*reinterpret_cast<tflite_micro::TransposeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ReducerOptions: {
-      value = new tflite::ReducerOptionsT(*reinterpret_cast<tflite::ReducerOptionsT *>(u.value));
+      value = new tflite_micro::ReducerOptionsT(*reinterpret_cast<tflite_micro::ReducerOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SubOptions: {
-      value = new tflite::SubOptionsT(*reinterpret_cast<tflite::SubOptionsT *>(u.value));
+      value = new tflite_micro::SubOptionsT(*reinterpret_cast<tflite_micro::SubOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_DivOptions: {
-      value = new tflite::DivOptionsT(*reinterpret_cast<tflite::DivOptionsT *>(u.value));
+      value = new tflite_micro::DivOptionsT(*reinterpret_cast<tflite_micro::DivOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SqueezeOptions: {
-      value = new tflite::SqueezeOptionsT(*reinterpret_cast<tflite::SqueezeOptionsT *>(u.value));
+      value = new tflite_micro::SqueezeOptionsT(*reinterpret_cast<tflite_micro::SqueezeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SequenceRNNOptions: {
-      value = new tflite::SequenceRNNOptionsT(*reinterpret_cast<tflite::SequenceRNNOptionsT *>(u.value));
+      value = new tflite_micro::SequenceRNNOptionsT(*reinterpret_cast<tflite_micro::SequenceRNNOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_StridedSliceOptions: {
-      value = new tflite::StridedSliceOptionsT(*reinterpret_cast<tflite::StridedSliceOptionsT *>(u.value));
+      value = new tflite_micro::StridedSliceOptionsT(*reinterpret_cast<tflite_micro::StridedSliceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ExpOptions: {
-      value = new tflite::ExpOptionsT(*reinterpret_cast<tflite::ExpOptionsT *>(u.value));
+      value = new tflite_micro::ExpOptionsT(*reinterpret_cast<tflite_micro::ExpOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_TopKV2Options: {
-      value = new tflite::TopKV2OptionsT(*reinterpret_cast<tflite::TopKV2OptionsT *>(u.value));
+      value = new tflite_micro::TopKV2OptionsT(*reinterpret_cast<tflite_micro::TopKV2OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SplitOptions: {
-      value = new tflite::SplitOptionsT(*reinterpret_cast<tflite::SplitOptionsT *>(u.value));
+      value = new tflite_micro::SplitOptionsT(*reinterpret_cast<tflite_micro::SplitOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LogSoftmaxOptions: {
-      value = new tflite::LogSoftmaxOptionsT(*reinterpret_cast<tflite::LogSoftmaxOptionsT *>(u.value));
+      value = new tflite_micro::LogSoftmaxOptionsT(*reinterpret_cast<tflite_micro::LogSoftmaxOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_CastOptions: {
-      value = new tflite::CastOptionsT(*reinterpret_cast<tflite::CastOptionsT *>(u.value));
+      value = new tflite_micro::CastOptionsT(*reinterpret_cast<tflite_micro::CastOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_DequantizeOptions: {
-      value = new tflite::DequantizeOptionsT(*reinterpret_cast<tflite::DequantizeOptionsT *>(u.value));
+      value = new tflite_micro::DequantizeOptionsT(*reinterpret_cast<tflite_micro::DequantizeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_MaximumMinimumOptions: {
-      value = new tflite::MaximumMinimumOptionsT(*reinterpret_cast<tflite::MaximumMinimumOptionsT *>(u.value));
+      value = new tflite_micro::MaximumMinimumOptionsT(*reinterpret_cast<tflite_micro::MaximumMinimumOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ArgMaxOptions: {
-      value = new tflite::ArgMaxOptionsT(*reinterpret_cast<tflite::ArgMaxOptionsT *>(u.value));
+      value = new tflite_micro::ArgMaxOptionsT(*reinterpret_cast<tflite_micro::ArgMaxOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LessOptions: {
-      value = new tflite::LessOptionsT(*reinterpret_cast<tflite::LessOptionsT *>(u.value));
+      value = new tflite_micro::LessOptionsT(*reinterpret_cast<tflite_micro::LessOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_NegOptions: {
-      value = new tflite::NegOptionsT(*reinterpret_cast<tflite::NegOptionsT *>(u.value));
+      value = new tflite_micro::NegOptionsT(*reinterpret_cast<tflite_micro::NegOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_PadV2Options: {
-      value = new tflite::PadV2OptionsT(*reinterpret_cast<tflite::PadV2OptionsT *>(u.value));
+      value = new tflite_micro::PadV2OptionsT(*reinterpret_cast<tflite_micro::PadV2OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_GreaterOptions: {
-      value = new tflite::GreaterOptionsT(*reinterpret_cast<tflite::GreaterOptionsT *>(u.value));
+      value = new tflite_micro::GreaterOptionsT(*reinterpret_cast<tflite_micro::GreaterOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_GreaterEqualOptions: {
-      value = new tflite::GreaterEqualOptionsT(*reinterpret_cast<tflite::GreaterEqualOptionsT *>(u.value));
+      value = new tflite_micro::GreaterEqualOptionsT(*reinterpret_cast<tflite_micro::GreaterEqualOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LessEqualOptions: {
-      value = new tflite::LessEqualOptionsT(*reinterpret_cast<tflite::LessEqualOptionsT *>(u.value));
+      value = new tflite_micro::LessEqualOptionsT(*reinterpret_cast<tflite_micro::LessEqualOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SelectOptions: {
-      value = new tflite::SelectOptionsT(*reinterpret_cast<tflite::SelectOptionsT *>(u.value));
+      value = new tflite_micro::SelectOptionsT(*reinterpret_cast<tflite_micro::SelectOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SliceOptions: {
-      value = new tflite::SliceOptionsT(*reinterpret_cast<tflite::SliceOptionsT *>(u.value));
+      value = new tflite_micro::SliceOptionsT(*reinterpret_cast<tflite_micro::SliceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_TransposeConvOptions: {
-      value = new tflite::TransposeConvOptionsT(*reinterpret_cast<tflite::TransposeConvOptionsT *>(u.value));
+      value = new tflite_micro::TransposeConvOptionsT(*reinterpret_cast<tflite_micro::TransposeConvOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SparseToDenseOptions: {
-      value = new tflite::SparseToDenseOptionsT(*reinterpret_cast<tflite::SparseToDenseOptionsT *>(u.value));
+      value = new tflite_micro::SparseToDenseOptionsT(*reinterpret_cast<tflite_micro::SparseToDenseOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_TileOptions: {
-      value = new tflite::TileOptionsT(*reinterpret_cast<tflite::TileOptionsT *>(u.value));
+      value = new tflite_micro::TileOptionsT(*reinterpret_cast<tflite_micro::TileOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ExpandDimsOptions: {
-      value = new tflite::ExpandDimsOptionsT(*reinterpret_cast<tflite::ExpandDimsOptionsT *>(u.value));
+      value = new tflite_micro::ExpandDimsOptionsT(*reinterpret_cast<tflite_micro::ExpandDimsOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_EqualOptions: {
-      value = new tflite::EqualOptionsT(*reinterpret_cast<tflite::EqualOptionsT *>(u.value));
+      value = new tflite_micro::EqualOptionsT(*reinterpret_cast<tflite_micro::EqualOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_NotEqualOptions: {
-      value = new tflite::NotEqualOptionsT(*reinterpret_cast<tflite::NotEqualOptionsT *>(u.value));
+      value = new tflite_micro::NotEqualOptionsT(*reinterpret_cast<tflite_micro::NotEqualOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ShapeOptions: {
-      value = new tflite::ShapeOptionsT(*reinterpret_cast<tflite::ShapeOptionsT *>(u.value));
+      value = new tflite_micro::ShapeOptionsT(*reinterpret_cast<tflite_micro::ShapeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_PowOptions: {
-      value = new tflite::PowOptionsT(*reinterpret_cast<tflite::PowOptionsT *>(u.value));
+      value = new tflite_micro::PowOptionsT(*reinterpret_cast<tflite_micro::PowOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ArgMinOptions: {
-      value = new tflite::ArgMinOptionsT(*reinterpret_cast<tflite::ArgMinOptionsT *>(u.value));
+      value = new tflite_micro::ArgMinOptionsT(*reinterpret_cast<tflite_micro::ArgMinOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_FakeQuantOptions: {
-      value = new tflite::FakeQuantOptionsT(*reinterpret_cast<tflite::FakeQuantOptionsT *>(u.value));
+      value = new tflite_micro::FakeQuantOptionsT(*reinterpret_cast<tflite_micro::FakeQuantOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_PackOptions: {
-      value = new tflite::PackOptionsT(*reinterpret_cast<tflite::PackOptionsT *>(u.value));
+      value = new tflite_micro::PackOptionsT(*reinterpret_cast<tflite_micro::PackOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LogicalOrOptions: {
-      value = new tflite::LogicalOrOptionsT(*reinterpret_cast<tflite::LogicalOrOptionsT *>(u.value));
+      value = new tflite_micro::LogicalOrOptionsT(*reinterpret_cast<tflite_micro::LogicalOrOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_OneHotOptions: {
-      value = new tflite::OneHotOptionsT(*reinterpret_cast<tflite::OneHotOptionsT *>(u.value));
+      value = new tflite_micro::OneHotOptionsT(*reinterpret_cast<tflite_micro::OneHotOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LogicalAndOptions: {
-      value = new tflite::LogicalAndOptionsT(*reinterpret_cast<tflite::LogicalAndOptionsT *>(u.value));
+      value = new tflite_micro::LogicalAndOptionsT(*reinterpret_cast<tflite_micro::LogicalAndOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LogicalNotOptions: {
-      value = new tflite::LogicalNotOptionsT(*reinterpret_cast<tflite::LogicalNotOptionsT *>(u.value));
+      value = new tflite_micro::LogicalNotOptionsT(*reinterpret_cast<tflite_micro::LogicalNotOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UnpackOptions: {
-      value = new tflite::UnpackOptionsT(*reinterpret_cast<tflite::UnpackOptionsT *>(u.value));
+      value = new tflite_micro::UnpackOptionsT(*reinterpret_cast<tflite_micro::UnpackOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_FloorDivOptions: {
-      value = new tflite::FloorDivOptionsT(*reinterpret_cast<tflite::FloorDivOptionsT *>(u.value));
+      value = new tflite_micro::FloorDivOptionsT(*reinterpret_cast<tflite_micro::FloorDivOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SquareOptions: {
-      value = new tflite::SquareOptionsT(*reinterpret_cast<tflite::SquareOptionsT *>(u.value));
+      value = new tflite_micro::SquareOptionsT(*reinterpret_cast<tflite_micro::SquareOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ZerosLikeOptions: {
-      value = new tflite::ZerosLikeOptionsT(*reinterpret_cast<tflite::ZerosLikeOptionsT *>(u.value));
+      value = new tflite_micro::ZerosLikeOptionsT(*reinterpret_cast<tflite_micro::ZerosLikeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_FillOptions: {
-      value = new tflite::FillOptionsT(*reinterpret_cast<tflite::FillOptionsT *>(u.value));
+      value = new tflite_micro::FillOptionsT(*reinterpret_cast<tflite_micro::FillOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BidirectionalSequenceLSTMOptions: {
-      value = new tflite::BidirectionalSequenceLSTMOptionsT(*reinterpret_cast<tflite::BidirectionalSequenceLSTMOptionsT *>(u.value));
+      value = new tflite_micro::BidirectionalSequenceLSTMOptionsT(*reinterpret_cast<tflite_micro::BidirectionalSequenceLSTMOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BidirectionalSequenceRNNOptions: {
-      value = new tflite::BidirectionalSequenceRNNOptionsT(*reinterpret_cast<tflite::BidirectionalSequenceRNNOptionsT *>(u.value));
+      value = new tflite_micro::BidirectionalSequenceRNNOptionsT(*reinterpret_cast<tflite_micro::BidirectionalSequenceRNNOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UnidirectionalSequenceLSTMOptions: {
-      value = new tflite::UnidirectionalSequenceLSTMOptionsT(*reinterpret_cast<tflite::UnidirectionalSequenceLSTMOptionsT *>(u.value));
+      value = new tflite_micro::UnidirectionalSequenceLSTMOptionsT(*reinterpret_cast<tflite_micro::UnidirectionalSequenceLSTMOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_FloorModOptions: {
-      value = new tflite::FloorModOptionsT(*reinterpret_cast<tflite::FloorModOptionsT *>(u.value));
+      value = new tflite_micro::FloorModOptionsT(*reinterpret_cast<tflite_micro::FloorModOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_RangeOptions: {
-      value = new tflite::RangeOptionsT(*reinterpret_cast<tflite::RangeOptionsT *>(u.value));
+      value = new tflite_micro::RangeOptionsT(*reinterpret_cast<tflite_micro::RangeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ResizeNearestNeighborOptions: {
-      value = new tflite::ResizeNearestNeighborOptionsT(*reinterpret_cast<tflite::ResizeNearestNeighborOptionsT *>(u.value));
+      value = new tflite_micro::ResizeNearestNeighborOptionsT(*reinterpret_cast<tflite_micro::ResizeNearestNeighborOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_LeakyReluOptions: {
-      value = new tflite::LeakyReluOptionsT(*reinterpret_cast<tflite::LeakyReluOptionsT *>(u.value));
+      value = new tflite_micro::LeakyReluOptionsT(*reinterpret_cast<tflite_micro::LeakyReluOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SquaredDifferenceOptions: {
-      value = new tflite::SquaredDifferenceOptionsT(*reinterpret_cast<tflite::SquaredDifferenceOptionsT *>(u.value));
+      value = new tflite_micro::SquaredDifferenceOptionsT(*reinterpret_cast<tflite_micro::SquaredDifferenceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_MirrorPadOptions: {
-      value = new tflite::MirrorPadOptionsT(*reinterpret_cast<tflite::MirrorPadOptionsT *>(u.value));
+      value = new tflite_micro::MirrorPadOptionsT(*reinterpret_cast<tflite_micro::MirrorPadOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_AbsOptions: {
-      value = new tflite::AbsOptionsT(*reinterpret_cast<tflite::AbsOptionsT *>(u.value));
+      value = new tflite_micro::AbsOptionsT(*reinterpret_cast<tflite_micro::AbsOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SplitVOptions: {
-      value = new tflite::SplitVOptionsT(*reinterpret_cast<tflite::SplitVOptionsT *>(u.value));
+      value = new tflite_micro::SplitVOptionsT(*reinterpret_cast<tflite_micro::SplitVOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UniqueOptions: {
-      value = new tflite::UniqueOptionsT(*reinterpret_cast<tflite::UniqueOptionsT *>(u.value));
+      value = new tflite_micro::UniqueOptionsT(*reinterpret_cast<tflite_micro::UniqueOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ReverseV2Options: {
-      value = new tflite::ReverseV2OptionsT(*reinterpret_cast<tflite::ReverseV2OptionsT *>(u.value));
+      value = new tflite_micro::ReverseV2OptionsT(*reinterpret_cast<tflite_micro::ReverseV2OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_AddNOptions: {
-      value = new tflite::AddNOptionsT(*reinterpret_cast<tflite::AddNOptionsT *>(u.value));
+      value = new tflite_micro::AddNOptionsT(*reinterpret_cast<tflite_micro::AddNOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_GatherNdOptions: {
-      value = new tflite::GatherNdOptionsT(*reinterpret_cast<tflite::GatherNdOptionsT *>(u.value));
+      value = new tflite_micro::GatherNdOptionsT(*reinterpret_cast<tflite_micro::GatherNdOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_CosOptions: {
-      value = new tflite::CosOptionsT(*reinterpret_cast<tflite::CosOptionsT *>(u.value));
+      value = new tflite_micro::CosOptionsT(*reinterpret_cast<tflite_micro::CosOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_WhereOptions: {
-      value = new tflite::WhereOptionsT(*reinterpret_cast<tflite::WhereOptionsT *>(u.value));
+      value = new tflite_micro::WhereOptionsT(*reinterpret_cast<tflite_micro::WhereOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_RankOptions: {
-      value = new tflite::RankOptionsT(*reinterpret_cast<tflite::RankOptionsT *>(u.value));
+      value = new tflite_micro::RankOptionsT(*reinterpret_cast<tflite_micro::RankOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ReverseSequenceOptions: {
-      value = new tflite::ReverseSequenceOptionsT(*reinterpret_cast<tflite::ReverseSequenceOptionsT *>(u.value));
+      value = new tflite_micro::ReverseSequenceOptionsT(*reinterpret_cast<tflite_micro::ReverseSequenceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_MatrixDiagOptions: {
-      value = new tflite::MatrixDiagOptionsT(*reinterpret_cast<tflite::MatrixDiagOptionsT *>(u.value));
+      value = new tflite_micro::MatrixDiagOptionsT(*reinterpret_cast<tflite_micro::MatrixDiagOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_QuantizeOptions: {
-      value = new tflite::QuantizeOptionsT(*reinterpret_cast<tflite::QuantizeOptionsT *>(u.value));
+      value = new tflite_micro::QuantizeOptionsT(*reinterpret_cast<tflite_micro::QuantizeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_MatrixSetDiagOptions: {
-      value = new tflite::MatrixSetDiagOptionsT(*reinterpret_cast<tflite::MatrixSetDiagOptionsT *>(u.value));
+      value = new tflite_micro::MatrixSetDiagOptionsT(*reinterpret_cast<tflite_micro::MatrixSetDiagOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_HardSwishOptions: {
-      value = new tflite::HardSwishOptionsT(*reinterpret_cast<tflite::HardSwishOptionsT *>(u.value));
+      value = new tflite_micro::HardSwishOptionsT(*reinterpret_cast<tflite_micro::HardSwishOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_IfOptions: {
-      value = new tflite::IfOptionsT(*reinterpret_cast<tflite::IfOptionsT *>(u.value));
+      value = new tflite_micro::IfOptionsT(*reinterpret_cast<tflite_micro::IfOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_WhileOptions: {
-      value = new tflite::WhileOptionsT(*reinterpret_cast<tflite::WhileOptionsT *>(u.value));
+      value = new tflite_micro::WhileOptionsT(*reinterpret_cast<tflite_micro::WhileOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_DepthToSpaceOptions: {
-      value = new tflite::DepthToSpaceOptionsT(*reinterpret_cast<tflite::DepthToSpaceOptionsT *>(u.value));
+      value = new tflite_micro::DepthToSpaceOptionsT(*reinterpret_cast<tflite_micro::DepthToSpaceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_NonMaxSuppressionV4Options: {
-      value = new tflite::NonMaxSuppressionV4OptionsT(*reinterpret_cast<tflite::NonMaxSuppressionV4OptionsT *>(u.value));
+      value = new tflite_micro::NonMaxSuppressionV4OptionsT(*reinterpret_cast<tflite_micro::NonMaxSuppressionV4OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_NonMaxSuppressionV5Options: {
-      value = new tflite::NonMaxSuppressionV5OptionsT(*reinterpret_cast<tflite::NonMaxSuppressionV5OptionsT *>(u.value));
+      value = new tflite_micro::NonMaxSuppressionV5OptionsT(*reinterpret_cast<tflite_micro::NonMaxSuppressionV5OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ScatterNdOptions: {
-      value = new tflite::ScatterNdOptionsT(*reinterpret_cast<tflite::ScatterNdOptionsT *>(u.value));
+      value = new tflite_micro::ScatterNdOptionsT(*reinterpret_cast<tflite_micro::ScatterNdOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SelectV2Options: {
-      value = new tflite::SelectV2OptionsT(*reinterpret_cast<tflite::SelectV2OptionsT *>(u.value));
+      value = new tflite_micro::SelectV2OptionsT(*reinterpret_cast<tflite_micro::SelectV2OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_DensifyOptions: {
-      value = new tflite::DensifyOptionsT(*reinterpret_cast<tflite::DensifyOptionsT *>(u.value));
+      value = new tflite_micro::DensifyOptionsT(*reinterpret_cast<tflite_micro::DensifyOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SegmentSumOptions: {
-      value = new tflite::SegmentSumOptionsT(*reinterpret_cast<tflite::SegmentSumOptionsT *>(u.value));
+      value = new tflite_micro::SegmentSumOptionsT(*reinterpret_cast<tflite_micro::SegmentSumOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BatchMatMulOptions: {
-      value = new tflite::BatchMatMulOptionsT(*reinterpret_cast<tflite::BatchMatMulOptionsT *>(u.value));
+      value = new tflite_micro::BatchMatMulOptionsT(*reinterpret_cast<tflite_micro::BatchMatMulOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_CumsumOptions: {
-      value = new tflite::CumsumOptionsT(*reinterpret_cast<tflite::CumsumOptionsT *>(u.value));
+      value = new tflite_micro::CumsumOptionsT(*reinterpret_cast<tflite_micro::CumsumOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_CallOnceOptions: {
-      value = new tflite::CallOnceOptionsT(*reinterpret_cast<tflite::CallOnceOptionsT *>(u.value));
+      value = new tflite_micro::CallOnceOptionsT(*reinterpret_cast<tflite_micro::CallOnceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BroadcastToOptions: {
-      value = new tflite::BroadcastToOptionsT(*reinterpret_cast<tflite::BroadcastToOptionsT *>(u.value));
+      value = new tflite_micro::BroadcastToOptionsT(*reinterpret_cast<tflite_micro::BroadcastToOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_Rfft2dOptions: {
-      value = new tflite::Rfft2dOptionsT(*reinterpret_cast<tflite::Rfft2dOptionsT *>(u.value));
+      value = new tflite_micro::Rfft2dOptionsT(*reinterpret_cast<tflite_micro::Rfft2dOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_Conv3DOptions: {
-      value = new tflite::Conv3DOptionsT(*reinterpret_cast<tflite::Conv3DOptionsT *>(u.value));
+      value = new tflite_micro::Conv3DOptionsT(*reinterpret_cast<tflite_micro::Conv3DOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_HashtableOptions: {
-      value = new tflite::HashtableOptionsT(*reinterpret_cast<tflite::HashtableOptionsT *>(u.value));
+      value = new tflite_micro::HashtableOptionsT(*reinterpret_cast<tflite_micro::HashtableOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_HashtableFindOptions: {
-      value = new tflite::HashtableFindOptionsT(*reinterpret_cast<tflite::HashtableFindOptionsT *>(u.value));
+      value = new tflite_micro::HashtableFindOptionsT(*reinterpret_cast<tflite_micro::HashtableFindOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_HashtableImportOptions: {
-      value = new tflite::HashtableImportOptionsT(*reinterpret_cast<tflite::HashtableImportOptionsT *>(u.value));
+      value = new tflite_micro::HashtableImportOptionsT(*reinterpret_cast<tflite_micro::HashtableImportOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_HashtableSizeOptions: {
-      value = new tflite::HashtableSizeOptionsT(*reinterpret_cast<tflite::HashtableSizeOptionsT *>(u.value));
+      value = new tflite_micro::HashtableSizeOptionsT(*reinterpret_cast<tflite_micro::HashtableSizeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_VarHandleOptions: {
-      value = new tflite::VarHandleOptionsT(*reinterpret_cast<tflite::VarHandleOptionsT *>(u.value));
+      value = new tflite_micro::VarHandleOptionsT(*reinterpret_cast<tflite_micro::VarHandleOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ReadVariableOptions: {
-      value = new tflite::ReadVariableOptionsT(*reinterpret_cast<tflite::ReadVariableOptionsT *>(u.value));
+      value = new tflite_micro::ReadVariableOptionsT(*reinterpret_cast<tflite_micro::ReadVariableOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_AssignVariableOptions: {
-      value = new tflite::AssignVariableOptionsT(*reinterpret_cast<tflite::AssignVariableOptionsT *>(u.value));
+      value = new tflite_micro::AssignVariableOptionsT(*reinterpret_cast<tflite_micro::AssignVariableOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_RandomOptions: {
-      value = new tflite::RandomOptionsT(*reinterpret_cast<tflite::RandomOptionsT *>(u.value));
+      value = new tflite_micro::RandomOptionsT(*reinterpret_cast<tflite_micro::RandomOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BucketizeOptions: {
-      value = new tflite::BucketizeOptionsT(*reinterpret_cast<tflite::BucketizeOptionsT *>(u.value));
+      value = new tflite_micro::BucketizeOptionsT(*reinterpret_cast<tflite_micro::BucketizeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_GeluOptions: {
-      value = new tflite::GeluOptionsT(*reinterpret_cast<tflite::GeluOptionsT *>(u.value));
+      value = new tflite_micro::GeluOptionsT(*reinterpret_cast<tflite_micro::GeluOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_DynamicUpdateSliceOptions: {
-      value = new tflite::DynamicUpdateSliceOptionsT(*reinterpret_cast<tflite::DynamicUpdateSliceOptionsT *>(u.value));
+      value = new tflite_micro::DynamicUpdateSliceOptionsT(*reinterpret_cast<tflite_micro::DynamicUpdateSliceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UnsortedSegmentProdOptions: {
-      value = new tflite::UnsortedSegmentProdOptionsT(*reinterpret_cast<tflite::UnsortedSegmentProdOptionsT *>(u.value));
+      value = new tflite_micro::UnsortedSegmentProdOptionsT(*reinterpret_cast<tflite_micro::UnsortedSegmentProdOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UnsortedSegmentMaxOptions: {
-      value = new tflite::UnsortedSegmentMaxOptionsT(*reinterpret_cast<tflite::UnsortedSegmentMaxOptionsT *>(u.value));
+      value = new tflite_micro::UnsortedSegmentMaxOptionsT(*reinterpret_cast<tflite_micro::UnsortedSegmentMaxOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UnsortedSegmentMinOptions: {
-      value = new tflite::UnsortedSegmentMinOptionsT(*reinterpret_cast<tflite::UnsortedSegmentMinOptionsT *>(u.value));
+      value = new tflite_micro::UnsortedSegmentMinOptionsT(*reinterpret_cast<tflite_micro::UnsortedSegmentMinOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_UnsortedSegmentSumOptions: {
-      value = new tflite::UnsortedSegmentSumOptionsT(*reinterpret_cast<tflite::UnsortedSegmentSumOptionsT *>(u.value));
+      value = new tflite_micro::UnsortedSegmentSumOptionsT(*reinterpret_cast<tflite_micro::UnsortedSegmentSumOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_ATan2Options: {
-      value = new tflite::ATan2OptionsT(*reinterpret_cast<tflite::ATan2OptionsT *>(u.value));
+      value = new tflite_micro::ATan2OptionsT(*reinterpret_cast<tflite_micro::ATan2OptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_SignOptions: {
-      value = new tflite::SignOptionsT(*reinterpret_cast<tflite::SignOptionsT *>(u.value));
+      value = new tflite_micro::SignOptionsT(*reinterpret_cast<tflite_micro::SignOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BitcastOptions: {
-      value = new tflite::BitcastOptionsT(*reinterpret_cast<tflite::BitcastOptionsT *>(u.value));
+      value = new tflite_micro::BitcastOptionsT(*reinterpret_cast<tflite_micro::BitcastOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_BitwiseXorOptions: {
-      value = new tflite::BitwiseXorOptionsT(*reinterpret_cast<tflite::BitwiseXorOptionsT *>(u.value));
+      value = new tflite_micro::BitwiseXorOptionsT(*reinterpret_cast<tflite_micro::BitwiseXorOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions_RightShiftOptions: {
-      value = new tflite::RightShiftOptionsT(*reinterpret_cast<tflite::RightShiftOptionsT *>(u.value));
+      value = new tflite_micro::RightShiftOptionsT(*reinterpret_cast<tflite_micro::RightShiftOptionsT *>(u.value));
       break;
     }
     default:
@@ -23474,632 +23474,632 @@ inline BuiltinOptionsUnion::BuiltinOptionsUnion(const BuiltinOptionsUnion &u) : 
 inline void BuiltinOptionsUnion::Reset() {
   switch (type) {
     case BuiltinOptions_Conv2DOptions: {
-      auto ptr = reinterpret_cast<tflite::Conv2DOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Conv2DOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_DepthwiseConv2DOptions: {
-      auto ptr = reinterpret_cast<tflite::DepthwiseConv2DOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DepthwiseConv2DOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ConcatEmbeddingsOptions: {
-      auto ptr = reinterpret_cast<tflite::ConcatEmbeddingsOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ConcatEmbeddingsOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LSHProjectionOptions: {
-      auto ptr = reinterpret_cast<tflite::LSHProjectionOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LSHProjectionOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_Pool2DOptions: {
-      auto ptr = reinterpret_cast<tflite::Pool2DOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Pool2DOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SVDFOptions: {
-      auto ptr = reinterpret_cast<tflite::SVDFOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SVDFOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_RNNOptions: {
-      auto ptr = reinterpret_cast<tflite::RNNOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::RNNOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_FullyConnectedOptions: {
-      auto ptr = reinterpret_cast<tflite::FullyConnectedOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::FullyConnectedOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SoftmaxOptions: {
-      auto ptr = reinterpret_cast<tflite::SoftmaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SoftmaxOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ConcatenationOptions: {
-      auto ptr = reinterpret_cast<tflite::ConcatenationOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ConcatenationOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_AddOptions: {
-      auto ptr = reinterpret_cast<tflite::AddOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::AddOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_L2NormOptions: {
-      auto ptr = reinterpret_cast<tflite::L2NormOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::L2NormOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LocalResponseNormalizationOptions: {
-      auto ptr = reinterpret_cast<tflite::LocalResponseNormalizationOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LocalResponseNormalizationOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LSTMOptions: {
-      auto ptr = reinterpret_cast<tflite::LSTMOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LSTMOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ResizeBilinearOptions: {
-      auto ptr = reinterpret_cast<tflite::ResizeBilinearOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ResizeBilinearOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_CallOptions: {
-      auto ptr = reinterpret_cast<tflite::CallOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::CallOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ReshapeOptions: {
-      auto ptr = reinterpret_cast<tflite::ReshapeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ReshapeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SkipGramOptions: {
-      auto ptr = reinterpret_cast<tflite::SkipGramOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SkipGramOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SpaceToDepthOptions: {
-      auto ptr = reinterpret_cast<tflite::SpaceToDepthOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SpaceToDepthOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_EmbeddingLookupSparseOptions: {
-      auto ptr = reinterpret_cast<tflite::EmbeddingLookupSparseOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::EmbeddingLookupSparseOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_MulOptions: {
-      auto ptr = reinterpret_cast<tflite::MulOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::MulOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_PadOptions: {
-      auto ptr = reinterpret_cast<tflite::PadOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::PadOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_GatherOptions: {
-      auto ptr = reinterpret_cast<tflite::GatherOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::GatherOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BatchToSpaceNDOptions: {
-      auto ptr = reinterpret_cast<tflite::BatchToSpaceNDOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BatchToSpaceNDOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SpaceToBatchNDOptions: {
-      auto ptr = reinterpret_cast<tflite::SpaceToBatchNDOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SpaceToBatchNDOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_TransposeOptions: {
-      auto ptr = reinterpret_cast<tflite::TransposeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::TransposeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ReducerOptions: {
-      auto ptr = reinterpret_cast<tflite::ReducerOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ReducerOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SubOptions: {
-      auto ptr = reinterpret_cast<tflite::SubOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SubOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_DivOptions: {
-      auto ptr = reinterpret_cast<tflite::DivOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DivOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SqueezeOptions: {
-      auto ptr = reinterpret_cast<tflite::SqueezeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SqueezeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SequenceRNNOptions: {
-      auto ptr = reinterpret_cast<tflite::SequenceRNNOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SequenceRNNOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_StridedSliceOptions: {
-      auto ptr = reinterpret_cast<tflite::StridedSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StridedSliceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ExpOptions: {
-      auto ptr = reinterpret_cast<tflite::ExpOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ExpOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_TopKV2Options: {
-      auto ptr = reinterpret_cast<tflite::TopKV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::TopKV2OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SplitOptions: {
-      auto ptr = reinterpret_cast<tflite::SplitOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SplitOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LogSoftmaxOptions: {
-      auto ptr = reinterpret_cast<tflite::LogSoftmaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LogSoftmaxOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_CastOptions: {
-      auto ptr = reinterpret_cast<tflite::CastOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::CastOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_DequantizeOptions: {
-      auto ptr = reinterpret_cast<tflite::DequantizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DequantizeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_MaximumMinimumOptions: {
-      auto ptr = reinterpret_cast<tflite::MaximumMinimumOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::MaximumMinimumOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ArgMaxOptions: {
-      auto ptr = reinterpret_cast<tflite::ArgMaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ArgMaxOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LessOptions: {
-      auto ptr = reinterpret_cast<tflite::LessOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LessOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_NegOptions: {
-      auto ptr = reinterpret_cast<tflite::NegOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::NegOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_PadV2Options: {
-      auto ptr = reinterpret_cast<tflite::PadV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::PadV2OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_GreaterOptions: {
-      auto ptr = reinterpret_cast<tflite::GreaterOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::GreaterOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_GreaterEqualOptions: {
-      auto ptr = reinterpret_cast<tflite::GreaterEqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::GreaterEqualOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LessEqualOptions: {
-      auto ptr = reinterpret_cast<tflite::LessEqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LessEqualOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SelectOptions: {
-      auto ptr = reinterpret_cast<tflite::SelectOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SelectOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SliceOptions: {
-      auto ptr = reinterpret_cast<tflite::SliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SliceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_TransposeConvOptions: {
-      auto ptr = reinterpret_cast<tflite::TransposeConvOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::TransposeConvOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SparseToDenseOptions: {
-      auto ptr = reinterpret_cast<tflite::SparseToDenseOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SparseToDenseOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_TileOptions: {
-      auto ptr = reinterpret_cast<tflite::TileOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::TileOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ExpandDimsOptions: {
-      auto ptr = reinterpret_cast<tflite::ExpandDimsOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ExpandDimsOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_EqualOptions: {
-      auto ptr = reinterpret_cast<tflite::EqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::EqualOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_NotEqualOptions: {
-      auto ptr = reinterpret_cast<tflite::NotEqualOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::NotEqualOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ShapeOptions: {
-      auto ptr = reinterpret_cast<tflite::ShapeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ShapeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_PowOptions: {
-      auto ptr = reinterpret_cast<tflite::PowOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::PowOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ArgMinOptions: {
-      auto ptr = reinterpret_cast<tflite::ArgMinOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ArgMinOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_FakeQuantOptions: {
-      auto ptr = reinterpret_cast<tflite::FakeQuantOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::FakeQuantOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_PackOptions: {
-      auto ptr = reinterpret_cast<tflite::PackOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::PackOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LogicalOrOptions: {
-      auto ptr = reinterpret_cast<tflite::LogicalOrOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LogicalOrOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_OneHotOptions: {
-      auto ptr = reinterpret_cast<tflite::OneHotOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::OneHotOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LogicalAndOptions: {
-      auto ptr = reinterpret_cast<tflite::LogicalAndOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LogicalAndOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LogicalNotOptions: {
-      auto ptr = reinterpret_cast<tflite::LogicalNotOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LogicalNotOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UnpackOptions: {
-      auto ptr = reinterpret_cast<tflite::UnpackOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UnpackOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_FloorDivOptions: {
-      auto ptr = reinterpret_cast<tflite::FloorDivOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::FloorDivOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SquareOptions: {
-      auto ptr = reinterpret_cast<tflite::SquareOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SquareOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ZerosLikeOptions: {
-      auto ptr = reinterpret_cast<tflite::ZerosLikeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ZerosLikeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_FillOptions: {
-      auto ptr = reinterpret_cast<tflite::FillOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::FillOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<tflite::BidirectionalSequenceLSTMOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BidirectionalSequenceLSTMOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BidirectionalSequenceRNNOptions: {
-      auto ptr = reinterpret_cast<tflite::BidirectionalSequenceRNNOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BidirectionalSequenceRNNOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UnidirectionalSequenceLSTMOptions: {
-      auto ptr = reinterpret_cast<tflite::UnidirectionalSequenceLSTMOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UnidirectionalSequenceLSTMOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_FloorModOptions: {
-      auto ptr = reinterpret_cast<tflite::FloorModOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::FloorModOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_RangeOptions: {
-      auto ptr = reinterpret_cast<tflite::RangeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::RangeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ResizeNearestNeighborOptions: {
-      auto ptr = reinterpret_cast<tflite::ResizeNearestNeighborOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ResizeNearestNeighborOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_LeakyReluOptions: {
-      auto ptr = reinterpret_cast<tflite::LeakyReluOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::LeakyReluOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SquaredDifferenceOptions: {
-      auto ptr = reinterpret_cast<tflite::SquaredDifferenceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SquaredDifferenceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_MirrorPadOptions: {
-      auto ptr = reinterpret_cast<tflite::MirrorPadOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::MirrorPadOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_AbsOptions: {
-      auto ptr = reinterpret_cast<tflite::AbsOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::AbsOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SplitVOptions: {
-      auto ptr = reinterpret_cast<tflite::SplitVOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SplitVOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UniqueOptions: {
-      auto ptr = reinterpret_cast<tflite::UniqueOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UniqueOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ReverseV2Options: {
-      auto ptr = reinterpret_cast<tflite::ReverseV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ReverseV2OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_AddNOptions: {
-      auto ptr = reinterpret_cast<tflite::AddNOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::AddNOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_GatherNdOptions: {
-      auto ptr = reinterpret_cast<tflite::GatherNdOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::GatherNdOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_CosOptions: {
-      auto ptr = reinterpret_cast<tflite::CosOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::CosOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_WhereOptions: {
-      auto ptr = reinterpret_cast<tflite::WhereOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::WhereOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_RankOptions: {
-      auto ptr = reinterpret_cast<tflite::RankOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::RankOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ReverseSequenceOptions: {
-      auto ptr = reinterpret_cast<tflite::ReverseSequenceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ReverseSequenceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_MatrixDiagOptions: {
-      auto ptr = reinterpret_cast<tflite::MatrixDiagOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::MatrixDiagOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_QuantizeOptions: {
-      auto ptr = reinterpret_cast<tflite::QuantizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::QuantizeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_MatrixSetDiagOptions: {
-      auto ptr = reinterpret_cast<tflite::MatrixSetDiagOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::MatrixSetDiagOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_HardSwishOptions: {
-      auto ptr = reinterpret_cast<tflite::HardSwishOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::HardSwishOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_IfOptions: {
-      auto ptr = reinterpret_cast<tflite::IfOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::IfOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_WhileOptions: {
-      auto ptr = reinterpret_cast<tflite::WhileOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::WhileOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_DepthToSpaceOptions: {
-      auto ptr = reinterpret_cast<tflite::DepthToSpaceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DepthToSpaceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_NonMaxSuppressionV4Options: {
-      auto ptr = reinterpret_cast<tflite::NonMaxSuppressionV4OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::NonMaxSuppressionV4OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_NonMaxSuppressionV5Options: {
-      auto ptr = reinterpret_cast<tflite::NonMaxSuppressionV5OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::NonMaxSuppressionV5OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ScatterNdOptions: {
-      auto ptr = reinterpret_cast<tflite::ScatterNdOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ScatterNdOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SelectV2Options: {
-      auto ptr = reinterpret_cast<tflite::SelectV2OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SelectV2OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_DensifyOptions: {
-      auto ptr = reinterpret_cast<tflite::DensifyOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DensifyOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SegmentSumOptions: {
-      auto ptr = reinterpret_cast<tflite::SegmentSumOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SegmentSumOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BatchMatMulOptions: {
-      auto ptr = reinterpret_cast<tflite::BatchMatMulOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BatchMatMulOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_CumsumOptions: {
-      auto ptr = reinterpret_cast<tflite::CumsumOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::CumsumOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_CallOnceOptions: {
-      auto ptr = reinterpret_cast<tflite::CallOnceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::CallOnceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BroadcastToOptions: {
-      auto ptr = reinterpret_cast<tflite::BroadcastToOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BroadcastToOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_Rfft2dOptions: {
-      auto ptr = reinterpret_cast<tflite::Rfft2dOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Rfft2dOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_Conv3DOptions: {
-      auto ptr = reinterpret_cast<tflite::Conv3DOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::Conv3DOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_HashtableOptions: {
-      auto ptr = reinterpret_cast<tflite::HashtableOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::HashtableOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_HashtableFindOptions: {
-      auto ptr = reinterpret_cast<tflite::HashtableFindOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::HashtableFindOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_HashtableImportOptions: {
-      auto ptr = reinterpret_cast<tflite::HashtableImportOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::HashtableImportOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_HashtableSizeOptions: {
-      auto ptr = reinterpret_cast<tflite::HashtableSizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::HashtableSizeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_VarHandleOptions: {
-      auto ptr = reinterpret_cast<tflite::VarHandleOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::VarHandleOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ReadVariableOptions: {
-      auto ptr = reinterpret_cast<tflite::ReadVariableOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ReadVariableOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_AssignVariableOptions: {
-      auto ptr = reinterpret_cast<tflite::AssignVariableOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::AssignVariableOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_RandomOptions: {
-      auto ptr = reinterpret_cast<tflite::RandomOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::RandomOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BucketizeOptions: {
-      auto ptr = reinterpret_cast<tflite::BucketizeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BucketizeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_GeluOptions: {
-      auto ptr = reinterpret_cast<tflite::GeluOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::GeluOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_DynamicUpdateSliceOptions: {
-      auto ptr = reinterpret_cast<tflite::DynamicUpdateSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DynamicUpdateSliceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UnsortedSegmentProdOptions: {
-      auto ptr = reinterpret_cast<tflite::UnsortedSegmentProdOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UnsortedSegmentProdOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UnsortedSegmentMaxOptions: {
-      auto ptr = reinterpret_cast<tflite::UnsortedSegmentMaxOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UnsortedSegmentMaxOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UnsortedSegmentMinOptions: {
-      auto ptr = reinterpret_cast<tflite::UnsortedSegmentMinOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UnsortedSegmentMinOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_UnsortedSegmentSumOptions: {
-      auto ptr = reinterpret_cast<tflite::UnsortedSegmentSumOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::UnsortedSegmentSumOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_ATan2Options: {
-      auto ptr = reinterpret_cast<tflite::ATan2OptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ATan2OptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_SignOptions: {
-      auto ptr = reinterpret_cast<tflite::SignOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::SignOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BitcastOptions: {
-      auto ptr = reinterpret_cast<tflite::BitcastOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BitcastOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_BitwiseXorOptions: {
-      auto ptr = reinterpret_cast<tflite::BitwiseXorOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::BitwiseXorOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions_RightShiftOptions: {
-      auto ptr = reinterpret_cast<tflite::RightShiftOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::RightShiftOptionsT *>(value);
       delete ptr;
       break;
     }
@@ -24115,83 +24115,83 @@ inline bool VerifyBuiltinOptions2(flatbuffers::Verifier &verifier, const void *o
       return true;
     }
     case BuiltinOptions2_StablehloConcatenateOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloConcatenateOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloConcatenateOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloBroadcastInDimOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloBroadcastInDimOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloBroadcastInDimOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloSliceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloConvolutionOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloConvolutionOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloConvolutionOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloCustomCallOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloCustomCallOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloCustomCallOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloReduceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloReduceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloReduceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloScatterOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloScatterOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloScatterOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloCompareOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloCompareOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloCompareOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloDynamicSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloDynamicSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloDynamicSliceOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloPadOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloPadOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloPadOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloIotaOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloIotaOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloIotaOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloDotGeneralOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloDotGeneralOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloDotGeneralOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloReduceWindowOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloReduceWindowOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloReduceWindowOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloSortOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloSortOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloSortOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloWhileOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloWhileOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloWhileOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloGatherOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloGatherOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloGatherOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloTransposeOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloTransposeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloTransposeOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_DilateOptions: {
-      auto ptr = reinterpret_cast<const tflite::DilateOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DilateOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_StablehloRngBitGeneratorOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloRngBitGeneratorOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloRngBitGeneratorOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case BuiltinOptions2_ReduceWindowOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReduceWindowOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReduceWindowOptions *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;
@@ -24214,83 +24214,83 @@ inline void *BuiltinOptions2Union::UnPack(const void *obj, BuiltinOptions2 type,
   (void)resolver;
   switch (type) {
     case BuiltinOptions2_StablehloConcatenateOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloConcatenateOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloConcatenateOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloBroadcastInDimOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloBroadcastInDimOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloBroadcastInDimOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloSliceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloConvolutionOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloConvolutionOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloConvolutionOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloCustomCallOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloCustomCallOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloCustomCallOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloReduceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloReduceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloReduceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloScatterOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloScatterOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloScatterOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloCompareOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloCompareOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloCompareOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloDynamicSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloDynamicSliceOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloDynamicSliceOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloPadOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloPadOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloPadOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloIotaOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloIotaOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloIotaOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloDotGeneralOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloDotGeneralOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloDotGeneralOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloReduceWindowOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloReduceWindowOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloReduceWindowOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloSortOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloSortOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloSortOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloWhileOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloWhileOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloWhileOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloGatherOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloGatherOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloGatherOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloTransposeOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloTransposeOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloTransposeOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_DilateOptions: {
-      auto ptr = reinterpret_cast<const tflite::DilateOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::DilateOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_StablehloRngBitGeneratorOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloRngBitGeneratorOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloRngBitGeneratorOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     case BuiltinOptions2_ReduceWindowOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReduceWindowOptions *>(obj);
+      auto ptr = reinterpret_cast<const tflite_micro::ReduceWindowOptions *>(obj);
       return ptr->UnPack(resolver);
     }
     default: return nullptr;
@@ -24301,83 +24301,83 @@ inline flatbuffers::Offset<void> BuiltinOptions2Union::Pack(flatbuffers::FlatBuf
   (void)_rehasher;
   switch (type) {
     case BuiltinOptions2_StablehloConcatenateOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloConcatenateOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloConcatenateOptionsT *>(value);
       return CreateStablehloConcatenateOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloBroadcastInDimOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloBroadcastInDimOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloBroadcastInDimOptionsT *>(value);
       return CreateStablehloBroadcastInDimOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloSliceOptionsT *>(value);
       return CreateStablehloSliceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloConvolutionOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloConvolutionOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloConvolutionOptionsT *>(value);
       return CreateStablehloConvolutionOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloCustomCallOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloCustomCallOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloCustomCallOptionsT *>(value);
       return CreateStablehloCustomCallOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloReduceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloReduceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloReduceOptionsT *>(value);
       return CreateStablehloReduceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloScatterOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloScatterOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloScatterOptionsT *>(value);
       return CreateStablehloScatterOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloCompareOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloCompareOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloCompareOptionsT *>(value);
       return CreateStablehloCompareOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloDynamicSliceOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloDynamicSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloDynamicSliceOptionsT *>(value);
       return CreateStablehloDynamicSliceOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloPadOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloPadOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloPadOptionsT *>(value);
       return CreateStablehloPadOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloIotaOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloIotaOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloIotaOptionsT *>(value);
       return CreateStablehloIotaOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloDotGeneralOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloDotGeneralOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloDotGeneralOptionsT *>(value);
       return CreateStablehloDotGeneralOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloReduceWindowOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloReduceWindowOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloReduceWindowOptionsT *>(value);
       return CreateStablehloReduceWindowOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloSortOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloSortOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloSortOptionsT *>(value);
       return CreateStablehloSortOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloWhileOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloWhileOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloWhileOptionsT *>(value);
       return CreateStablehloWhileOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloGatherOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloGatherOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloGatherOptionsT *>(value);
       return CreateStablehloGatherOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloTransposeOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloTransposeOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloTransposeOptionsT *>(value);
       return CreateStablehloTransposeOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_DilateOptions: {
-      auto ptr = reinterpret_cast<const tflite::DilateOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::DilateOptionsT *>(value);
       return CreateDilateOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_StablehloRngBitGeneratorOptions: {
-      auto ptr = reinterpret_cast<const tflite::StablehloRngBitGeneratorOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::StablehloRngBitGeneratorOptionsT *>(value);
       return CreateStablehloRngBitGeneratorOptions(_fbb, ptr, _rehasher).Union();
     }
     case BuiltinOptions2_ReduceWindowOptions: {
-      auto ptr = reinterpret_cast<const tflite::ReduceWindowOptionsT *>(value);
+      auto ptr = reinterpret_cast<const tflite_micro::ReduceWindowOptionsT *>(value);
       return CreateReduceWindowOptions(_fbb, ptr, _rehasher).Union();
     }
     default: return 0;
@@ -24387,83 +24387,83 @@ inline flatbuffers::Offset<void> BuiltinOptions2Union::Pack(flatbuffers::FlatBuf
 inline BuiltinOptions2Union::BuiltinOptions2Union(const BuiltinOptions2Union &u) : type(u.type), value(nullptr) {
   switch (type) {
     case BuiltinOptions2_StablehloConcatenateOptions: {
-      value = new tflite::StablehloConcatenateOptionsT(*reinterpret_cast<tflite::StablehloConcatenateOptionsT *>(u.value));
+      value = new tflite_micro::StablehloConcatenateOptionsT(*reinterpret_cast<tflite_micro::StablehloConcatenateOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloBroadcastInDimOptions: {
-      value = new tflite::StablehloBroadcastInDimOptionsT(*reinterpret_cast<tflite::StablehloBroadcastInDimOptionsT *>(u.value));
+      value = new tflite_micro::StablehloBroadcastInDimOptionsT(*reinterpret_cast<tflite_micro::StablehloBroadcastInDimOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloSliceOptions: {
-      value = new tflite::StablehloSliceOptionsT(*reinterpret_cast<tflite::StablehloSliceOptionsT *>(u.value));
+      value = new tflite_micro::StablehloSliceOptionsT(*reinterpret_cast<tflite_micro::StablehloSliceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloConvolutionOptions: {
-      value = new tflite::StablehloConvolutionOptionsT(*reinterpret_cast<tflite::StablehloConvolutionOptionsT *>(u.value));
+      value = new tflite_micro::StablehloConvolutionOptionsT(*reinterpret_cast<tflite_micro::StablehloConvolutionOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloCustomCallOptions: {
-      value = new tflite::StablehloCustomCallOptionsT(*reinterpret_cast<tflite::StablehloCustomCallOptionsT *>(u.value));
+      value = new tflite_micro::StablehloCustomCallOptionsT(*reinterpret_cast<tflite_micro::StablehloCustomCallOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloReduceOptions: {
-      value = new tflite::StablehloReduceOptionsT(*reinterpret_cast<tflite::StablehloReduceOptionsT *>(u.value));
+      value = new tflite_micro::StablehloReduceOptionsT(*reinterpret_cast<tflite_micro::StablehloReduceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloScatterOptions: {
-      value = new tflite::StablehloScatterOptionsT(*reinterpret_cast<tflite::StablehloScatterOptionsT *>(u.value));
+      value = new tflite_micro::StablehloScatterOptionsT(*reinterpret_cast<tflite_micro::StablehloScatterOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloCompareOptions: {
-      value = new tflite::StablehloCompareOptionsT(*reinterpret_cast<tflite::StablehloCompareOptionsT *>(u.value));
+      value = new tflite_micro::StablehloCompareOptionsT(*reinterpret_cast<tflite_micro::StablehloCompareOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloDynamicSliceOptions: {
-      value = new tflite::StablehloDynamicSliceOptionsT(*reinterpret_cast<tflite::StablehloDynamicSliceOptionsT *>(u.value));
+      value = new tflite_micro::StablehloDynamicSliceOptionsT(*reinterpret_cast<tflite_micro::StablehloDynamicSliceOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloPadOptions: {
-      value = new tflite::StablehloPadOptionsT(*reinterpret_cast<tflite::StablehloPadOptionsT *>(u.value));
+      value = new tflite_micro::StablehloPadOptionsT(*reinterpret_cast<tflite_micro::StablehloPadOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloIotaOptions: {
-      value = new tflite::StablehloIotaOptionsT(*reinterpret_cast<tflite::StablehloIotaOptionsT *>(u.value));
+      value = new tflite_micro::StablehloIotaOptionsT(*reinterpret_cast<tflite_micro::StablehloIotaOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloDotGeneralOptions: {
-      value = new tflite::StablehloDotGeneralOptionsT(*reinterpret_cast<tflite::StablehloDotGeneralOptionsT *>(u.value));
+      value = new tflite_micro::StablehloDotGeneralOptionsT(*reinterpret_cast<tflite_micro::StablehloDotGeneralOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloReduceWindowOptions: {
-      value = new tflite::StablehloReduceWindowOptionsT(*reinterpret_cast<tflite::StablehloReduceWindowOptionsT *>(u.value));
+      value = new tflite_micro::StablehloReduceWindowOptionsT(*reinterpret_cast<tflite_micro::StablehloReduceWindowOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloSortOptions: {
-      value = new tflite::StablehloSortOptionsT(*reinterpret_cast<tflite::StablehloSortOptionsT *>(u.value));
+      value = new tflite_micro::StablehloSortOptionsT(*reinterpret_cast<tflite_micro::StablehloSortOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloWhileOptions: {
-      value = new tflite::StablehloWhileOptionsT(*reinterpret_cast<tflite::StablehloWhileOptionsT *>(u.value));
+      value = new tflite_micro::StablehloWhileOptionsT(*reinterpret_cast<tflite_micro::StablehloWhileOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloGatherOptions: {
-      value = new tflite::StablehloGatherOptionsT(*reinterpret_cast<tflite::StablehloGatherOptionsT *>(u.value));
+      value = new tflite_micro::StablehloGatherOptionsT(*reinterpret_cast<tflite_micro::StablehloGatherOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloTransposeOptions: {
-      value = new tflite::StablehloTransposeOptionsT(*reinterpret_cast<tflite::StablehloTransposeOptionsT *>(u.value));
+      value = new tflite_micro::StablehloTransposeOptionsT(*reinterpret_cast<tflite_micro::StablehloTransposeOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_DilateOptions: {
-      value = new tflite::DilateOptionsT(*reinterpret_cast<tflite::DilateOptionsT *>(u.value));
+      value = new tflite_micro::DilateOptionsT(*reinterpret_cast<tflite_micro::DilateOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_StablehloRngBitGeneratorOptions: {
-      value = new tflite::StablehloRngBitGeneratorOptionsT(*reinterpret_cast<tflite::StablehloRngBitGeneratorOptionsT *>(u.value));
+      value = new tflite_micro::StablehloRngBitGeneratorOptionsT(*reinterpret_cast<tflite_micro::StablehloRngBitGeneratorOptionsT *>(u.value));
       break;
     }
     case BuiltinOptions2_ReduceWindowOptions: {
-      value = new tflite::ReduceWindowOptionsT(*reinterpret_cast<tflite::ReduceWindowOptionsT *>(u.value));
+      value = new tflite_micro::ReduceWindowOptionsT(*reinterpret_cast<tflite_micro::ReduceWindowOptionsT *>(u.value));
       break;
     }
     default:
@@ -24474,102 +24474,102 @@ inline BuiltinOptions2Union::BuiltinOptions2Union(const BuiltinOptions2Union &u)
 inline void BuiltinOptions2Union::Reset() {
   switch (type) {
     case BuiltinOptions2_StablehloConcatenateOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloConcatenateOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloConcatenateOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloBroadcastInDimOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloBroadcastInDimOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloBroadcastInDimOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloSliceOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloSliceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloConvolutionOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloConvolutionOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloConvolutionOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloCustomCallOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloCustomCallOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloCustomCallOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloReduceOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloReduceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloReduceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloScatterOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloScatterOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloScatterOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloCompareOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloCompareOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloCompareOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloDynamicSliceOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloDynamicSliceOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloDynamicSliceOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloPadOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloPadOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloPadOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloIotaOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloIotaOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloIotaOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloDotGeneralOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloDotGeneralOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloDotGeneralOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloReduceWindowOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloReduceWindowOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloReduceWindowOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloSortOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloSortOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloSortOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloWhileOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloWhileOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloWhileOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloGatherOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloGatherOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloGatherOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloTransposeOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloTransposeOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloTransposeOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_DilateOptions: {
-      auto ptr = reinterpret_cast<tflite::DilateOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::DilateOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_StablehloRngBitGeneratorOptions: {
-      auto ptr = reinterpret_cast<tflite::StablehloRngBitGeneratorOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::StablehloRngBitGeneratorOptionsT *>(value);
       delete ptr;
       break;
     }
     case BuiltinOptions2_ReduceWindowOptions: {
-      auto ptr = reinterpret_cast<tflite::ReduceWindowOptionsT *>(value);
+      auto ptr = reinterpret_cast<tflite_micro::ReduceWindowOptionsT *>(value);
       delete ptr;
       break;
     }
@@ -24579,12 +24579,12 @@ inline void BuiltinOptions2Union::Reset() {
   type = BuiltinOptions2_NONE;
 }
 
-inline const tflite::Model *GetModel(const void *buf) {
-  return flatbuffers::GetRoot<tflite::Model>(buf);
+inline const tflite_micro::Model *GetModel(const void *buf) {
+  return flatbuffers::GetRoot<tflite_micro::Model>(buf);
 }
 
-inline const tflite::Model *GetSizePrefixedModel(const void *buf) {
-  return flatbuffers::GetSizePrefixedRoot<tflite::Model>(buf);
+inline const tflite_micro::Model *GetSizePrefixedModel(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<tflite_micro::Model>(buf);
 }
 
 inline const char *ModelIdentifier() {
@@ -24603,12 +24603,12 @@ inline bool SizePrefixedModelBufferHasIdentifier(const void *buf) {
 
 inline bool VerifyModelBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifyBuffer<tflite::Model>(ModelIdentifier());
+  return verifier.VerifyBuffer<tflite_micro::Model>(ModelIdentifier());
 }
 
 inline bool VerifySizePrefixedModelBuffer(
     flatbuffers::Verifier &verifier) {
-  return verifier.VerifySizePrefixedBuffer<tflite::Model>(ModelIdentifier());
+  return verifier.VerifySizePrefixedBuffer<tflite_micro::Model>(ModelIdentifier());
 }
 
 inline const char *ModelExtension() {
@@ -24617,28 +24617,28 @@ inline const char *ModelExtension() {
 
 inline void FinishModelBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<tflite::Model> root) {
+    flatbuffers::Offset<tflite_micro::Model> root) {
   fbb.Finish(root, ModelIdentifier());
 }
 
 inline void FinishSizePrefixedModelBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
-    flatbuffers::Offset<tflite::Model> root) {
+    flatbuffers::Offset<tflite_micro::Model> root) {
   fbb.FinishSizePrefixed(root, ModelIdentifier());
 }
 
-inline std::unique_ptr<tflite::ModelT> UnPackModel(
+inline std::unique_ptr<tflite_micro::ModelT> UnPackModel(
     const void *buf,
     const flatbuffers::resolver_function_t *res = nullptr) {
-  return std::unique_ptr<tflite::ModelT>(GetModel(buf)->UnPack(res));
+  return std::unique_ptr<tflite_micro::ModelT>(GetModel(buf)->UnPack(res));
 }
 
-inline std::unique_ptr<tflite::ModelT> UnPackSizePrefixedModel(
+inline std::unique_ptr<tflite_micro::ModelT> UnPackSizePrefixedModel(
     const void *buf,
     const flatbuffers::resolver_function_t *res = nullptr) {
-  return std::unique_ptr<tflite::ModelT>(GetSizePrefixedModel(buf)->UnPack(res));
+  return std::unique_ptr<tflite_micro::ModelT>(GetSizePrefixedModel(buf)->UnPack(res));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // FLATBUFFERS_GENERATED_SCHEMA_TFLITE_H_

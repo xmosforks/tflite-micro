@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_softmax.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus SoftmaxPrepareVision(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
@@ -89,12 +89,12 @@ TfLiteStatus SoftmaxEvalVision(TfLiteContext* context, TfLiteNode* node,
   const uint32_t output_size = NumElements(output->dims);
 
   xiSoftmax(data.p_context, data.context_size,
-            const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input)),
-            input_size, tflite::micro::GetTensorData<int8_t>(output),
+            const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input)),
+            input_size, tflite_micro::micro::GetTensorData<int8_t>(output),
             output_size);
 
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(VISION_P6)

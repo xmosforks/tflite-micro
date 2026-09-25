@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/core/c/common.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Interface class for builtin data allocations.
 class BuiltinDataAllocator {
@@ -435,6 +435,6 @@ TfLiteStatus ParseStablehloGather(const Operator* op,
                                   BuiltinDataAllocator* allocator,
                                   void** builtin_data);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_CORE_API_FLATBUFFER_CONVERSIONS_H_

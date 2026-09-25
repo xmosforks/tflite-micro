@@ -65,11 +65,11 @@ Interpreter such as below
 constexpr int kArenaSize = 2*1048;
 uint8_t tensor_arena[kArenaSize];
 
-tflite::NonPersistentMemoryPlannerShim planner(&kOfflineNonPersistentBufferPlan);
+tflite_micro::NonPersistentMemoryPlannerShim planner(&kOfflineNonPersistentBufferPlan);
 
-tflite::MicroAllocator * allocator = tflite::MicroAllocator::Create(
+tflite_micro::MicroAllocator * allocator = tflite_micro::MicroAllocator::Create(
   tensor_arena, arena_size, &planner);
 
-tflite::MicroInterpreter interpreter(model, op_resolver, allocator);
+tflite_micro::MicroInterpreter interpreter(model, op_resolver, allocator);
 ```
 

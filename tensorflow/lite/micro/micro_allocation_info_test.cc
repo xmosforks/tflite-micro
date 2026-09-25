@@ -24,18 +24,18 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestSingleSubgraph) {
   constexpr int kArenaSize = 1024;
   uint8_t arena[kArenaSize];
-  const tflite::Model* model = tflite::testing::GetSimpleMockModel();
-  tflite::SingleArenaBufferAllocator allocator(arena, kArenaSize);
-  tflite::AllocationInfoBuilder builder(model, &allocator);
+  const tflite_micro::Model* model = tflite_micro::testing::GetSimpleMockModel();
+  tflite_micro::SingleArenaBufferAllocator allocator(arena, kArenaSize);
+  tflite_micro::AllocationInfoBuilder builder(model, &allocator);
   builder.CreateAllocationInfo(0);
-  tflite::MicroAllocator* micro_allocator =
-      tflite::MicroAllocator::Create(arena, kArenaSize);
-  tflite::SubgraphAllocations* subgraph_allocations =
+  tflite_micro::MicroAllocator* micro_allocator =
+      tflite_micro::MicroAllocator::Create(arena, kArenaSize);
+  tflite_micro::SubgraphAllocations* subgraph_allocations =
       micro_allocator->StartModelAllocation(model);
   builder.InitializeAllocationInfo(nullptr, subgraph_allocations);
   builder.MarkAllocationLifetimes(0, nullptr, nullptr, subgraph_allocations);
   TF_LITE_MICRO_EXPECT_EQ(builder.AllocationCount(), 4);
-  tflite::AllocationInfo* allocation_info = builder.Finish();
+  tflite_micro::AllocationInfo* allocation_info = builder.Finish();
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].first_created, 0);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].last_used, 2);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[1].first_created, -1);
@@ -49,18 +49,18 @@ TF_LITE_MICRO_TEST(TestSingleSubgraph) {
 TF_LITE_MICRO_TEST(TestSingleSubgraphWithIntermediates) {
   constexpr int kArenaSize = 1024;
   uint8_t arena[kArenaSize];
-  const tflite::Model* model = tflite::testing::GetSimpleStatefulModel();
-  tflite::SingleArenaBufferAllocator allocator(arena, kArenaSize);
-  tflite::AllocationInfoBuilder builder(model, &allocator);
+  const tflite_micro::Model* model = tflite_micro::testing::GetSimpleStatefulModel();
+  tflite_micro::SingleArenaBufferAllocator allocator(arena, kArenaSize);
+  tflite_micro::AllocationInfoBuilder builder(model, &allocator);
   builder.CreateAllocationInfo(0);
-  tflite::MicroAllocator* micro_allocator =
-      tflite::MicroAllocator::Create(arena, kArenaSize);
-  tflite::SubgraphAllocations* subgraph_allocations =
+  tflite_micro::MicroAllocator* micro_allocator =
+      tflite_micro::MicroAllocator::Create(arena, kArenaSize);
+  tflite_micro::SubgraphAllocations* subgraph_allocations =
       micro_allocator->StartModelAllocation(model);
   builder.InitializeAllocationInfo(nullptr, subgraph_allocations);
   builder.MarkAllocationLifetimes(0, nullptr, nullptr, subgraph_allocations);
   TF_LITE_MICRO_EXPECT_EQ(builder.AllocationCount(), 4);
-  tflite::AllocationInfo* allocation_info = builder.Finish();
+  tflite_micro::AllocationInfo* allocation_info = builder.Finish();
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].first_created, 0);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].last_used, 1);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].needs_allocating, true);
@@ -78,19 +78,19 @@ TF_LITE_MICRO_TEST(TestSingleSubgraphWithIntermediates) {
 TF_LITE_MICRO_TEST(TestMultiSubgraphWithIf) {
   constexpr int kArenaSize = 1024;
   uint8_t arena[kArenaSize];
-  const tflite::Model* model =
-      tflite::testing::GetSimpleModelWithSubgraphsAndIf();
-  tflite::SingleArenaBufferAllocator allocator(arena, kArenaSize);
-  tflite::AllocationInfoBuilder builder(model, &allocator);
+  const tflite_micro::Model* model =
+      tflite_micro::testing::GetSimpleModelWithSubgraphsAndIf();
+  tflite_micro::SingleArenaBufferAllocator allocator(arena, kArenaSize);
+  tflite_micro::AllocationInfoBuilder builder(model, &allocator);
   builder.CreateAllocationInfo(0);
-  tflite::MicroAllocator* micro_allocator =
-      tflite::MicroAllocator::Create(arena, kArenaSize);
-  tflite::SubgraphAllocations* subgraph_allocations =
+  tflite_micro::MicroAllocator* micro_allocator =
+      tflite_micro::MicroAllocator::Create(arena, kArenaSize);
+  tflite_micro::SubgraphAllocations* subgraph_allocations =
       micro_allocator->StartModelAllocation(model);
   builder.InitializeAllocationInfo(nullptr, subgraph_allocations);
   builder.MarkAllocationLifetimes(0, nullptr, nullptr, subgraph_allocations);
   TF_LITE_MICRO_EXPECT_EQ(builder.AllocationCount(), 10);
-  tflite::AllocationInfo* allocation_info = builder.Finish();
+  tflite_micro::AllocationInfo* allocation_info = builder.Finish();
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].first_created, 0);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].last_used, 5);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[1].first_created, 0);
@@ -116,19 +116,19 @@ TF_LITE_MICRO_TEST(TestMultiSubgraphWithIf) {
 TF_LITE_MICRO_TEST(TestMultiSubgraphWithIfAndEmptySubgraph) {
   constexpr int kArenaSize = 1024;
   uint8_t arena[kArenaSize];
-  const tflite::Model* model =
-      tflite::testing::GetSimpleModelWithIfAndEmptySubgraph();
-  tflite::SingleArenaBufferAllocator allocator(arena, kArenaSize);
-  tflite::AllocationInfoBuilder builder(model, &allocator);
+  const tflite_micro::Model* model =
+      tflite_micro::testing::GetSimpleModelWithIfAndEmptySubgraph();
+  tflite_micro::SingleArenaBufferAllocator allocator(arena, kArenaSize);
+  tflite_micro::AllocationInfoBuilder builder(model, &allocator);
   builder.CreateAllocationInfo(0);
-  tflite::MicroAllocator* micro_allocator =
-      tflite::MicroAllocator::Create(arena, kArenaSize);
-  tflite::SubgraphAllocations* subgraph_allocations =
+  tflite_micro::MicroAllocator* micro_allocator =
+      tflite_micro::MicroAllocator::Create(arena, kArenaSize);
+  tflite_micro::SubgraphAllocations* subgraph_allocations =
       micro_allocator->StartModelAllocation(model);
   builder.InitializeAllocationInfo(nullptr, subgraph_allocations);
   builder.MarkAllocationLifetimes(0, nullptr, nullptr, subgraph_allocations);
   TF_LITE_MICRO_EXPECT_EQ(builder.AllocationCount(), 10);
-  tflite::AllocationInfo* allocation_info = builder.Finish();
+  tflite_micro::AllocationInfo* allocation_info = builder.Finish();
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].first_created, 0);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].last_used, 4);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[1].first_created, 0);
@@ -154,19 +154,19 @@ TF_LITE_MICRO_TEST(TestMultiSubgraphWithIfAndEmptySubgraph) {
 TF_LITE_MICRO_TEST(TestMultiSubgraphWithIfAndInputSubgraphOverlap) {
   constexpr int kArenaSize = 2048;
   uint8_t arena[kArenaSize];
-  const tflite::Model* model =
-      tflite::testing::GetModelWithIfAndSubgraphInputTensorOverlap();
-  tflite::SingleArenaBufferAllocator allocator(arena, kArenaSize);
-  tflite::AllocationInfoBuilder builder(model, &allocator);
+  const tflite_micro::Model* model =
+      tflite_micro::testing::GetModelWithIfAndSubgraphInputTensorOverlap();
+  tflite_micro::SingleArenaBufferAllocator allocator(arena, kArenaSize);
+  tflite_micro::AllocationInfoBuilder builder(model, &allocator);
   builder.CreateAllocationInfo(0);
-  tflite::MicroAllocator* micro_allocator =
-      tflite::MicroAllocator::Create(arena, kArenaSize);
-  tflite::SubgraphAllocations* subgraph_allocations =
+  tflite_micro::MicroAllocator* micro_allocator =
+      tflite_micro::MicroAllocator::Create(arena, kArenaSize);
+  tflite_micro::SubgraphAllocations* subgraph_allocations =
       micro_allocator->StartModelAllocation(model);
   builder.InitializeAllocationInfo(nullptr, subgraph_allocations);
   builder.MarkAllocationLifetimes(0, nullptr, nullptr, subgraph_allocations);
   TF_LITE_MICRO_EXPECT_EQ(builder.AllocationCount(), 11);
-  tflite::AllocationInfo* allocation_info = builder.Finish();
+  tflite_micro::AllocationInfo* allocation_info = builder.Finish();
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].first_created, 0);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[0].last_used, 5);
   TF_LITE_MICRO_EXPECT_EQ(allocation_info[1].first_created, 0);

@@ -18,11 +18,11 @@ limitations under the License.
 
 #include "tensorflow/lite/core/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Resets a variable tensor to the default value.
-TfLiteStatus ResetVariableTensor(TfLiteTensor* tensor);
+TfLiteStatus ResetVariableTensor(TfLiteContext* context, TfLiteTensor* tensor);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_CORE_API_TENSOR_UTILS_H_

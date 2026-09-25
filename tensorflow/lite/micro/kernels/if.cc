@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_graph.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -53,7 +53,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE(context, node->inputs->size > 0);
 
   // The first input is the condition.
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   TfLiteTensor* cond =
       micro_context->AllocateTempInputTensor(node, kCondTensor);
 
@@ -88,9 +88,9 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const OpData* op_data = reinterpret_cast<OpData*>(node->user_data);
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   const TfLiteEvalTensor* cond =
-      tflite::micro::GetEvalInput(context, node, kCondTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kCondTensor);
   TF_LITE_ENSURE(context, cond != nullptr);
   const bool cond_value = cond->data.b[0];
 
@@ -100,7 +100,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       cond_value ? op_data->then_subgraph_index : op_data->else_subgraph_index;
 
   TF_LITE_ENSURE_OK(context,
-                    tflite::micro::CopyOpInputsToSubgraphInputs(
+                    tflite_micro::micro::CopyOpInputsToSubgraphInputs(
                         context, node, graph_info, active_branch_subgraph_index,
                         /*first_tensor_idx=*/1));
 
@@ -108,7 +108,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
                     graph_info->InvokeSubgraph(active_branch_subgraph_index));
 
   TF_LITE_ENSURE_OK(
-      context, tflite::micro::CopySubgraphOutputsToOpOutputs(
+      context, tflite_micro::micro::CopySubgraphOutputsToOpOutputs(
                    context, node, graph_info, active_branch_subgraph_index));
 
   return kTfLiteOk;
@@ -117,7 +117,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace.
 
 TFLMRegistration Register_IF() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

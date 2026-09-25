@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -31,7 +31,7 @@ void ValidateShape(TfLiteTensor* tensors, const int tensor_count,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_SHAPE();
+  const TFLMRegistration registration = tflite_micro::Register_SHAPE();
   micro::KernelRunner runner(registration, tensors, tensor_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -64,7 +64,7 @@ void TestShape(int* input_dims_data, const float* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -75,7 +75,7 @@ TF_LITE_MICRO_TEST(TestShape0) {
   int32_t expected_output_data[] = {5};
   int32_t output_data[1];
 
-  tflite::testing::TestShape(input_shape, input_values, output_dims,
+  tflite_micro::testing::TestShape(input_shape, input_values, output_dims,
                              expected_output_data, output_data);
 }
 
@@ -86,7 +86,7 @@ TF_LITE_MICRO_TEST(TestShape1) {
   int32_t expected_output_data[] = {4, 3};
   int32_t output_data[2];
 
-  tflite::testing::TestShape(input_shape, input_values, output_dims,
+  tflite_micro::testing::TestShape(input_shape, input_values, output_dims,
                              expected_output_data, output_data);
 }
 
@@ -97,7 +97,7 @@ TF_LITE_MICRO_TEST(TestShape2) {
   int32_t expected_output_data[] = {12, 1};
   int32_t output_data[2];
 
-  tflite::testing::TestShape(input_shape, input_values, output_dims,
+  tflite_micro::testing::TestShape(input_shape, input_values, output_dims,
                              expected_output_data, output_data);
 }
 
@@ -108,7 +108,7 @@ TF_LITE_MICRO_TEST(TestShape3) {
   int32_t expected_output_data[] = {2, 6};
   int32_t output_data[2];
 
-  tflite::testing::TestShape(input_shape, input_values, output_dims,
+  tflite_micro::testing::TestShape(input_shape, input_values, output_dims,
                              expected_output_data, output_data);
 }
 
@@ -119,7 +119,7 @@ TF_LITE_MICRO_TEST(TestShape4) {
   int32_t expected_output_data[] = {2, 2, 3};
   int32_t output_data[3];
 
-  tflite::testing::TestShape(input_shape, input_values, output_dims,
+  tflite_micro::testing::TestShape(input_shape, input_values, output_dims,
                              expected_output_data, output_data);
 }
 
@@ -130,7 +130,7 @@ TF_LITE_MICRO_TEST(TestShape5) {
   int32_t expected_output_data[] = {1};
   int32_t output_data[1];
 
-  tflite::testing::TestShape(input_shape, input_values, output_dims,
+  tflite_micro::testing::TestShape(input_shape, input_values, output_dims,
                              expected_output_data, output_data);
 }
 

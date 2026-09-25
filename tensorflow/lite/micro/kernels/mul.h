@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/c/builtin_op_data.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 extern const int kMulInput1Tensor;
 extern const int kMulInput2Tensor;
@@ -69,6 +69,6 @@ TFLMRegistration Register_MUL_INT8();
 // Fallback registration
 inline TFLMRegistration Register_MUL_INT8() { return Register_MUL(); }
 #endif
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_MUL_H_

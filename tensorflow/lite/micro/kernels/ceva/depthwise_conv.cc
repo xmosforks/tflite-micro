@@ -34,7 +34,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/ceva/mcps_macros.h"
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -50,19 +50,19 @@ void EvalFloat(TfLiteContext* context, TfLiteNode* node,
   CalculateActivationRange(params->activation, &output_activation_min,
                            &output_activation_max);
 
-  tflite::DepthwiseParams op_params = DepthwiseConvParamsFloat(*params, data);
+  tflite_micro::DepthwiseParams op_params = DepthwiseConvParamsFloat(*params, data);
 
   const float *input_data, *filter_data, *bias_data;
   float* output_data;
-  input_data = tflite::micro::GetTensorData<float>(input);
-  filter_data = tflite::micro::GetTensorData<float>(filter);
-  bias_data = tflite::micro::GetTensorData<float>(bias);
-  output_data = tflite::micro::GetTensorData<float>(output);
+  input_data = tflite_micro::micro::GetTensorData<float>(input);
+  filter_data = tflite_micro::micro::GetTensorData<float>(filter);
+  bias_data = tflite_micro::micro::GetTensorData<float>(bias);
+  output_data = tflite_micro::micro::GetTensorData<float>(output);
 
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
-  const RuntimeShape& bias_shape = tflite::micro::GetTensorShape(bias);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
+  const RuntimeShape& bias_shape = tflite_micro::micro::GetTensorShape(bias);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
 
   const int batches = MatchingDim(input_shape, 0, output_shape, 0);
   const int input_height = input_shape.Dims(1);
@@ -130,15 +130,15 @@ void EvalQuantizedPerChannel(TfLiteContext* context, TfLiteNode* node,
   const int32_t input_offset = op_params.input_offset;
   const int32_t output_offset = op_params.output_offset;
 
-  input_data = tflite::micro::GetTensorData<int8_t>(input);
-  filter_data = tflite::micro::GetTensorData<int8_t>(filter);
-  bias_data = tflite::micro::GetTensorData<int32_t>(bias);
-  output_data = tflite::micro::GetTensorData<int8_t>(output);
+  input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+  filter_data = tflite_micro::micro::GetTensorData<int8_t>(filter);
+  bias_data = tflite_micro::micro::GetTensorData<int32_t>(bias);
+  output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
 
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
-  const RuntimeShape& bias_shape = tflite::micro::GetTensorShape(bias);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
+  const RuntimeShape& bias_shape = tflite_micro::micro::GetTensorShape(bias);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
 
   const int batches = MatchingDim(input_shape, 0, output_shape, 0);
   const int input_height = input_shape.Dims(1);
@@ -204,14 +204,14 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
   const OpDataConv& data = *(static_cast<const OpDataConv*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kDepthwiseConvOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kDepthwiseConvBiasTensor)
           : nullptr;
 
   // TODO(aselle): Consider whether float conv and quantized conv should be
@@ -230,26 +230,26 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
           reference_integer_ops::DepthwiseConvPerChannel(
               DepthwiseConvParamsQuantized(*params, data),
               data.per_channel_output_multiplier, data.per_channel_output_shift,
-              tflite::micro::GetTensorShape(input),
-              tflite::micro::GetTensorData<int16_t>(input),
-              tflite::micro::GetTensorShape(filter),
-              tflite::micro::GetTensorData<int8_t>(filter),
-              tflite::micro::GetTensorShape(bias),
-              tflite::micro::GetOptionalTensorData<int64_t>(bias),
-              tflite::micro::GetTensorShape(output),
-              tflite::micro::GetTensorData<int16_t>(output));
+              tflite_micro::micro::GetTensorShape(input),
+              tflite_micro::micro::GetTensorData<int16_t>(input),
+              tflite_micro::micro::GetTensorShape(filter),
+              tflite_micro::micro::GetTensorData<int8_t>(filter),
+              tflite_micro::micro::GetTensorShape(bias),
+              tflite_micro::micro::GetOptionalTensorData<int64_t>(bias),
+              tflite_micro::micro::GetTensorShape(output),
+              tflite_micro::micro::GetTensorData<int16_t>(output));
           break;
         }
         default:
           MicroPrintf("Filter type %s (%d) for input type %s not supported.",
-                      TfLiteTypeGetName(filter->type), filter->type,
-                      TfLiteTypeGetName(input->type));
+                      TfLiteMicroTypeGetName(filter->type), filter->type,
+                      TfLiteMicroTypeGetName(input->type));
           return kTfLiteError;
       }
       break;
     }
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -267,8 +267,8 @@ TfLiteStatus DepthWiseConvEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_DEPTHWISE_CONV_2D() {
-  return tflite::micro::RegisterOp(Init, DepthwiseConvPrepare,
+  return tflite_micro::micro::RegisterOp(Init, DepthwiseConvPrepare,
                                    DepthWiseConvEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

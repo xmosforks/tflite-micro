@@ -20,8 +20,9 @@ limitations under the License.
 #include "tensorflow/lite/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
+#include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -40,7 +41,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE(context, output != nullptr);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, kTfLiteFloat32);
   TF_LITE_ENSURE_TYPES_EQ(context, output->type, input->type);
-  TF_LITE_ENSURE_EQ(context, output->bytes, input->bytes);
+  TF_LITE_ENSURE_EQ(context, tflite_micro::EvalTensorBytes((const TfLiteEvalTensor*)output), tflite_micro::EvalTensorBytes((const TfLiteEvalTensor*)input));
   TF_LITE_ENSURE_EQ(context, output->dims->size, input->dims->size);
   for (int i = 0; i < output->dims->size; ++i) {
     TF_LITE_ENSURE_EQ(context, output->dims->data[i], input->dims->data[i]);
@@ -53,19 +54,19 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  int flat_size = MatchingFlatSize(tflite::micro::GetTensorShape(input),
-                                   tflite::micro::GetTensorShape(output));
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  int flat_size = MatchingFlatSize(tflite_micro::micro::GetTensorShape(input),
+                                   tflite_micro::micro::GetTensorShape(output));
 
   if (input->type == kTfLiteFloat32) {
-    reference_ops::Exp(tflite::micro::GetTensorData<float>(input),
+    reference_ops::Exp(tflite_micro::micro::GetTensorData<float>(input),
                        static_cast<size_t>(flat_size),
-                       tflite::micro::GetTensorData<float>(output));
+                       tflite_micro::micro::GetTensorData<float>(output));
   } else {
     MicroPrintf("Type %s (%d) currently not supported by Exp.",
-                TfLiteTypeGetName(input->type), input->type);
+                TfLiteMicroTypeGetName(input->type), input->type);
     return kTfLiteError;
   }
   return kTfLiteOk;
@@ -73,7 +74,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_EXP() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 extern const int8_t kConvInput1x32x32x3[];
 extern const int8_t kConvFilter8x3x3x3[];
 extern const int32_t kConvBiasQuantized8[];
@@ -32,6 +32,6 @@ extern const int32_t kConvZeroBias[];
 extern const int8_t kConvGoldenOutput4x4InputPaddingSame2x2[];
 extern const int8_t kConvGoldenOutput5x5InputPaddingSame3x3[];
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_CONV_TEST_DATA_H_

@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_pooling.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -72,7 +72,7 @@ TfLiteStatus AverageEval(TfLiteContext* context, TfLiteNode* node) {
     }
     default: {
       MicroPrintf("Input type %s is not currently supported",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -123,7 +123,7 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
     }
     default: {
       MicroPrintf("Type %s not currently supported.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -134,25 +134,25 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
 
 TFLMRegistration Register_AVERAGE_POOL_2D() {
 #if defined(HIFI5)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, AveragePrepareHifi,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, AveragePrepareHifi,
                                    AverageEval);
 #elif defined(VISION_P6)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, AvgPoolingPrepareVision,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, AvgPoolingPrepareVision,
                                    AverageEval);
 #else
-  return tflite::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare,
                                    AverageEval);
 #endif
 }
 
 TFLMRegistration Register_MAX_POOL_2D() {
 #if defined(HIFI5)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, MaxPrepareHifi, MaxEval);
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, MaxPrepareHifi, MaxEval);
 #elif defined(VISION_P6)
-  return tflite::micro::RegisterOp(XtensaPoolingInit, MaxPoolingPrepareVision,
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, MaxPoolingPrepareVision,
                                    MaxEval);
 #else
-  return tflite::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare, MaxEval);
+  return tflite_micro::micro::RegisterOp(XtensaPoolingInit, PoolingPrepare, MaxEval);
 #endif
 }
 
@@ -162,4 +162,4 @@ TFLMRegistration Register_AVERAGE_POOL_2D_INT16() {
 
 TFLMRegistration Register_MAX_POOL_2D_INT16() { return Register_MAX_POOL_2D(); }
 
-}  // namespace tflite
+}  // namespace tflite_micro

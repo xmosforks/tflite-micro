@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -644,9 +644,9 @@ inline void TestIntegerSVDF(
       CreateQuantizedTensor(output_data, output_dims, output_scale,
                             output_zero_point)};
 
-  tflite::Quantize(golden_output, golden_output_quantized, golden_output_len,
+  tflite_micro::Quantize(golden_output, golden_output_quantized, golden_output_len,
                    output_scale, output_zero_point);
-  tflite::Quantize(input_sequences_data, input_sequences_quantized,
+  tflite_micro::Quantize(input_sequences_data, input_sequences_quantized,
                    input_sequences_len, input_scale, input_zero_point);
 
   ValidateSVDFGoldens(batch_size, num_units, input_size, rank, tensors,
@@ -683,32 +683,32 @@ void SvdfQuantized2x2Input2x4OutputShouldMatchGolden() {
   int output_zero_point = 0;
 
   int8_t input_quantized[input_size_dims_count];
-  int8_t input_sequences_quantized[sizeof(tflite::testing::input_data_2x2x10) /
+  int8_t input_sequences_quantized[sizeof(tflite_micro::testing::input_data_2x2x10) /
                                    sizeof(float)];
   int8_t feature_weights_quantized
-      [sizeof(tflite::testing::feature_weights_data_2x2x10) / sizeof(float)];
-  T time_weights_quantized[sizeof(tflite::testing::time_weights_data_2x2x10) /
+      [sizeof(tflite_micro::testing::feature_weights_data_2x2x10) / sizeof(float)];
+  T time_weights_quantized[sizeof(tflite_micro::testing::time_weights_data_2x2x10) /
                            sizeof(float)];
   T activation_state_quantized[activation_state_dims_count];
   int32_t
-      bias_quantized[sizeof(tflite::testing::bias_data_2x2x10) / sizeof(float)];
-  int8_t golden_quantized[sizeof(tflite::testing::golden_output_2x2x10) /
+      bias_quantized[sizeof(tflite_micro::testing::bias_data_2x2x10) / sizeof(float)];
+  int8_t golden_quantized[sizeof(tflite_micro::testing::golden_output_2x2x10) /
                           sizeof(float)];
 
-  tflite::testing::TestIntegerSVDF(
+  tflite_micro::testing::TestIntegerSVDF(
       batch_size, num_units, input_size, memory_size, rank, kTfLiteActRelu,
       input_quantized, input_scale, input_zero_point,
-      tflite::testing::feature_weights_data_2x2x10, feature_weights_quantized,
-      feature_weights_scale, tflite::testing::time_weights_data_2x2x10,
+      tflite_micro::testing::feature_weights_data_2x2x10, feature_weights_quantized,
+      feature_weights_scale, tflite_micro::testing::time_weights_data_2x2x10,
       time_weights_quantized, time_weights_scale,
-      tflite::testing::bias_data_2x2x10, bias_quantized,
-      tflite::testing::initial_activation_state_data_2x2x10,
+      tflite_micro::testing::bias_data_2x2x10, bias_quantized,
+      tflite_micro::testing::initial_activation_state_data_2x2x10,
       activation_state_quantized, activation_state_scale, 0, output_data,
-      output_scale, output_zero_point, tflite::testing::input_data_2x2x10,
+      output_scale, output_zero_point, tflite_micro::testing::input_data_2x2x10,
       input_sequences_quantized,
-      sizeof(tflite::testing::input_data_2x2x10) / sizeof(float),
-      tflite::testing::golden_output_2x2x10, golden_quantized,
-      sizeof(tflite::testing::golden_output_2x2x10) / sizeof(float));
+      sizeof(tflite_micro::testing::input_data_2x2x10) / sizeof(float),
+      tflite_micro::testing::golden_output_2x2x10, golden_quantized,
+      sizeof(tflite_micro::testing::golden_output_2x2x10) / sizeof(float));
 }
 
 // Template parameter sets type of both time_weights and activation_state.
@@ -729,43 +729,43 @@ void SvdfQuantized1x16Input64x1OutputShouldMatchGolden() {
 
   float input_scale = 0.10075444;
   float feature_weights_scale = 0.00649388;
-  float time_weights_scale = tflite::testing::ScaleFromMinMax<T>(-.81, .81);
+  float time_weights_scale = tflite_micro::testing::ScaleFromMinMax<T>(-.81, .81);
   float activation_state_scale =
-      tflite::testing::ScaleFromMinMax<T>(-17.73, 17.73);
+      tflite_micro::testing::ScaleFromMinMax<T>(-17.73, 17.73);
   int activation_state_zero_point =
-      tflite::testing::ZeroPointFromMinMax<T>(-17.73, 17.73);
+      tflite_micro::testing::ZeroPointFromMinMax<T>(-17.73, 17.73);
   float output_scale = 0.051445257;
 
   int input_zero_point = 2;
   int output_zero_point = 0;
 
   int8_t input_quantized[input_dims_count];
-  int8_t input_sequences_quantized[sizeof(tflite::testing::input_data_16x1x1) /
+  int8_t input_sequences_quantized[sizeof(tflite_micro::testing::input_data_16x1x1) /
                                    sizeof(float)];
   int8_t feature_weights_quantized
-      [sizeof(tflite::testing::feature_weights_data_16x1x1) / sizeof(float)];
-  T time_weights_quantized[sizeof(tflite::testing::time_weights_data_16x1x1) /
+      [sizeof(tflite_micro::testing::feature_weights_data_16x1x1) / sizeof(float)];
+  T time_weights_quantized[sizeof(tflite_micro::testing::time_weights_data_16x1x1) /
                            sizeof(float)];
   T activation_state_quantized[activation_state_dims_count];
   int32_t
-      bias_quantized[sizeof(tflite::testing::bias_data_16x1x1) / sizeof(float)];
-  int8_t golden_quantized[sizeof(tflite::testing::golden_output_16x1x1) /
+      bias_quantized[sizeof(tflite_micro::testing::bias_data_16x1x1) / sizeof(float)];
+  int8_t golden_quantized[sizeof(tflite_micro::testing::golden_output_16x1x1) /
                           sizeof(float)];
 
-  tflite::testing::TestIntegerSVDF(
+  tflite_micro::testing::TestIntegerSVDF(
       batch_size, num_units, input_size, memory_size, rank, kTfLiteActNone,
       input_quantized, input_scale, input_zero_point,
-      tflite::testing::feature_weights_data_16x1x1, feature_weights_quantized,
-      feature_weights_scale, tflite::testing::time_weights_data_16x1x1,
+      tflite_micro::testing::feature_weights_data_16x1x1, feature_weights_quantized,
+      feature_weights_scale, tflite_micro::testing::time_weights_data_16x1x1,
       time_weights_quantized, time_weights_scale,
-      tflite::testing::bias_data_16x1x1, bias_quantized,
-      tflite::testing::initial_activation_state_data_16x1x1,
+      tflite_micro::testing::bias_data_16x1x1, bias_quantized,
+      tflite_micro::testing::initial_activation_state_data_16x1x1,
       activation_state_quantized, activation_state_scale,
       activation_state_zero_point, output_data, output_scale, output_zero_point,
-      tflite::testing::input_data_16x1x1, input_sequences_quantized,
-      sizeof(tflite::testing::input_data_16x1x1) / sizeof(float),
-      tflite::testing::golden_output_16x1x1, golden_quantized,
-      sizeof(tflite::testing::golden_output_16x1x1) / sizeof(float));
+      tflite_micro::testing::input_data_16x1x1, input_sequences_quantized,
+      sizeof(tflite_micro::testing::input_data_16x1x1) / sizeof(float),
+      tflite_micro::testing::golden_output_16x1x1, golden_quantized,
+      sizeof(tflite_micro::testing::golden_output_16x1x1) / sizeof(float));
 }
 
 template <typename T>
@@ -785,48 +785,48 @@ void SvdfQuantized1x16Input64x1OutputReluShouldMatchGolden() {
 
   float input_scale = 0.10075444;
   float feature_weights_scale = 0.00649388;
-  float time_weights_scale = tflite::testing::ScaleFromMinMax<T>(-.81, .81);
+  float time_weights_scale = tflite_micro::testing::ScaleFromMinMax<T>(-.81, .81);
   float activation_state_scale =
-      tflite::testing::ScaleFromMinMax<T>(-17.73, 17.73);
+      tflite_micro::testing::ScaleFromMinMax<T>(-17.73, 17.73);
   int activation_state_zero_point =
-      tflite::testing::ZeroPointFromMinMax<T>(-17.73, 17.73);
+      tflite_micro::testing::ZeroPointFromMinMax<T>(-17.73, 17.73);
   float output_scale = 0.051445257;
 
   int input_zero_point = 2;
   int output_zero_point = -128;
 
   int8_t input_quantized[input_dims_count];
-  int8_t input_sequences_quantized[sizeof(tflite::testing::input_data_16x1x1) /
+  int8_t input_sequences_quantized[sizeof(tflite_micro::testing::input_data_16x1x1) /
                                    sizeof(float)];
   int8_t feature_weights_quantized
-      [sizeof(tflite::testing::feature_weights_data_16x1x1) / sizeof(float)];
-  T time_weights_quantized[sizeof(tflite::testing::time_weights_data_16x1x1) /
+      [sizeof(tflite_micro::testing::feature_weights_data_16x1x1) / sizeof(float)];
+  T time_weights_quantized[sizeof(tflite_micro::testing::time_weights_data_16x1x1) /
                            sizeof(float)];
   T activation_state_quantized[activation_state_dims_count];
   int32_t
-      bias_quantized[sizeof(tflite::testing::bias_data_16x1x1) / sizeof(float)];
-  int8_t golden_quantized[sizeof(tflite::testing::golden_output_relu_16x1x1) /
+      bias_quantized[sizeof(tflite_micro::testing::bias_data_16x1x1) / sizeof(float)];
+  int8_t golden_quantized[sizeof(tflite_micro::testing::golden_output_relu_16x1x1) /
                           sizeof(float)];
 
-  tflite::testing::TestIntegerSVDF(
+  tflite_micro::testing::TestIntegerSVDF(
       batch_size, num_units, input_size, memory_size, rank, kTfLiteActRelu,
       input_quantized, input_scale, input_zero_point,
-      tflite::testing::feature_weights_data_16x1x1, feature_weights_quantized,
-      feature_weights_scale, tflite::testing::time_weights_data_16x1x1,
+      tflite_micro::testing::feature_weights_data_16x1x1, feature_weights_quantized,
+      feature_weights_scale, tflite_micro::testing::time_weights_data_16x1x1,
       time_weights_quantized, time_weights_scale,
-      tflite::testing::bias_data_16x1x1, bias_quantized,
-      tflite::testing::initial_activation_state_data_16x1x1,
+      tflite_micro::testing::bias_data_16x1x1, bias_quantized,
+      tflite_micro::testing::initial_activation_state_data_16x1x1,
       activation_state_quantized, activation_state_scale,
       activation_state_zero_point, output_data, output_scale, output_zero_point,
-      tflite::testing::input_data_16x1x1, input_sequences_quantized,
-      sizeof(tflite::testing::input_data_16x1x1) / sizeof(float),
-      tflite::testing::golden_output_relu_16x1x1, golden_quantized,
-      sizeof(tflite::testing::golden_output_relu_16x1x1) / sizeof(float));
+      tflite_micro::testing::input_data_16x1x1, input_sequences_quantized,
+      sizeof(tflite_micro::testing::input_data_16x1x1) / sizeof(float),
+      tflite_micro::testing::golden_output_relu_16x1x1, golden_quantized,
+      sizeof(tflite_micro::testing::golden_output_relu_16x1x1) / sizeof(float));
 }
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -846,8 +846,8 @@ TF_LITE_MICRO_TEST(SvdfFloat2x2Input2x4OutputShouldMatchGolden) {
   float activation_state_data[activation_state_dims_count];
 
   memcpy(activation_state_data,
-         tflite::testing::initial_activation_state_data_2x2x10,
-         sizeof(tflite::testing::initial_activation_state_data_2x2x10));
+         tflite_micro::testing::initial_activation_state_data_2x2x10,
+         sizeof(tflite_micro::testing::initial_activation_state_data_2x2x10));
 
   const int scratch_dims_count = batch_size * num_filters;
   float scratch_data[scratch_dims_count];
@@ -855,25 +855,25 @@ TF_LITE_MICRO_TEST(SvdfFloat2x2Input2x4OutputShouldMatchGolden) {
   const int output_dims_count = batch_size * num_units;
   float output_data[output_dims_count];
 
-  tflite::testing::TestSVDF(
+  tflite_micro::testing::TestSVDF(
       batch_size, num_units, input_size, memory_size, rank, kTfLiteActNone,
-      input_data, tflite::testing::feature_weights_data_2x2x10,
-      tflite::testing::time_weights_data_2x2x10, activation_state_data,
-      tflite::testing::bias_data_2x2x10, scratch_data, output_data,
-      tflite::testing::input_data_2x2x10,
-      sizeof(tflite::testing::input_data_2x2x10) / sizeof(float),
-      tflite::testing::golden_output_2x2x10);
+      input_data, tflite_micro::testing::feature_weights_data_2x2x10,
+      tflite_micro::testing::time_weights_data_2x2x10, activation_state_data,
+      tflite_micro::testing::bias_data_2x2x10, scratch_data, output_data,
+      tflite_micro::testing::input_data_2x2x10,
+      sizeof(tflite_micro::testing::input_data_2x2x10) / sizeof(float),
+      tflite_micro::testing::golden_output_2x2x10);
 }
 
 // Only reference kernels support full int8 svdf currently.
 #if !defined(HEXAGON)
 TF_LITE_MICRO_TEST(SvdfQuantized2x2Input2x4OutputShouldMatchGoldenInt8) {
-  tflite::testing::SvdfQuantized2x2Input2x4OutputShouldMatchGolden<int8_t>();
+  tflite_micro::testing::SvdfQuantized2x2Input2x4OutputShouldMatchGolden<int8_t>();
 }
 #endif
 
 TF_LITE_MICRO_TEST(SvdfQuantized2x2Input2x4OutputShouldMatchGoldenInt16) {
-  tflite::testing::SvdfQuantized2x2Input2x4OutputShouldMatchGolden<int16_t>();
+  tflite_micro::testing::SvdfQuantized2x2Input2x4OutputShouldMatchGolden<int16_t>();
 }
 
 TF_LITE_MICRO_TEST(SvdfFloat1x16Input64x1OutputShouldMatchGolden) {
@@ -895,16 +895,16 @@ TF_LITE_MICRO_TEST(SvdfFloat1x16Input64x1OutputShouldMatchGolden) {
 
   // Initialize activation state to starting values.
   memcpy(activation_state_data_mutable,
-         tflite::testing::initial_activation_state_data_16x1x1,
-         sizeof(tflite::testing::initial_activation_state_data_16x1x1));
+         tflite_micro::testing::initial_activation_state_data_16x1x1,
+         sizeof(tflite_micro::testing::initial_activation_state_data_16x1x1));
 
-  tflite::testing::TestSVDF(
+  tflite_micro::testing::TestSVDF(
       batch_size, num_units, input_size, memory_size, rank, kTfLiteActNone,
-      input_data, tflite::testing::feature_weights_data_16x1x1,
-      tflite::testing::time_weights_data_16x1x1, activation_state_data_mutable,
-      tflite::testing::bias_data_16x1x1, scratch_buffer, output_data,
-      tflite::testing::input_data_16x1x1, input_size,
-      tflite::testing::golden_output_16x1x1);
+      input_data, tflite_micro::testing::feature_weights_data_16x1x1,
+      tflite_micro::testing::time_weights_data_16x1x1, activation_state_data_mutable,
+      tflite_micro::testing::bias_data_16x1x1, scratch_buffer, output_data,
+      tflite_micro::testing::input_data_16x1x1, input_size,
+      tflite_micro::testing::golden_output_16x1x1);
 }
 
 TF_LITE_MICRO_TEST(SvdfFloat1x16Input64x1OutputReluShouldMatchGolden) {
@@ -926,39 +926,39 @@ TF_LITE_MICRO_TEST(SvdfFloat1x16Input64x1OutputReluShouldMatchGolden) {
 
   // Initialize activation state to starting values.
   memcpy(activation_state_data_mutable,
-         tflite::testing::initial_activation_state_data_16x1x1,
-         sizeof(tflite::testing::initial_activation_state_data_16x1x1));
+         tflite_micro::testing::initial_activation_state_data_16x1x1,
+         sizeof(tflite_micro::testing::initial_activation_state_data_16x1x1));
 
-  tflite::testing::TestSVDF(
+  tflite_micro::testing::TestSVDF(
       batch_size, num_units, input_size, memory_size, rank, kTfLiteActRelu,
-      input_data, tflite::testing::feature_weights_data_16x1x1,
-      tflite::testing::time_weights_data_16x1x1, activation_state_data_mutable,
-      tflite::testing::bias_data_16x1x1, scratch_buffer, output_data,
-      tflite::testing::input_data_16x1x1, input_size,
-      tflite::testing::golden_output_relu_16x1x1);
+      input_data, tflite_micro::testing::feature_weights_data_16x1x1,
+      tflite_micro::testing::time_weights_data_16x1x1, activation_state_data_mutable,
+      tflite_micro::testing::bias_data_16x1x1, scratch_buffer, output_data,
+      tflite_micro::testing::input_data_16x1x1, input_size,
+      tflite_micro::testing::golden_output_relu_16x1x1);
 }
 
 // Only reference kernels support full int8 svdf currently.
 #if !defined(HEXAGON)
 TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputShouldMatchGoldenInt8) {
-  tflite::testing::SvdfQuantized1x16Input64x1OutputShouldMatchGolden<int8_t>();
+  tflite_micro::testing::SvdfQuantized1x16Input64x1OutputShouldMatchGolden<int8_t>();
 }
 #endif
 
 TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputShouldMatchGoldenInt16) {
-  tflite::testing::SvdfQuantized1x16Input64x1OutputShouldMatchGolden<int16_t>();
+  tflite_micro::testing::SvdfQuantized1x16Input64x1OutputShouldMatchGolden<int16_t>();
 }
 
 // Only reference kernels support full int8 svdf currently.
 #if !defined(HEXAGON)
 TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputReluShouldMatchGoldenInt8) {
-  tflite::testing::SvdfQuantized1x16Input64x1OutputReluShouldMatchGolden<
+  tflite_micro::testing::SvdfQuantized1x16Input64x1OutputReluShouldMatchGolden<
       int8_t>();
 }
 #endif
 
 TF_LITE_MICRO_TEST(SvdfQuantized1x16Input64x1OutputReluShouldMatchGoldenInt16) {
-  tflite::testing::SvdfQuantized1x16Input64x1OutputReluShouldMatchGolden<
+  tflite_micro::testing::SvdfQuantized1x16Input64x1OutputReluShouldMatchGolden<
       int16_t>();
 }
 

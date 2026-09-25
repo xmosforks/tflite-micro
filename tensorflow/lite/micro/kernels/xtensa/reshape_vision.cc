@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_reshape.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 inline void OperandDims4D(uint32_t* dims, TfLiteTensor* opnd) {
   for (int i = NumDimensions(opnd) - 1, j = 0; i >= 0; i--, j++) {
@@ -79,10 +79,10 @@ TfLiteStatus ReshapeEvalVision(const XtensaReshapeData& data,
   const uint32_t output_size = NumElements(output->dims);
 
   xiReshape(data.p_context, data.context_size,
-            const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input)),
-            input_size, tflite::micro::GetTensorData<int8_t>(output),
+            const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input)),
+            input_size, tflite_micro::micro::GetTensorData<int8_t>(output),
             output_size);
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(VISION_P6)

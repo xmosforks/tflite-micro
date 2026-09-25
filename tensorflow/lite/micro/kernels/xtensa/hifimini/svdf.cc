@@ -31,7 +31,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_svdf.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 /**
  * This version of SVDF is specific to TFLite Micro. It contains only a full
@@ -67,7 +67,7 @@ TfLiteStatus EvalIntegerSvdfHifimini(
 
   // Shift states.
   int16_t* const state_ptr =
-      tflite::micro::GetTensorData<int16_t>(activation_state_tensor);
+      tflite_micro::micro::GetTensorData<int16_t>(activation_state_tensor);
 
   // Left shift the activation_state.
   {
@@ -83,9 +83,9 @@ TfLiteStatus EvalIntegerSvdfHifimini(
 
   // Feature matmul.
   {
-    const int8_t* input = tflite::micro::GetTensorData<int8_t>(input_tensor);
+    const int8_t* input = tflite_micro::micro::GetTensorData<int8_t>(input_tensor);
     const int8_t* weight_feature =
-        tflite::micro::GetTensorData<int8_t>(weights_feature_tensor);
+        tflite_micro::micro::GetTensorData<int8_t>(weights_feature_tensor);
     int16_t* result_in_batch = state_ptr + (n_memory - 1);
 
     ae_q56s output_int16_max_56 = AE_CVTQ48A32S(INT16_MAX);
@@ -153,7 +153,7 @@ TfLiteStatus EvalIntegerSvdfHifimini(
 
       // Perform batched vector dot product:
       const int16_t* vector1_ptr =
-          tflite::micro::GetTensorData<int16_t>(weights_time_tensor);
+          tflite_micro::micro::GetTensorData<int16_t>(weights_time_tensor);
       const int16_t* vector2_ptr = state_ptr + b * n_memory * n_filter;
 
       const ae_p16x2s* offset_vector1 =
@@ -186,7 +186,7 @@ TfLiteStatus EvalIntegerSvdfHifimini(
     if (bias_tensor) {
       // Vector batch assign:
       const int32_t* bias_data =
-          tflite::micro::GetTensorData<int32_t>(bias_tensor);
+          tflite_micro::micro::GetTensorData<int32_t>(bias_tensor);
       for (int i = 0; i < n_batch; ++i) {
         int32_t* output_ptr = scratch_output_tensor + i * n_unit;
         const int32_t* bias_ptr = bias_data;
@@ -227,11 +227,11 @@ TfLiteStatus EvalIntegerSvdfHifimini(
       // Cap min/max and convert to int32_t (already aligned to 32bit):
       x_56 = AE_MAXQ56S(x_56, output_int8_min_56);
       x_56 = AE_MINQ56S(x_56, output_int8_max_56);
-      tflite::micro::GetTensorData<int8_t>(output_tensor)[i] =
+      tflite_micro::micro::GetTensorData<int8_t>(output_tensor)[i] =
           static_cast<int8_t>(AE_TRUNCA32Q48(x_56));
     }
   }
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(HIFIMINI)

@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -72,7 +72,7 @@ void ValidateSubGoldens(TfLiteTensor* tensors, int tensors_size,
   int outputs_array_data[] = {1, 2};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_SUB();
+  const TFLMRegistration registration = tflite_micro::Register_SUB();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, &builtin_data);
 
@@ -123,16 +123,16 @@ void TestSubQuantized(int* input1_dims_data, const float* input1_data,
   constexpr int outputs_size = 1;
   constexpr int tensors_size = inputs_size + outputs_size;
   TfLiteTensor tensors[tensors_size] = {
-      tflite::testing::CreateQuantizedTensor(input1_data, input1_quantized,
+      tflite_micro::testing::CreateQuantizedTensor(input1_data, input1_quantized,
                                              input1_dims, input1_scale,
                                              input1_zero_point),
-      tflite::testing::CreateQuantizedTensor(input2_data, input2_quantized,
+      tflite_micro::testing::CreateQuantizedTensor(input2_data, input2_quantized,
                                              input2_dims, input2_scale,
                                              input2_zero_point),
-      tflite::testing::CreateQuantizedTensor(output_data, output_dims,
+      tflite_micro::testing::CreateQuantizedTensor(output_data, output_dims,
                                              output_scale, output_zero_point),
   };
-  tflite::Quantize(golden, golden_quantized, ElementCount(*output_dims),
+  tflite_micro::Quantize(golden, golden_quantized, ElementCount(*output_dims),
                    output_scale, output_zero_point);
 
   ValidateSubGoldens(tensors, tensors_size, golden_quantized, output_data,
@@ -141,7 +141,7 @@ void TestSubQuantized(int* input1_dims_data, const float* input1_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -152,7 +152,7 @@ TF_LITE_MICRO_TEST(FloatSubNoActivation) {
   const float input2_values[] = {0.1, 0.2, 0.3, 0.5};
   const float golden_values[] = {-2.1, 0.0, 0.4, 0.3};
   float output_data[output_dims_count];
-  tflite::testing::TestSubFloat(inout_shape, input1_values, inout_shape,
+  tflite_micro::testing::TestSubFloat(inout_shape, input1_values, inout_shape,
                                 input2_values, inout_shape, golden_values,
                                 kTfLiteActNone, output_data);
 }
@@ -165,7 +165,7 @@ TF_LITE_MICRO_TEST(FloatSubActivationRelu1) {
   const float golden_values[] = {-1.0, 0.0, 1.0, 0.3};
 
   float output_data[output_dims_count];
-  tflite::testing::TestSubFloat(inout_shape, input1_values, inout_shape,
+  tflite_micro::testing::TestSubFloat(inout_shape, input1_values, inout_shape,
                                 input2_values, inout_shape, golden_values,
                                 kTfLiteActReluN1To1, output_data);
 }
@@ -188,7 +188,7 @@ TF_LITE_MICRO_TEST(FloatSubVariousInputShapes) {
   };
 
   for (int i = 0; i < num_shapes; ++i) {
-    tflite::testing::TestSubFloat(test_shapes[i], input1_values, test_shapes[i],
+    tflite_micro::testing::TestSubFloat(test_shapes[i], input1_values, test_shapes[i],
                                   input2_values, test_shapes[i],
                                   expected_output, kTfLiteActNone, output_data);
   }
@@ -213,7 +213,7 @@ TF_LITE_MICRO_TEST(FloatSubWithScalarBroadcast) {
   };
 
   for (int i = 0; i < num_shapes; ++i) {
-    tflite::testing::TestSubFloat(test_shapes[i], input1_values, input2_shape,
+    tflite_micro::testing::TestSubFloat(test_shapes[i], input1_values, input2_shape,
                                   input2_values, test_shapes[i],
                                   expected_output, kTfLiteActNone, output_data);
   }
@@ -233,7 +233,7 @@ TF_LITE_MICRO_TEST(QuantizedSubNoActivationInt8) {
   int8_t golden_quantized[output_dims_count];
   int8_t output[output_dims_count];
 
-  tflite::testing::TestSubQuantized(
+  tflite_micro::testing::TestSubQuantized(
       inout_shape, input1_values, input1_quantized, scales[0], zero_points[0],
       inout_shape, input2_values, input2_quantized, scales[1], zero_points[1],
       inout_shape, golden_values, golden_quantized, scales[2], zero_points[2],
@@ -254,7 +254,7 @@ TF_LITE_MICRO_TEST(QuantizedSubActivationRelu1Int8) {
   int8_t golden_quantized[output_dims_count];
   int8_t output[output_dims_count];
 
-  tflite::testing::TestSubQuantized(
+  tflite_micro::testing::TestSubQuantized(
       inout_shape, input1_values, input1_quantized, scales[0], zero_points[0],
       inout_shape, input2_values, input2_quantized, scales[1], zero_points[1],
       inout_shape, golden_values, golden_quantized, scales[2], zero_points[2],
@@ -275,7 +275,7 @@ TF_LITE_MICRO_TEST(QuantizedSubActivationRelu1Int16) {
   int16_t golden_quantized[output_dims_count];
   int16_t output[output_dims_count];
 
-  tflite::testing::TestSubQuantized(
+  tflite_micro::testing::TestSubQuantized(
       inout_shape, input1_values, input1_quantized, scales[0], zero_points[0],
       inout_shape, input2_values, input2_quantized, scales[1], zero_points[1],
       inout_shape, golden_values, golden_quantized, scales[2], zero_points[2],
@@ -306,7 +306,7 @@ TF_LITE_MICRO_TEST(QuantizedSubVariousInputShapesInt8) {
   int8_t output[output_dims_count];
 
   for (int i = 0; i < num_shapes; i++) {
-    tflite::testing::TestSubQuantized(
+    tflite_micro::testing::TestSubQuantized(
         test_shapes[i], input1_values, input1_quantized, scales[0],
         zero_points[0], test_shapes[i], input2_values, input2_quantized,
         scales[1], zero_points[1], test_shapes[i], golden_values,
@@ -338,7 +338,7 @@ TF_LITE_MICRO_TEST(QuantizedSubVariousInputShapesInt16) {
   int16_t output[output_dims_count];
 
   for (int i = 0; i < num_shapes; i++) {
-    tflite::testing::TestSubQuantized(
+    tflite_micro::testing::TestSubQuantized(
         test_shapes[i], input1_values, input1_quantized, scales[0],
         zero_points[0], test_shapes[i], input2_values, input2_quantized,
         scales[1], zero_points[1], test_shapes[i], golden_values,
@@ -347,15 +347,15 @@ TF_LITE_MICRO_TEST(QuantizedSubVariousInputShapesInt16) {
 }
 
 TF_LITE_MICRO_TEST(QuantizedSubWithScalarBroadcastFloat) {
-  float output_float[tflite::testing::broadcast_output_dims_count];
+  float output_float[tflite_micro::testing::broadcast_output_dims_count];
 
-  for (int i = 0; i < tflite::testing::broadcast_num_shapes; ++i) {
-    tflite::testing::TestSubFloat(tflite::testing::broadcast_input1_shape,
-                                  tflite::testing::broadcast_input1_values,
-                                  tflite::testing::broadcast_input2_shapes[i],
-                                  tflite::testing::broadcast_input2_values,
-                                  tflite::testing::broadcast_output_shapes[i],
-                                  tflite::testing::broadcast_goldens[i],
+  for (int i = 0; i < tflite_micro::testing::broadcast_num_shapes; ++i) {
+    tflite_micro::testing::TestSubFloat(tflite_micro::testing::broadcast_input1_shape,
+                                  tflite_micro::testing::broadcast_input1_values,
+                                  tflite_micro::testing::broadcast_input2_shapes[i],
+                                  tflite_micro::testing::broadcast_input2_values,
+                                  tflite_micro::testing::broadcast_output_shapes[i],
+                                  tflite_micro::testing::broadcast_goldens[i],
                                   kTfLiteActNone, output_float);
   }
 }
@@ -386,7 +386,7 @@ TF_LITE_MICRO_TEST(QuantizedSubWithScalarBroadcastInt8) {
   int8_t output[output_dims_count];
 
   for (int i = 0; i < num_shapes; ++i) {
-    tflite::testing::TestSubQuantized(
+    tflite_micro::testing::TestSubQuantized(
         test_shapes[i], input1_values, input1_quantized, scales[0],
         zero_points[0], input2_shape, input2_values, input2_quantized,
         scales[1], zero_points[1], test_shapes[i], golden, golden_quantized,
@@ -420,7 +420,7 @@ TF_LITE_MICRO_TEST(QuantizedSubWithScalarBroadcastInt16) {
   int16_t output[output_dims_count];
 
   for (int i = 0; i < num_shapes; ++i) {
-    tflite::testing::TestSubQuantized(
+    tflite_micro::testing::TestSubQuantized(
         test_shapes[i], input1_values, input1_quantized, scales[0],
         zero_points[0], input2_shape, input2_values, input2_quantized,
         scales[1], zero_points[1], test_shapes[i], golden, golden_quantized,
@@ -431,19 +431,19 @@ TF_LITE_MICRO_TEST(QuantizedSubWithScalarBroadcastInt16) {
 TF_LITE_MICRO_TEST(QuantizedSubWithMixedBroadcastInt8) {
   const float scales[] = {0.1, 0.05, 0.1};
   const int zero_points[] = {-10, -5, 7};
-  int8_t input1_quantized[tflite::testing::broadcast_output_dims_count];
-  int8_t input2_quantized[tflite::testing::broadcast_output_dims_count];
-  int8_t golden_quantized[tflite::testing::broadcast_output_dims_count];
-  int8_t output[tflite::testing::broadcast_output_dims_count];
+  int8_t input1_quantized[tflite_micro::testing::broadcast_output_dims_count];
+  int8_t input2_quantized[tflite_micro::testing::broadcast_output_dims_count];
+  int8_t golden_quantized[tflite_micro::testing::broadcast_output_dims_count];
+  int8_t output[tflite_micro::testing::broadcast_output_dims_count];
 
-  for (int i = 0; i < tflite::testing::broadcast_num_shapes; ++i) {
-    tflite::testing::TestSubQuantized(
-        tflite::testing::broadcast_input1_shape,
-        tflite::testing::broadcast_input1_values, input1_quantized, scales[0],
-        zero_points[0], tflite::testing::broadcast_input2_shapes[i],
-        tflite::testing::broadcast_input2_values, input2_quantized, scales[1],
-        zero_points[1], tflite::testing::broadcast_output_shapes[i],
-        tflite::testing::broadcast_goldens[i], golden_quantized, scales[2],
+  for (int i = 0; i < tflite_micro::testing::broadcast_num_shapes; ++i) {
+    tflite_micro::testing::TestSubQuantized(
+        tflite_micro::testing::broadcast_input1_shape,
+        tflite_micro::testing::broadcast_input1_values, input1_quantized, scales[0],
+        zero_points[0], tflite_micro::testing::broadcast_input2_shapes[i],
+        tflite_micro::testing::broadcast_input2_values, input2_quantized, scales[1],
+        zero_points[1], tflite_micro::testing::broadcast_output_shapes[i],
+        tflite_micro::testing::broadcast_goldens[i], golden_quantized, scales[2],
         zero_points[2], kTfLiteActNone, output);
   }
 }
@@ -451,19 +451,19 @@ TF_LITE_MICRO_TEST(QuantizedSubWithMixedBroadcastInt8) {
 TF_LITE_MICRO_TEST(QuantizedSubWithMixedBroadcastInt16) {
   const float scales[] = {0.1, 0.05, 0.1};
   const int zero_points[] = {0, 0, 0};
-  int16_t input1_quantized[tflite::testing::broadcast_output_dims_count];
-  int16_t input2_quantized[tflite::testing::broadcast_output_dims_count];
-  int16_t golden_quantized[tflite::testing::broadcast_output_dims_count];
-  int16_t output[tflite::testing::broadcast_output_dims_count];
+  int16_t input1_quantized[tflite_micro::testing::broadcast_output_dims_count];
+  int16_t input2_quantized[tflite_micro::testing::broadcast_output_dims_count];
+  int16_t golden_quantized[tflite_micro::testing::broadcast_output_dims_count];
+  int16_t output[tflite_micro::testing::broadcast_output_dims_count];
 
-  for (int i = 0; i < tflite::testing::broadcast_num_shapes; ++i) {
-    tflite::testing::TestSubQuantized(
-        tflite::testing::broadcast_input1_shape,
-        tflite::testing::broadcast_input1_values, input1_quantized, scales[0],
-        zero_points[0], tflite::testing::broadcast_input2_shapes[i],
-        tflite::testing::broadcast_input2_values, input2_quantized, scales[1],
-        zero_points[1], tflite::testing::broadcast_output_shapes[i],
-        tflite::testing::broadcast_goldens[i], golden_quantized, scales[2],
+  for (int i = 0; i < tflite_micro::testing::broadcast_num_shapes; ++i) {
+    tflite_micro::testing::TestSubQuantized(
+        tflite_micro::testing::broadcast_input1_shape,
+        tflite_micro::testing::broadcast_input1_values, input1_quantized, scales[0],
+        zero_points[0], tflite_micro::testing::broadcast_input2_shapes[i],
+        tflite_micro::testing::broadcast_input2_values, input2_quantized, scales[1],
+        zero_points[1], tflite_micro::testing::broadcast_output_shapes[i],
+        tflite_micro::testing::broadcast_goldens[i], golden_quantized, scales[2],
         zero_points[2], kTfLiteActNone, output);
   }
 }

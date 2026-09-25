@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_planner/greedy_memory_planner.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 constexpr char kOfflineMemAllocMetadata[] = "OfflineMemoryAllocation";
@@ -206,6 +206,12 @@ TfLiteStatus AllocationInfoBuilder::InitializeAllocationInfo(
       if (offline_offsets) {
         current->offline_offset = offline_offsets[offline_index++];
 
+        // Mark offline planned externally allocated tensors.
+        if (current->offline_offset == kXcoreOfflinePlannedBuffer) {
+          current->offline_offset = 0;
+          current->needs_allocating = false;
+        }
+
         // Mark offline planned variable tensors so they can get an offline
         // offset and be handled offline.
         if (subgraph->tensors()->Get(i)->is_variable() &&
@@ -372,4 +378,4 @@ TfLiteStatus AllocationInfoBuilder::GetOfflinePlannedOffsets(
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

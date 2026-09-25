@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/conv.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus ConvReferenceEvalInt8(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
@@ -35,38 +35,38 @@ TfLiteStatus ConvReferenceEvalInt8(TfLiteContext* context, TfLiteNode* node) {
   const auto& op_data = *(reinterpret_cast<OpDataConv*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kConvOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kConvBiasTensor)
           : nullptr;
 
   const int8_t* filter_data;
   if (filter->type == kTfLiteInt4) {
     int8_t* unpacked_filter_data = static_cast<int8_t*>(
         context->GetScratchBuffer(context, op_data.filter_buffer_index));
-    tflite::tensor_utils::UnpackDenseInt4IntoInt8(
-        tflite::micro::GetTensorData<int8_t>(filter),
-        tflite::micro::GetTensorShape(filter).FlatSize(), unpacked_filter_data);
+    tflite_micro::tensor_utils::UnpackDenseInt4IntoInt8(
+        tflite_micro::micro::GetTensorData<int8_t>(filter),
+        tflite_micro::micro::GetTensorShape(filter).FlatSize(), unpacked_filter_data);
     filter_data = unpacked_filter_data;
   } else {
-    filter_data = tflite::micro::GetTensorData<int8_t>(filter);
+    filter_data = tflite_micro::micro::GetTensorData<int8_t>(filter);
   }
 
   reference_integer_ops::ConvPerChannel(
       ConvParamsQuantized(params, op_data),
       op_data.per_channel_output_multiplier, op_data.per_channel_output_shift,
-      tflite::micro::GetTensorShape(input),
-      tflite::micro::GetTensorData<int8_t>(input),
-      tflite::micro::GetTensorShape(filter), filter_data,
-      tflite::micro::GetTensorShape(bias),
-      tflite::micro::GetOptionalTensorData<int32_t>(bias),
-      tflite::micro::GetTensorShape(output),
-      tflite::micro::GetTensorData<int8_t>(output));
+      tflite_micro::micro::GetTensorShape(input),
+      tflite_micro::micro::GetTensorData<int8_t>(input),
+      tflite_micro::micro::GetTensorShape(filter), filter_data,
+      tflite_micro::micro::GetTensorShape(bias),
+      tflite_micro::micro::GetOptionalTensorData<int32_t>(bias),
+      tflite_micro::micro::GetTensorShape(output),
+      tflite_micro::micro::GetTensorData<int8_t>(output));
 
   return kTfLiteOk;
 }
@@ -75,8 +75,8 @@ TfLiteStatus ConvReferenceEvalInt8(TfLiteContext* context, TfLiteNode* node) {
 // since the optimized conv implementation currently adds a lot to
 // the binary size (~30KB to text section).
 TFLMRegistration Register_CONV_2D_INT8REF() {
-  return tflite::micro::RegisterOp(ConvInit, ConvPrepare,
+  return tflite_micro::micro::RegisterOp(ConvInit, ConvPrepare,
                                    ConvReferenceEvalInt8);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

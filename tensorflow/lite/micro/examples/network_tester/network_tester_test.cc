@@ -73,7 +73,7 @@ inline void print_output_data(TfLiteTensor* output) {
 template <typename T>
 void check_output_elem(TfLiteTensor* output, const T* expected_output,
                        const int index) {
-  TF_LITE_MICRO_EXPECT_EQ(tflite::GetTensorData<T>(output)[index],
+  TF_LITE_MICRO_EXPECT_EQ(tflite_micro::GetTensorData<T>(output)[index],
                           expected_output[index]);
 }
 
@@ -81,9 +81,9 @@ TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestInvoke) {
 #ifdef ETHOS_U
-  const tflite::Model* model = ::tflite::GetModel(g_person_detect_model_data);
+  const tflite_micro::Model* model = ::tflite_micro::GetModel(g_person_detect_model_data);
 #else
-  const tflite::Model* model = ::tflite::GetModel(network_model);
+  const tflite_micro::Model* model = ::tflite_micro::GetModel(network_model);
 #endif
   if (model->version() != TFLITE_SCHEMA_VERSION) {
     MicroPrintf(
@@ -93,15 +93,15 @@ TF_LITE_MICRO_TEST(TestInvoke) {
     return kTfLiteError;
   }
 
-  tflite::MicroMutableOpResolver<6> resolver;
-  resolver.AddAveragePool2D(tflite::Register_AVERAGE_POOL_2D_INT8());
-  resolver.AddConv2D(tflite::Register_CONV_2D_INT8());
-  resolver.AddDepthwiseConv2D(tflite::Register_DEPTHWISE_CONV_2D_INT8());
+  tflite_micro::MicroMutableOpResolver<6> resolver;
+  resolver.AddAveragePool2D(tflite_micro::Register_AVERAGE_POOL_2D_INT8());
+  resolver.AddConv2D(tflite_micro::Register_CONV_2D_INT8());
+  resolver.AddDepthwiseConv2D(tflite_micro::Register_DEPTHWISE_CONV_2D_INT8());
   resolver.AddEthosU();
   resolver.AddReshape();
-  resolver.AddSoftmax(tflite::Register_SOFTMAX_INT8());
+  resolver.AddSoftmax(tflite_micro::Register_SOFTMAX_INT8());
 
-  tflite::MicroInterpreter interpreter(model, resolver, tensor_arena,
+  tflite_micro::MicroInterpreter interpreter(model, resolver, tensor_arena,
                                        TENSOR_ARENA_SIZE);
 
   TfLiteStatus allocate_status = interpreter.AllocateTensors();
@@ -146,7 +146,7 @@ TF_LITE_MICRO_TEST(TestInvoke) {
 #ifndef NO_COMPARE_OUTPUT_DATA
     for (size_t i = 0; i < interpreter.outputs_size(); i++) {
       TfLiteTensor* output = interpreter.output(i);
-      for (int j = 0; j < tflite::ElementCount(*(output->dims)); ++j) {
+      for (int j = 0; j < tflite_micro::ElementCount(*(output->dims)); ++j) {
         check_output_elem(output, &expected_output_data[i], j);
       }
     }

@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_graph.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // MockMicroGraph stubs out all MicroGraph methods used during invoke. A count
 // of the number of calls to invoke for each subgraph is maintained for
@@ -55,6 +55,6 @@ class MockMicroGraph : public MicroGraph {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MOCK_MICRO_GRAPH_H_

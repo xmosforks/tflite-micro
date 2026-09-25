@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -57,7 +57,7 @@ void TestZerosLike(int* input_dims_data, const T* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -66,7 +66,7 @@ TF_LITE_MICRO_TEST(TestZerosLikeFloat) {
   int input_dims[] = {2, 2, 3};
   const float input_values[] = {-2.0, -1.0, 0.0, 1.0, 2.0, 3.0};
   const float golden[] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-  tflite::testing::TestZerosLike<float>(input_dims, input_values, golden,
+  tflite_micro::testing::TestZerosLike<float>(input_dims, input_values, golden,
                                         output_data);
 }
 
@@ -75,7 +75,7 @@ TF_LITE_MICRO_TEST(TestZerosLikeInt8) {
   int input_dims[] = {3, 1, 2, 3};
   const int8_t input_values[] = {-2, -1, 0, 1, 2, 3};
   const int8_t golden[] = {0, 0, 0, 0, 0, 0};
-  tflite::testing::TestZerosLike<int8_t>(input_dims, input_values, golden,
+  tflite_micro::testing::TestZerosLike<int8_t>(input_dims, input_values, golden,
                                          output_data);
 }
 
@@ -84,7 +84,7 @@ TF_LITE_MICRO_TEST(TestZerosLikeInt32) {
   int input_dims[] = {4, 1, 2, 2, 1};
   const int32_t input_values[] = {-2, -1, 0, 3};
   const int32_t golden[] = {0, 0, 0, 0};
-  tflite::testing::TestZerosLike<int32_t>(input_dims, input_values, golden,
+  tflite_micro::testing::TestZerosLike<int32_t>(input_dims, input_values, golden,
                                           output_data);
 }
 
@@ -93,7 +93,7 @@ TF_LITE_MICRO_TEST(TestZerosLikeInt64) {
   int input_dims[] = {4, 1, 2, 2, 1};
   const int64_t input_values[] = {-2, -1, 0, 3};
   const int64_t golden[] = {0, 0, 0, 0};
-  tflite::testing::TestZerosLike<int64_t>(input_dims, input_values, golden,
+  tflite_micro::testing::TestZerosLike<int64_t>(input_dims, input_values, golden,
                                           output_data);
 }
 

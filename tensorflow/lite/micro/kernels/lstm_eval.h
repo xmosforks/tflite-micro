@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/lstm_shared.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Interface to access all the TempTfLiteTensors of the LSTM kernel during the
 // preparation phase. Can only be constructed through the constructor to avoid
@@ -100,7 +100,7 @@ TfLiteStatus CreateGateParams(
     const TfLiteTensor* hidden_state_bias,
     /*Scale of the fc output (input to non-linear activation)*/
     const float nonlinear_activation_input_scale, const TfLiteType cell_type,
-    const tflite::GateParameters& gate_params);
+    const tflite_micro::GateParameters& gate_params);
 
 // Create parameters for element wise multiplication that happens in a) cell
 // state update ; b) hidden state update
@@ -108,7 +108,7 @@ TfLiteStatus CreateGateParams(
 // are required for input. However, during the hidden state update phase, the
 // output is the updated hidden state, which is asymmetrically quantized. Thus
 // output may require zero point
-tflite::ArithmeticParams CreateInterGateMulParams(const float input1_scale,
+tflite_micro::ArithmeticParams CreateInterGateMulParams(const float input1_scale,
                                                   const float input2_scale,
                                                   const float output_scale,
                                                   const TfLiteType output_type,
@@ -121,11 +121,11 @@ CellStateInfo CreateLstmCellStateInfo(const float cell_state_scale,
                                       const float cell_clip);
 
 CellStateInfo CreateLstmCellStateInfoFloat(const float cell_clip);
-tflite::FullyConnectedParams CreateFCParamsFloat();
+tflite_micro::FullyConnectedParams CreateFCParamsFloat();
 
-tflite::GateParameters CreateGateParamsFloat();
+tflite_micro::GateParameters CreateGateParamsFloat();
 
-tflite::ArithmeticParams CreateInterGateMulParamsFloat();
+tflite_micro::ArithmeticParams CreateInterGateMulParamsFloat();
 
 TfLiteStatus PrepareGateParametersFloat(TfLiteContext* context,
                                         const LstmTensors& lstm_tensors,
@@ -267,29 +267,29 @@ void CalculateLstmGate(
   const auto gate_output_shape = step_info.StateShape();
   // Check offset validity to avoid memory overflow
   TFLITE_DCHECK_LE(step_info.InputOffset() + step_info.InputShape().FlatSize(),
-                   tflite::micro::GetTensorShape(input).FlatSize());
+                   tflite_micro::micro::GetTensorShape(input).FlatSize());
   TFLITE_DCHECK_LE(
       step_info.HiddenStateOffset() + step_info.StateShape().FlatSize(),
-      tflite::micro::GetTensorShape(recurrent).FlatSize());
+      tflite_micro::micro::GetTensorShape(recurrent).FlatSize());
 
   // Input FC
   FullyConnected(gate_params.input_fc_params, step_info.InputShape(),
-                 tflite::micro::GetTensorData<ActivationType>(input) +
+                 tflite_micro::micro::GetTensorData<ActivationType>(input) +
                      step_info.InputOffset(),
                  micro::GetTensorShape(input_weight),
-                 tflite::micro::GetTensorData<WeightType>(input_weight),
-                 tflite::micro::GetTensorShape(input_bias),
-                 tflite::micro::GetOptionalTensorData<BiasType>(input_bias),
+                 tflite_micro::micro::GetTensorData<WeightType>(input_weight),
+                 tflite_micro::micro::GetTensorShape(input_bias),
+                 tflite_micro::micro::GetOptionalTensorData<BiasType>(input_bias),
                  gate_output_shape, gate_output);
 
   // Recurrent FC
   FullyConnected(gate_params.recurrent_fc_params, step_info.StateShape(),
-                 tflite::micro::GetTensorData<ActivationType>(recurrent) +
+                 tflite_micro::micro::GetTensorData<ActivationType>(recurrent) +
                      step_info.HiddenStateOffset(),
-                 tflite::micro::GetTensorShape(recurrent_weight),
-                 tflite::micro::GetTensorData<WeightType>(recurrent_weight),
-                 tflite::micro::GetTensorShape(recurrent_bias),
-                 tflite::micro::GetOptionalTensorData<BiasType>(recurrent_bias),
+                 tflite_micro::micro::GetTensorShape(recurrent_weight),
+                 tflite_micro::micro::GetTensorData<WeightType>(recurrent_weight),
+                 tflite_micro::micro::GetTensorShape(recurrent_bias),
+                 tflite_micro::micro::GetOptionalTensorData<BiasType>(recurrent_bias),
                  gate_output_shape, fc_output_buffer);
 
   AddElementWise(gate_output, fc_output_buffer,
@@ -329,31 +329,31 @@ void UpdateLstmCell(const LstmStepManager& step_info,
   // Check offset validity to avoid memory overflow
   TFLITE_DCHECK_LE(
       step_info.CellStateOffset() + step_info.StateShape().FlatSize(),
-      tflite::micro::GetTensorShape(cell_state).FlatSize());
+      tflite_micro::micro::GetTensorShape(cell_state).FlatSize());
 
   auto cell_state_shape = step_info.StateShape();
   // Forget Gate x Cell State
   Mul(cell_state_shape, forget_cell_mul_params, forget_gate_output,
-      tflite::micro::GetTensorData<CellType>(cell_state) +
+      tflite_micro::micro::GetTensorData<CellType>(cell_state) +
           step_info.CellStateOffset(),
-      tflite::micro::GetTensorData<CellType>(cell_state) +
+      tflite_micro::micro::GetTensorData<CellType>(cell_state) +
           step_info.CellStateOffset());
   // Input Gate x Cell Gate
   Mul(cell_state_shape, input_mul_params, input_gate_output, cell_gate_output,
       buffer);
 
   // Update the cell state
-  AddElementWise(tflite::micro::GetTensorData<CellType>(cell_state) +
+  AddElementWise(tflite_micro::micro::GetTensorData<CellType>(cell_state) +
                      step_info.CellStateOffset(),
                  buffer,
                  /*n_batch=*/cell_state_shape.DimsData()[0],
                  /*n_state=*/cell_state_shape.DimsData()[1],
-                 tflite::micro::GetTensorData<CellType>(cell_state) +
+                 tflite_micro::micro::GetTensorData<CellType>(cell_state) +
                      step_info.CellStateOffset());
 
   if (cell_state_info.cell_clip > 0) {
     Clipping(cell_state_shape.FlatSize(), cell_state_info,
-             tflite::micro::GetTensorData<CellType>(cell_state) +
+             tflite_micro::micro::GetTensorData<CellType>(cell_state) +
                  step_info.CellStateOffset());
   }
 }
@@ -371,21 +371,21 @@ void UpdateLstmHidden(const LstmStepManager& step_info,
   // Check offset validity to avoid memory overflow
   TFLITE_DCHECK_LE(
       step_info.CellStateOffset() + step_info.StateShape().FlatSize(),
-      tflite::micro::GetTensorShape(cell_state).FlatSize());
+      tflite_micro::micro::GetTensorShape(cell_state).FlatSize());
   TFLITE_DCHECK_LE(
       step_info.HiddenStateOffset() + step_info.StateShape().FlatSize(),
-      tflite::micro::GetTensorShape(hidden_state).FlatSize());
+      tflite_micro::micro::GetTensorShape(hidden_state).FlatSize());
 
   auto cell_state_shape = step_info.StateShape();
   CellType* cell_state_data =
-      tflite::micro::GetTensorData<CellType>(cell_state) +
+      tflite_micro::micro::GetTensorData<CellType>(cell_state) +
       step_info.CellStateOffset();
   // Tanh(cell_state)
   Tanh(cell_state_scale_power, cell_state_shape, cell_state_data,
        cell_state_shape, buffer);
   // Update the hidden state
   Mul(cell_state_shape, mul_params, buffer, output_gate_output,
-      tflite::micro::GetTensorData<ActivationType>(hidden_state) +
+      tflite_micro::micro::GetTensorData<ActivationType>(hidden_state) +
           step_info.HiddenStateOffset());
 }
 
@@ -400,13 +400,13 @@ void LstmStep(const LstmStepManager& step_info, const OpDataLSTM& op_data,
   CalculateLstmGate<ActivationType, WeightType, CellType, BiasType>(
       step_info, op_data.forget_gate_parameters,
       // Input FC
-      kernel_content.GetInternalTensor(tflite::kLstmInputTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmInputToForgetWeightsTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmForgetGateBiasTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToForgetWeightsTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmForgetGateBiasTensor),
       // Recurrent FC
       kernel_content.HiddenStateTensor(),
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToForgetWeightsTensor),
+          tflite_micro::kLstmRecurrentToForgetWeightsTensor),
       /*recurrent_bias*/ nullptr,
       // Output
       forget_gate_output,
@@ -418,13 +418,13 @@ void LstmStep(const LstmStepManager& step_info, const OpDataLSTM& op_data,
   CalculateLstmGate<ActivationType, WeightType, CellType, BiasType>(
       step_info, op_data.input_gate_parameters,
       // Input FC
-      kernel_content.GetInternalTensor(tflite::kLstmInputTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmInputToInputWeightsTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmInputGateBiasTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToInputWeightsTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputGateBiasTensor),
       // Recurrent FC
       kernel_content.HiddenStateTensor(),
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToInputWeightsTensor),
+          tflite_micro::kLstmRecurrentToInputWeightsTensor),
       /*recurrent_bias*/ nullptr,
       // Output
       input_gate_output,
@@ -436,13 +436,13 @@ void LstmStep(const LstmStepManager& step_info, const OpDataLSTM& op_data,
   CalculateLstmGate<ActivationType, WeightType, CellType, BiasType>(
       step_info, op_data.cell_gate_parameters,
       // Input FC
-      kernel_content.GetInternalTensor(tflite::kLstmInputTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmInputToCellWeightsTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmCellGateBiasTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToCellWeightsTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmCellGateBiasTensor),
       // Recurrent FC
       kernel_content.HiddenStateTensor(),
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToCellWeightsTensor),
+          tflite_micro::kLstmRecurrentToCellWeightsTensor),
       /*recurrent_bias*/ nullptr,
       // Output
       cell_gate_output,
@@ -465,13 +465,13 @@ void LstmStep(const LstmStepManager& step_info, const OpDataLSTM& op_data,
   CalculateLstmGate<ActivationType, WeightType, CellType, BiasType>(
       step_info, op_data.output_gate_parameters,
       // Input FC
-      kernel_content.GetInternalTensor(tflite::kLstmInputTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmInputToOutputWeightsTensor),
-      kernel_content.GetInternalTensor(tflite::kLstmOutputGateBiasTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToOutputWeightsTensor),
+      kernel_content.GetInternalTensor(tflite_micro::kLstmOutputGateBiasTensor),
       // Recurrent FC
       kernel_content.HiddenStateTensor(),
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToOutputWeightsTensor),
+          tflite_micro::kLstmRecurrentToOutputWeightsTensor),
       /*recurrent_bias*/ nullptr,
       // Output
       output_gate_output,
@@ -479,7 +479,7 @@ void LstmStep(const LstmStepManager& step_info, const OpDataLSTM& op_data,
       gate_internal_buffer, kTfLiteActSigmoid);
 
   CellType* tanh_activated_cell_buffer = buffers.buffer0;  // reuse buffer
-  tflite::lstm_internal::UpdateLstmHidden<CellType, ActivationType>(
+  tflite_micro::lstm_internal::UpdateLstmHidden<CellType, ActivationType>(
       step_info, kernel_content.CellStateTensor(),
       kernel_content.HiddenStateTensor(), output_gate_output,
       inter_gate_params.output_mul_params,
@@ -490,13 +490,13 @@ void LstmStep(const LstmStepManager& step_info, const OpDataLSTM& op_data,
   // Check offset validity to avoid memory overflow
   TFLITE_DCHECK_LE(
       step_info.OutputOffset() + step_info.StateShape().FlatSize(),
-      tflite::micro::GetTensorShape(kernel_content.output_tensor).FlatSize());
+      tflite_micro::micro::GetTensorShape(kernel_content.output_tensor).FlatSize());
   // record the output (from the updated hidden state)
-  ActivationType* output_ptr = tflite::micro::GetTensorData<ActivationType>(
+  ActivationType* output_ptr = tflite_micro::micro::GetTensorData<ActivationType>(
       kernel_content.output_tensor);
   const auto* hidden_state = kernel_content.HiddenStateTensor();
   std::memcpy(output_ptr + step_info.OutputOffset(),
-              tflite::micro::GetTensorData<ActivationType>(hidden_state) +
+              tflite_micro::micro::GetTensorData<ActivationType>(hidden_state) +
                   step_info.HiddenStateOffset(),
               step_info.StateShape().FlatSize() * sizeof(ActivationType));
 }
@@ -536,6 +536,6 @@ TfLiteStatus EvalLstm(const OpDataLSTM& op_data,
   }
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_LSTM_EVAL_16ACT_H_

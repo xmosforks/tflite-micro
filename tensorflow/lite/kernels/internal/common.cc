@@ -15,7 +15,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 int32_t MultiplyByQuantizedMultiplier(int32_t x, int32_t quantized_multiplier,
                                       int shift) {
@@ -52,4 +52,4 @@ int32_t MultiplyByQuantizedMultiplier(int64_t x, int32_t quantized_multiplier,
   return result;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

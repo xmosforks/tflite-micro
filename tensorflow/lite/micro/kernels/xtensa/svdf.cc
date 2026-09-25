@@ -30,7 +30,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_svdf.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
@@ -56,7 +56,7 @@ TfLiteStatus EvalIntegerSvdfHifi(TfLiteContext* context, TfLiteNode* node,
 
   // Shift states.
   int16_t* const state_ptr =
-      tflite::micro::GetTensorData<int16_t>(activation_state_tensor);
+      tflite_micro::micro::GetTensorData<int16_t>(activation_state_tensor);
 
   // Left shift the activation_state.
   int num_bytes = sizeof(*state_ptr) * (n_batch * n_filter * n_memory - 1);
@@ -69,9 +69,9 @@ TfLiteStatus EvalIntegerSvdfHifi(TfLiteContext* context, TfLiteNode* node,
   // Note: no need to clear the latest activation, matmul is not accumulative.
 
   // Feature matmul.
-  const int8_t* input = tflite::micro::GetTensorData<int8_t>(input_tensor);
+  const int8_t* input = tflite_micro::micro::GetTensorData<int8_t>(input_tensor);
   const int8_t* weight_feature =
-      tflite::micro::GetTensorData<int8_t>(weights_feature_tensor);
+      tflite_micro::micro::GetTensorData<int8_t>(weights_feature_tensor);
   int16_t* result_in_batch = state_ptr + (n_memory - 1);
 
   for (int b = 0; b < n_batch; b++) {
@@ -87,15 +87,15 @@ TfLiteStatus EvalIntegerSvdfHifi(TfLiteContext* context, TfLiteNode* node,
   // Time weights dot product + activation
   for (int b = 0; b < n_batch; ++b) {
     const int16_t* vector1_ptr =
-        tflite::micro::GetTensorData<int16_t>(weights_time_tensor);
+        tflite_micro::micro::GetTensorData<int16_t>(weights_time_tensor);
     const int16_t* vector2_ptr =
-        tflite::micro::GetTensorData<int16_t>(activation_state_tensor) +
+        tflite_micro::micro::GetTensorData<int16_t>(activation_state_tensor) +
         b * n_memory * n_filter;
     // TODO(#1751): account for optional bias tensor
     const int32_t* bias_ptr =
-        tflite::micro::GetTensorData<int32_t>(bias_tensor);
+        tflite_micro::micro::GetTensorData<int32_t>(bias_tensor);
     int8_t* output_ptr =
-        tflite::micro::GetTensorData<int8_t>(output_tensor) + b * n_unit;
+        tflite_micro::micro::GetTensorData<int8_t>(output_tensor) + b * n_unit;
 
     // TODO(#1751): account for optional bias tensor
     TF_LITE_ENSURE_EQ(
@@ -286,20 +286,20 @@ TfLiteStatus EvalInt8(TfLiteContext* context, TfLiteNode* node) {
   auto* params = static_cast<TfLiteSVDFParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kSvdfInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfInputTensor);
   const TfLiteEvalTensor* weights_feature =
-      tflite::micro::GetEvalInput(context, node, kSvdfWeightsFeatureTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfWeightsFeatureTensor);
   const TfLiteEvalTensor* weights_time =
-      tflite::micro::GetEvalInput(context, node, kSvdfWeightsTimeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfWeightsTimeTensor);
   // TODO(#1751): account for optional bias tensor
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 5)
-          ? tflite::micro::GetEvalInput(context, node, kSvdfBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kSvdfBiasTensor)
           : nullptr;
-  TfLiteEvalTensor* activation_state = tflite::micro::GetMutableEvalInput(
+  TfLiteEvalTensor* activation_state = tflite_micro::micro::GetMutableEvalInput(
       context, node, kSvdfInputActivationStateTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kSvdfOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kSvdfOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpDataSvdf& data = *(static_cast<const OpDataSvdf*>(node->user_data));
@@ -323,20 +323,20 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   auto* params = static_cast<TfLiteSVDFParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kSvdfInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfInputTensor);
   const TfLiteEvalTensor* weights_feature =
-      tflite::micro::GetEvalInput(context, node, kSvdfWeightsFeatureTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfWeightsFeatureTensor);
   const TfLiteEvalTensor* weights_time =
-      tflite::micro::GetEvalInput(context, node, kSvdfWeightsTimeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfWeightsTimeTensor);
   // TODO(#1751): account for optional bias tensor
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 5)
-          ? tflite::micro::GetEvalInput(context, node, kSvdfBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kSvdfBiasTensor)
           : nullptr;
-  TfLiteEvalTensor* activation_state = tflite::micro::GetMutableEvalInput(
+  TfLiteEvalTensor* activation_state = tflite_micro::micro::GetMutableEvalInput(
       context, node, kSvdfInputActivationStateTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kSvdfOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kSvdfOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpDataSvdf& data = *(static_cast<const OpDataSvdf*>(node->user_data));
@@ -364,7 +364,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
         default: {
           MicroPrintf("Type %s not currently supported.",
-                      TfLiteTypeGetName(weights_time->type));
+                      TfLiteMicroTypeGetName(weights_time->type));
           return kTfLiteError;
         }
       }
@@ -373,7 +373,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
     default: {
       MicroPrintf("Type %s not currently supported.",
-                  TfLiteTypeGetName(weights_feature->type));
+                  TfLiteMicroTypeGetName(weights_feature->type));
       return kTfLiteError;
     }
   }
@@ -384,11 +384,11 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SVDF() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
 TFLMRegistration Register_SVDF_INT8() {
-  return tflite::micro::RegisterOp(Init, PrepareInt8, EvalInt8);
+  return tflite_micro::micro::RegisterOp(Init, PrepareInt8, EvalInt8);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_depthwise_conv.h"
 
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
-namespace tflite {
+namespace tflite_micro {
 TfLiteStatus DepthwiseConvPrepareHifi(TfLiteContext* context,
                                       TfLiteNode* node) {
   XtensaDepthwiseConvOpData* data =
@@ -112,10 +112,10 @@ TfLiteStatus DepthwiseConvEvalHifi(TfLiteContext* context, TfLiteNode* node,
         data.reference_op_data.output_activation_max;
     TFLITE_DCHECK_LE(output_activation_min, output_activation_max);
 
-    const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-    const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
-    const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-    const RuntimeShape& bias_shape = tflite::micro::GetTensorShape(bias);
+    const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+    const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
+    const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+    const RuntimeShape& bias_shape = tflite_micro::micro::GetTensorShape(bias);
     TFLITE_DCHECK_EQ(input_shape.DimensionsCount(), 4);
     TFLITE_DCHECK_EQ(filter_shape.DimensionsCount(), 4);
     TFLITE_DCHECK_EQ(output_shape.DimensionsCount(), 4);
@@ -132,10 +132,10 @@ TfLiteStatus DepthwiseConvEvalHifi(TfLiteContext* context, TfLiteNode* node,
     TFLITE_DCHECK_EQ(output_depth, input_depth * depth_multiplier);
     TFLITE_DCHECK_EQ(bias_shape.FlatSize(), output_depth);
 
-    const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
-    const int8_t* filter_data = tflite::micro::GetTensorData<int8_t>(filter);
-    const int32_t* bias_data = tflite::micro::GetTensorData<int32_t>(bias);
-    int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
+    const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+    const int8_t* filter_data = tflite_micro::micro::GetTensorData<int8_t>(filter);
+    const int32_t* bias_data = tflite_micro::micro::GetTensorData<int32_t>(bias);
+    int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
 
     int32_t input_data_format = 0;
     int32_t output_data_format = 0;
@@ -175,16 +175,16 @@ TfLiteStatus DepthwiseConvEvalHifi(TfLiteContext* context, TfLiteNode* node,
       DepthwiseConvParamsQuantized(params, data.reference_op_data),
       data.reference_op_data.per_channel_output_multiplier,
       data.reference_op_data.per_channel_output_shift,
-      tflite::micro::GetTensorShape(input),
-      tflite::micro::GetTensorData<int8_t>(input),
-      tflite::micro::GetTensorShape(filter),
-      tflite::micro::GetTensorData<int8_t>(filter),
-      tflite::micro::GetTensorShape(bias),
-      tflite::micro::GetTensorData<int32_t>(bias),
-      tflite::micro::GetTensorShape(output),
-      tflite::micro::GetTensorData<int8_t>(output));
+      tflite_micro::micro::GetTensorShape(input),
+      tflite_micro::micro::GetTensorData<int8_t>(input),
+      tflite_micro::micro::GetTensorShape(filter),
+      tflite_micro::micro::GetTensorData<int8_t>(filter),
+      tflite_micro::micro::GetTensorShape(bias),
+      tflite_micro::micro::GetTensorData<int32_t>(bias),
+      tflite_micro::micro::GetTensorShape(output),
+      tflite_micro::micro::GetTensorData<int8_t>(output));
 
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(HIFI3) ||defined(HIFI4) || defined(HIFI5)

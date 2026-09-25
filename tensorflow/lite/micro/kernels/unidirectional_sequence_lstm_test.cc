@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -64,8 +64,8 @@ void TestUnidirectionalLSTMInteger(
   int input_zero_points[2] = {1, -21};
   float input_scales[2] = {1, 0.004705882165580988};
   TfLiteAffineQuantization input_quant = {
-      tflite::testing::FloatArrayFromFloats(input_scales),
-      tflite::testing::IntArrayFromInts(input_zero_points), 0};
+      tflite_micro::testing::FloatArrayFromFloats(input_scales),
+      tflite_micro::testing::IntArrayFromInts(input_zero_points), 0};
   int intermediate_dim[2] = {1, 0};
   for (int i = 0; i < 5; ++i) {
     tensors[kLstmIntermediateTensorBase + i] =
@@ -145,51 +145,51 @@ void TestUnidirectionalLSTMFloat(
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 // TODO(b/230666079) enable below tests for xtensa when the xtensa
 // kernel is reconciled with reference kernel
 #if !defined(XTENSA)
 TF_LITE_MICRO_TEST(TestUnidirectionalLSTMFloat) {
-  const tflite::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
-      tflite::testing::Get2X2LstmEvalCheckData();
-  tflite::testing::LstmNodeContent<float, float, float, float, 2, 3, 2, 2>
-      float_node_contents = tflite::testing::Create2x3x2X2FloatNodeContents(
+  const tflite_micro::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
+      tflite_micro::testing::Get2X2LstmEvalCheckData();
+  tflite_micro::testing::LstmNodeContent<float, float, float, float, 2, 3, 2, 2>
+      float_node_contents = tflite_micro::testing::Create2x3x2X2FloatNodeContents(
           kernel_eval_data.input_data, kernel_eval_data.hidden_state);
 
   const float tolerance = 1e-6;
-  tflite::testing::TestUnidirectionalLSTMFloat(kernel_eval_data, tolerance,
+  tflite_micro::testing::TestUnidirectionalLSTMFloat(kernel_eval_data, tolerance,
                                                tolerance, float_node_contents);
 }
 
 TF_LITE_MICRO_TEST(TestUnidirectionalLSTMInt8) {
-  const tflite::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
-      tflite::testing::Get2X2LstmEvalCheckData();
-  tflite::testing::LstmNodeContent<int8_t, int8_t, int32_t, int16_t, 2, 3, 2, 2>
-      int8_node_contents = tflite::testing::Create2x3x2X2Int8NodeContents(
+  const tflite_micro::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
+      tflite_micro::testing::Get2X2LstmEvalCheckData();
+  tflite_micro::testing::LstmNodeContent<int8_t, int8_t, int32_t, int16_t, 2, 3, 2, 2>
+      int8_node_contents = tflite_micro::testing::Create2x3x2X2Int8NodeContents(
           kernel_eval_data.input_data, kernel_eval_data.hidden_state);
 
   const float hidden_state_tolerance = 1e-2;
   // cell state degrade due to integer overflow
   const float cell_state_tolerance = 1e-2;
-  tflite::testing::TestUnidirectionalLSTMInteger(
+  tflite_micro::testing::TestUnidirectionalLSTMInteger(
       kernel_eval_data, hidden_state_tolerance, cell_state_tolerance,
       int8_node_contents);
 }
 
 TF_LITE_MICRO_TEST(TestUnidirectionalLSTMInt16) {
-  const tflite::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
-      tflite::testing::Get2X2LstmEvalCheckData();
-  tflite::testing::LstmNodeContent<int16_t, int8_t, int64_t, int16_t, 2, 3, 2,
+  const tflite_micro::testing::LstmEvalCheckData<12, 4, 12> kernel_eval_data =
+      tflite_micro::testing::Get2X2LstmEvalCheckData();
+  tflite_micro::testing::LstmNodeContent<int16_t, int8_t, int64_t, int16_t, 2, 3, 2,
                                    2>
-      int16_node_contents = tflite::testing::Create2x3x2X2Int16NodeContents(
+      int16_node_contents = tflite_micro::testing::Create2x3x2X2Int16NodeContents(
           kernel_eval_data.input_data, kernel_eval_data.hidden_state);
 
   const float hidden_state_tolerance = 1e-3;  // actually very close to 1e-4
   // cell state degrade due to integer overflow
   const float cell_state_tolerance = 1e-2;
-  tflite::testing::TestUnidirectionalLSTMInteger(
+  tflite_micro::testing::TestUnidirectionalLSTMInteger(
       kernel_eval_data, hidden_state_tolerance, cell_state_tolerance,
       int16_node_contents);
 }

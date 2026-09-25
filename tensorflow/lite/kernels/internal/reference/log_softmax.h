@@ -22,7 +22,7 @@ limitations under the License.
 #include "fixedpoint/fixedpoint.h"
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 inline void LogSoftmax(const SoftmaxParams& params,
@@ -251,6 +251,6 @@ inline void LogSoftmax(const SoftmaxParams& params, const size_t outer_size,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_LOG_SOFTMAX_H_

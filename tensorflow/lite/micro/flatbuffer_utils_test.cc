@@ -62,7 +62,7 @@ TF_LITE_MICRO_TEST(TestFlexbufferWrapper) {
   });
   fbb.Finish();
   const std::vector<uint8_t> buffer = fbb.GetBuffer();
-  tflite::FlexbufferWrapper wrapper(buffer.data(), buffer.size());
+  tflite_micro::FlexbufferWrapper wrapper(buffer.data(), buffer.size());
   for (int i = 0; i < param_num; i++) {
     std::string& param_value = params[params_sorted[i]].value;
     if (params[params_sorted[i]].type == "Int") {

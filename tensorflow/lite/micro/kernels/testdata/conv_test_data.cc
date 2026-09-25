@@ -17,7 +17,7 @@ limitations under the License.
 
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Kernel Conv Test Case: Int8Filter8x3x3x3PerChannelScaleRelu6ShouldMatchGolden
 const int8_t kConvInput1x32x32x3[1 * 32 * 32 * 3] = {
@@ -501,4 +501,4 @@ const int8_t kConvGoldenOutput4x4InputPaddingSame2x2[1 * 2 * 2 * 1] = {38, 24,
 const int8_t kConvGoldenOutput5x5InputPaddingSame3x3[1 * 3 * 3 * 1] = {
     -6, 25, 30, 58, 76, 7, 50, -11, -59};
 
-}  // namespace tflite
+}  // namespace tflite_micro

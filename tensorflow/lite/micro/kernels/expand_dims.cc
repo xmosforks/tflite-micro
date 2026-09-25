@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -30,19 +30,19 @@ constexpr int kOutputTensor = 0;
 TfLiteStatus GetAxisValueFromTensor(TfLiteContext* context,
                                     const TfLiteTensor* axis,
                                     int32_t* axis_value) {
-  const int axis_dims = (tflite::GetTensorShape(axis)).DimensionsCount();
+  const int axis_dims = (tflite_micro::GetTensorShape(axis)).DimensionsCount();
   if (axis_dims > 1) {
     MicroPrintf("Axis has only one element for Expand_Dims.", axis_dims);
     return kTfLiteError;
   }
 
   if (kTfLiteInt32 == (axis->type)) {
-    const int32_t* axis_ptr = tflite::GetTensorData<int32_t>(axis);
+    const int32_t* axis_ptr = tflite_micro::GetTensorData<int32_t>(axis);
     *axis_value = axis_ptr[0];
     return kTfLiteOk;
   } else {
     MicroPrintf("Axis type %s (%d) not supported by Expand_Dims.",
-                TfLiteTypeGetName(axis->type), axis->type);
+                TfLiteMicroTypeGetName(axis->type), axis->type);
     return kTfLiteError;
   }
 }
@@ -57,7 +57,7 @@ TfLiteStatus VerifyTensorDim(TfLiteContext* context, const TfLiteTensor* input,
   TF_LITE_ENSURE_OK(context,
                     GetAxisValueFromTensor(context, axis_tensor, &axis_value));
 
-  tflite::RuntimeShape input_shape = tflite::GetTensorShape(input);
+  tflite_micro::RuntimeShape input_shape = tflite_micro::GetTensorShape(input);
   if (axis_value < 0) {
     axis_value = input_shape.DimensionsCount() + 1 + axis_value;
   }
@@ -66,7 +66,7 @@ TfLiteStatus VerifyTensorDim(TfLiteContext* context, const TfLiteTensor* input,
   // TFLM only supports fixed dimension tensor and assumes that the output shape
   // is fully specified in the model. As such, TFLM directly use the pointer to
   // the dimension array in the model buffer.
-  tflite::RuntimeShape output_shape = tflite::GetTensorShape(output);
+  tflite_micro::RuntimeShape output_shape = tflite_micro::GetTensorShape(output);
 
   TF_LITE_ENSURE(context, output_shape.DimensionsCount() ==
                               input_shape.DimensionsCount() + 1);
@@ -118,19 +118,19 @@ void memCopyN(T* out, const T* in, const int num_elements) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   const int flat_size = ElementCount(*input->dims);
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      memCopyN(tflite::micro::GetTensorData<float>(output),
-               tflite::micro::GetTensorData<float>(input), flat_size);
+      memCopyN(tflite_micro::micro::GetTensorData<float>(output),
+               tflite_micro::micro::GetTensorData<float>(input), flat_size);
     } break;
     case kTfLiteInt8: {
-      memCopyN(tflite::micro::GetTensorData<int8_t>(output),
-               tflite::micro::GetTensorData<int8_t>(input), flat_size);
+      memCopyN(tflite_micro::micro::GetTensorData<int8_t>(output),
+               tflite_micro::micro::GetTensorData<int8_t>(input), flat_size);
     } break;
     default:
       MicroPrintf(
@@ -143,7 +143,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_EXPAND_DIMS() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

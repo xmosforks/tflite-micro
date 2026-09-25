@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -79,8 +79,8 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node) {
   // is a temporary allocation.  We must therefore relocate the dims
   // from the FlatBuffer to the persistent storage arena.
   TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                  context, output, output_eval));
   output->dims->data[kBatchRank] = input->dims->data[kBatchRank];
   output->dims->data[kHeightRank] = output_height;
@@ -102,31 +102,31 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       reinterpret_cast<TfLiteDepthToSpaceParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
-  tflite::DepthToSpaceParams op_params;
+  tflite_micro::DepthToSpaceParams op_params;
   op_params.block_size = static_cast<int32_t>(params->block_size);
 
   switch (input->type) {  // Already know in/out types are same.
     case kTfLiteFloat32:
       reference_ops::DepthToSpace(op_params,
-                                  tflite::micro::GetTensorShape(input),
-                                  tflite::micro::GetTensorData<float>(input),
-                                  tflite::micro::GetTensorShape(output),
-                                  tflite::micro::GetTensorData<float>(output));
+                                  tflite_micro::micro::GetTensorShape(input),
+                                  tflite_micro::micro::GetTensorData<float>(input),
+                                  tflite_micro::micro::GetTensorShape(output),
+                                  tflite_micro::micro::GetTensorData<float>(output));
       break;
     case kTfLiteInt8:
       reference_ops::DepthToSpace(op_params,
-                                  tflite::micro::GetTensorShape(input),
-                                  tflite::micro::GetTensorData<int8_t>(input),
-                                  tflite::micro::GetTensorShape(output),
-                                  tflite::micro::GetTensorData<int8_t>(output));
+                                  tflite_micro::micro::GetTensorShape(input),
+                                  tflite_micro::micro::GetTensorData<int8_t>(input),
+                                  tflite_micro::micro::GetTensorShape(output),
+                                  tflite_micro::micro::GetTensorData<int8_t>(output));
       break;
     default:
       MicroPrintf("DEPTH_TO_SPACE only supports FLOAT32 and INT8, got %s.",
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
   }
 
@@ -136,7 +136,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_DEPTH_TO_SPACE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

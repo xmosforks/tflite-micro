@@ -29,9 +29,9 @@ TFLM APIs for loading a model into a shared tensor arena.
 
 The main "working" space for TFLM allocations is inside a single `char` or
 `int8_t` buffer. This buffer can be managed by passing it directly into a
-`tflite::MicroInterpreter` constructor or through a `tflite::MicroAllocator`
-instance that can be passed into a `tflite::MicroInterpreter` constructor.
-Internally, the `tflite::MicroAllocator` classifies allocations into 3 different
+`tflite_micro::MicroInterpreter` constructor or through a `tflite_micro::MicroAllocator`
+instance that can be passed into a `tflite_micro::MicroInterpreter` constructor.
+Internally, the `tflite_micro::MicroAllocator` classifies allocations into 3 different
 sections:
 
 *   **Head** - non-persistent allocations.
@@ -56,10 +56,10 @@ does not allocate small iterative chunks, it can only be set by a specific
 length for the entire section.
 
 This allocation length of this section is managed by the
-`tflite::GreedyMemoryPlanner`. That memory planner looks at the entire graph of
+`tflite_micro::GreedyMemoryPlanner`. That memory planner looks at the entire graph of
 a model and tries to reuse as many buffers as possible to create the smallest
 length for the head. The Tensor buffers for this section can be accessed via a
-`TfLiteEvalTensor` or `TfLiteTensor` instance on the `tflite::MicroInterpreter`.
+`TfLiteEvalTensor` or `TfLiteTensor` instance on the `tflite_micro::MicroInterpreter`.
 
 #### Offline planned tensor allocations
 
@@ -70,7 +70,7 @@ allocation plan is added to model metadata. See format below.
 For each non-constant tensor in the `tensors:[Tensor]` list of the subgraph, a
 byte offset to the start of the head section of the memory arena is given. -1
 indicates that the tensor will be allocated at runtime by the
-`tflite::GreedyMemoryPlanner`. The offline plan is permitted to overlap buffers
+`tflite_micro::GreedyMemoryPlanner`. The offline plan is permitted to overlap buffers
 if it knows that the data will not be used at the same time.
 
 The offline tensor allocation plan will be encoded in the `metadata:[Metadata]`
@@ -99,7 +99,7 @@ ignored by the micro memory allocator. In case of multiple subgraphs, it assumes
 all tensors for all subgraphs are concatenated: all tensors for the first
 subgraph are first, followed by those of the second subgraph, etc.
 
-The `tflite::GreedyMemoryPlanner` treats the provided offline tensor allocation
+The `tflite_micro::GreedyMemoryPlanner` treats the provided offline tensor allocation
 plan as constant fixed offset to the start of the head section and will attempt
 to fit any other tensors (such as scratch tensors added a runtime using the
 `RequestScratchBufferInArena` API of `TfLiteContext`) around those fixed
@@ -140,8 +140,8 @@ size_t tensor_arena_size = 2048;
 uint8_t tensor_arena[tensor_arena_size];
 
 // Interpreter using the shared tensor arena above:
-tflite::MicroInterpreter interpreter(
-  tflite::GetModel(my_model_data), ops_resolver,
+tflite_micro::MicroInterpreter interpreter(
+  tflite_micro::GetModel(my_model_data), ops_resolver,
   tensor_arena, tensor_arena_size);
 
 // Invoke one time which will allocate internals:
@@ -151,8 +151,8 @@ if (interpreter.Invoke() != kTfLiteOk) {
 ```
 
 Recording API can simply be used by including the `RecordingMicroInterpreter`
-class (`recording_micro_interpreter.h`) and replace `tflite::MicroInterpreter`
-with `tflite::RecordingMicroInterpreter`. The same call to `invoke()` is
+class (`recording_micro_interpreter.h`) and replace `tflite_micro::MicroInterpreter`
+with `tflite_micro::RecordingMicroInterpreter`. The same call to `invoke()` is
 performed, but another call is made to `PrintAllocations()` which will output
 detailed allocation logging:
 
@@ -161,8 +161,8 @@ detailed allocation logging:
 #include "recording_micro_interpreter.h"
 
 // Simply change the class name from 'MicroInterpreter' to 'RecordingMicroInterpreter':
-tflite::RecordingMicroInterpreter interpreter(
-  tflite::GetModel(my_model_data), ops_resolver,
+tflite_micro::RecordingMicroInterpreter interpreter(
+  tflite_micro::GetModel(my_model_data), ops_resolver,
   tensor_arena, tensor_arena_size);
 
 // Invoke one time which will allocate internals:
@@ -200,12 +200,12 @@ More information about each recorded allocation section:
     *   C struct that holds more information than a `TfLiteEvalTensor` struct in
         the graph.
     *   Allocations in this bucket will only show up when accessing tensors from
-        the accessors on `tflite::MicroInterpreter`.
+        the accessors on `tflite_micro::MicroInterpreter`.
 *   'Persistent TfLiteTensor quantization data'
     *   Length of persistent quantization data assigned to persistent
         `TfLiteTensor` structs.
     *   Allocations in this bucket will only show up when accessing tensors from
-        the accessors on `tflite::MicroInterpreter`.
+        the accessors on `tflite_micro::MicroInterpreter`.
 *   'TfLiteTensor variable buffer data'
     *   Length of buffer data from a variable tensor (retains data throughout
         calls to `invoke()`).

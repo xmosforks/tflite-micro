@@ -35,7 +35,7 @@ limitations under the License.
 
 // TODO(b/170464050): Use TFLM test only version of schema_utils.
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -131,15 +131,15 @@ class ModelBuilder {
   flatbuffers::FlatBufferBuilder* builder_;
 
   static constexpr int kMaxOperatorCodes = 10;
-  flatbuffers::Offset<tflite::OperatorCode> operator_codes_[kMaxOperatorCodes];
+  flatbuffers::Offset<tflite_micro::OperatorCode> operator_codes_[kMaxOperatorCodes];
   int next_operator_code_id_ = 0;
 
   static constexpr int kMaxOperators = 50;
-  flatbuffers::Offset<tflite::Operator> operators_[kMaxOperators];
+  flatbuffers::Offset<tflite_micro::Operator> operators_[kMaxOperators];
   int next_operator_id_ = 0;
 
   static constexpr int kMaxTensors = 50;
-  flatbuffers::Offset<tflite::Tensor> tensors_[kMaxTensors];
+  flatbuffers::Offset<tflite_micro::Tensor> tensors_[kMaxTensors];
 
   static constexpr int kMaxMetadataBuffers = 10;
 
@@ -156,7 +156,7 @@ class ModelBuilder {
 ModelBuilder::Operator ModelBuilder::RegisterOp(BuiltinOperator op,
                                                 const char* custom_code) {
   TFLITE_DCHECK(next_operator_code_id_ <= kMaxOperatorCodes);
-  operator_codes_[next_operator_code_id_] = tflite::CreateOperatorCodeDirect(
+  operator_codes_[next_operator_code_id_] = tflite_micro::CreateOperatorCodeDirect(
       *builder_, /*deprecated_builtin_code=*/0, custom_code, /*version=*/0, op);
   next_operator_code_id_++;
   return next_operator_code_id_ - 1;
@@ -168,12 +168,12 @@ ModelBuilder::Node ModelBuilder::AddNode(
     std::initializer_list<ModelBuilder::Tensor> outputs,
     std::initializer_list<ModelBuilder::Tensor> intermediates) {
   TFLITE_DCHECK(next_operator_id_ <= kMaxOperators);
-  operators_[next_operator_id_] = tflite::CreateOperator(
+  operators_[next_operator_id_] = tflite_micro::CreateOperator(
       *builder_, op, builder_->CreateVector(inputs.begin(), inputs.size()),
       builder_->CreateVector(outputs.begin(), outputs.size()),
       BuiltinOptions_NONE,
       /*builtin_options=*/0,
-      /*custom_options=*/0, tflite::CustomOptionsFormat_FLEXBUFFERS,
+      /*custom_options=*/0, tflite_micro::CustomOptionsFormat_FLEXBUFFERS,
       /*mutating_variable_inputs =*/0,
       builder_->CreateVector(intermediates.begin(), intermediates.size()));
   next_operator_id_++;
@@ -187,7 +187,7 @@ void ModelBuilder::AddMetadata(const char* description_string,
       CreateMetadata(*builder_, builder_->CreateString(description_string),
                      1 + ModelBuilder::nbr_of_metadata_buffers_);
 
-  metadata_buffers_[nbr_of_metadata_buffers_] = tflite::CreateBuffer(
+  metadata_buffers_[nbr_of_metadata_buffers_] = tflite_micro::CreateBuffer(
       *builder_, builder_->CreateVector((uint8_t*)metadata_buffer_data,
                                         sizeof(uint32_t) * num_elements));
 
@@ -201,7 +201,7 @@ const Model* ModelBuilder::BuildModel(
   // Model schema requires an empty buffer at idx 0.
   size_t buffer_size = 1 + ModelBuilder::nbr_of_metadata_buffers_;
   flatbuffers::Offset<Buffer> buffers[kMaxMetadataBuffers];
-  buffers[0] = tflite::CreateBuffer(*builder_);
+  buffers[0] = tflite_micro::CreateBuffer(*builder_);
 
   // Place the metadata buffers first in the buffer since the indices for them
   // have already been set in AddMetadata()
@@ -223,7 +223,7 @@ const Model* ModelBuilder::BuildModel(
   }
 
   const flatbuffers::Offset<SubGraph> subgraphs[subgraphs_size] = {
-      tflite::CreateSubGraph(
+      tflite_micro::CreateSubGraph(
           *builder_, builder_->CreateVector(tensors_, next_tensor_id_),
           builder_->CreateVector(inputs.begin(), num_subgraph_inputs),
           builder_->CreateVector(outputs.begin(), outputs.size()),
@@ -232,7 +232,7 @@ const Model* ModelBuilder::BuildModel(
 
   flatbuffers::Offset<Model> model_offset;
   if (ModelBuilder::nbr_of_metadata_buffers_ > 0) {
-    model_offset = tflite::CreateModel(
+    model_offset = tflite_micro::CreateModel(
         *builder_, 0,
         builder_->CreateVector(operator_codes_, next_operator_code_id_),
         builder_->CreateVector(subgraphs, subgraphs_size),
@@ -241,7 +241,7 @@ const Model* ModelBuilder::BuildModel(
         builder_->CreateVector(metadata_,
                                ModelBuilder::nbr_of_metadata_buffers_));
   } else {
-    model_offset = tflite::CreateModel(
+    model_offset = tflite_micro::CreateModel(
         *builder_, 0,
         builder_->CreateVector(operator_codes_, next_operator_code_id_),
         builder_->CreateVector(subgraphs, subgraphs_size),
@@ -249,7 +249,7 @@ const Model* ModelBuilder::BuildModel(
         builder_->CreateVector(buffers, buffer_size));
   }
 
-  tflite::FinishModelBuffer(*builder_, model_offset);
+  tflite_micro::FinishModelBuffer(*builder_, model_offset);
   void* model_pointer = builder_->GetBufferPointer();
   const Model* model = flatbuffers::GetRoot<Model>(model_pointer);
   return model;
@@ -258,7 +258,7 @@ const Model* ModelBuilder::BuildModel(
 ModelBuilder::Tensor ModelBuilder::AddTensorImpl(
     TensorType type, bool is_variable, std::initializer_list<int32_t> shape) {
   TFLITE_DCHECK(next_tensor_id_ <= kMaxTensors);
-  tensors_[next_tensor_id_] = tflite::CreateTensor(
+  tensors_[next_tensor_id_] = tflite_micro::CreateTensor(
       *builder_, builder_->CreateVector(shape.begin(), shape.size()), type,
       /* buffer */ 0, /* name */ 0, /* quantization */ 0,
       /* is_variable */ is_variable,
@@ -352,7 +352,7 @@ const Model* BuildModelWithOfflinePlanning(int number_of_tensors,
 
   model_builder.AddMetadata(
       "OfflineMemoryAllocation", metadata_buffer,
-      number_of_tensors + tflite::testing::kOfflinePlannerHeaderSize);
+      number_of_tensors + tflite_micro::testing::kOfflinePlannerHeaderSize);
 
   return model_builder.BuildModel(
       node_conn[0].input, node_conn[num_conns - 1].output, num_subgraph_inputs);
@@ -442,11 +442,19 @@ const Model* BuildModelWithUnusedOperatorOutputs() {
           *builder, builder->CreateVector(tensor_shape, tensor_shape_size),
           TensorType_INT8, 0,
           builder->CreateString("test_unused_output_tensor"), 0, false)};
+#ifdef _MSC_VER
+  constexpr size_t inputs_size = 1;
+#else
   constexpr size_t inputs_size = 0;
+#endif
   const int32_t inputs[inputs_size] = {};
   constexpr size_t outputs_size = 1;
   const int32_t outputs[outputs_size] = {0};
-  constexpr size_t operator_inputs_size = 0;
+#ifdef _MSC_VER
+  constexpr size_t operator_inputs_size = 1;
+#else
+   constexpr size_t operator_inputs_size = 0;
+#endif
   const int32_t operator_inputs[operator_inputs_size] = {};
   constexpr size_t operator_outputs_size = 2;
   const int32_t operator_outputs[operator_outputs_size] = {0, 1};
@@ -1216,7 +1224,7 @@ const Model* BuildModelWithIfAndSubgraphInputTensorOverlap() {
 
   constexpr TensorType kTensorType = TensorType_INT32;
   constexpr int kBlockSize =
-      tflite::MicroArenaBufferAlignment() / sizeof(int32_t);
+      tflite_micro::MicroArenaBufferAlignment() / sizeof(int32_t);
   constexpr size_t kBuffersCount = 1;
   const Offset<Buffer> buffers[kBuffersCount] = {
       CreateBuffer(*builder),
@@ -1482,7 +1490,7 @@ TfLiteStatus SimpleStatefulOp::Invoke(TfLiteContext* context,
   *data->invoke_count += 1;
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TF_LITE_ENSURE(context, input != nullptr);
   const uint8_t* input_data = input->data.uint8;
   int size = NumElements(input->dims);
@@ -1503,11 +1511,11 @@ TfLiteStatus SimpleStatefulOp::Invoke(TfLiteContext* context,
   }
 
   TfLiteEvalTensor* median =
-      tflite::micro::GetEvalOutput(context, node, kMedianTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kMedianTensor);
   TF_LITE_ENSURE(context, median != nullptr);
   uint8_t* median_data = median->data.uint8;
   TfLiteEvalTensor* invoke_count =
-      tflite::micro::GetEvalOutput(context, node, kInvokeCount);
+      tflite_micro::micro::GetEvalOutput(context, node, kInvokeCount);
   TF_LITE_ENSURE(context, invoke_count != nullptr);
   int32_t* invoke_count_data = invoke_count->data.i32;
 
@@ -1546,14 +1554,14 @@ TfLiteStatus MockCustom::Prepare(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TfLiteStatus MockCustom::Invoke(TfLiteContext* context, TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
   TF_LITE_ENSURE(context, input != nullptr);
   const int32_t* input_data = input->data.i32;
   const TfLiteEvalTensor* weight =
-      tflite::micro::GetEvalInput(context, node, 1);
+      tflite_micro::micro::GetEvalInput(context, node, 1);
   TF_LITE_ENSURE(context, weight != nullptr);
   const uint8_t* weight_data = weight->data.uint8;
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE(context, output != nullptr);
   int32_t* output_data = output->data.i32;
   output_data[0] =
@@ -1596,19 +1604,19 @@ TfLiteStatus MultipleInputs::Prepare(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TfLiteStatus MultipleInputs::Invoke(TfLiteContext* context, TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
   TF_LITE_ENSURE(context, input != nullptr);
   const int32_t* input_data = input->data.i32;
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, 1);
+      tflite_micro::micro::GetEvalInput(context, node, 1);
   TF_LITE_ENSURE(context, input1 != nullptr);
   const int32_t* input_data1 = input1->data.i32;
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, 2);
+      tflite_micro::micro::GetEvalInput(context, node, 2);
   TF_LITE_ENSURE(context, input2 != nullptr);
   const int32_t* input_data2 = input2->data.i32;
 
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE(context, output != nullptr);
   int32_t* output_data = output->data.i32;
   output_data[0] =
@@ -1654,7 +1662,7 @@ TfLiteStatus NoOp::Invoke(TfLiteContext* context, TfLiteNode* node) {
 bool NoOp::freed_ = false;
 
 TfLiteStatus GetTestingOpResolver(
-    tflite::testing::TestingOpResolver& op_resolver) {
+    tflite_micro::testing::TestingOpResolver& op_resolver) {
   TF_LITE_ENSURE_STATUS(op_resolver.AddCustom(
       "mock_custom", MockCustom::GetMutableRegistration()));
   TF_LITE_ENSURE_STATUS(op_resolver.AddCustom(
@@ -1894,7 +1902,7 @@ TfLiteTensor CreateQuantizedBiasTensor(const float* data, int16_t* quantized,
                                        TfLiteIntArray* dims, float input_scale,
                                        float weights_scale, bool is_variable) {
   float bias_scale = input_scale * weights_scale;
-  tflite::SymmetricQuantize(data, quantized, ElementCount(*dims), bias_scale);
+  tflite_micro::SymmetricQuantize(data, quantized, ElementCount(*dims), bias_scale);
 
   // Quantized int16_t tensors always have a zero point of 0, since the range of
   // int16_t values is large, and because zero point costs extra cycles during
@@ -1908,7 +1916,7 @@ TfLiteTensor CreateQuantizedBiasTensor(const float* data, int32_t* quantized,
                                        TfLiteIntArray* dims, float input_scale,
                                        float weights_scale, bool is_variable) {
   float bias_scale = input_scale * weights_scale;
-  tflite::SymmetricQuantize(data, quantized, ElementCount(*dims), bias_scale);
+  tflite_micro::SymmetricQuantize(data, quantized, ElementCount(*dims), bias_scale);
 
   // Quantized int32_t tensors always have a zero point of 0, since the range of
   // int32_t values is large, and because zero point costs extra cycles during
@@ -1923,7 +1931,7 @@ TfLiteTensor CreateQuantizedBiasTensor(const float* data,
                                        TfLiteIntArray* dims, float input_scale,
                                        float weights_scale, bool is_variable) {
   float bias_scale = input_scale * weights_scale;
-  tflite::SymmetricQuantize(data, quantized, ElementCount(*dims), bias_scale);
+  tflite_micro::SymmetricQuantize(data, quantized, ElementCount(*dims), bias_scale);
 
   // Quantized int32_t tensors always have a zero point of 0, since the range of
   // int32_t values is large, and because zero point costs extra cycles during
@@ -2031,4 +2039,4 @@ void PackInt4ValuesDenselyInPlace(uint8_t* src_buffer, int buffer_size) {
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro

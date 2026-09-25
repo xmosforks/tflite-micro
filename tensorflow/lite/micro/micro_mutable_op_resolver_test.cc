@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_op_resolver.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 void* MockInit(TfLiteContext* context, const char* buffer, size_t length) {
   // Do nothing.
@@ -55,20 +55,20 @@ class MockErrorReporter : public ErrorReporter {
 };
 
 }  // namespace
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestOperations) {
-  using tflite::BuiltinOperator_CONV_2D;
-  using tflite::BuiltinOperator_RELU;
-  using tflite::MicroMutableOpResolver;
+  using tflite_micro::BuiltinOperator_CONV_2D;
+  using tflite_micro::BuiltinOperator_RELU;
+  using tflite_micro::MicroMutableOpResolver;
 
   static TFLMRegistration r = {};
-  r.init = tflite::MockInit;
-  r.free = tflite::MockFree;
-  r.prepare = tflite::MockPrepare;
-  r.invoke = tflite::MockInvoke;
+  r.init = tflite_micro::MockInit;
+  r.free = tflite_micro::MockFree;
+  r.prepare = tflite_micro::MockPrepare;
+  r.invoke = tflite_micro::MockInvoke;
 
   MicroMutableOpResolver<1> micro_op_resolver;
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk,
@@ -78,7 +78,7 @@ TF_LITE_MICRO_TEST(TestOperations) {
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteError,
                           micro_op_resolver.AddCustom("mock_custom", &r));
 
-  tflite::MicroOpResolver* resolver = &micro_op_resolver;
+  tflite_micro::MicroOpResolver* resolver = &micro_op_resolver;
 
   TF_LITE_MICRO_EXPECT_EQ(static_cast<size_t>(1),
                           micro_op_resolver.GetRegistrationLength());

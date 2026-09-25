@@ -23,7 +23,7 @@ limitations under the License.
 
 #include "tensorflow/lite/core/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 /// TfLite*Array helpers
 
@@ -73,13 +73,13 @@ TfLiteArrayUniquePtr<T> BuildTfLiteArray(int size);
 // Allocates a TfLiteIntArray of given size using malloc.
 template <>
 inline IntArrayUniquePtr BuildTfLiteArray<int>(const int size) {
-  return IntArrayUniquePtr(TfLiteIntArrayCreate(size));
+  return IntArrayUniquePtr(TfLiteMicroIntArrayCreate(size));
 }
 
 // Allocates a TfLiteFloatArray of given size using malloc.
 template <>
 inline FloatArrayUniquePtr BuildTfLiteArray<float>(const int size) {
-  return FloatArrayUniquePtr(TfLiteFloatArrayCreate(size));
+  return FloatArrayUniquePtr(TfLiteMicroFloatArrayCreate(size));
 }
 
 // Allocates a TFLiteArray of given size and initializes it with the given
@@ -151,6 +151,6 @@ inline FloatArrayUniquePtr BuildTfLiteArray(const TfLiteFloatArray& other) {
   return BuildTfLiteArray(other.size, other.data);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_ARRAY_H_

@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_fully_connected.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* XtensaInitFullyConnected(TfLiteContext* context, const char* buffer,
                                size_t length) {
@@ -133,4 +133,4 @@ TfLiteStatus XtensaPrepareFullyConnected(TfLiteContext* context,
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

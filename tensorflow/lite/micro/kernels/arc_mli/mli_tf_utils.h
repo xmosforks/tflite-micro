@@ -25,7 +25,7 @@ limitations under the License.
 
 #define KRNL_C_DIM_NHWC 0  // output channels
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -118,7 +118,7 @@ inline void MliTensorAttachBuffer<int8_t>(const TfLiteEvalTensor* tfT,
   // non-const mli_tensor. This is required by current implementation of MLI
   // backend and planned for redesign due to this and some other aspects.
   mliT->SetData<int8_t>(
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(tfT)),
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(tfT)),
       *mliT->DataCapacity());
 }
 
@@ -129,7 +129,7 @@ inline void MliTensorAttachBuffer<int32_t>(const TfLiteEvalTensor* tfT,
   // non-const mli_tensor. This is required by current implementation of MLI
   // backend and planned for redesign due to this and some other aspects.
   mliT->SetData<int32_t>(
-      const_cast<int32_t*>(tflite::micro::GetTensorData<int32_t>(tfT)),
+      const_cast<int32_t*>(tflite_micro::micro::GetTensorData<int32_t>(tfT)),
       *mliT->DataCapacity());
 }
 
@@ -305,6 +305,6 @@ inline void permute_weights(const mli_tensor* weights_src,
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_ARC_MLI_TF_UTILS_H_

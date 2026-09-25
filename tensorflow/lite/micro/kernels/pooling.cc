@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/pooling.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -52,7 +52,7 @@ TfLiteStatus AverageEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Input type %s is not currently supported",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -85,7 +85,7 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Type %s not currently supported.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -99,11 +99,11 @@ void* Init(TfLiteContext* context, const char* buffer, size_t length) {
 }  // namespace
 
 TFLMRegistration Register_AVERAGE_POOL_2D() {
-  return tflite::micro::RegisterOp(Init, PoolingPrepare, AverageEval);
+  return tflite_micro::micro::RegisterOp(Init, PoolingPrepare, AverageEval);
 }
 
 TFLMRegistration Register_MAX_POOL_2D() {
-  return tflite::micro::RegisterOp(Init, PoolingPrepare, MaxEval);
+  return tflite_micro::micro::RegisterOp(Init, PoolingPrepare, MaxEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

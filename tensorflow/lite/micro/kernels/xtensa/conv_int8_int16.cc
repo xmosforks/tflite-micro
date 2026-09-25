@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_conv.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 TfLiteStatus EvalInt8(TfLiteContext* context, TfLiteNode* node) {
@@ -34,13 +34,13 @@ TfLiteStatus EvalInt8(TfLiteContext* context, TfLiteNode* node) {
       *(reinterpret_cast<TfLiteConvParams*>(node->builtin_data));
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kConvOutputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvWeightsTensor);
   const TfLiteEvalTensor* bias =
-      tflite::micro::GetEvalInput(context, node, kConvBiasTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvBiasTensor);
 
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
   return ConvEvalHifiInt8(context, node, params, op_data, input, filter, bias,
@@ -60,13 +60,13 @@ TfLiteStatus EvalInt16(TfLiteContext* context, TfLiteNode* node) {
       *(reinterpret_cast<TfLiteConvParams*>(node->builtin_data));
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kConvOutputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvWeightsTensor);
   const TfLiteEvalTensor* bias =
-      tflite::micro::GetEvalInput(context, node, kConvBiasTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvBiasTensor);
 
   return ConvEvalHifiInt16(context, node, params, op_data, input, filter, bias,
                            output);
@@ -78,12 +78,12 @@ TfLiteStatus EvalInt16(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_CONV_2D_INT8() {
-  return tflite::micro::RegisterOp(ConvInitXtensa, ConvPrepareXtensa, EvalInt8);
+  return tflite_micro::micro::RegisterOp(ConvInitXtensa, ConvPrepareXtensa, EvalInt8);
 }
 
 TFLMRegistration Register_CONV_2D_INT16() {
-  return tflite::micro::RegisterOp(ConvInitXtensa, ConvPrepareXtensa,
+  return tflite_micro::micro::RegisterOp(ConvInitXtensa, ConvPrepareXtensa,
                                    EvalInt16);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

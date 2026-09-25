@@ -28,17 +28,17 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_softmax.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
 TfLiteStatus EvalHifiInt8(const XtensaSoftmaxOpData* op_data,
                           const TfLiteEvalTensor* input,
                           TfLiteEvalTensor* output, TfLiteContext* context) {
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-  int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+  int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
   const int trailing_dim = input_shape.DimensionsCount() - 1;
   const int outer_size =
       MatchingFlatSizeSkipDim(input_shape, trailing_dim, output_shape);
@@ -59,8 +59,8 @@ TfLiteStatus EvalHifiInt8(const XtensaSoftmaxOpData* op_data,
 #endif  // defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   if (input->type == kTfLiteInt8 && output->type == kTfLiteInt16) {
     return XtensaEvalSoftmaxInt8Int16(context, node);
@@ -85,33 +85,33 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
         context, node, *(static_cast<XtensaSoftmaxOpData*>(node->user_data)),
         input, output);
 #else
-    tflite::reference_ops::Softmax(
-        params, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int8_t>(input),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int8_t>(output));
+    tflite_micro::reference_ops::Softmax(
+        params, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int8_t>(input),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int8_t>(output));
     return kTfLiteOk;
 #endif  // defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
   }
 
   if (input->type == kTfLiteInt16 && output->type == kTfLiteInt16) {
-    tflite::reference_ops::SoftmaxInt16(
-        params, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int16_t>(input),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int16_t>(output));
+    tflite_micro::reference_ops::SoftmaxInt16(
+        params, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int16_t>(input),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int16_t>(output));
     return kTfLiteOk;
   }
 
   if (input->type == kTfLiteFloat32) {
-    tflite::reference_ops::Softmax(params, tflite::micro::GetTensorShape(input),
-                                   tflite::micro::GetTensorData<float>(input),
-                                   tflite::micro::GetTensorShape(output),
-                                   tflite::micro::GetTensorData<float>(output));
+    tflite_micro::reference_ops::Softmax(params, tflite_micro::micro::GetTensorShape(input),
+                                   tflite_micro::micro::GetTensorData<float>(input),
+                                   tflite_micro::micro::GetTensorShape(output),
+                                   tflite_micro::micro::GetTensorData<float>(output));
     return kTfLiteOk;
   }
 
-  MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+  MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
               input->type);
   return kTfLiteError;
 }
@@ -119,8 +119,8 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SOFTMAX() {
-  return tflite::micro::RegisterOp(XtensaInitSoftmax, XtensaPrepareSoftmax,
+  return tflite_micro::micro::RegisterOp(XtensaInitSoftmax, XtensaPrepareSoftmax,
                                    Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -71,7 +71,7 @@ void TestSqueezeOp(int* input_dims_data, const int32_t* input_data,
 }
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -79,11 +79,11 @@ TF_LITE_MICRO_TEST(SqueezeAll) {
   int32_t output_data[24];
   TfLiteSqueezeParams squeeze_params = {{}, 0};
 
-  tflite::testing::TestSqueezeOp(tflite::testing::input_dims_data_common,
-                                 tflite::testing::input_data_common,
-                                 tflite::testing::output_dims_data_common,
-                                 output_data, tflite::testing::golden_common,
-                                 tflite::testing::expected_output_size_common,
+  tflite_micro::testing::TestSqueezeOp(tflite_micro::testing::input_dims_data_common,
+                                 tflite_micro::testing::input_data_common,
+                                 tflite_micro::testing::output_dims_data_common,
+                                 output_data, tflite_micro::testing::golden_common,
+                                 tflite_micro::testing::expected_output_size_common,
                                  &squeeze_params);
 }
 
@@ -92,22 +92,22 @@ TF_LITE_MICRO_TEST(SqueezeSelectedAxis) {
   TfLiteSqueezeParams squeeze_params = {{2}, 1};
   int output_dims_data_common[] = {2, 1, 24};
 
-  tflite::testing::TestSqueezeOp(
-      tflite::testing::input_dims_data_common,
-      tflite::testing::input_data_common, output_dims_data_common, output_data,
-      tflite::testing::golden_common,
-      tflite::testing::expected_output_size_common, &squeeze_params);
+  tflite_micro::testing::TestSqueezeOp(
+      tflite_micro::testing::input_dims_data_common,
+      tflite_micro::testing::input_data_common, output_dims_data_common, output_data,
+      tflite_micro::testing::golden_common,
+      tflite_micro::testing::expected_output_size_common, &squeeze_params);
 }
 
 TF_LITE_MICRO_TEST(SqueezeNegativeAxis) {
   int32_t output_data[24];
   TfLiteSqueezeParams squeeze_params = {{-1, 0}, 2};
 
-  tflite::testing::TestSqueezeOp(tflite::testing::input_dims_data_common,
-                                 tflite::testing::input_data_common,
-                                 tflite::testing::output_dims_data_common,
-                                 output_data, tflite::testing::golden_common,
-                                 tflite::testing::expected_output_size_common,
+  tflite_micro::testing::TestSqueezeOp(tflite_micro::testing::input_dims_data_common,
+                                 tflite_micro::testing::input_data_common,
+                                 tflite_micro::testing::output_dims_data_common,
+                                 output_data, tflite_micro::testing::golden_common,
+                                 tflite_micro::testing::expected_output_size_common,
                                  &squeeze_params);
 }
 
@@ -121,7 +121,7 @@ TF_LITE_MICRO_TEST(SqueezeAllDims) {
   int32_t output_data[24];
   TfLiteSqueezeParams squeeze_params = {{}, 0};
 
-  tflite::testing::TestSqueezeOp(input_dims_data, input_data, output_dims_data,
+  tflite_micro::testing::TestSqueezeOp(input_dims_data, input_data, output_dims_data,
                                  output_data, golden, expected_output_size,
                                  &squeeze_params);
 }

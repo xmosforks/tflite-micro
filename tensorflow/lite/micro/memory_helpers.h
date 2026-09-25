@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Returns the next pointer address aligned to the given alignment.
 uint8_t* AlignPointerUp(uint8_t* data, size_t alignment);
@@ -43,7 +43,7 @@ size_t AlignSizeUp(size_t count = 1) {
 TfLiteStatus TfLiteTypeSizeOf(TfLiteType type, size_t* size);
 
 // How many bytes are needed to hold a tensor's contents.
-TfLiteStatus BytesRequiredForTensor(const tflite::Tensor& flatbuffer_tensor,
+TfLiteStatus BytesRequiredForTensor(const tflite_micro::Tensor& flatbuffer_tensor,
                                     size_t* bytes, size_t* type_size);
 
 // How many bytes are used in a TfLiteEvalTensor instance. The byte length is
@@ -59,6 +59,6 @@ TfLiteStatus AllocateOutputDimensionsFromInput(TfLiteContext* context,
                                                const TfLiteTensor* input2,
                                                TfLiteTensor* output);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MEMORY_HELPERS_H_

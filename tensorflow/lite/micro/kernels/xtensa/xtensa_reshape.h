@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 #if defined(VISION_P6)
 
@@ -39,6 +39,6 @@ TfLiteStatus ReshapeEvalVision(const XtensaReshapeData& data,
                                TfLiteEvalTensor* output);
 #endif  // VISION_P6
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_RESHAPE_H_

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -32,7 +32,7 @@ void ValidateDequantizeGoldens(TfLiteTensor* tensors, int tensors_size,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_DEQUANTIZE();
+  const TFLMRegistration registration = tflite_micro::Register_DEQUANTIZE();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              /*builtin_data=*/nullptr);
@@ -69,7 +69,7 @@ void TestDequantizeToFloat(int* input_dims_data, const float* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -82,7 +82,7 @@ TF_LITE_MICRO_TEST(DequantizeOpTestInt8) {
   const int zero_point = -1;
   int8_t input_quantized[length];
   float output[length];
-  tflite::testing::TestDequantizeToFloat(dims, values, input_quantized, scale,
+  tflite_micro::testing::TestDequantizeToFloat(dims, values, input_quantized, scale,
                                          zero_point, dims, values, output);
 }
 
@@ -95,7 +95,7 @@ TF_LITE_MICRO_TEST(DequantizeOpTestInt16) {
   const int zero_point = -1;
   int16_t input_quantized[length];
   float output[length];
-  tflite::testing::TestDequantizeToFloat(dims, values, input_quantized, scale,
+  tflite_micro::testing::TestDequantizeToFloat(dims, values, input_quantized, scale,
                                          zero_point, dims, values, output);
 }
 
@@ -108,7 +108,7 @@ TF_LITE_MICRO_TEST(DequantizeOpTestUint8) {
   const int zero_point = 127;
   uint8_t input_quantized[length];
   float output[length];
-  tflite::testing::TestDequantizeToFloat(dims, values, input_quantized, scale,
+  tflite_micro::testing::TestDequantizeToFloat(dims, values, input_quantized, scale,
                                          zero_point, dims, values, output);
 }
 

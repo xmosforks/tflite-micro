@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/sub.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 const int kSubInputTensor1 = 0;
 const int kSubInputTensor2 = 1;
@@ -104,4 +104,4 @@ TfLiteStatus SubPrepare(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

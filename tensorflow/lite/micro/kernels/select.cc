@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensorCondition = 0;
@@ -134,30 +134,30 @@ void CallSelect(const TfLiteEvalTensor* input_condition,
     select_func = reference_ops::Select<bool, T>;
   }
 
-  select_func(tflite::micro::GetTensorShape(input_condition),
-              tflite::micro::GetTensorData<bool>(input_condition),
-              tflite::micro::GetTensorShape(input_x),
-              tflite::micro::GetTensorData<T>(input_x),
-              tflite::micro::GetTensorShape(input_y),
-              tflite::micro::GetTensorData<T>(input_y),
-              tflite::micro::GetTensorShape(output),
-              tflite::micro::GetTensorData<T>(output));
+  select_func(tflite_micro::micro::GetTensorShape(input_condition),
+              tflite_micro::micro::GetTensorData<bool>(input_condition),
+              tflite_micro::micro::GetTensorShape(input_x),
+              tflite_micro::micro::GetTensorData<T>(input_x),
+              tflite_micro::micro::GetTensorShape(input_y),
+              tflite_micro::micro::GetTensorData<T>(input_y),
+              tflite_micro::micro::GetTensorShape(output),
+              tflite_micro::micro::GetTensorData<T>(output));
 }
 
 TfLiteStatus SelectEval(TfLiteContext* context, TfLiteNode* node) {
   OpData* data = static_cast<OpData*>(node->user_data);
 
   const TfLiteEvalTensor* input_condition =
-      tflite::micro::GetEvalInput(context, node, kInputTensorCondition);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensorCondition);
 
   const TfLiteEvalTensor* input_x =
-      tflite::micro::GetEvalInput(context, node, kInputTensorX);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensorX);
 
   const TfLiteEvalTensor* input_y =
-      tflite::micro::GetEvalInput(context, node, kInputTensorY);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensorY);
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   switch (input_x->type) {
     case kTfLiteFloat32:
@@ -174,7 +174,7 @@ TfLiteStatus SelectEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Does not support type other than %s, but got %s",
-                  "int8|int16|float32", TfLiteTypeGetName(input_x->type));
+                  "int8|int16|float32", TfLiteMicroTypeGetName(input_x->type));
       return kTfLiteError;
   }
 
@@ -189,8 +189,8 @@ TfLiteStatus SelectEval(TfLiteContext* context, TfLiteNode* node) {
 // 1. Either the same shape (in which case the select is elementwise), or
 // 2. Broadcastable shapes between 'condition', 'x' and 'y'.
 TFLMRegistration Register_SELECT_V2() {
-  return tflite::micro::RegisterOp(tflite::SelectInit, tflite::SelectPrepare,
-                                   tflite::SelectEval);
+  return tflite_micro::micro::RegisterOp(tflite_micro::SelectInit, tflite_micro::SelectPrepare,
+                                   tflite_micro::SelectEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/softmax.h"
 #include "tensorflow/lite/micro/micro_context.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 // Softmax parameter data that persists in user_data
@@ -120,13 +120,13 @@ TfLiteStatus CalculateSoftmaxParams(TfLiteContext* context,
       op_data->input_left_shift = input_left_shift;
     } else {
       int input_left_shift;
-      tflite::PreprocessSoftmaxScaling(
+      tflite_micro::PreprocessSoftmaxScaling(
           static_cast<double>(params->beta),
           static_cast<double>(input->params.scale), kScaledDiffIntegerBits,
           &op_data->input_multiplier, &input_left_shift);
       op_data->input_left_shift = input_left_shift;
       op_data->diff_min =
-          -1.0 * tflite::CalculateInputRadius(kScaledDiffIntegerBits,
+          -1.0 * tflite_micro::CalculateInputRadius(kScaledDiffIntegerBits,
                                               op_data->input_left_shift);
     }
   } else {
@@ -165,4 +165,4 @@ TfLiteStatus SoftmaxPrepare(TfLiteContext* context, TfLiteNode* node) {
   return ret_val;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

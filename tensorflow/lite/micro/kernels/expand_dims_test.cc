@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -92,7 +92,7 @@ void TestExpandDims(int* input_dims, const T* input_data, int* axis_dims,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -105,7 +105,7 @@ TF_LITE_MICRO_TEST(ExpandDimsPositiveAxisTest0) {
   const int32_t axis_data[] = {0};
   int golden_dims[] = {1, 2, 2};
   int output_dims[] = {3, 1, 2, 2};
-  tflite::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
                                           axis_data, golden_dims, output_dims,
                                           golden_data, output_data);
 }
@@ -119,7 +119,7 @@ TF_LITE_MICRO_TEST(ExpandDimsPositiveAxisTest1) {
   const int32_t axis_data[] = {1};
   int golden_dims[] = {2, 1, 2};
   int output_dims[] = {3, 2, 1, 2};
-  tflite::testing::TestExpandDims<float>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<float>(input_dims, input_data, axis_dims,
                                          axis_data, golden_dims, output_dims,
                                          golden_data, output_data);
 }
@@ -133,7 +133,7 @@ TF_LITE_MICRO_TEST(ExpandDimsPositiveAxisTest2) {
   const int32_t axis_data[] = {2};
   int golden_dims[] = {2, 2, 1};
   int output_dims[] = {3, 2, 2, 1};
-  tflite::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
                                           axis_data, golden_dims, output_dims,
                                           golden_data, output_data);
 }
@@ -147,7 +147,7 @@ TF_LITE_MICRO_TEST(ExpandDimsNegativeAxisTest4) {
   const int32_t axis_data[] = {-4};
   int golden_dims[] = {1, 3, 1, 2};
   int output_dims[] = {4, 1, 3, 1, 2};
-  tflite::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
                                           axis_data, golden_dims, output_dims,
                                           golden_data, output_data);
 }
@@ -161,7 +161,7 @@ TF_LITE_MICRO_TEST(ExpandDimsNegativeAxisTest3) {
   const int32_t axis_data[] = {-3};
   int golden_dims[] = {3, 1, 1, 2};
   int output_dims[] = {4, 3, 1, 1, 2};
-  tflite::testing::TestExpandDims<float>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<float>(input_dims, input_data, axis_dims,
                                          axis_data, golden_dims, output_dims,
                                          golden_data, output_data);
 }
@@ -175,7 +175,7 @@ TF_LITE_MICRO_TEST(ExpandDimsNegativeAxisTest2) {
   const int32_t axis_data[] = {-2};
   int golden_dims[] = {1, 2, 1, 3};
   int output_dims[] = {4, 1, 2, 1, 3};
-  tflite::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<int8_t>(input_dims, input_data, axis_dims,
                                           axis_data, golden_dims, output_dims,
                                           golden_data, output_data);
 }
@@ -189,7 +189,7 @@ TF_LITE_MICRO_TEST(ExpandDimsNegativeAxisTest1) {
   const int32_t axis_data[] = {-1};
   int golden_dims[] = {1, 3, 2, 1};
   int output_dims[] = {4, 1, 3, 2, 1};
-  tflite::testing::TestExpandDims<float>(input_dims, input_data, axis_dims,
+  tflite_micro::testing::TestExpandDims<float>(input_dims, input_data, axis_dims,
                                          axis_data, golden_dims, output_dims,
                                          golden_data, output_data);
 }
@@ -206,8 +206,8 @@ TF_LITE_MICRO_TEST(ExpandDimsInputOutputDimsMismatchShallFail) {
   // op would fail at prepare.
   int output_dims[] = {4, 1, 3, 1, 2};
 
-  tflite::micro::KernelRunner runner =
-      tflite::testing::CreateExpandDimsKernelRunner(input_dims, input_data,
+  tflite_micro::micro::KernelRunner runner =
+      tflite_micro::testing::CreateExpandDimsKernelRunner(input_dims, input_data,
                                                     axis_dims, axis_data,
                                                     output_dims, output_data);
 
@@ -224,8 +224,8 @@ TF_LITE_MICRO_TEST(ExpandDimsAxisOutOfRangeShallFail) {
   const int32_t axis_data[] = {4};
   int output_dims[] = {4, 1, 3, 2, 1};
 
-  tflite::micro::KernelRunner runner =
-      tflite::testing::CreateExpandDimsKernelRunner(input_dims, input_data,
+  tflite_micro::micro::KernelRunner runner =
+      tflite_micro::testing::CreateExpandDimsKernelRunner(input_dims, input_data,
                                                     axis_dims, axis_data,
                                                     output_dims, output_data);
 

@@ -37,7 +37,7 @@ extern int32_t* CEVA_TFLM_KERNELS_SCRATCH;
 extern int32_t CEVA_TFLM_KERNELS_SCRATCH_SIZE_VAL;
 #endif  // CEVA platform
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -77,30 +77,30 @@ __attribute__((optnone)) TfLiteStatus EvalQuantizedInt8CEVA(
     TfLiteContext* context, TfLiteNode* node, const OpDataFullyConnected& data,
     const TfLiteEvalTensor* input, const TfLiteEvalTensor* filter,
     const TfLiteEvalTensor* bias, TfLiteEvalTensor* output) {
-  tflite::FullyConnectedParams op_params = FullyConnectedParamsQuantized(data);
+  tflite_micro::FullyConnectedParams op_params = FullyConnectedParamsQuantized(data);
 
   int input_shape_dimensions_count =
-      tflite::micro::GetTensorShape(input).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(input).DimensionsCount();
   int weights_shape_dimensions_count =
-      tflite::micro::GetTensorShape(filter).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(filter).DimensionsCount();
   int* weights_shape_dims_data =
-      const_cast<int*>(tflite::micro::GetTensorShape(filter).DimsData());
+      const_cast<int*>(tflite_micro::micro::GetTensorShape(filter).DimsData());
   int bias_shape_dimensions_count =
-      tflite::micro::GetTensorShape(bias).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(bias).DimensionsCount();
   int output_shape_dimensions_count =
-      tflite::micro::GetTensorShape(output).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(output).DimensionsCount();
   int* output_shape_dims_data =
-      const_cast<int*>(tflite::micro::GetTensorShape(output).DimsData());
+      const_cast<int*>(tflite_micro::micro::GetTensorShape(output).DimsData());
 
   void* params = (void*)&op_params;
   int8_t* inputp =
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input));
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input));
   int8_t* filterp =
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(filter));
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(filter));
   int32_t* biasp =
-      const_cast<int32_t*>(tflite::micro::GetTensorData<int32_t>(bias));
+      const_cast<int32_t*>(tflite_micro::micro::GetTensorData<int32_t>(bias));
   int8_t* outputp =
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(output));
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(output));
 
 #ifdef MCPS_MEASUREMENT
   int batches = output_shape_dims_data[0];
@@ -139,7 +139,7 @@ TfLiteStatus EvalFloatCEVA(TfLiteContext* context, TfLiteNode* node,
                            const TfLiteEvalTensor* bias,
                            TfLiteEvalTensor* output) {
   // float output_activation_min, output_activation_max;
-  tflite::FullyConnectedParams op_params;
+  tflite_micro::FullyConnectedParams op_params;
   CalculateActivationRange(activation, &op_params.float_activation_min,
                            &op_params.float_activation_max);
 
@@ -147,26 +147,26 @@ TfLiteStatus EvalFloatCEVA(TfLiteContext* context, TfLiteNode* node,
   // op_params.float_activation_max = output_activation_max;
 
   int input_shape_dimensions_count =
-      tflite::micro::GetTensorShape(input).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(input).DimensionsCount();
   int weights_shape_dimensions_count =
-      tflite::micro::GetTensorShape(filter).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(filter).DimensionsCount();
   int* weights_shape_dims_data =
-      const_cast<int*>(tflite::micro::GetTensorShape(filter).DimsData());
+      const_cast<int*>(tflite_micro::micro::GetTensorShape(filter).DimsData());
   int bias_shape_dimensions_count =
-      tflite::micro::GetTensorShape(bias).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(bias).DimensionsCount();
   int output_shape_dimensions_count =
-      tflite::micro::GetTensorShape(output).DimensionsCount();
+      tflite_micro::micro::GetTensorShape(output).DimensionsCount();
   int* output_shape_dims_data =
-      const_cast<int*>(tflite::micro::GetTensorShape(output).DimsData());
+      const_cast<int*>(tflite_micro::micro::GetTensorShape(output).DimsData());
 
   void* params = (void*)&op_params;
   float* inputp =
-      const_cast<float*>(tflite::micro::GetTensorData<float>(input));
+      const_cast<float*>(tflite_micro::micro::GetTensorData<float>(input));
   float* filterp =
-      const_cast<float*>(tflite::micro::GetTensorData<float>(filter));
-  float* biasp = const_cast<float*>(tflite::micro::GetTensorData<float>(bias));
+      const_cast<float*>(tflite_micro::micro::GetTensorData<float>(filter));
+  float* biasp = const_cast<float*>(tflite_micro::micro::GetTensorData<float>(bias));
   float* outputp =
-      const_cast<float*>(tflite::micro::GetTensorData<float>(output));
+      const_cast<float*>(tflite_micro::micro::GetTensorData<float>(output));
 
 #ifdef MCPS_MEASUREMENT
   int batches = 1;
@@ -205,13 +205,13 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
       static_cast<const TfLiteFullyConnectedParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kFullyConnectedInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kFullyConnectedInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kFullyConnectedWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kFullyConnectedWeightsTensor);
   const TfLiteEvalTensor* bias =
-      tflite::micro::GetEvalInput(context, node, kFullyConnectedBiasTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kFullyConnectedBiasTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kFullyConnectedOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kFullyConnectedOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpDataFullyConnected& data =
@@ -227,7 +227,7 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
                                    output);
 
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -244,7 +244,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_FULLY_CONNECTED() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

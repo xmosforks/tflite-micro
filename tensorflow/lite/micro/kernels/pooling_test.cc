@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -174,7 +174,7 @@ void TestMaxPoolQuantized(int* input_dims_data, const T* input_data,
 }  // namespace
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -188,7 +188,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestFloat) {
   const float golden[] = {2.75, 5.75};
   int output_shape[] = {4, 1, 1, 2, 1};
   float output_data[2];
-  tflite::testing::TestAveragePoolFloat(
+  tflite_micro::testing::TestAveragePoolFloat(
       input_shape, input_values, filter_height, filter_width, stride_height,
       stride_width, golden, output_shape, kTfLitePaddingValid, kTfLiteActNone,
       output_data);
@@ -209,7 +209,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt8PaddingValidStride2ActNone) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActNone,
@@ -231,7 +231,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt8PaddingValidStride1Stride2Relu) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu,
@@ -254,7 +254,7 @@ TF_LITE_MICRO_TEST(
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActReluN1To1,
@@ -276,7 +276,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt8PaddingValidStride2Relu6) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu6,
@@ -298,7 +298,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt8PaddingSameStride1ActNone) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActNone,
@@ -320,7 +320,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt16PaddingValidStride2ActNone) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActNone,
@@ -342,7 +342,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt16PaddingValidStride1Stride2Relu) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu,
@@ -365,7 +365,7 @@ TF_LITE_MICRO_TEST(
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActReluN1To1,
@@ -387,7 +387,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt16PaddingValidStride2Relu6) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu6,
@@ -409,7 +409,7 @@ TF_LITE_MICRO_TEST(SimpleAveragePoolTestInt16PaddingSameStride1ActNone) {
   const int input_zero_point = 0;
   const float output_scale = .25;
   const int output_zero_point = 0;
-  tflite::testing::TestAveragePoolQuantized(
+  tflite_micro::testing::TestAveragePoolQuantized(
       input_shape, input_values, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActNone,
@@ -426,7 +426,7 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestFloat) {
   const float golden[] = {6, 10};
   int output_shape[] = {4, 1, 1, 2, 1};
   float output_data[2];
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden, output_shape, kTfLitePaddingValid,
                                     kTfLiteActNone, output_data);
@@ -442,7 +442,7 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestFloatRelu) {
   const float golden[] = {0, 10.5};
   int output_shape[] = {4, 1, 1, 2, 1};
   float output_data[2];
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden, output_shape, kTfLitePaddingValid,
                                     kTfLiteActRelu, output_data);
@@ -458,14 +458,14 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestFloatReluN1To1) {
   const float golden1[] = {-1.0, 0.7};
   int output_shape[] = {4, 1, 1, 2, 1};
   float output_data[2];
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values1, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values1, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden1, output_shape, kTfLitePaddingValid,
                                     kTfLiteActReluN1To1, output_data);
 
   const float input_values2[] = {-2.75, -6, -2, -4, -3, -2, 10, -7};
   const float golden2[] = {-1.0, 1.0};
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values2, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values2, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden2, output_shape, kTfLitePaddingValid,
                                     kTfLiteActReluN1To1, output_data);
@@ -481,14 +481,14 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestFloatRelu6) {
   const float golden1[] = {0, 6};
   int output_shape[] = {4, 1, 1, 2, 1};
   float output_data[2];
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values1, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values1, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden1, output_shape, kTfLitePaddingValid,
                                     kTfLiteActRelu6, output_data);
 
   const float input_values2[] = {0, 4.5, 12, 4, 3, 2, 10, 7};
   const float golden2[] = {4.5, 6};
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values2, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values2, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden2, output_shape, kTfLitePaddingValid,
                                     kTfLiteActRelu6, output_data);
@@ -504,7 +504,7 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestPaddingSameStride1) {
   const float golden[] = {6, 10, 10, 7, 3, 10, 10, 7};
   int output_shape[] = {4, 1, 2, 4, 1};
   float output_data[8];
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden, output_shape, kTfLitePaddingSame,
                                     kTfLiteActNone, output_data);
@@ -520,7 +520,7 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestPaddingValidStride1) {
   const float golden[] = {6, 10, 10};
   int output_shape[] = {4, 1, 1, 3, 1};
   float output_data[8];
-  tflite::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
+  tflite_micro::testing::TestMaxPoolFloat(input_shape, input_values, filter_height,
                                     filter_width, stride_height, stride_width,
                                     golden, output_shape, kTfLitePaddingValid,
                                     kTfLiteActNone, output_data);
@@ -541,7 +541,7 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestInt8ActNone) {
   const int input_zero_point = 0;
   const float output_scale = 1.0;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActNone,
@@ -563,7 +563,7 @@ TF_LITE_MICRO_TEST(MaxPoolTestInt8ActRelu) {
   const int input_zero_point = 0;
   const float output_scale = 0.5;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu,
@@ -585,7 +585,7 @@ TF_LITE_MICRO_TEST(MaxPoolTestInt8ActReluN1To1) {
   const int input_zero_point = 0;
   const float output_scale = 1.0;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActReluN1To1,
@@ -607,7 +607,7 @@ TF_LITE_MICRO_TEST(MaxPoolTestInt8ActRelu6) {
   const int input_zero_point = 0;
   const float output_scale = 1.0;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu6,
@@ -629,7 +629,7 @@ TF_LITE_MICRO_TEST(SimpleMaxPoolTestInt16ActNone) {
   const int input_zero_point = 0;
   const float output_scale = 1.0;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActNone,
@@ -651,7 +651,7 @@ TF_LITE_MICRO_TEST(MaxPoolTestInt16ActRelu) {
   const int input_zero_point = 0;
   const float output_scale = 0.5;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu,
@@ -673,7 +673,7 @@ TF_LITE_MICRO_TEST(MaxPoolTestInt16ActReluN1To1) {
   const int input_zero_point = 0;
   const float output_scale = 1.0;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActReluN1To1,
@@ -695,7 +695,7 @@ TF_LITE_MICRO_TEST(MaxPoolTestInt16ActRelu6) {
   const int input_zero_point = 0;
   const float output_scale = 1.0;
   const int output_zero_point = 0;
-  tflite::testing::TestMaxPoolQuantized(
+  tflite_micro::testing::TestMaxPoolQuantized(
       input_shape, input_values1, input_scale, input_zero_point, filter_height,
       filter_width, stride_height, stride_width, golden1, output_shape,
       output_scale, output_zero_point, kTfLitePaddingValid, kTfLiteActRelu6,

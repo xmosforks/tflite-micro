@@ -15,7 +15,7 @@ limitations under the License.
 #ifndef TENSORFLOW_LITE_KERNELS_LSTM_SHARED_H_
 #define TENSORFLOW_LITE_KERNELS_LSTM_SHARED_H_
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 namespace lstm {
@@ -74,5 +74,5 @@ constexpr int kOutputTensor = 0;
 }  // namespace lstm
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_LSTM_SHARED_H_

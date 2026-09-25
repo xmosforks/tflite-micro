@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 struct OpDataFullyConnected {
   // The scaling factor from input to output (aka the 'real multiplier') can
@@ -107,6 +107,6 @@ inline TFLMRegistration Register_FULLY_CONNECTED_INT16() {
 
 #endif
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_FULLY_CONNECTED_H_

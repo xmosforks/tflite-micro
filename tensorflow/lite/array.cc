@@ -15,19 +15,19 @@ limitations under the License.
 
 #include "tensorflow/lite/array.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace array_internal {
 
 void TfLiteArrayDeleter::operator()(TfLiteIntArray* a) {
   if (a) {
-    TfLiteIntArrayFree(a);
+    TfLiteMicroIntArrayFree(a);
   }
 }
 void TfLiteArrayDeleter::operator()(TfLiteFloatArray* a) {
   if (a) {
-    TfLiteFloatArrayFree(a);
+    TfLiteMicroFloatArrayFree(a);
   }
 }
 
 }  // namespace array_internal
-}  // namespace tflite
+}  // namespace tflite_micro

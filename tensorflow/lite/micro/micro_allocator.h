@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/tflite_bridge/flatbuffer_conversions_bridge.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // TODO(b/199402574): rename to tflite_internal or just remove internal
 // namespace.
@@ -39,7 +39,7 @@ namespace internal {
 TfLiteStatus InitializeTfLiteTensorFromFlatbuffer(
     IPersistentBufferAllocator* persistent_buffer_allocator,
     INonPersistentBufferAllocator* non_persistent_buffer_allocator,
-    bool allocate_temp, const tflite::Tensor& flatbuffer_tensor,
+    bool allocate_temp, const tflite_micro::Tensor& flatbuffer_tensor,
     const flatbuffers::Vector<flatbuffers::Offset<Buffer>>* buffers,
     TfLiteTensor* result);
 
@@ -250,6 +250,14 @@ class MicroAllocator {
 
   TfLiteBridgeBuiltinDataAllocator* GetBuiltinDataAllocator();
 
+  MicroMemoryPlanner* memory_planner() { return memory_planner_;}
+
+  // Returns the pointer for the array of ScratchBufferRequest allocations in
+  // the head section.
+  internal::ScratchBufferRequest* GetScratchBufferRequests();
+
+  size_t GetScratchBufferRequestCount() { return scratch_buffer_request_count_;}
+
  protected:
   MicroAllocator(SingleArenaBufferAllocator* memory_allocator,
                  MicroMemoryPlanner* memory_planner);
@@ -313,10 +321,6 @@ class MicroAllocator {
   // preparing.
   TfLiteStatus InitScratchBufferData();
 
-  // Returns the pointer for the array of ScratchBufferRequest allocations in
-  // the head section.
-  internal::ScratchBufferRequest* GetScratchBufferRequests();
-
   // A simple memory allocator that always allocate from the arena tail or head.
   INonPersistentBufferAllocator* non_persistent_buffer_allocator_;
   IPersistentBufferAllocator* persistent_buffer_allocator_;
@@ -343,5 +347,5 @@ class MicroAllocator {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_ALLOCATOR_H_

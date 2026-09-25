@@ -47,7 +47,7 @@ limitations under the License.
  * - Input and output types must match.
  * - Input and output quantization params must be identical.
  */
-namespace tflite {
+namespace tflite_micro {
 
 void* CircularBufferInit(TfLiteContext* context, const char* buffer,
                          size_t length) {
@@ -57,7 +57,7 @@ void* CircularBufferInit(TfLiteContext* context, const char* buffer,
 
   if (buffer != nullptr && length > 0) {
     const uint8_t* buffer_t = reinterpret_cast<const uint8_t*>(buffer);
-    tflite::FlexbufferWrapper wrapper(buffer_t, length);
+    tflite_micro::FlexbufferWrapper wrapper(buffer_t, length);
     op_data->cycles_max = wrapper.ElementAsInt32(kCircularBufferCyclesMaxIndex);
   } else {
     op_data->cycles_max = 0;
@@ -76,9 +76,9 @@ void EvalInt8(const int8_t* input, int num_slots, int depth, int8_t* output) {
 
 TfLiteStatus CircularBufferEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kCircularBufferInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kCircularBufferInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kCircularBufferOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kCircularBufferOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   OpDataCircularBuffer* data =
@@ -88,11 +88,11 @@ TfLiteStatus CircularBufferEval(TfLiteContext* context, TfLiteNode* node) {
   int depth = output->dims->data[2] * output->dims->data[3];
 
   if (input->type == kTfLiteInt8) {
-    EvalInt8(tflite::micro::GetTensorData<int8_t>(input), num_slots, depth,
-             tflite::micro::GetTensorData<int8_t>(output));
+    EvalInt8(tflite_micro::micro::GetTensorData<int8_t>(input), num_slots, depth,
+             tflite_micro::micro::GetTensorData<int8_t>(output));
   } else {
     MicroPrintf("Type %s (%d) not supported.",
-                       TfLiteTypeGetName(input->type), input->type);
+                       TfLiteMicroTypeGetName(input->type), input->type);
     return kTfLiteError;
   }
 
@@ -108,9 +108,9 @@ TfLiteStatus CircularBufferEval(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TFLMRegistration* Register_CIRCULAR_BUFFER() {
-  static TFLMRegistration r = tflite::micro::RegisterOp(
+  static TFLMRegistration r = tflite_micro::micro::RegisterOp(
       CircularBufferInit, CircularBufferPrepare, CircularBufferEval);
   return &r;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

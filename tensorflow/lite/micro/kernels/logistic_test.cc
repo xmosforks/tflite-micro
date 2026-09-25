@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -145,7 +145,7 @@ void ValidateLogisticGoldens(TfLiteTensor* tensors, const int tensor_count,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_LOGISTIC();
+  const TFLMRegistration registration = tflite_micro::Register_LOGISTIC();
   micro::KernelRunner runner(registration, tensors, tensor_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -198,7 +198,7 @@ void TestLogisticQuantized(int* input_dims_data, const float* input_data,
                             output_zero_point),
   };
 
-  tflite::Quantize(golden, golden_quantized, output_elements_count,
+  tflite_micro::Quantize(golden, golden_quantized, output_elements_count,
                    output_scale, output_zero_point);
   ValidateLogisticGoldens(tensors, tensors_size, output_data, golden_quantized,
                           output_elements_count, tolerance);
@@ -206,55 +206,55 @@ void TestLogisticQuantized(int* input_dims_data, const float* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(LogisticFloatBasicShouldMatchGolden) {
-  float output_data[tflite::testing::flat_size_basic];
-  tflite::testing::TestLogisticFloat(
-      tflite::testing::shape_basic, tflite::testing::input_data_basic,
-      tflite::testing::golden_basic, tflite::testing::shape_basic, output_data);
+  float output_data[tflite_micro::testing::flat_size_basic];
+  tflite_micro::testing::TestLogisticFloat(
+      tflite_micro::testing::shape_basic, tflite_micro::testing::input_data_basic,
+      tflite_micro::testing::golden_basic, tflite_micro::testing::shape_basic, output_data);
 }
 
 TF_LITE_MICRO_TEST(LogisticQuantizedInt8BasicShouldMatchGolden) {
   const float input_scale = 0.1;
   const int input_zero_point = 0;
-  int8_t input_quantized[tflite::testing::flat_size_basic];
-  int8_t golden_quantized[tflite::testing::flat_size_basic];
-  int8_t output_data[tflite::testing::flat_size_basic];
+  int8_t input_quantized[tflite_micro::testing::flat_size_basic];
+  int8_t golden_quantized[tflite_micro::testing::flat_size_basic];
+  int8_t output_data[tflite_micro::testing::flat_size_basic];
 
-  tflite::testing::TestLogisticQuantized<int8_t>(
-      tflite::testing::shape_basic, tflite::testing::input_data_basic,
+  tflite_micro::testing::TestLogisticQuantized<int8_t>(
+      tflite_micro::testing::shape_basic, tflite_micro::testing::input_data_basic,
       input_quantized, input_scale, input_zero_point,
-      tflite::testing::golden_basic, golden_quantized,
-      tflite::testing::shape_basic,
-      tflite::testing::quantized_output_scale_int8,
-      tflite::testing::quantized_output_zero_point_int8, output_data, 1.0f);
+      tflite_micro::testing::golden_basic, golden_quantized,
+      tflite_micro::testing::shape_basic,
+      tflite_micro::testing::quantized_output_scale_int8,
+      tflite_micro::testing::quantized_output_zero_point_int8, output_data, 1.0f);
 }
 
 TF_LITE_MICRO_TEST(LogisticFloatWideRangeShouldMatchGolden) {
-  float output_data[tflite::testing::flat_size_wide_range];
-  tflite::testing::TestLogisticFloat(
-      tflite::testing::shape_wide_range, tflite::testing::input_data_wide_range,
-      tflite::testing::golden_wide_range, tflite::testing::shape_wide_range,
+  float output_data[tflite_micro::testing::flat_size_wide_range];
+  tflite_micro::testing::TestLogisticFloat(
+      tflite_micro::testing::shape_wide_range, tflite_micro::testing::input_data_wide_range,
+      tflite_micro::testing::golden_wide_range, tflite_micro::testing::shape_wide_range,
       output_data);
 }
 
 TF_LITE_MICRO_TEST(LogisticQuantizedInt8WideRangeShouldMatchGolden) {
   const float input_scale = 1.0;
   const int input_zero_point = 0;
-  int8_t input_quantized[tflite::testing::flat_size_wide_range];
-  int8_t golden_quantized[tflite::testing::flat_size_wide_range];
-  int8_t output_data[tflite::testing::flat_size_wide_range];
+  int8_t input_quantized[tflite_micro::testing::flat_size_wide_range];
+  int8_t golden_quantized[tflite_micro::testing::flat_size_wide_range];
+  int8_t output_data[tflite_micro::testing::flat_size_wide_range];
 
-  tflite::testing::TestLogisticQuantized<int8_t>(
-      tflite::testing::shape_wide_range, tflite::testing::input_data_wide_range,
+  tflite_micro::testing::TestLogisticQuantized<int8_t>(
+      tflite_micro::testing::shape_wide_range, tflite_micro::testing::input_data_wide_range,
       input_quantized, input_scale, input_zero_point,
-      tflite::testing::golden_wide_range, golden_quantized,
-      tflite::testing::shape_wide_range,
-      tflite::testing::quantized_output_scale_int8,
-      tflite::testing::quantized_output_zero_point_int8, output_data, 1.0f);
+      tflite_micro::testing::golden_wide_range, golden_quantized,
+      tflite_micro::testing::shape_wide_range,
+      tflite_micro::testing::quantized_output_scale_int8,
+      tflite_micro::testing::quantized_output_zero_point_int8, output_data, 1.0f);
 }
 
 TF_LITE_MICRO_TEST(LogisticQuantizedInt16ShouldMatchGolden) {
@@ -262,15 +262,15 @@ TF_LITE_MICRO_TEST(LogisticQuantizedInt16ShouldMatchGolden) {
   const int input_zero_point = 0;
   const float output_scale = 2.f / 65536.f;
   const int output_zero_point = 0;
-  int16_t input_quantized[tflite::testing::int16_vec_size];
-  int16_t golden_quantized[tflite::testing::int16_vec_size];
-  int16_t output_data[tflite::testing::int16_vec_size];
+  int16_t input_quantized[tflite_micro::testing::int16_vec_size];
+  int16_t golden_quantized[tflite_micro::testing::int16_vec_size];
+  int16_t output_data[tflite_micro::testing::int16_vec_size];
 
-  tflite::testing::TestLogisticQuantized<int16_t>(
-      tflite::testing::shape_int16_vec, tflite::testing::int16_input_vec_fp,
+  tflite_micro::testing::TestLogisticQuantized<int16_t>(
+      tflite_micro::testing::shape_int16_vec, tflite_micro::testing::int16_input_vec_fp,
       input_quantized, input_scale, input_zero_point,
-      tflite::testing::int16_golden_vec_fp, golden_quantized,
-      tflite::testing::shape_int16_vec, output_scale, output_zero_point,
+      tflite_micro::testing::int16_golden_vec_fp, golden_quantized,
+      tflite_micro::testing::shape_int16_vec, output_scale, output_zero_point,
       output_data, 16.0f);
 }
 

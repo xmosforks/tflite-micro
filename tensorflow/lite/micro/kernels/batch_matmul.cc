@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputLhsTensor = 0;
@@ -103,9 +103,9 @@ struct PrepareOpContext : OpContext {
 struct EvalOpContext : OpContext {
   EvalOpContext(TfLiteContext* context, TfLiteNode* node)
       : OpContext(context, node),
-        lhs(tflite::micro::GetEvalInput(context, node, kInputLhsTensor)),
-        rhs(tflite::micro::GetEvalInput(context, node, kInputRhsTensor)),
-        output(tflite::micro::GetEvalOutput(context, node, kOutputTensor)) {}
+        lhs(tflite_micro::micro::GetEvalInput(context, node, kInputLhsTensor)),
+        rhs(tflite_micro::micro::GetEvalInput(context, node, kInputRhsTensor)),
+        output(tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor)) {}
 
   const TfLiteEvalTensor* lhs;
   const TfLiteEvalTensor* rhs;
@@ -124,8 +124,8 @@ TfLiteStatus ReshapeOutputTensor(TfLiteContext* context, TfLiteNode* node,
 
   // make sure output tensor dims are not in the FlatBuffer
   TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                  context, output, output_eval));
 
   // Fill in any broadcast dimensions.
@@ -165,7 +165,7 @@ TfLiteEvalTensor* AllocInitTransposeTensorFromTfLiteTensor(
   eval_tensor->type = tensor.type;
 
   const int tensor_rank = NumDimensions(&tensor);
-  const size_t eval_dims_size = TfLiteIntArrayGetSizeInBytes(tensor_rank);
+  const size_t eval_dims_size = TfLiteMicroIntArrayGetSizeInBytes(tensor_rank);
   eval_tensor->dims = static_cast<TfLiteIntArray*>(
       micro_context->AllocatePersistentBuffer(eval_dims_size));
   if (eval_tensor->dims == nullptr) {
@@ -234,9 +234,9 @@ TfLiteStatus InitializeTemporaries(TfLiteContext* context, TfLiteNode* node,
 template <typename Scalar>
 void TransposeRowsColumnsImpl(const TfLiteEvalTensor& tensor_in,
                               TfLiteEvalTensor* tensor_out) {
-  const Scalar* input = tflite::micro::GetTensorData<Scalar>(&tensor_in);
-  Scalar* output = tflite::micro::GetTensorData<Scalar>(tensor_out);
-  RuntimeShape transposed_shape(tflite::micro::GetTensorShape(&tensor_in));
+  const Scalar* input = tflite_micro::micro::GetTensorData<Scalar>(&tensor_in);
+  Scalar* output = tflite_micro::micro::GetTensorData<Scalar>(tensor_out);
+  RuntimeShape transposed_shape(tflite_micro::micro::GetTensorShape(&tensor_in));
   RuntimeShape shape(transposed_shape);
   TransposeParams params;
   const int rank = shape.DimensionsCount();
@@ -325,8 +325,8 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   OpData* op_data = op_context.op_data;
   // If the RHS is constant, we only transpose once.
   op_data->rhs_is_transposed = false;
-  op_data->lhs_is_constant_tensor = IsConstantTensor(lhs_data);
-  op_data->rhs_is_constant_tensor = IsConstantTensor(rhs_data);
+  op_data->lhs_is_constant_tensor = IsConstantTensor(context, lhs_data);
+  op_data->rhs_is_constant_tensor = IsConstantTensor(context, rhs_data);
 
   // Note that quantized inference requires that all tensors have their
   // parameters set. This is usually done during quantized training.
@@ -415,9 +415,9 @@ TfLiteStatus EvalInt8(TfLiteContext* context, const OpData& data,
 
   // Note we pass RHS args first, LHS args second. See note for Eval.
   reference_ops::BatchMatMul<int8_t, int32_t>(
-      op_params, rhs_shape, tflite::micro::GetTensorData<int8_t>(&rhs),
-      lhs_shape, tflite::micro::GetTensorData<int8_t>(&lhs), output_shape,
-      tflite::micro::GetTensorData<int8_t>(output));
+      op_params, rhs_shape, tflite_micro::micro::GetTensorData<int8_t>(&rhs),
+      lhs_shape, tflite_micro::micro::GetTensorData<int8_t>(&lhs), output_shape,
+      tflite_micro::micro::GetTensorData<int8_t>(output));
 
   return kTfLiteOk;
 }
@@ -445,9 +445,9 @@ TfLiteStatus EvalInt16(TfLiteContext* context, const OpData& data,
 
   // Note we pass RHS args first, LHS args second. See note for Eval.
   reference_ops::BatchMatMul<int16_t, int64_t>(
-      op_params, rhs_shape, tflite::micro::GetTensorData<int16_t>(&rhs),
-      lhs_shape, tflite::micro::GetTensorData<int16_t>(&lhs), output_shape,
-      tflite::micro::GetTensorData<int16_t>(output));
+      op_params, rhs_shape, tflite_micro::micro::GetTensorData<int16_t>(&rhs),
+      lhs_shape, tflite_micro::micro::GetTensorData<int16_t>(&lhs), output_shape,
+      tflite_micro::micro::GetTensorData<int16_t>(output));
 
   return kTfLiteOk;
 }
@@ -469,8 +469,8 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* lhs = op_context.lhs;
   const TfLiteEvalTensor* rhs = op_context.rhs;
   TfLiteEvalTensor* output = op_context.output;
-  RuntimeShape orig_lhs_shape = tflite::micro::GetTensorShape(lhs);
-  RuntimeShape orig_rhs_shape = tflite::micro::GetTensorShape(rhs);
+  RuntimeShape orig_lhs_shape = tflite_micro::micro::GetTensorShape(lhs);
+  RuntimeShape orig_rhs_shape = tflite_micro::micro::GetTensorShape(rhs);
 
   bool adj_y = op_context.params->adj_y;
   bool adj_x = op_context.params->adj_x;
@@ -526,22 +526,22 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     case kTfLiteFloat32:
       // Note we pass RHS args first, LHS args second. See note above.
       reference_ops::BatchMatMul(
-          rhs_shape, tflite::micro::GetTensorData<float>(rhs_tensor), lhs_shape,
-          tflite::micro::GetTensorData<float>(lhs_tensor),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<float>(output));
+          rhs_shape, tflite_micro::micro::GetTensorData<float>(rhs_tensor), lhs_shape,
+          tflite_micro::micro::GetTensorData<float>(lhs_tensor),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<float>(output));
       break;
     case kTfLiteInt8:
       return EvalInt8(context, *op_data, lhs_shape, *lhs_tensor, rhs_shape,
-                      *rhs_tensor, tflite::micro::GetTensorShape(output),
+                      *rhs_tensor, tflite_micro::micro::GetTensorShape(output),
                       output);
     case kTfLiteInt16:
       return EvalInt16(context, *op_data, lhs_shape, *lhs_tensor, rhs_shape,
-                       *rhs_tensor, tflite::micro::GetTensorShape(output),
+                       *rhs_tensor, tflite_micro::micro::GetTensorShape(output),
                        output);
     default:
       MicroPrintf("BATCH_MATMUL doesn't support input type %s",
-                  TfLiteTypeGetName(lhs->type));
+                  TfLiteMicroTypeGetName(lhs->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -550,7 +550,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_BATCH_MATMUL() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

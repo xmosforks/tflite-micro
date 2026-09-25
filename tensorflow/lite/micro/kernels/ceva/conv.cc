@@ -33,7 +33,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/ceva/mcps_macros.h"
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -58,11 +58,11 @@ void EvalQuantizedPerChannel(TfLiteContext* context, TfLiteNode* node,
   const int32_t* bias_data;
   int8_t* output_data;
 
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
-  const RuntimeShape& bias_shape = tflite::micro::GetTensorShape(bias);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-  const RuntimeShape& im2col_shape = tflite::micro::GetTensorShape(im2col);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
+  const RuntimeShape& bias_shape = tflite_micro::micro::GetTensorShape(bias);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+  const RuntimeShape& im2col_shape = tflite_micro::micro::GetTensorShape(im2col);
 
   const int stride_width = op_params.stride_width;
   const int stride_height = op_params.stride_height;
@@ -87,10 +87,10 @@ void EvalQuantizedPerChannel(TfLiteContext* context, TfLiteNode* node,
   const int output_width = output_shape.Dims(2);
   const int output_depth_Dims3 = output_shape.Dims(3);
 
-  input_data = tflite::micro::GetTensorData<int8_t>(input);
-  filter_data = tflite::micro::GetTensorData<int8_t>(filter);
-  bias_data = tflite::micro::GetTensorData<int32_t>(bias);
-  output_data = tflite::micro::GetTensorData<int8_t>(output);
+  input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+  filter_data = tflite_micro::micro::GetTensorData<int8_t>(filter);
+  bias_data = tflite_micro::micro::GetTensorData<int32_t>(bias);
+  output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
 
   int sizeof_scratch = filter_depth;
   if (sizeof_scratch < output_depth_Dims3) sizeof_scratch = output_depth_Dims3;
@@ -144,11 +144,11 @@ void EvalFloat(TfLiteContext* context, TfLiteNode* node,
   const float *input_data, *filter_data, *bias_data, *im2col_data;
   float* output_data;
 
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const RuntimeShape& filter_shape = tflite::micro::GetTensorShape(filter);
-  const RuntimeShape& bias_shape = tflite::micro::GetTensorShape(bias);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-  const RuntimeShape& im2col_shape = tflite::micro::GetTensorShape(im2col);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const RuntimeShape& filter_shape = tflite_micro::micro::GetTensorShape(filter);
+  const RuntimeShape& bias_shape = tflite_micro::micro::GetTensorShape(bias);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+  const RuntimeShape& im2col_shape = tflite_micro::micro::GetTensorShape(im2col);
 
   const int stride_width = op_params.stride_width;
   const int stride_height = op_params.stride_height;
@@ -174,11 +174,11 @@ void EvalFloat(TfLiteContext* context, TfLiteNode* node,
   const int output_width = output_shape.Dims(2);
   const int output_depth_Dims3 = output_shape.Dims(3);
 
-  input_data = tflite::micro::GetTensorData<float>(input);
-  filter_data = tflite::micro::GetTensorData<float>(filter);
-  bias_data = tflite::micro::GetTensorData<float>(bias);
-  output_data = tflite::micro::GetTensorData<float>(output);
-  im2col_data = tflite::micro::GetTensorData<float>(im2col);
+  input_data = tflite_micro::micro::GetTensorData<float>(input);
+  filter_data = tflite_micro::micro::GetTensorData<float>(filter);
+  bias_data = tflite_micro::micro::GetTensorData<float>(bias);
+  output_data = tflite_micro::micro::GetTensorData<float>(output);
+  im2col_data = tflite_micro::micro::GetTensorData<float>(im2col);
 
 #ifdef MCPS_MEASUREMENT
   MCPS_START_ONE;
@@ -209,15 +209,15 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
   auto* params = reinterpret_cast<TfLiteConvParams*>(node->builtin_data);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvInputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvWeightsTensor);
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 3)
-          ? tflite::micro::GetEvalInput(context, node, kConvBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kConvBiasTensor)
           : nullptr;
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kConvOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpDataConv& data = *(static_cast<const OpDataConv*>(node->user_data));
@@ -236,7 +236,7 @@ TfLiteStatus EvalCEVA(TfLiteContext* context, TfLiteNode* node) {
                               output, nullptr);
       break;
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -252,7 +252,7 @@ TfLiteStatus ConvEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_CONV_2D() {
-  return tflite::micro::RegisterOp(Init, ConvPrepare, ConvEval);
+  return tflite_micro::micro::RegisterOp(Init, ConvPrepare, ConvEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

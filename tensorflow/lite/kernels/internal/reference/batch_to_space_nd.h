@@ -20,7 +20,7 @@ limitations under the License.
 #include "ruy/profiler/instrumentation.h"  // from @ruy
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 // TODO(b/135760455): Move this method anonymous namespace in a cc file.
@@ -96,6 +96,6 @@ inline void BatchToSpaceND(const RuntimeShape& unextended_input1_shape,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_BATCH_TO_SPACE_ND_H_

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -32,7 +32,7 @@ void ValidatePreluGoldens(TfLiteTensor* tensors, int tensors_size,
   int outputs_array_data[] = {1, 2};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_PRELU();
+  const TFLMRegistration registration = tflite_micro::Register_PRELU();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              /*builtin_data=*/nullptr);
@@ -99,7 +99,7 @@ void TestPreluQuantized(int* input_dims_data, const float* input_data,
 }
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -122,7 +122,7 @@ TF_LITE_MICRO_TEST(FloatPreluActivationsOpTest) {
   };
   const int output_dims_count = 12;
   float output_data[output_dims_count];
-  tflite::testing::TestPreluFloat(input_shape, input_values, alpha_shape,
+  tflite_micro::testing::TestPreluFloat(input_shape, input_values, alpha_shape,
                                   alpha_values, golden, output_shape,
                                   output_data);
 }
@@ -151,7 +151,7 @@ TF_LITE_MICRO_TEST(QuantizedInt8PreluActivationsOpTest) {
   float scale = 2.0 / 255.0;
   int zero_point = 0;
   int8_t output_data[dims_count];
-  tflite::testing::TestPreluQuantized(
+  tflite_micro::testing::TestPreluQuantized(
       input_shape, input_values, input_quantized, scale, zero_point,
       alpha_shape, alpha_values, alpha_quantized, scale, zero_point, golden,
       golden_quantized, scale, zero_point, output_shape, output_data);

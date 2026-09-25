@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -43,20 +43,20 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const OpDataSvdf& data = *(static_cast<const OpDataSvdf*>(node->user_data));
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kSvdfInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfInputTensor);
   const TfLiteEvalTensor* weights_feature =
-      tflite::micro::GetEvalInput(context, node, kSvdfWeightsFeatureTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfWeightsFeatureTensor);
   const TfLiteEvalTensor* weights_time =
-      tflite::micro::GetEvalInput(context, node, kSvdfWeightsTimeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kSvdfWeightsTimeTensor);
   // TODO(#1751): account for optional bias tensor
   const TfLiteEvalTensor* bias =
       (NumInputs(node) == 5)
-          ? tflite::micro::GetEvalInput(context, node, kSvdfBiasTensor)
+          ? tflite_micro::micro::GetEvalInput(context, node, kSvdfBiasTensor)
           : nullptr;
-  TfLiteEvalTensor* activation_state = tflite::micro::GetMutableEvalInput(
+  TfLiteEvalTensor* activation_state = tflite_micro::micro::GetMutableEvalInput(
       context, node, kSvdfInputActivationStateTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kSvdfOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kSvdfOutputTensor);
 
   switch (weights_feature->type) {
     case kTfLiteFloat32: {
@@ -82,7 +82,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
         }
         default:
           MicroPrintf("Type %s not currently supported.",
-                      TfLiteTypeGetName(weights_time->type));
+                      TfLiteMicroTypeGetName(weights_time->type));
           return kTfLiteError;
       }
       break;
@@ -90,7 +90,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
     default:
       MicroPrintf("Type %s not currently supported.",
-                  TfLiteTypeGetName(weights_feature->type));
+                  TfLiteMicroTypeGetName(weights_feature->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -99,7 +99,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SVDF() {
-  return tflite::micro::RegisterOp(Init, PrepareSvdf, Eval);
+  return tflite_micro::micro::RegisterOp(Init, PrepareSvdf, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

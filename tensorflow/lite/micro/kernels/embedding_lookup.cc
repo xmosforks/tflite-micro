@@ -36,7 +36,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor_0 = 0;
@@ -98,8 +98,8 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE(context, output->dims->size >= NumDimensions(value));
   // make the output tensor dimensions mutable
   TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                  context, output, output_eval));
   // set the new output dimensions
   output->dims->data[0] = SizeOfDimension(lookup, 0);
@@ -130,9 +130,9 @@ TfLiteStatus EvalSimple(const OpData& op_data, const TfLiteEvalTensor* lookup,
   }
   const size_t row_bytes = op_data.num_columns * TfLiteTypeGetSize(value->type);
 
-  int8_t* output_raw = tflite::micro::GetTensorData<int8_t>(output);
-  const int8_t* value_raw = tflite::micro::GetTensorData<int8_t>(value);
-  const int32_t* lookup_data = tflite::micro::GetTensorData<int32_t>(lookup);
+  int8_t* output_raw = tflite_micro::micro::GetTensorData<int8_t>(output);
+  const int8_t* value_raw = tflite_micro::micro::GetTensorData<int8_t>(value);
+  const int32_t* lookup_data = tflite_micro::micro::GetTensorData<int32_t>(lookup);
   for (int i = 0; i < lookup->dims->data[0]; i++) {
     int32_t idx = lookup_data[i];
     if (idx >= num_rows || idx < 0) {
@@ -156,9 +156,9 @@ TfLiteStatus EvalHybrid(const OpData& op_data, const TfLiteEvalTensor* lookup,
   const int num_rows = value->dims->data[0];
   const size_t num_colums = op_data.num_columns;
 
-  float* output_ptr = tflite::micro::GetTensorData<float>(output);
-  const int8_t* value_ptr = tflite::micro::GetTensorData<int8_t>(value);
-  const int32_t* lookup_data = tflite::micro::GetTensorData<int32_t>(lookup);
+  float* output_ptr = tflite_micro::micro::GetTensorData<float>(output);
+  const int8_t* value_ptr = tflite_micro::micro::GetTensorData<int8_t>(value);
+  const int32_t* lookup_data = tflite_micro::micro::GetTensorData<int32_t>(lookup);
 
   for (int i = 0; i < lookup->dims->data[0]; i++) {
     int32_t idx = lookup_data[i];
@@ -180,11 +180,11 @@ TfLiteStatus EvalHybrid(const OpData& op_data, const TfLiteEvalTensor* lookup,
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* lookup =
-      tflite::micro::GetEvalInput(context, node, kInputTensor_0);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor_0);
   const TfLiteEvalTensor* value =
-      tflite::micro::GetEvalInput(context, node, kInputTensor_1);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor_1);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   OpData& op_data = *static_cast<OpData*>(node->user_data);
 
@@ -199,7 +199,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       }
     default:
       MicroPrintf("EMBEDDING_LOOKUP only supports FLOAT32 and INT8, got %s.",
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
   }
 }
@@ -207,7 +207,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_EMBEDDING_LOOKUP() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -19,8 +19,9 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/tensor_ctypes.h"
 #include "tensorflow/lite/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
+#include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -40,7 +41,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   TF_LITE_ENSURE_EQ(context, NumOutputs(node), 1);
   TF_LITE_ENSURE_TYPES_EQ(context, input->type, kTfLiteFloat32);
   TF_LITE_ENSURE_TYPES_EQ(context, output->type, input->type);
-  TF_LITE_ENSURE_EQ(context, output->bytes, input->bytes);
+  TF_LITE_ENSURE_EQ(context, tflite_micro::EvalTensorBytes((const TfLiteEvalTensor*)output), tflite_micro::EvalTensorBytes((const TfLiteEvalTensor*)input));
   TF_LITE_ENSURE_EQ(context, output->dims->size, input->dims->size);
   for (int i = 0; i < output->dims->size; ++i) {
     TF_LITE_ENSURE_EQ(context, output->dims->data[i], input->dims->data[i]);
@@ -52,14 +53,14 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
-  reference_ops::Ceil(tflite::micro::GetTensorShape(input),
-                      tflite::micro::GetTensorData<float>(input),
-                      tflite::micro::GetTensorShape(output),
-                      tflite::micro::GetTensorData<float>(output));
+  reference_ops::Ceil(tflite_micro::micro::GetTensorShape(input),
+                      tflite_micro::micro::GetTensorData<float>(input),
+                      tflite_micro::micro::GetTensorShape(output),
+                      tflite_micro::micro::GetTensorData<float>(output));
 
   return kTfLiteOk;
 }
@@ -67,7 +68,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_CEIL() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/lstm_shared.h"
 #include "tensorflow/lite/micro/test_helpers.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 // Data structure to store all the data used to check output of internal gates
 // of one time step
@@ -421,15 +421,15 @@ CreateQuantizedGateData(
     const bool fold_zero_point) {
   GateData<WeightType, BiasType, input_dimension, state_dimension>
       quantized_gate_params;
-  tflite::SymmetricQuantize(gate_parameters.activation_weight,
+  tflite_micro::SymmetricQuantize(gate_parameters.activation_weight,
                             quantized_gate_params.activation_weight,
                             state_dimension * input_dimension,
                             gate_quantization_params.activation_weight.scale);
-  tflite::SymmetricQuantize(gate_parameters.recurrent_weight,
+  tflite_micro::SymmetricQuantize(gate_parameters.recurrent_weight,
                             quantized_gate_params.recurrent_weight,
                             state_dimension * state_dimension,
                             gate_quantization_params.recurrent_weight.scale);
-  tflite::SymmetricQuantize(gate_parameters.fused_bias,
+  tflite_micro::SymmetricQuantize(gate_parameters.fused_bias,
                             quantized_gate_params.fused_bias, state_dimension,
                             gate_quantization_params.bias.scale);
   // Note: steps below are not required for the generalized LSTM evaluation
@@ -441,7 +441,7 @@ CreateQuantizedGateData(
     std::memcpy(quantized_gate_params.activation_zp_folded_bias,
                 quantized_gate_params.fused_bias, 2 * sizeof(int32_t));
     // Pre-calculate bias - zero_point * weight (a constant).
-    tflite::tensor_utils::MatrixScalarMultiplyAccumulate(
+    tflite_micro::tensor_utils::MatrixScalarMultiplyAccumulate(
         quantized_gate_params.activation_weight,
         -1 * input_quantization_params.zero_point, 2, 2,
         quantized_gate_params.activation_zp_folded_bias);
@@ -451,7 +451,7 @@ CreateQuantizedGateData(
       quantized_gate_params.recurrent_zp_folded_bias[i] = 0;
     }
     // Calculate : -zero_point * weight since it is a constant
-    tflite::tensor_utils::MatrixScalarMultiplyAccumulate(
+    tflite_micro::tensor_utils::MatrixScalarMultiplyAccumulate(
         quantized_gate_params.recurrent_weight,
         -1 * output_quantization_params.zero_point, 2, 2,
         quantized_gate_params.recurrent_zp_folded_bias);
@@ -574,6 +574,6 @@ Create2x3x2X2Int16NodeContents(const float* input_data = nullptr,
                                const float* cell_state = nullptr);
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_TESTDATA_LSTM_TEST_DATA_H_

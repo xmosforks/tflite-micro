@@ -812,7 +812,7 @@ table Conv2DOptions {
   dilation_h_factor:int = 1;
   // Parameters for Conv2D version 8 or above.
   // When set, quantized_bias_type defines the dtype for both bias and accumulator.
-  quantized_bias_type: TensorType;
+  quantized_bias_type: TensorType = INT32;
 }
 
 // Options for both Conv3D and Conv3DTranspose.

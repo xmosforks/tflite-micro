@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/lstm_shared.h"
 #include "tensorflow/lite/micro/kernels/micro_tensor_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -64,7 +64,7 @@ TfLiteStatus PrecomputeZeroPointTimesWeightWithBias(
 
   if (zero_point != 0) {
     const int8_t* weight = GetTensorData<int8_t>(weight_tensor);
-    tflite::tensor_utils::MatrixScalarMultiplyAccumulate(weight, zero_point,
+    tflite_micro::tensor_utils::MatrixScalarMultiplyAccumulate(weight, zero_point,
                                                          row, col, *output);
   }
   return kTfLiteOk;
@@ -74,7 +74,7 @@ TfLiteStatus CalculateOpData(TfLiteContext* context, TfLiteNode* node,
                              const LstmTensors& lstm_tensors, OpData* op_data) {
   const TfLiteTensor* input = lstm_tensors.GetInternalTensor(kLstmInputTensor);
   const TfLiteTensor* output_state =
-      lstm_tensors.GetInternalTensor(tflite::kLstmOutputStateTensor);
+      lstm_tensors.GetInternalTensor(tflite_micro::kLstmOutputStateTensor);
 
   TF_LITE_ENSURE(context, input->type == kTfLiteInt8);
 
@@ -381,45 +381,45 @@ TfLiteStatus CMSIS_NN_EvalInteger8x8_16Lstm(
     const LSTMBuffers<CellType>& buffers) {
   const OpDataLSTM& op_data_lstm = op_data.params_ref;
   const TfLiteEvalTensor* input =
-      kernel_content.GetInternalTensor(tflite::kLstmInputTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputTensor);
   const TfLiteEvalTensor* input_gate_bias =
-      kernel_content.GetInternalTensor(tflite::kLstmInputGateBiasTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputGateBiasTensor);
   const TfLiteEvalTensor* forget_gate_bias =
-      kernel_content.GetInternalTensor(tflite::kLstmForgetGateBiasTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmForgetGateBiasTensor);
   const TfLiteEvalTensor* cell_gate_bias =
-      kernel_content.GetInternalTensor(tflite::kLstmCellGateBiasTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmCellGateBiasTensor);
   const TfLiteEvalTensor* output_gate_bias =
-      kernel_content.GetInternalTensor(tflite::kLstmOutputGateBiasTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmOutputGateBiasTensor);
   const TfLiteEvalTensor* input_to_output_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmInputToOutputWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToOutputWeightsTensor);
   const TfLiteEvalTensor* recurrent_to_output_weights =
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToOutputWeightsTensor);
+          tflite_micro::kLstmRecurrentToOutputWeightsTensor);
   const TfLiteEvalTensor* input_to_input_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmInputToInputWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToInputWeightsTensor);
   const TfLiteEvalTensor* input_to_forget_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmInputToForgetWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToForgetWeightsTensor);
   const TfLiteEvalTensor* input_to_cell_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmInputToCellWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmInputToCellWeightsTensor);
   const TfLiteEvalTensor* recurrent_to_input_weights =
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToInputWeightsTensor);
+          tflite_micro::kLstmRecurrentToInputWeightsTensor);
   const TfLiteEvalTensor* recurrent_to_forget_weights =
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToForgetWeightsTensor);
+          tflite_micro::kLstmRecurrentToForgetWeightsTensor);
   const TfLiteEvalTensor* recurrent_to_cell_weights =
       kernel_content.GetInternalTensor(
-          tflite::kLstmRecurrentToCellWeightsTensor);
+          tflite_micro::kLstmRecurrentToCellWeightsTensor);
   const TfLiteEvalTensor* cell_to_input_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmCellToInputWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmCellToInputWeightsTensor);
   const TfLiteEvalTensor* cell_to_forget_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmCellToForgetWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmCellToForgetWeightsTensor);
   const TfLiteEvalTensor* cell_to_output_weights =
-      kernel_content.GetInternalTensor(tflite::kLstmCellToOutputWeightsTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmCellToOutputWeightsTensor);
   const TfLiteEvalTensor* cell_state =
-      kernel_content.GetInternalTensor(tflite::kLstmCellStateTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmCellStateTensor);
   const TfLiteEvalTensor* output_state =
-      kernel_content.GetInternalTensor(tflite::kLstmOutputStateTensor);
+      kernel_content.GetInternalTensor(tflite_micro::kLstmOutputStateTensor);
   const TfLiteEvalTensor* output = kernel_content.output_tensor;
 
   TFLITE_DCHECK(input->dims->size >= 2 && input->dims->size <= 3);
@@ -436,13 +436,13 @@ TfLiteStatus CMSIS_NN_EvalInteger8x8_16Lstm(
       op_data_lstm.cell_state_info.quantized_cell_clip;
 
   cmsis_lstm_params.input_gate_bias = const_cast<int32_t*>(
-      tflite::micro::GetOptionalTensorData<int32_t>(input_gate_bias));
+      tflite_micro::micro::GetOptionalTensorData<int32_t>(input_gate_bias));
   cmsis_lstm_params.forget_gate_bias = const_cast<int32_t*>(
-      tflite::micro::GetOptionalTensorData<int32_t>(forget_gate_bias));
+      tflite_micro::micro::GetOptionalTensorData<int32_t>(forget_gate_bias));
   cmsis_lstm_params.cell_gate_bias = const_cast<int32_t*>(
-      tflite::micro::GetOptionalTensorData<int32_t>(cell_gate_bias));
+      tflite_micro::micro::GetOptionalTensorData<int32_t>(cell_gate_bias));
   cmsis_lstm_params.output_gate_bias = const_cast<int32_t*>(
-      tflite::micro::GetOptionalTensorData<int32_t>(output_gate_bias));
+      tflite_micro::micro::GetOptionalTensorData<int32_t>(output_gate_bias));
 
   const bool time_major = op_data_lstm.size_info.time_major;
   const int n_input = input->dims->data[input->dims->size - 1];
@@ -465,34 +465,34 @@ TfLiteStatus CMSIS_NN_EvalInteger8x8_16Lstm(
 
   arm_lstm_unidirectional_s16_s8(
       &scratch_buffers,
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input)),
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input)),
       &lstm_dims,
       const_cast<int8_t*>(
-          tflite::micro::GetOptionalTensorData<int8_t>(input_to_input_weights)),
-      const_cast<int8_t*>(tflite::micro::GetOptionalTensorData<int8_t>(
+          tflite_micro::micro::GetOptionalTensorData<int8_t>(input_to_input_weights)),
+      const_cast<int8_t*>(tflite_micro::micro::GetOptionalTensorData<int8_t>(
           input_to_forget_weights)),
       const_cast<int8_t*>(
-          tflite::micro::GetOptionalTensorData<int8_t>(input_to_cell_weights)),
-      const_cast<int8_t*>(tflite::micro::GetOptionalTensorData<int8_t>(
+          tflite_micro::micro::GetOptionalTensorData<int8_t>(input_to_cell_weights)),
+      const_cast<int8_t*>(tflite_micro::micro::GetOptionalTensorData<int8_t>(
           input_to_output_weights)),
-      const_cast<int8_t*>(tflite::micro::GetOptionalTensorData<int8_t>(
+      const_cast<int8_t*>(tflite_micro::micro::GetOptionalTensorData<int8_t>(
           recurrent_to_input_weights)),
-      const_cast<int8_t*>(tflite::micro::GetOptionalTensorData<int8_t>(
+      const_cast<int8_t*>(tflite_micro::micro::GetOptionalTensorData<int8_t>(
           recurrent_to_forget_weights)),
-      const_cast<int8_t*>(tflite::micro::GetOptionalTensorData<int8_t>(
+      const_cast<int8_t*>(tflite_micro::micro::GetOptionalTensorData<int8_t>(
           recurrent_to_cell_weights)),
-      const_cast<int8_t*>(tflite::micro::GetOptionalTensorData<int8_t>(
+      const_cast<int8_t*>(tflite_micro::micro::GetOptionalTensorData<int8_t>(
           recurrent_to_output_weights)),
       const_cast<int16_t*>(
-          tflite::micro::GetOptionalTensorData<int16_t>(cell_to_input_weights)),
-      const_cast<int16_t*>(tflite::micro::GetOptionalTensorData<int16_t>(
+          tflite_micro::micro::GetOptionalTensorData<int16_t>(cell_to_input_weights)),
+      const_cast<int16_t*>(tflite_micro::micro::GetOptionalTensorData<int16_t>(
           cell_to_forget_weights)),
-      const_cast<int16_t*>(tflite::micro::GetOptionalTensorData<int16_t>(
+      const_cast<int16_t*>(tflite_micro::micro::GetOptionalTensorData<int16_t>(
           cell_to_output_weights)),
       nullptr, &cmsis_lstm_params,
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(output_state)),
-      const_cast<int16_t*>(tflite::micro::GetTensorData<int16_t>(cell_state)),
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(output)));
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(output_state)),
+      const_cast<int16_t*>(tflite_micro::micro::GetTensorData<int16_t>(cell_state)),
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(output)));
 
   return kTfLiteOk;
 }
@@ -556,7 +556,7 @@ TfLiteStatus UnidirectionalSequenceLstmPrepare(TfLiteContext* context,
     MicroPrintf(
         "Cell state type %s (%d) not supported. The quantized Unidirectional "
         "Sequence LSTM Op only support int16 cell state",
-        TfLiteTypeGetName(cell_state_type), cell_state_type);
+        TfLiteMicroTypeGetName(cell_state_type), cell_state_type);
     return kTfLiteError;
   }
   // request buffers (four buffers)
@@ -605,7 +605,7 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
         }
         default: {
           MicroPrintf("Filter type %s (%d) not supported.",
-                      TfLiteTypeGetName(weight_type), activation_type);
+                      TfLiteMicroTypeGetName(weight_type), activation_type);
           return kTfLiteError;
         }
       }
@@ -623,7 +623,7 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
         }
         default: {
           MicroPrintf("Filter type %s (%d) not supported.",
-                      TfLiteTypeGetName(weight_type), weight_type);
+                      TfLiteMicroTypeGetName(weight_type), weight_type);
           return kTfLiteError;
         }
       }
@@ -631,7 +631,7 @@ TfLiteStatus UnidirectionalSequenceLstmEval(TfLiteContext* context,
     }
     default: {
       MicroPrintf("Input type %s (%d) not supported.",
-                  TfLiteTypeGetName(activation_type), activation_type);
+                  TfLiteMicroTypeGetName(activation_type), activation_type);
       return kTfLiteError;
     }
   }
@@ -660,7 +660,7 @@ TfLiteStatus UnidirectionalSequenceLstmEvalInt8(TfLiteContext* context,
                                                    buffers);
   } else {
     MicroPrintf("Input type %s (%d) not supported.",
-                TfLiteTypeGetName(activation_type), activation_type);
+                TfLiteMicroTypeGetName(activation_type), activation_type);
     return kTfLiteError;
   }
   return kTfLiteOk;
@@ -669,15 +669,15 @@ TfLiteStatus UnidirectionalSequenceLstmEvalInt8(TfLiteContext* context,
 }  // namespace
 
 TFLMRegistration Register_UNIDIRECTIONAL_SEQUENCE_LSTM() {
-  return tflite::micro::RegisterOp(UnidirectionalSequenceLstmInit,
+  return tflite_micro::micro::RegisterOp(UnidirectionalSequenceLstmInit,
                                    UnidirectionalSequenceLstmPrepare,
                                    UnidirectionalSequenceLstmEval);
 }
 
 TFLMRegistration Register_UNIDIRECTIONAL_SEQUENCE_LSTM_INT8() {
-  return tflite::micro::RegisterOp(UnidirectionalSequenceLstmInit,
+  return tflite_micro::micro::RegisterOp(UnidirectionalSequenceLstmInit,
                                    UnidirectionalSequenceLstmPrepare,
                                    UnidirectionalSequenceLstmEvalInt8);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

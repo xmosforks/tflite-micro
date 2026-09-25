@@ -32,7 +32,7 @@ limitations under the License.
 
 // TODO(b/170464050): Use TFLM test only version of schema_utils.
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 const TFLMRegistration* PackerOp::getRegistration() {
@@ -63,20 +63,20 @@ TfLiteStatus PackerOp::Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus PackerOp::Invoke(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, 0);
+      tflite_micro::micro::GetEvalInput(context, node, 0);
   TF_LITE_ENSURE(context, input1 != nullptr);
   const int32_t* input1_data = input1->data.i32;
   TF_LITE_ENSURE_EQ(context, input1->dims->size, 1);
   const int32_t input1_len = input1->dims->data[0];
 
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, 1);
+      tflite_micro::micro::GetEvalInput(context, node, 1);
   TF_LITE_ENSURE(context, input2 != nullptr);
   const int32_t* input2_data = input2->data.i32;
   TF_LITE_ENSURE_EQ(context, input2->dims->size, 1);
   const int32_t input2_len = input2->dims->data[0];
 
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TF_LITE_ENSURE(context, output != nullptr);
   int32_t* output_data = output->data.i32;
   int32_t output_len = output->dims->data[0];
@@ -108,4 +108,4 @@ TfLiteStatus PackerOp::Invoke(TfLiteContext* context, TfLiteNode* node) {
 bool PackerOp::freed_ = false;
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro

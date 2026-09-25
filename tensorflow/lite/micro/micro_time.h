@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <cstdint>
 
-namespace tflite {
+namespace tflite_micro {
 
 // These functions should be implemented by each target platform, and provide an
 // accurate tick count along with how many ticks there are per second.
@@ -31,6 +31,6 @@ inline uint32_t TicksToMs(int32_t ticks) {
                                static_cast<float>(ticks_per_second()));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_TIME_H_

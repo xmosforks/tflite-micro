@@ -23,7 +23,7 @@ limitations under the License.
 
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Returns number of elements in the shape array.
 
@@ -157,6 +157,6 @@ inline int QMaxFromTfLiteType(TfLiteType type) {
   }
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_UTILS_H_

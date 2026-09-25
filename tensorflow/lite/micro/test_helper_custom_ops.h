@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/portable_type_to_tflitetype.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 class PackerOp {
@@ -44,6 +44,6 @@ class PackerOp {
 };
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_TEST_HELPER_CUSTOM_OPS_H_

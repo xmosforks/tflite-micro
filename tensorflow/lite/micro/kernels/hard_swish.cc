@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 void* HardSwishInit(TfLiteContext* context, const char* buffer, size_t length) {
   TFLITE_DCHECK(context->AllocatePersistentBuffer != nullptr);
@@ -37,28 +37,28 @@ void* HardSwishInit(TfLiteContext* context, const char* buffer, size_t length) {
 
 TfLiteStatus HardSwishEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kHardSwishInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kHardSwishInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kHardSwishOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kHardSwishOutputTensor);
   HardSwishParams* params = static_cast<HardSwishParams*>(node->user_data);
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      tflite::reference_ops::HardSwish<float>(
-          tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<float>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<float>(output));
+      tflite_micro::reference_ops::HardSwish<float>(
+          tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<float>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<float>(output));
     } break;
     case kTfLiteInt8: {
-      tflite::reference_ops::HardSwish<int8_t>(
-          *params, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int8_t>(output));
+      tflite_micro::reference_ops::HardSwish<int8_t>(
+          *params, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int8_t>(output));
     } break;
     default: {
-      MicroPrintf("Unsupported type %s", TfLiteTypeGetName(input->type));
+      MicroPrintf("Unsupported type %s", TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -68,8 +68,8 @@ TfLiteStatus HardSwishEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_HARD_SWISH() {
-  return tflite::micro::RegisterOp(HardSwishInit, tflite::HardSwishPrepare,
+  return tflite_micro::micro::RegisterOp(HardSwishInit, tflite_micro::HardSwishPrepare,
                                    HardSwishEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

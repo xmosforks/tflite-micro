@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_time.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 uint32_t MicroProfiler::BeginEvent(const char* tag) {
   if (num_events_ == kMaxEvents) {
@@ -120,4 +120,4 @@ int MicroProfiler::FindExistingOrNextPosition(const char* tag_name) {
   }
   return pos < num_events_ ? pos : -1;
 }
-}  // namespace tflite
+}  // namespace tflite_micro

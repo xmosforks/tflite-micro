@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/core/api/flatbuffer_conversions.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Forward declaration of the ErrorReporter class to hide it from the TFLM code.
 class ErrorReporter;
@@ -40,6 +40,6 @@ TfLiteStatus CallBuiltinParseFunction(TfLiteBridgeBuiltinParseFunction parser,
                                       const Operator* op,
                                       BuiltinDataAllocator* allocator,
                                       void** builtin_data);
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_TFLITE_BRIDGE_FLATBUFFER_CONVERSIONS_BRIDGE_H_

@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -152,4 +152,4 @@ void MliTensorInterface::SetElType(TfLiteType type) {
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro

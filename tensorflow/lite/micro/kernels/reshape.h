@@ -16,11 +16,11 @@ limitations under the License.
 #include "tensorflow/lite/c/builtin_op_data.h"
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 constexpr int kReshapeInputTensor = 0;
 constexpr int kReshapeOutputTensor = 0;
 
 TfLiteStatus PrepareReshapeReference(TfLiteContext* context, TfLiteNode* node);
 
-}  // namespace tflite
+}  // namespace tflite_micro

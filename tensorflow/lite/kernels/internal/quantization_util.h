@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/cppmath.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Given the min and max values of a float array, return
 // reasonable quantization parameters to use for this array.
@@ -287,6 +287,6 @@ void QuantizeMultiplierArray(const double* effective_scales, size_t size,
                              int32_t* effective_scale_significand,
                              int* effective_shift);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_QUANTIZATION_UTIL_H_

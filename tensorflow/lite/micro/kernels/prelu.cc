@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/prelu.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* PreluInit(TfLiteContext* context, const char* buffer, size_t length) {
   TFLITE_DCHECK(context->AllocatePersistentBuffer != nullptr);
@@ -37,39 +37,39 @@ TfLiteStatus PreluEval(TfLiteContext* context, TfLiteNode* node) {
   const PreluParams& params =
       *(static_cast<const PreluParams*>(node->user_data));
 
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  const TfLiteEvalTensor* alpha = tflite::micro::GetEvalInput(context, node, 1);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  const TfLiteEvalTensor* alpha = tflite_micro::micro::GetEvalInput(context, node, 1);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      BroadcastPrelu4DSlowFloat(tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<float>(input),
-                                tflite::micro::GetTensorShape(alpha),
-                                tflite::micro::GetTensorData<float>(alpha),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+      BroadcastPrelu4DSlowFloat(tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<float>(input),
+                                tflite_micro::micro::GetTensorShape(alpha),
+                                tflite_micro::micro::GetTensorData<float>(alpha),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
       return kTfLiteOk;
     } break;
     case kTfLiteInt8: {
       reference_ops::BroadcastPrelu4DSlow(
-          params, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorShape(alpha),
-          tflite::micro::GetTensorData<int8_t>(alpha),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int8_t>(output));
+          params, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorShape(alpha),
+          tflite_micro::micro::GetTensorData<int8_t>(alpha),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int8_t>(output));
       return kTfLiteOk;
     } break;
     default:
       MicroPrintf("Only float32 and uint8_t are supported currently, got %d.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
 }
 
 TFLMRegistration Register_PRELU() {
-  return tflite::micro::RegisterOp(PreluInit, PreluPrepare, PreluEval);
+  return tflite_micro::micro::RegisterOp(PreluInit, PreluPrepare, PreluEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

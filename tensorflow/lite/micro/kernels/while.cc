@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_graph.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -50,7 +50,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   op_data->body_subgraph_index = params->body_subgraph_index;
 
   // The first input is the condition.
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
 
   size_t num_inputs = node->inputs->size;
   size_t num_outputs = node->outputs->size;
@@ -77,11 +77,11 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const OpData* op_data = reinterpret_cast<OpData*>(node->user_data);
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   MicroGraph* graph_info = &micro_context->graph();
 
   TF_LITE_ENSURE_OK(context,
-                    tflite::micro::CopyOpInputsToSubgraphInputs(
+                    tflite_micro::micro::CopyOpInputsToSubgraphInputs(
                         context, node, graph_info, op_data->cond_subgraph_index,
                         /*first_tensor_idx=*/0));
 
@@ -93,25 +93,25 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   bool cond_value = cond_subgraph_output->data.b[0];
 
   TF_LITE_ENSURE_OK(context,
-                    tflite::micro::CopyOpInputsToSubgraphInputs(
+                    tflite_micro::micro::CopyOpInputsToSubgraphInputs(
                         context, node, graph_info, op_data->body_subgraph_index,
                         /*first_tensor_idx=*/0));
   TF_LITE_ENSURE_OK(context,
-                    tflite::micro::CopyOpInputsToOpOutputs(context, node));
+                    tflite_micro::micro::CopyOpInputsToOpOutputs(context, node));
 
   while (cond_value == true) {
     // Copy output of this iteration back to the body input.
     TF_LITE_ENSURE_OK(
-        context, tflite::micro::CopyOpOutputsToSubgraphInputs(
+        context, tflite_micro::micro::CopyOpOutputsToSubgraphInputs(
                      context, node, graph_info, op_data->body_subgraph_index));
     TF_LITE_ENSURE_OK(context,
                       graph_info->InvokeSubgraph(op_data->body_subgraph_index));
 
     TF_LITE_ENSURE_OK(
-        context, tflite::micro::CopySubgraphOutputsToOpOutputs(
+        context, tflite_micro::micro::CopySubgraphOutputsToOpOutputs(
                      context, node, graph_info, op_data->body_subgraph_index));
     TF_LITE_ENSURE_OK(
-        context, tflite::micro::CopyOpOutputsToSubgraphInputs(
+        context, tflite_micro::micro::CopyOpOutputsToSubgraphInputs(
                      context, node, graph_info, op_data->cond_subgraph_index));
     TF_LITE_ENSURE_OK(context,
                       graph_info->InvokeSubgraph(op_data->cond_subgraph_index));
@@ -127,7 +127,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace.
 
 TFLMRegistration Register_WHILE() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

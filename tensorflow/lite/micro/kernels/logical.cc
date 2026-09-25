@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/op_macros.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 TfLiteStatus LogicalOrEval(TfLiteContext* context, TfLiteNode* node) {
@@ -34,11 +34,11 @@ TfLiteStatus LogicalAndEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_LOGICAL_OR() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, LogicalOrEval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, LogicalOrEval);
 }
 
 TFLMRegistration Register_LOGICAL_AND() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, LogicalAndEval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, LogicalAndEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

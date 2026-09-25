@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -38,7 +38,7 @@ void ExecuteAddN(TfLiteTensor* tensors, int tensors_count) {
   int kOutputArrayData[] = {1, tensors_count - 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_ADD_N();
+  const TFLMRegistration registration = tflite_micro::Register_ADD_N();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -120,7 +120,7 @@ void TestAddNQuantized(TestQuantParams<T, kNumInputs, kOutputSize>* params,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -130,7 +130,7 @@ TF_LITE_MICRO_TEST(FloatAddNOpAddMultipleTensors) {
   constexpr float kInput2[] = {0.1, 0.2, 0.3, 0.5};
   constexpr float kInput3[] = {0.5, 0.1, 0.1, 0.2};
   constexpr float kExpect[] = {-1.4, 0.5, 1.1, 1.5};
-  const float* kInputs[tflite::testing::kMaxInputTensors] = {
+  const float* kInputs[tflite_micro::testing::kMaxInputTensors] = {
       kInput1,
       kInput2,
       kInput3,
@@ -139,7 +139,7 @@ TF_LITE_MICRO_TEST(FloatAddNOpAddMultipleTensors) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestAddN(kDims, kInputs, kInputCount, kDims, kExpect,
+  tflite_micro::testing::TestAddN(kDims, kInputs, kInputCount, kDims, kExpect,
                             output_data);
 }
 
@@ -149,7 +149,7 @@ TF_LITE_MICRO_TEST(Int8AddNOpAddMultipleTensors) {
   constexpr float kInput2[] = {0.1, 0.2, 0.3, 0.5};
   constexpr float kInput3[] = {0.5, 0.1, 0.1, 0.2};
   constexpr float kExpect[] = {-1.4, 0.5, 1.1, 1.5};
-  const float* kInputs[tflite::testing::kMaxInputTensors] = {
+  const float* kInputs[tflite_micro::testing::kMaxInputTensors] = {
       kInput1,
       kInput2,
       kInput3,
@@ -158,12 +158,12 @@ TF_LITE_MICRO_TEST(Int8AddNOpAddMultipleTensors) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestQuantParams<int8_t, kInputCount, kOutputCount> params =
+  tflite_micro::testing::TestQuantParams<int8_t, kInputCount, kOutputCount> params =
       {};
   params.data_min = -3.0;
   params.data_max = 3.0;
 
-  tflite::testing::TestAddNQuantized<int8_t, kInputCount, kOutputCount>(
+  tflite_micro::testing::TestAddNQuantized<int8_t, kInputCount, kOutputCount>(
       &params, kDims, kInputs, kDims, kExpect, output_data);
 }
 

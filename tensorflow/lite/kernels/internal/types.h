@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 #include "tensorflow/lite/kernels/internal/runtime_shape.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 enum class FusedActivationFunctionType : uint8_t {
   kNone,
@@ -1091,6 +1091,6 @@ struct is_int32_or_int64
                                               std::is_same<T, int64_t>::value> {
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_TYPES_H_

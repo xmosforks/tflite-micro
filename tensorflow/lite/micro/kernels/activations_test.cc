@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -171,7 +171,7 @@ void TestRelu6Int8(int* input_dims_data, const float* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -184,7 +184,7 @@ TF_LITE_MICRO_TEST(SimpleReluTestFloat) {
   const float golden[] = {1.0, 2.0, 3.0, 4.0, 5.0, 0, 0, 0, 0, 0};
   int output_shape[] = {2, 1, 5};
   float output_data[output_elements_count];
-  tflite::testing::TestReluFloat(input_shape, input_data, output_shape, golden,
+  tflite_micro::testing::TestReluFloat(input_shape, input_data, output_shape, golden,
                                  output_data);
 }
 
@@ -199,7 +199,7 @@ TF_LITE_MICRO_TEST(SimpleRelu6TestFloat) {
       4.0, 5.0, 6.0, 6.0, 6.0, 0.0, 0.0, 0.0, 0.0, 0.0,
   };
 
-  tflite::testing::TestRelu6Float(input_shape, input_data, output_shape, golden,
+  tflite_micro::testing::TestRelu6Float(input_shape, input_data, output_shape, golden,
                                   output_data);
 }
 
@@ -219,7 +219,7 @@ TF_LITE_MICRO_TEST(SimpleReluTestInt8) {
   const float output_scale = 0.5f;
   const int output_zero_point = 0;
 
-  tflite::testing::TestReluInt8(input_shape, input_data, input_quantized,
+  tflite_micro::testing::TestReluInt8(input_shape, input_data, input_quantized,
                                 input_scale, input_zero_point, golden,
                                 golden_quantized, output_shape, output_scale,
                                 output_zero_point, output_data);
@@ -241,7 +241,7 @@ TF_LITE_MICRO_TEST(SimpleRelu6TestInt8) {
   const float output_scale = 0.5f;
   const int output_zero_point = 127;
 
-  tflite::testing::TestRelu6Int8(input_shape, input_data, input_quantized,
+  tflite_micro::testing::TestRelu6Int8(input_shape, input_data, input_quantized,
                                  input_scale, input_zero_point, golden,
                                  golden_quantized, output_shape, output_scale,
                                  output_zero_point, output_data);

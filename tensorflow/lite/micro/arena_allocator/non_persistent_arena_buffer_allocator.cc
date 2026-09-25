@@ -17,7 +17,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 NonPersistentArenaBufferAllocator::NonPersistentArenaBufferAllocator(
     uint8_t* buffer, size_t buffer_size)
@@ -167,4 +167,4 @@ size_t NonPersistentArenaBufferAllocator::GetAvailableMemory(
   return aligned_tail - aligned_temp;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

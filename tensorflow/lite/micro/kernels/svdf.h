@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/c/builtin_op_data.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 struct OpDataSvdf {
   int32_t effective_scale_1_a;
@@ -95,6 +95,6 @@ TFLMRegistration Register_SVDF_INT8();
 inline TFLMRegistration Register_SVDF_INT8() { return Register_SVDF(); }
 
 #endif
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_SVDF_H_

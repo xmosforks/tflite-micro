@@ -24,7 +24,7 @@ limitations under the License.
 // See: tensorflow/lite/micro/kernels/detection_postprocess_test/README.md
 #include "tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -161,7 +161,7 @@ void TestDetectionPostprocess(int* input_dims_data1, const float* input_data1,
 }
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -171,16 +171,16 @@ TF_LITE_MICRO_TEST(DetectionPostprocessFloatFastNMS) {
   float output_data3[3];
   float output_data4[1];
 
-  tflite::testing::TestDetectionPostprocess(
-      tflite::testing::kInputShape1, tflite::testing::kInputData1,
-      tflite::testing::kInputShape2, tflite::testing::kInputData2,
-      tflite::testing::kInputShape3, tflite::testing::kInputData3,
-      tflite::testing::kOutputShape1, output_data1,
-      tflite::testing::kOutputShape2, output_data2,
-      tflite::testing::kOutputShape3, output_data3,
-      tflite::testing::kOutputShape4, output_data4, tflite::testing::kGolden1,
-      tflite::testing::kGolden2, tflite::testing::kGolden3,
-      tflite::testing::kGolden4,
+  tflite_micro::testing::TestDetectionPostprocess(
+      tflite_micro::testing::kInputShape1, tflite_micro::testing::kInputData1,
+      tflite_micro::testing::kInputShape2, tflite_micro::testing::kInputData2,
+      tflite_micro::testing::kInputShape3, tflite_micro::testing::kInputData3,
+      tflite_micro::testing::kOutputShape1, output_data1,
+      tflite_micro::testing::kOutputShape2, output_data2,
+      tflite_micro::testing::kOutputShape3, output_data3,
+      tflite_micro::testing::kOutputShape4, output_data4, tflite_micro::testing::kGolden1,
+      tflite_micro::testing::kGolden2, tflite_micro::testing::kGolden3,
+      tflite_micro::testing::kGolden4,
       /* tolerance */ 0, /* Use regular NMS: */ false);
 }
 
@@ -194,15 +194,15 @@ TF_LITE_MICRO_TEST(DetectionPostprocessFloatRegularNMS) {
   const float kGolden3[] = {0.95, 0.9, 0.0};
   const float kGolden4[] = {2.0};
 
-  tflite::testing::TestDetectionPostprocess(
-      tflite::testing::kInputShape1, tflite::testing::kInputData1,
-      tflite::testing::kInputShape2, tflite::testing::kInputData2,
-      tflite::testing::kInputShape3, tflite::testing::kInputData3,
-      tflite::testing::kOutputShape1, output_data1,
-      tflite::testing::kOutputShape2, output_data2,
-      tflite::testing::kOutputShape3, output_data3,
-      tflite::testing::kOutputShape4, output_data4, kGolden1,
-      tflite::testing::kGolden2, kGolden3, kGolden4,
+  tflite_micro::testing::TestDetectionPostprocess(
+      tflite_micro::testing::kInputShape1, tflite_micro::testing::kInputData1,
+      tflite_micro::testing::kInputShape2, tflite_micro::testing::kInputData2,
+      tflite_micro::testing::kInputShape3, tflite_micro::testing::kInputData3,
+      tflite_micro::testing::kOutputShape1, output_data1,
+      tflite_micro::testing::kOutputShape2, output_data2,
+      tflite_micro::testing::kOutputShape3, output_data3,
+      tflite_micro::testing::kOutputShape4, output_data4, kGolden1,
+      tflite_micro::testing::kGolden2, kGolden3, kGolden4,
       /* tolerance */ 1e-1, /* Use regular NMS: */ true);
 }
 
@@ -230,15 +230,15 @@ TF_LITE_MICRO_TEST(
   float output_data3[3];
   float output_data4[1];
 
-  tflite::testing::TestDetectionPostprocess(
+  tflite_micro::testing::TestDetectionPostprocess(
       kInputShape1, kInputData1, kInputShape2, kInputData2,
-      tflite::testing::kInputShape3, tflite::testing::kInputData3,
-      tflite::testing::kOutputShape1, output_data1,
-      tflite::testing::kOutputShape2, output_data2,
-      tflite::testing::kOutputShape3, output_data3,
-      tflite::testing::kOutputShape4, output_data4, tflite::testing::kGolden1,
-      tflite::testing::kGolden2, tflite::testing::kGolden3,
-      tflite::testing::kGolden4,
+      tflite_micro::testing::kInputShape3, tflite_micro::testing::kInputData3,
+      tflite_micro::testing::kOutputShape1, output_data1,
+      tflite_micro::testing::kOutputShape2, output_data2,
+      tflite_micro::testing::kOutputShape3, output_data3,
+      tflite_micro::testing::kOutputShape4, output_data4, tflite_micro::testing::kGolden1,
+      tflite_micro::testing::kGolden2, tflite_micro::testing::kGolden3,
+      tflite_micro::testing::kGolden4,
       /* tolerance */ 0, /* Use regular NMS: */ false);
 }
 
@@ -260,14 +260,14 @@ TF_LITE_MICRO_TEST(
   float output_data3[3];
   float output_data4[1];
 
-  tflite::testing::TestDetectionPostprocess(
-      tflite::testing::kInputShape1, tflite::testing::kInputData1, kInputShape2,
-      kInputData2, tflite::testing::kInputShape3, tflite::testing::kInputData3,
-      tflite::testing::kOutputShape1, output_data1,
-      tflite::testing::kOutputShape2, output_data2,
-      tflite::testing::kOutputShape3, output_data3,
-      tflite::testing::kOutputShape4, output_data4, kGolden1,
-      tflite::testing::kGolden2, kGolden3, kGolden4,
+  tflite_micro::testing::TestDetectionPostprocess(
+      tflite_micro::testing::kInputShape1, tflite_micro::testing::kInputData1, kInputShape2,
+      kInputData2, tflite_micro::testing::kInputShape3, tflite_micro::testing::kInputData3,
+      tflite_micro::testing::kOutputShape1, output_data1,
+      tflite_micro::testing::kOutputShape2, output_data2,
+      tflite_micro::testing::kOutputShape3, output_data3,
+      tflite_micro::testing::kOutputShape4, output_data4, kGolden1,
+      tflite_micro::testing::kGolden2, kGolden3, kGolden4,
       /* tolerance */ 1e-1, /* Use regular NMS: */ true);
 }
 
@@ -290,15 +290,15 @@ TF_LITE_MICRO_TEST(
   float output_data3[3];
   float output_data4[1];
 
-  tflite::testing::TestDetectionPostprocess(
-      kInputShape1, kInputData1, tflite::testing::kInputShape2,
-      tflite::testing::kInputData2, tflite::testing::kInputShape3,
-      tflite::testing::kInputData3, tflite::testing::kOutputShape1,
-      output_data1, tflite::testing::kOutputShape2, output_data2,
-      tflite::testing::kOutputShape3, output_data3,
-      tflite::testing::kOutputShape4, output_data4, tflite::testing::kGolden1,
-      tflite::testing::kGolden2, tflite::testing::kGolden3,
-      tflite::testing::kGolden4,
+  tflite_micro::testing::TestDetectionPostprocess(
+      kInputShape1, kInputData1, tflite_micro::testing::kInputShape2,
+      tflite_micro::testing::kInputData2, tflite_micro::testing::kInputShape3,
+      tflite_micro::testing::kInputData3, tflite_micro::testing::kOutputShape1,
+      output_data1, tflite_micro::testing::kOutputShape2, output_data2,
+      tflite_micro::testing::kOutputShape3, output_data3,
+      tflite_micro::testing::kOutputShape4, output_data4, tflite_micro::testing::kGolden1,
+      tflite_micro::testing::kGolden2, tflite_micro::testing::kGolden3,
+      tflite_micro::testing::kGolden4,
       /* tolerance */ 0, /* Use regular NMS: */ false);
 }
 
@@ -329,14 +329,14 @@ TF_LITE_MICRO_TEST(
   const float kGolden2[] = {0, 0, 0};
   const float kGolden3[] = {0.0196078, 0.0156863, 0.00392157};
 
-  tflite::testing::TestDetectionPostprocess(
+  tflite_micro::testing::TestDetectionPostprocess(
       kInputShape1, kInputData1, kInputShape2, kInputData2,
-      tflite::testing::kInputShape3, tflite::testing::kInputData3,
-      tflite::testing::kOutputShape1, output_data1,
-      tflite::testing::kOutputShape2, output_data2,
-      tflite::testing::kOutputShape3, output_data3,
-      tflite::testing::kOutputShape4, output_data4, tflite::testing::kGolden1,
-      kGolden2, kGolden3, tflite::testing::kGolden4,
+      tflite_micro::testing::kInputShape3, tflite_micro::testing::kInputData3,
+      tflite_micro::testing::kOutputShape1, output_data1,
+      tflite_micro::testing::kOutputShape2, output_data2,
+      tflite_micro::testing::kOutputShape3, output_data3,
+      tflite_micro::testing::kOutputShape4, output_data4, tflite_micro::testing::kGolden1,
+      kGolden2, kGolden3, tflite_micro::testing::kGolden4,
       /* tolerance */ 3e-1, /* Use regular NMS: */ false);
 }
 

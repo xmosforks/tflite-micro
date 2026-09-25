@@ -18,7 +18,7 @@ limitations under the License.
 
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Interface class for planning the layout of memory buffers during the
 // execution of a graph.
@@ -90,6 +90,6 @@ class MicroMemoryPlanner {
   }
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_MEMORY_PLANNER_MEMORY_PLANNER_H_

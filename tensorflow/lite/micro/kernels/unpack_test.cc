@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 void TestUnpackThreeOutputsFloat(
@@ -69,7 +69,7 @@ void TestUnpackThreeOutputsFloat(
   int outputs_array_data[] = {3, 1, 2, 3};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_UNPACK();
+  const TFLMRegistration registration = tflite_micro::Register_UNPACK();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              reinterpret_cast<void*>(&builtin_data));
@@ -119,7 +119,7 @@ void TestUnpackOneOutputFloat(int* input_dims_data, const float* input_data,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_UNPACK();
+  const TFLMRegistration registration = tflite_micro::Register_UNPACK();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              reinterpret_cast<void*>(&builtin_data));
@@ -178,7 +178,7 @@ void TestUnpackThreeOutputsQuantized32(
   int outputs_array_data[] = {3, 1, 2, 3};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_UNPACK();
+  const TFLMRegistration registration = tflite_micro::Register_UNPACK();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              reinterpret_cast<void*>(&builtin_data));
@@ -200,7 +200,7 @@ void TestUnpackThreeOutputsQuantized32(
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -219,7 +219,7 @@ TF_LITE_MICRO_TEST(UnpackFloatThreeOutputs) {
   float output1_data[output1_dims_count];
   float output2_data[output2_dims_count];
   float output3_data[output3_dims_count];
-  tflite::testing::TestUnpackThreeOutputsFloat(
+  tflite_micro::testing::TestUnpackThreeOutputsFloat(
       input_shape, input_values, 0, output1_shape, output1_golden,
       output2_shape, output2_golden, output3_shape, output3_golden,
       output1_data, output2_data, output3_data);
@@ -240,7 +240,7 @@ TF_LITE_MICRO_TEST(UnpackFloatThreeOutputsNegativeAxisTwo) {
   float output1_data[output1_dims_count];
   float output2_data[output2_dims_count];
   float output3_data[output3_dims_count];
-  tflite::testing::TestUnpackThreeOutputsFloat(
+  tflite_micro::testing::TestUnpackThreeOutputsFloat(
       input_shape, input_values, -2, output1_shape, output1_golden,
       output2_shape, output2_golden, output3_shape, output3_golden,
       output1_data, output2_data, output3_data);
@@ -253,7 +253,7 @@ TF_LITE_MICRO_TEST(UnpackFloatOneOutput) {
   const float golden[] = {1, 2, 3, 4, 5, 6};
   constexpr int output_dims_count = 6;
   float output_data[output_dims_count];
-  tflite::testing::TestUnpackOneOutputFloat(input_shape, input_values, 0,
+  tflite_micro::testing::TestUnpackOneOutputFloat(input_shape, input_values, 0,
                                             output_shape, golden, output_data);
 }
 
@@ -272,7 +272,7 @@ TF_LITE_MICRO_TEST(UnpackQuantized32ThreeOutputs) {
   int32_t output1_data[output1_dims_count];
   int32_t output2_data[output2_dims_count];
   int32_t output3_data[output3_dims_count];
-  tflite::testing::TestUnpackThreeOutputsQuantized32(
+  tflite_micro::testing::TestUnpackThreeOutputsQuantized32(
       input_shape, input_values, 0, output1_shape, output1_golden,
       output2_shape, output2_golden, output3_shape, output3_golden,
       output1_data, output2_data, output3_data);

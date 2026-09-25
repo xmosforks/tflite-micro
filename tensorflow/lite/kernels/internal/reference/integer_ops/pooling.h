@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 
 inline bool AveragePool(const PoolParams& params,
@@ -259,6 +259,6 @@ inline void MaxPool(const PoolParams& params, const RuntimeShape& input_shape,
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_POOLING_H_

@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_profiler.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 const char* OpNameFromRegistration(const TFLMRegistration* registration) {
@@ -223,7 +223,7 @@ TfLiteStatus MicroInterpreterGraph::ResetVariableTensors() {
             &subgraph_allocations_[subgraph_idx].tensors[i], &buffer_size));
 
         int value = 0;
-        if (tensor->type() == tflite::TensorType_INT8) {
+        if (tensor->type() == tflite_micro::TensorType_INT8) {
           value = tensor->quantization()->zero_point()->Get(0);
         }
         memset(subgraph_allocations_[subgraph_idx].tensors[i].data.raw, value,
@@ -269,4 +269,4 @@ TfLiteEvalTensor* MicroInterpreterGraph::GetSubgraphOutput(int subgraph_idx,
   return &subgraph_allocations_[subgraph_idx].tensors[tensor_idx];
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_conv.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
@@ -37,32 +37,32 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->builtin_data != nullptr);
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kConvInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvInputTensor);
 
   const auto& params =
       *(reinterpret_cast<TfLiteConvParams*>(node->builtin_data));
   const auto& op_data = *(reinterpret_cast<XtensaConvOpData*>(node->user_data));
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kConvOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kConvOutputTensor);
   const TfLiteEvalTensor* filter =
-      tflite::micro::GetEvalInput(context, node, kConvWeightsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvWeightsTensor);
   const TfLiteEvalTensor* bias =
-      tflite::micro::GetEvalInput(context, node, kConvBiasTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kConvBiasTensor);
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      tflite::reference_ops::Conv(
+      tflite_micro::reference_ops::Conv(
           ConvParamsFloat(params, op_data.reference_op_data),
-          tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<float>(input),
-          tflite::micro::GetTensorShape(filter),
-          tflite::micro::GetTensorData<float>(filter),
-          tflite::micro::GetTensorShape(bias),
-          tflite::micro::GetOptionalTensorData<float>(bias),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<float>(output),
-          tflite::micro::GetTensorShape(nullptr), nullptr);
+          tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<float>(input),
+          tflite_micro::micro::GetTensorShape(filter),
+          tflite_micro::micro::GetTensorData<float>(filter),
+          tflite_micro::micro::GetTensorShape(bias),
+          tflite_micro::micro::GetOptionalTensorData<float>(bias),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<float>(output),
+          tflite_micro::micro::GetTensorShape(nullptr), nullptr);
       break;
     }
     case kTfLiteInt8: {
@@ -106,7 +106,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 #endif
     }
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -117,7 +117,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_CONV_2D() {
-  return tflite::micro::RegisterOp(ConvInitXtensa, ConvPrepareXtensa, Eval);
+  return tflite_micro::micro::RegisterOp(ConvInitXtensa, ConvPrepareXtensa, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

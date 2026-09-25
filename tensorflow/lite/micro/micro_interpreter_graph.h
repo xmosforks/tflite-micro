@@ -22,12 +22,12 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_resource_variable.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
-// Abstracts the details of interacting with the tflite::Model.
+// Abstracts the details of interacting with the tflite_micro::Model.
 //
 // Provides methods to access, initialize, prepare, invoke and free any
-// subgraph in the tflite::Graph.
+// subgraph in the tflite_micro::Graph.
 class MicroInterpreterGraph : public MicroGraph {
  public:
   // The lifetime of the context, model, allocator and resource_variables must
@@ -105,6 +105,6 @@ class MicroInterpreterGraph : public MicroGraph {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_INTERPRETER_GRAPH_H_

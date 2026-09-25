@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/kernels/conv.h"
 
-namespace tflite {
+namespace tflite_micro {
 struct XtensaConvOpData {
   OpDataConv reference_op_data;
 
@@ -84,6 +84,6 @@ TfLiteStatus ConvReferenceEvalInt16(TfLiteContext* context, TfLiteNode* node);
 void* ConvInitXtensa(TfLiteContext* context, const char* buffer, size_t length);
 TfLiteStatus ConvPrepareXtensa(TfLiteContext* context, TfLiteNode* node);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_CONV_H_

@@ -18,7 +18,7 @@ limitations under the License.
 #include <cmath>
 #include <functional>
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
@@ -39,6 +39,6 @@ T FloorMod(T input1, T input2) {
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_FLOOR_MOD_H_

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 typedef struct {
@@ -50,7 +50,7 @@ void TestSelect(int* input1_dims_data, const bool* input1_data,
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
   TfLiteSelectParams builtin_data;
-  const TFLMRegistration registration = tflite::Register_SELECT_V2();
+  const TFLMRegistration registration = tflite_micro::Register_SELECT_V2();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              reinterpret_cast<void*>(&builtin_data));
@@ -78,7 +78,7 @@ void ExpectNear(int* dims, const T* expected_data, const T* output_data) {
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -91,10 +91,10 @@ TF_LITE_MICRO_TEST(SelectFloat) {
   const float expected_output[] = {0.1f, 0.6f, 0.3, 0.8f};
 
   float output_data[4];
-  tflite::testing::TestSelect(inout_shape, input1_data, inout_shape,
+  tflite_micro::testing::TestSelect(inout_shape, input1_data, inout_shape,
                               input2_data, inout_shape, input3_data,
                               inout_shape, output_data);
-  tflite::testing::ExpectNear(inout_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectNear(inout_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(SelectInt8) {
@@ -106,10 +106,10 @@ TF_LITE_MICRO_TEST(SelectInt8) {
   const int8_t expected_output[] = {5, -2, 7, -8};
 
   int8_t output_data[4];
-  tflite::testing::TestSelect(inout_shape, input1_data, inout_shape,
+  tflite_micro::testing::TestSelect(inout_shape, input1_data, inout_shape,
                               input2_data, inout_shape, input3_data,
                               inout_shape, output_data);
-  tflite::testing::ExpectEqual(inout_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(inout_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(SelectInt16) {
@@ -121,10 +121,10 @@ TF_LITE_MICRO_TEST(SelectInt16) {
   const int16_t expected_output[] = {5, 2, 7, 8};
 
   int16_t output_data[4];
-  tflite::testing::TestSelect(inout_shape, input1_data, inout_shape,
+  tflite_micro::testing::TestSelect(inout_shape, input1_data, inout_shape,
                               input2_data, inout_shape, input3_data,
                               inout_shape, output_data);
-  tflite::testing::ExpectEqual(inout_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(inout_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(BroadcastSelectInt16OneDimensionConditionWithSingleValue) {
@@ -138,10 +138,10 @@ TF_LITE_MICRO_TEST(BroadcastSelectInt16OneDimensionConditionWithSingleValue) {
   const int16_t expected_output[] = {9, 10, 11, 12, 9, 10, 11, 12};
 
   int16_t output_data[8];
-  tflite::testing::TestSelect(input1_shape, input1_data, input2_shape,
+  tflite_micro::testing::TestSelect(input1_shape, input1_data, input2_shape,
                               input2_data, input3_shape, input3_data,
                               input2_shape, output_data);
-  tflite::testing::ExpectEqual(input2_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(input2_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(BroadcastSelectInt16LesserThan4D) {
@@ -154,10 +154,10 @@ TF_LITE_MICRO_TEST(BroadcastSelectInt16LesserThan4D) {
   const int16_t expected_output[] = {5, 2, 7, 4};
 
   int16_t output_data[4];
-  tflite::testing::TestSelect(input1_shape, input1_data, inout_shape,
+  tflite_micro::testing::TestSelect(input1_shape, input1_data, inout_shape,
                               input2_data, inout_shape, input3_data,
                               inout_shape, output_data);
-  tflite::testing::ExpectEqual(inout_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(inout_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(BroadcastSelectInt16OnFalseValue) {
@@ -170,10 +170,10 @@ TF_LITE_MICRO_TEST(BroadcastSelectInt16OnFalseValue) {
   const int16_t expected_output[] = {5, 6, 7, 8};
 
   int16_t output_data[4];
-  tflite::testing::TestSelect(input1_shape, input1_data, inout_shape,
+  tflite_micro::testing::TestSelect(input1_shape, input1_data, inout_shape,
                               input2_data, inout_shape, input3_data,
                               inout_shape, output_data);
-  tflite::testing::ExpectEqual(inout_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(inout_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(BroadcastSelectInt16) {
@@ -186,10 +186,10 @@ TF_LITE_MICRO_TEST(BroadcastSelectInt16) {
   const int16_t expected_output[] = {5, 2, 7, 4};
 
   int16_t output_data[4];
-  tflite::testing::TestSelect(input1_shape, input1_data, inout_shape,
+  tflite_micro::testing::TestSelect(input1_shape, input1_data, inout_shape,
                               input2_data, inout_shape, input3_data,
                               inout_shape, output_data);
-  tflite::testing::ExpectEqual(inout_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(inout_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(BroadcastSelectInt16OneDimensionConditionWithTwoValues) {
@@ -203,10 +203,10 @@ TF_LITE_MICRO_TEST(BroadcastSelectInt16OneDimensionConditionWithTwoValues) {
   const int16_t expected_output[] = {5, 1, 6, 2, 7, 3, 8, 4};
 
   int16_t output_data[8];
-  tflite::testing::TestSelect(input1_shape, input1_data, input_shape,
+  tflite_micro::testing::TestSelect(input1_shape, input1_data, input_shape,
                               input2_data, input_shape, input3_data,
                               output_shape, output_data);
-  tflite::testing::ExpectEqual(output_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(output_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(MixedFlatSizeOneInputsWithScalarInputConditionTensor) {
@@ -220,10 +220,10 @@ TF_LITE_MICRO_TEST(MixedFlatSizeOneInputsWithScalarInputConditionTensor) {
   const int16_t expected_output[] = {5};
 
   int16_t output_data[std::extent<decltype(expected_output)>::value];
-  tflite::testing::TestSelect(input1_shape, input1_data, input_shape,
+  tflite_micro::testing::TestSelect(input1_shape, input1_data, input_shape,
                               input2_data, input_shape, input3_data,
                               output_shape, output_data);
-  tflite::testing::ExpectEqual(output_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(output_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(MixedFlatSizeOneInputsWithScalarInputXTensor) {
@@ -237,10 +237,10 @@ TF_LITE_MICRO_TEST(MixedFlatSizeOneInputsWithScalarInputXTensor) {
   const int16_t expected_output[] = {1};
 
   int16_t output_data[std::extent<decltype(expected_output)>::value];
-  tflite::testing::TestSelect(input_shape, input1_data, input2_shape,
+  tflite_micro::testing::TestSelect(input_shape, input1_data, input2_shape,
                               input2_data, input_shape, input3_data,
                               output_shape, output_data);
-  tflite::testing::ExpectEqual(output_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(output_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TEST(MixedFlatSizeOneInputsWithScalarInputYTensor) {
@@ -254,10 +254,10 @@ TF_LITE_MICRO_TEST(MixedFlatSizeOneInputsWithScalarInputYTensor) {
   const int16_t expected_output[] = {5};
 
   int16_t output_data[std::extent<decltype(expected_output)>::value];
-  tflite::testing::TestSelect(input_shape, input1_data, input_shape,
+  tflite_micro::testing::TestSelect(input_shape, input1_data, input_shape,
                               input2_data, input3_shape, input3_data,
                               output_shape, output_data);
-  tflite::testing::ExpectEqual(output_shape, expected_output, output_data);
+  tflite_micro::testing::ExpectEqual(output_shape, expected_output, output_data);
 }
 
 TF_LITE_MICRO_TESTS_END

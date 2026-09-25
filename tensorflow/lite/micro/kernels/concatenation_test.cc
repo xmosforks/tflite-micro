@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -96,7 +96,7 @@ void TestConcatenateTwoFloatInputs(
   TestConcatenateTwoInputs(input1_dims_data, input1_data, input2_dims_data,
                            input2_data, axis, output_dims_data, output_data);
 
-  TfLiteIntArray* dims = tflite::testing::IntArrayFromInts(output_dims_data);
+  TfLiteIntArray* dims = tflite_micro::testing::IntArrayFromInts(output_dims_data);
   const int output_dims_count = ElementCount(*dims);
   for (int i = 0; i < output_dims_count; ++i) {
     TF_LITE_MICRO_EXPECT_NEAR(expected_output_data[i], output_data[i], 1e-5f);
@@ -150,7 +150,7 @@ void TestConcatenateQuantizedTwoInputs(
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -161,11 +161,11 @@ TF_LITE_MICRO_TEST(BoolTypeOneInput) {
   int axis = 1;
 
   bool output_data[4];
-  tflite::testing::TestConcatenateOneInput(input_shape, input_value, axis,
+  tflite_micro::testing::TestConcatenateOneInput(input_shape, input_value, axis,
                                            output_shape, output_data);
 
-  TfLiteIntArray* dims = tflite::testing::IntArrayFromInts(output_shape);
-  const int output_dims_count = tflite::ElementCount(*dims);
+  TfLiteIntArray* dims = tflite_micro::testing::IntArrayFromInts(output_shape);
+  const int output_dims_count = tflite_micro::ElementCount(*dims);
   for (int i = 0; i < output_dims_count; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(input_value[i], output_data[i]);
   }
@@ -186,12 +186,12 @@ TF_LITE_MICRO_TEST(BoolTypeTwoInputs) {
   int output_shape[] = {3, 2, 4, 2};
   bool output_data[16];
 
-  tflite::testing::TestConcatenateTwoInputs(input1_shape, input1_value,
+  tflite_micro::testing::TestConcatenateTwoInputs(input1_shape, input1_value,
                                             input2_shape, input2_value, axis,
                                             output_shape, output_data);
 
-  TfLiteIntArray* dims = tflite::testing::IntArrayFromInts(output_shape);
-  const int output_dims_count = tflite::ElementCount(*dims);
+  TfLiteIntArray* dims = tflite_micro::testing::IntArrayFromInts(output_shape);
+  const int output_dims_count = tflite_micro::ElementCount(*dims);
   for (int i = 0; i < output_dims_count; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(expected_output[i], output_data[i]);
   }
@@ -217,22 +217,22 @@ TF_LITE_MICRO_TEST(TwoInputsAllAxesCombinations) {
   float output_data[12];
 
   // Axis = 0
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ 0,
       output_shape_axis0, output_value_axis0, output_data);
 
   // Axis = -2 (equivalent to axis = 0)
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ -2,
       output_shape_axis0, output_value_axis0, output_data);
 
   // Axis = 1
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ 1,
       output_shape_axis1, output_value_axis1, output_data);
 
   // Axis = -1 (equivalent to axis = 1)
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ -1,
       output_shape_axis1, output_value_axis1, output_data);
 }
@@ -254,7 +254,7 @@ TF_LITE_MICRO_TEST(TwoInputsQuantizedInt8) {
   const int8_t output_value[] = {1, 2, 5, 6, 3, 4, 7, 8};
 
   int8_t output_data[8];
-  tflite::testing::TestConcatenateQuantizedTwoInputs(
+  tflite_micro::testing::TestConcatenateQuantizedTwoInputs(
       input_shape, input1_values, input_shape, input2_values, input_scale,
       input_zero_point, axis, output_shape, output_value, output_scale,
       output_zero_point, output_data);
@@ -277,7 +277,7 @@ TF_LITE_MICRO_TEST(TwoInputsQuantizedInt16) {
   const int16_t output_value[] = {1, 2, 5, 6, 3, 4, 7, 8};
 
   int16_t output_data[8];
-  tflite::testing::TestConcatenateQuantizedTwoInputs(
+  tflite_micro::testing::TestConcatenateQuantizedTwoInputs(
       input_shape, input1_values, input_shape, input2_values, input_scale,
       input_zero_point, axis, output_shape, output_value, output_scale,
       output_zero_point, output_data);
@@ -298,7 +298,7 @@ TF_LITE_MICRO_TEST(ThreeDimensionalTwoInputsDifferentShapes) {
                                  9.0f, 10.0f, 11.0f, 12.0f};
 
   float output_data[16];
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input1_shape, input1_values, input2_shape, input2_values, axis,
       output_shape, output_values, output_data);
 }
@@ -320,7 +320,7 @@ TF_LITE_MICRO_TEST(TwoInputsFiveDimensionsAllAxesCombinations) {
       1.0f,  2.0f,  3.0f,  4.0f,  5.0f,  6.0f,  7.0f,  8.0f,
       9.0f,  10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f,
       17.0f, 18.0f, 19.0f, 20.0f, 21.0f, 22.0f, 23.0f, 24.0f};
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ 0,
       output_shape_axis0, output_value_axis0, output_data);
 
@@ -330,7 +330,7 @@ TF_LITE_MICRO_TEST(TwoInputsFiveDimensionsAllAxesCombinations) {
       1.0f,  2.0f,  3.0f,  13.0f, 14.0f, 15.0f, 4.0f,  5.0f,
       6.0f,  16.0f, 17.0f, 18.0f, 7.0f,  8.0f,  9.0f,  19.0f,
       20.0f, 21.0f, 10.0f, 11.0f, 12.0f, 22.0f, 23.0f, 24.0f};
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ 4,
       output_shape_axis4, output_value_axis4, output_data);
 
@@ -340,7 +340,7 @@ TF_LITE_MICRO_TEST(TwoInputsFiveDimensionsAllAxesCombinations) {
       1.0f,  2.0f,  3.0f,  13.0f, 14.0f, 15.0f, 4.0f,  5.0f,
       6.0f,  16.0f, 17.0f, 18.0f, 7.0f,  8.0f,  9.0f,  19.0f,
       20.0f, 21.0f, 10.0f, 11.0f, 12.0f, 22.0f, 23.0f, 24.0f};
-  tflite::testing::TestConcatenateTwoFloatInputs(
+  tflite_micro::testing::TestConcatenateTwoFloatInputs(
       input_shape, input1_value, input_shape, input2_value, /* axis */ -2,
       output_shape_axis_minus2, output_value_axis_minus2, output_data);
 }
@@ -363,7 +363,7 @@ TF_LITE_MICRO_TEST(TwoInputsQuantizedInt8FiveDimensions) {
   int output_shape[] = {5, 2, 1, 4, 1, 3};
   int8_t output_data[2 * kInputSize];
 
-  tflite::testing::TestConcatenateQuantizedTwoInputs(
+  tflite_micro::testing::TestConcatenateQuantizedTwoInputs(
       input_shape, input1_values, input_shape, input2_values, input_scale,
       input_zero_point, axis, output_shape, output_value, output_scale,
       output_zero_point, output_data);

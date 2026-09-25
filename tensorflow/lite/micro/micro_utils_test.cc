@@ -20,7 +20,7 @@ limitations under the License.
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(FloatToAsymmetricQuantizedUInt8Test) {
-  using tflite::FloatToQuantizedType;
+  using tflite_micro::FloatToQuantizedType;
   // [0, 127.5] -> zero_point=0, scale=0.5
   TF_LITE_MICRO_EXPECT_EQ(0, FloatToQuantizedType<uint8_t>(0, 0.5, 0));
   TF_LITE_MICRO_EXPECT_EQ(254, FloatToQuantizedType<uint8_t>(127, 0.5, 0));
@@ -35,7 +35,7 @@ TF_LITE_MICRO_TEST(FloatToAsymmetricQuantizedUInt8Test) {
 }
 
 TF_LITE_MICRO_TEST(FloatToAsymmetricQuantizedInt8Test) {
-  using tflite::FloatToQuantizedType;
+  using tflite_micro::FloatToQuantizedType;
   // [-64, 63.5] -> zero_point=0, scale=0.5
   TF_LITE_MICRO_EXPECT_EQ(2, FloatToQuantizedType<int8_t>(1, 0.5, 0));
   TF_LITE_MICRO_EXPECT_EQ(4, FloatToQuantizedType<int8_t>(2, 0.5, 0));
@@ -53,7 +53,7 @@ TF_LITE_MICRO_TEST(FloatToAsymmetricQuantizedInt8Test) {
 }
 
 TF_LITE_MICRO_TEST(FloatToSymmetricQuantizedInt8Test) {
-  using tflite::FloatToSymmetricQuantizedType;
+  using tflite_micro::FloatToSymmetricQuantizedType;
   // [-64, 63.5] -> zero_point=0, scale=0.5
   TF_LITE_MICRO_EXPECT_EQ(2, FloatToSymmetricQuantizedType<int8_t>(1, 0.5));
   TF_LITE_MICRO_EXPECT_EQ(4, FloatToSymmetricQuantizedType<int8_t>(2, 0.5));
@@ -75,7 +75,7 @@ TF_LITE_MICRO_TEST(FloatToSymmetricQuantizedInt8Test) {
 }
 
 TF_LITE_MICRO_TEST(FloatToAsymmetricQuantizedInt32Test) {
-  using tflite::FloatToSymmetricQuantizedType;
+  using tflite_micro::FloatToSymmetricQuantizedType;
   TF_LITE_MICRO_EXPECT_EQ(0, FloatToSymmetricQuantizedType<int32_t>(0, 0.5));
   TF_LITE_MICRO_EXPECT_EQ(2, FloatToSymmetricQuantizedType<int32_t>(1, 0.5));
   TF_LITE_MICRO_EXPECT_EQ(-2, FloatToSymmetricQuantizedType<int32_t>(-1, 0.5));
@@ -89,7 +89,7 @@ TF_LITE_MICRO_TEST(AsymmetricQuantizeInt8) {
   int8_t goldens[] = {-20, -5, -3, -3, -1, 1, 3, 5, 7, 9};
   constexpr int length = sizeof(values) / sizeof(float);
   int8_t quantized[length];
-  tflite::Quantize(values, quantized, length, 0.5, 1);
+  tflite_micro::Quantize(values, quantized, length, 0.5, 1);
   for (int i = 0; i < length; i++) {
     TF_LITE_MICRO_EXPECT_EQ(quantized[i], goldens[i]);
   }
@@ -100,7 +100,7 @@ TF_LITE_MICRO_TEST(AsymmetricQuantizeUInt8) {
   uint8_t goldens[] = {106, 121, 123, 123, 125, 127, 129, 131, 133, 135};
   constexpr int length = sizeof(values) / sizeof(float);
   uint8_t quantized[length];
-  tflite::Quantize(values, quantized, length, 0.5, 127);
+  tflite_micro::Quantize(values, quantized, length, 0.5, 127);
   for (int i = 0; i < length; i++) {
     TF_LITE_MICRO_EXPECT_EQ(quantized[i], goldens[i]);
   }
@@ -111,7 +111,7 @@ TF_LITE_MICRO_TEST(SymmetricQuantizeInt32) {
   int32_t goldens[] = {-21, -6, -4, -4, -2, 0, 2, 4, 6, 8};
   constexpr int length = sizeof(values) / sizeof(float);
   int32_t quantized[length];
-  tflite::SymmetricQuantize(values, quantized, length, 0.5);
+  tflite_micro::SymmetricQuantize(values, quantized, length, 0.5);
   for (int i = 0; i < length; i++) {
     TF_LITE_MICRO_EXPECT_EQ(quantized[i], goldens[i]);
   }
@@ -119,7 +119,7 @@ TF_LITE_MICRO_TEST(SymmetricQuantizeInt32) {
 
 // Verify Max function works as expected.
 TF_LITE_MICRO_TEST(Max) {
-  using tflite::Max;
+  using tflite_micro::Max;
   // [0, 127.5] -> zero_point=0, scale=0.5
   TF_LITE_MICRO_EXPECT_EQ(3, Max(2, 3));
   TF_LITE_MICRO_EXPECT_EQ(2, Max(2, 2));

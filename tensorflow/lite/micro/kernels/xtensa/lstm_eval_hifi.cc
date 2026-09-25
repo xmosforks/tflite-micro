@@ -17,7 +17,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/lstm_eval.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 namespace lstm_eval {
@@ -459,4 +459,4 @@ void xa_nn_elm_mul_16x16_asym8s(int8_t* output, const int16_t* input_1,
 }  // namespace lstm_eval
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -50,7 +50,7 @@ void ExecuteLeakyReluTest(const float alpha, const int tensors_count,
   int kOutputArrayData[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_LEAKY_RELU();
+  const TFLMRegistration registration = tflite_micro::Register_LEAKY_RELU();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, static_cast<void*>(&builtin_data));
 
@@ -167,7 +167,7 @@ void QuantizedActivationsOpTestLeakyRelu() {
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -182,20 +182,20 @@ TF_LITE_MICRO_TEST(QuantizedActivationsOpTestLeakyReluInt8_1) {
   int8_t q_output_data[kOutputCount];
   int8_t q_input_data[kOutputCount];
 
-  tflite::testing::TestLeakyReluParams<int8_t> params = {};
+  tflite_micro::testing::TestLeakyReluParams<int8_t> params = {};
   params.alpha = 0.5f;
   params.scale = 0.1f;
   params.zero_point = 0;
   params.input_data = q_input_data;
   params.output_data = q_output_data;
-  params.tolerance = tflite::testing::kQuantizedTolerance;
+  params.tolerance = tflite_micro::testing::kQuantizedTolerance;
 
-  tflite::testing::TestLeakyReluQuantized(params, kDims, kInput, kDims, kExpect,
+  tflite_micro::testing::TestLeakyReluQuantized(params, kDims, kInput, kDims, kExpect,
                                           output_data);
 }
 
 TF_LITE_MICRO_TEST(QuantizedActivationsOpTestLeakyReluInt8_2) {
-  tflite::testing::QuantizedActivationsOpTestLeakyRelu<int8_t>();
+  tflite_micro::testing::QuantizedActivationsOpTestLeakyRelu<int8_t>();
 }
 
 TF_LITE_MICRO_TEST(QuantizedActivationsOpTestLeakyReluInt16_1) {
@@ -209,20 +209,20 @@ TF_LITE_MICRO_TEST(QuantizedActivationsOpTestLeakyReluInt16_1) {
   int16_t q_output_data[kOutputCount];
   int16_t q_input_data[kOutputCount];
 
-  tflite::testing::TestLeakyReluParams<int16_t> params = {};
+  tflite_micro::testing::TestLeakyReluParams<int16_t> params = {};
   params.alpha = 0.5f;
   params.scale = 0.01f;
   params.zero_point = 0;
   params.input_data = q_input_data;
   params.output_data = q_output_data;
-  params.tolerance = tflite::testing::kQuantizedTolerance;
+  params.tolerance = tflite_micro::testing::kQuantizedTolerance;
 
-  tflite::testing::TestLeakyReluQuantized(params, kDims, kInput, kDims, kExpect,
+  tflite_micro::testing::TestLeakyReluQuantized(params, kDims, kInput, kDims, kExpect,
                                           output_data);
 }
 
 TF_LITE_MICRO_TEST(QuantizedActivationsOpTestLeakyReluInt16_2) {
-  tflite::testing::QuantizedActivationsOpTestLeakyRelu<int16_t>();
+  tflite_micro::testing::QuantizedActivationsOpTestLeakyRelu<int16_t>();
 }
 
 TF_LITE_MICRO_TEST(FloatActivationsOpTestLeakyRelu) {
@@ -231,10 +231,10 @@ TF_LITE_MICRO_TEST(FloatActivationsOpTestLeakyRelu) {
   constexpr float kExpect[] = {0.0f, 1.0f, 3.0f, 1.0f, -0.5f, -1.0f};
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
-  tflite::testing::TestLeakyReluParams<float> params = {};
+  tflite_micro::testing::TestLeakyReluParams<float> params = {};
   params.alpha = 0.5f;
 
-  tflite::testing::TestLeakyRelu(params, kDims, kInput, kDims, kExpect,
+  tflite_micro::testing::TestLeakyRelu(params, kDims, kInput, kDims, kExpect,
                                  output_data);
 }
 

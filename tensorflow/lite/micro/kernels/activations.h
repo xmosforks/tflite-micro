@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 extern const int kActivationsInputTensor;
 extern const int kActivationsOutputTensor;
@@ -36,9 +36,10 @@ struct Relu6OpData {
   int8_t zero_int8;
 };
 
+template <typename T>
 void ReluQuantized(const ReluOpData& data, const RuntimeShape& input_shape,
-                   const RuntimeShape& output_shape, const int8_t* input_data,
-                   int8_t* output_data);
+                   const RuntimeShape& output_shape, const T* input_data,
+                   T* output_data);
 
 template <typename T>
 void CalculateReluOpData(const TfLiteTensor* input, TfLiteTensor* output,
@@ -54,10 +55,14 @@ void Relu6Quantized(int8_t lower, int8_t upper, const RuntimeShape& input_shape,
                     const int8_t* input_data, const RuntimeShape& output_shape,
                     int8_t* output_data);
 
+void Relu6Quantized(int16_t lower, int16_t upper, const RuntimeShape& input_shape,
+                    const int16_t* input_data, const RuntimeShape& output_shape,
+                    int16_t* output_data);
+
 TfLiteStatus ReluPrepare(TfLiteContext* context, TfLiteNode* node);
 
 TfLiteStatus Relu6Prepare(TfLiteContext* context, TfLiteNode* node);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_ACTIVATIONS_H_

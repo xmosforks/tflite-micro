@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -52,18 +52,18 @@ inline void ArgMinMaxHelper(const RuntimeShape& input1_shape,
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node, bool is_arg_max) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* axis =
-      tflite::micro::GetEvalInput(context, node, kAxis);
+      tflite_micro::micro::GetEvalInput(context, node, kAxis);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
 #define TF_LITE_ARG_MIN_MAX(data_type, axis_type, output_type)       \
-  ArgMinMaxHelper(tflite::micro::GetTensorShape(input),              \
-                  tflite::micro::GetTensorData<data_type>(input),    \
-                  tflite::micro::GetTensorData<axis_type>(axis),     \
-                  tflite::micro::GetTensorShape(output),             \
-                  tflite::micro::GetTensorData<output_type>(output), \
+  ArgMinMaxHelper(tflite_micro::micro::GetTensorShape(input),              \
+                  tflite_micro::micro::GetTensorData<data_type>(input),    \
+                  tflite_micro::micro::GetTensorData<axis_type>(axis),     \
+                  tflite_micro::micro::GetTensorShape(output),             \
+                  tflite_micro::micro::GetTensorData<output_type>(output), \
                   is_arg_max)
   if (axis->type == kTfLiteInt32) {
     if (output->type == kTfLiteInt32) {
@@ -78,17 +78,17 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node, bool is_arg_max) {
           MicroPrintf(
               "Only float32, uint8_t and int8_t are "
               "supported currently, got %s.",
-              TfLiteTypeGetName(input->type));
+              TfLiteMicroTypeGetName(input->type));
           return kTfLiteError;
       }
     } else {
       MicroPrintf("Only int32_t are supported currently, got %s.",
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
     }
   } else {
     MicroPrintf("Only int32_t are supported currently, got %s.",
-                TfLiteTypeGetName(axis->type));
+                TfLiteMicroTypeGetName(axis->type));
     return kTfLiteError;
   }
 
@@ -108,11 +108,11 @@ TfLiteStatus ArgMaxEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_ARG_MAX() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, ArgMaxEval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, ArgMaxEval);
 }
 
 TFLMRegistration Register_ARG_MIN() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, ArgMinEval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, ArgMinEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

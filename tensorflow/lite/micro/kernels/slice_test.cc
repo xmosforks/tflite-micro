@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -50,7 +50,7 @@ void TestSlice(int* input_dims_data, const dataT* input_data,
   int outputs_array_data[] = {1, 3};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_SLICE();
+  const TFLMRegistration registration = tflite_micro::Register_SLICE();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, nullptr);
 
@@ -64,7 +64,7 @@ void TestSlice(int* input_dims_data, const dataT* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -79,7 +79,7 @@ TF_LITE_MICRO_TEST(In1D) {
   float expected_output_data[] = {2, 3};
   float output_data[2];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -95,7 +95,7 @@ TF_LITE_MICRO_TEST(In2D) {
   float expected_output_data[] = {4, 5};
   float output_data[2];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -111,7 +111,7 @@ TF_LITE_MICRO_TEST(In3D) {
   float expected_output_data[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
   float output_data[12];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -127,7 +127,7 @@ TF_LITE_MICRO_TEST(In5D) {
   float expected_output_data[] = {2, 3, 4};
   float output_data[3];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -143,7 +143,7 @@ TF_LITE_MICRO_TEST(InputFloat) {
   float expected_output_data[] = {2, 3, 4};
   float output_data[3];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -159,7 +159,7 @@ TF_LITE_MICRO_TEST(IndexInt64) {
   float expected_output_data[] = {2, 3, 4};
   float output_data[3];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -178,7 +178,7 @@ TF_LITE_MICRO_TEST(InputInteger1) {
   int32_t expected_output_data[] = {3, 3, 3};
   int32_t output_data[3];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -195,7 +195,7 @@ TF_LITE_MICRO_TEST(InputInteger2) {
   int32_t expected_output_data[] = {3, 3, 3, 4, 4, 4};
   int32_t output_data[6];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -212,7 +212,7 @@ TF_LITE_MICRO_TEST(InputInteger3) {
   int32_t expected_output_data[] = {3, 3, 3, 5, 5, 5};
   int32_t output_data[6];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -229,7 +229,7 @@ TF_LITE_MICRO_TEST(SizeMinus1) {
   int32_t expected_output_data[] = {3, 3, 3, 5, 5, 5};
   int32_t output_data[6];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -246,7 +246,7 @@ TF_LITE_MICRO_TEST(BeginNonZeroSizeMinus1Axis1) {
   int32_t expected_output_data[] = {5, 6, 8, 9};
   int32_t output_data[4];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -263,7 +263,7 @@ TF_LITE_MICRO_TEST(BeginNonZeroSizeMinus1Axis2) {
   int32_t expected_output_data[] = {3, 3, 5, 5};
   int32_t output_data[4];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -280,7 +280,7 @@ TF_LITE_MICRO_TEST(BeginNonZeroSizeMinus1Axis3) {
   int32_t expected_output_data[] = {3, 3, 5, 5};
   int32_t output_data[4];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -297,7 +297,7 @@ TF_LITE_MICRO_TEST(SliceInt8) {
   int8_t expected_output_data[] = {3, 3, 3, 5, 5, 5};
   int8_t output_data[6];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -314,7 +314,7 @@ TF_LITE_MICRO_TEST(SliceInt16) {
   int16_t expected_output_data[] = {3, 3, 3, 5, 5, 5};
   int16_t output_data[6];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }
@@ -332,7 +332,7 @@ TF_LITE_MICRO_TEST(SliceBool) {
   bool expected_output_data[] = {true, false, true, false, false, true};
   bool output_data[6];
 
-  tflite::testing::TestSlice(input_shape, input_values, begin_shape,
+  tflite_micro::testing::TestSlice(input_shape, input_values, begin_shape,
                              begin_values, size_shape, size_values,
                              output_shape, expected_output_data, output_data);
 }

@@ -37,7 +37,7 @@ constexpr size_t kTensorArenaSize = 1024 * 100;
 uint8_t tensor_arena[kTensorArenaSize];
 bool print_log = false;
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 namespace {
 
@@ -78,7 +78,7 @@ void RunModel(const uint8_t* model,
   TfLiteTensor* output_tensor = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(output_tensor->bytes,
                           golden_size * sizeof(${output_dtype}_t));
-  ${output_dtype}_t* output = ::tflite::GetTensorData<${output_dtype}_t>(output_tensor);
+  ${output_dtype}_t* output = ::tflite_micro::GetTensorData<${output_dtype}_t>(output_tensor);
   for (uint32_t i = 0; i < golden_size; i++) {
     // TODO(b/205046520): Better understand why TfLite and TFLM can sometimes be
     // off by 1.
@@ -88,13 +88,13 @@ void RunModel(const uint8_t* model,
 
 }  // namespace
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 % for target in targets:
 
-TF_LITE_MICRO_TEST(${target}_test) {tflite::micro::RunModel(
+TF_LITE_MICRO_TEST(${target}_test) {tflite_micro::micro::RunModel(
 g_${target}_model_data,
 % for input_idx, input in enumerate(inputs):
 g_${target}_input${input_idx}_${input_dtypes[input_idx]}_test_data,

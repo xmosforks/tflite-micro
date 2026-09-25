@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/kernels/svdf.h"
 
-namespace tflite {
+namespace tflite_micro {
 #if defined(HIFIMINI)
 TfLiteStatus EvalIntegerSvdfHifimini(
     TfLiteContext* context, TfLiteNode* node,
@@ -34,6 +34,6 @@ TfLiteStatus EvalIntegerSvdfHifimini(
     OpDataSvdf data);
 #endif  // HIFIMINI
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_SVDF_H_

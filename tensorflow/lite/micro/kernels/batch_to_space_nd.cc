@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -64,39 +64,39 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* block_shape =
-      tflite::micro::GetEvalInput(context, node, kBlockShapeTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kBlockShapeTensor);
   const TfLiteEvalTensor* crops =
-      tflite::micro::GetEvalInput(context, node, kCropsTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kCropsTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   switch (input->type) {  // Already know in/out types are same.
     case kTfLiteFloat32:
       reference_ops::BatchToSpaceND(
-          tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<float>(input),
-          tflite::micro::GetTensorShape(block_shape),
-          tflite::micro::GetTensorData<int32_t>(block_shape),
-          tflite::micro::GetTensorShape(crops),
-          tflite::micro::GetTensorData<int32_t>(crops),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<float>(output));
+          tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<float>(input),
+          tflite_micro::micro::GetTensorShape(block_shape),
+          tflite_micro::micro::GetTensorData<int32_t>(block_shape),
+          tflite_micro::micro::GetTensorShape(crops),
+          tflite_micro::micro::GetTensorData<int32_t>(crops),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<float>(output));
       break;
     case kTfLiteInt8:
       reference_ops::BatchToSpaceND(
-          tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorShape(block_shape),
-          tflite::micro::GetTensorData<int32_t>(block_shape),
-          tflite::micro::GetTensorShape(crops),
-          tflite::micro::GetTensorData<int32_t>(crops),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int8_t>(output));
+          tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorShape(block_shape),
+          tflite_micro::micro::GetTensorData<int32_t>(block_shape),
+          tflite_micro::micro::GetTensorShape(crops),
+          tflite_micro::micro::GetTensorData<int32_t>(crops),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int8_t>(output));
       break;
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -106,7 +106,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace.
 
 TFLMRegistration Register_BATCH_TO_SPACE_ND() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

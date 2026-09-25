@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -40,9 +40,9 @@ constexpr int kOutputTensor = 0;
 
 struct OpContext {
   OpContext(TfLiteContext* context, TfLiteNode* node) {
-    input1 = tflite::micro::GetEvalInput(context, node, kInputTensor1);
-    input2 = tflite::micro::GetEvalInput(context, node, kInputTensor2);
-    output = tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+    input1 = tflite_micro::micro::GetEvalInput(context, node, kInputTensor1);
+    input2 = tflite_micro::micro::GetEvalInput(context, node, kInputTensor2);
+    output = tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   }
   const TfLiteEvalTensor* input1;
   const TfLiteEvalTensor* input2;
@@ -67,12 +67,12 @@ template <typename data_type, typename op_type>
 void TFLiteOperation(TfLiteContext* context, TfLiteNode* node,
                      const OpContext& op_context) {
   reference_ops::MaximumMinimumBroadcastSlow(
-      tflite::micro::GetTensorShape(op_context.input1),
-      tflite::micro::GetTensorData<data_type>(op_context.input1),
-      tflite::micro::GetTensorShape(op_context.input2),
-      tflite::micro::GetTensorData<data_type>(op_context.input2),
-      tflite::micro::GetTensorShape(op_context.output),
-      tflite::micro::GetTensorData<data_type>(op_context.output),
+      tflite_micro::micro::GetTensorShape(op_context.input1),
+      tflite_micro::micro::GetTensorData<data_type>(op_context.input1),
+      tflite_micro::micro::GetTensorShape(op_context.input2),
+      tflite_micro::micro::GetTensorData<data_type>(op_context.input2),
+      tflite_micro::micro::GetTensorShape(op_context.output),
+      tflite_micro::micro::GetTensorData<data_type>(op_context.output),
       op_type::template op<data_type>);
 }
 
@@ -96,7 +96,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
         break;
       default:
         MicroPrintf("Type %s (%d) is not supported by Maximum/Minimum.",
-                    TfLiteTypeGetName(op_context.output->type),
+                    TfLiteMicroTypeGetName(op_context.output->type),
                     op_context.output->type);
         return kTfLiteError;
     }
@@ -110,13 +110,13 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_MAXIMUM() {
-  return tflite::micro::RegisterOp(nullptr, nullptr,
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr,
                                    Eval<kReference, MaximumOp>);
 }
 
 TFLMRegistration Register_MINIMUM() {
-  return tflite::micro::RegisterOp(nullptr, nullptr,
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr,
                                    Eval<kReference, MinimumOp>);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

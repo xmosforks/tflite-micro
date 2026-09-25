@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_context.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 constexpr int kInputTensor1 = 0;
 constexpr int kInputTensor2 = 1;
@@ -188,20 +188,20 @@ void EvalQuantizedSquaredDifference(TfLiteContext* context, TfLiteNode* node,
   const auto* op_data = static_cast<const OpData*>(node->user_data);
   if (data->requires_broadcast) {
     reference_integer_ops::BroadcastBinaryFunction4DSlow(
-        op_data->arithmetic_params, tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<T>(input1),
-        tflite::micro::GetTensorShape(input2),
-        tflite::micro::GetTensorData<T>(input2),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<T>(output),
+        op_data->arithmetic_params, tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<T>(input1),
+        tflite_micro::micro::GetTensorShape(input2),
+        tflite_micro::micro::GetTensorData<T>(input2),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<T>(output),
         reference_integer_ops::CheckArithmeticParams, SquaredDifference);
   } else {
-    const int flat_size = tflite::micro::GetTensorShape(input1).FlatSize();
+    const int flat_size = tflite_micro::micro::GetTensorShape(input1).FlatSize();
     reference_integer_ops::ElementWise(
         flat_size, op_data->arithmetic_params,
-        tflite::micro::GetTensorData<T>(input1),
-        tflite::micro::GetTensorData<T>(input2),
-        tflite::micro::GetTensorData<T>(output),
+        tflite_micro::micro::GetTensorData<T>(input1),
+        tflite_micro::micro::GetTensorData<T>(input2),
+        tflite_micro::micro::GetTensorData<T>(output),
         reference_integer_ops::CheckArithmeticParams, SquaredDifference);
   }
 }
@@ -213,20 +213,20 @@ void EvalSquaredDifference(TfLiteContext* context, TfLiteNode* node,
                            TfLiteEvalTensor* output) {
   if (data->requires_broadcast) {
     reference_ops::BroadcastBinaryFunction4DSlow<T, T, T>(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<T>(input1),
-        tflite::micro::GetTensorShape(input2),
-        tflite::micro::GetTensorData<T>(input2),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<T>(output), SquaredDifference<T>);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<T>(input1),
+        tflite_micro::micro::GetTensorShape(input2),
+        tflite_micro::micro::GetTensorData<T>(input2),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<T>(output), SquaredDifference<T>);
   } else {
     reference_ops::BinaryFunction<T, T, T>(
-        tflite::micro::GetTensorShape(input1),
-        tflite::micro::GetTensorData<T>(input1),
-        tflite::micro::GetTensorShape(input2),
-        tflite::micro::GetTensorData<T>(input2),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<T>(output), SquaredDifference<T>);
+        tflite_micro::micro::GetTensorShape(input1),
+        tflite_micro::micro::GetTensorData<T>(input1),
+        tflite_micro::micro::GetTensorShape(input2),
+        tflite_micro::micro::GetTensorData<T>(input2),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<T>(output), SquaredDifference<T>);
   }
 }
 
@@ -234,11 +234,11 @@ TfLiteStatus SquaredDifferenceEval(TfLiteContext* context, TfLiteNode* node) {
   OpData* data = reinterpret_cast<OpData*>(node->user_data);
 
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, kInputTensor1);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor1);
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, kInputTensor2);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor2);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   if (output->type == kTfLiteFloat32) {
     EvalSquaredDifference<float>(context, node, data, input1, input2, output);
@@ -263,8 +263,8 @@ TfLiteStatus SquaredDifferenceEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SQUARED_DIFFERENCE() {
-  return tflite::micro::RegisterOp(
+  return tflite_micro::micro::RegisterOp(
       SquaredDifferenceInit, SquaredDifferencePrepare, SquaredDifferenceEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -84,9 +84,9 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       *(static_cast<const L2NormalizationParams*>(node->user_data));
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   // TODO(b/143912164): instead of hardcode the epsilon here, we should read it
   // from tensorflow, i.e., adding a params.
@@ -103,14 +103,14 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   // So we don't even need to do handle the epsilon for quantized kernel case.
   const float epsilon = 1e-6f;
   if (output->type == kTfLiteFloat32) {
-    reference_ops::L2Normalization(data, tflite::micro::GetTensorShape(input),
-                                   tflite::micro::GetTensorData<float>(input),
-                                   tflite::micro::GetTensorShape(output),
-                                   tflite::micro::GetTensorData<float>(output),
+    reference_ops::L2Normalization(data, tflite_micro::micro::GetTensorShape(input),
+                                   tflite_micro::micro::GetTensorData<float>(input),
+                                   tflite_micro::micro::GetTensorShape(output),
+                                   tflite_micro::micro::GetTensorData<float>(output),
                                    epsilon);
   } else if (output->type == kTfLiteInt8) {
-    const auto input_shape = tflite::micro::GetTensorShape(input);
-    const auto output_shape = tflite::micro::GetTensorShape(output);
+    const auto input_shape = tflite_micro::micro::GetTensorShape(input);
+    const auto output_shape = tflite_micro::micro::GetTensorShape(output);
     const int trailing_dim = input_shape.DimensionsCount() - 1;
     const int depth =
         MatchingDim(input_shape, trailing_dim, output_shape, trailing_dim);
@@ -118,11 +118,11 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
         MatchingFlatSizeSkipDim(input_shape, trailing_dim, output_shape);
     reference_integer_ops::L2Normalization(
         data.input_zero_point, outer_size, depth,
-        tflite::micro::GetTensorData<int8_t>(input),
-        tflite::micro::GetTensorData<int8_t>(output));
+        tflite_micro::micro::GetTensorData<int8_t>(input),
+        tflite_micro::micro::GetTensorData<int8_t>(output));
   } else {
     MicroPrintf("Output type is %s, requires float.",
-                TfLiteTypeGetName(output->type));
+                TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
 
@@ -132,9 +132,9 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_L2NORM_REF() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
 TFLMRegistration Register_L2_NORMALIZATION() { return Register_L2NORM_REF(); }
 
-}  // namespace tflite
+}  // namespace tflite_micro

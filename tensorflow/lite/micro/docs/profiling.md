@@ -24,7 +24,7 @@ from within operator kernels and other TFLite Micro routines.
 ## API
 
 The MicroInterpreter class constructor contains an optional profiler argument.
-This profiler must be an instance of the tflite::Profiler class, and should
+This profiler must be an instance of the tflite_micro::Profiler class, and should
 implement the BeginEvent and EndEvent methods. There is a default implementation
 in tensorflow/lite/micro/micro_profiler.cc which can be used for most purposes.
 

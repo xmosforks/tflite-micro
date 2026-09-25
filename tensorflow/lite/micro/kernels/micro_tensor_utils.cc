@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/cppmath.h"
 #include "tensorflow/lite/kernels/op_macros.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Apply sigmoid to elements of a vector.
 void PortableApplySigmoidToVector(const float* vector, int v_size,
@@ -50,18 +50,18 @@ void PortableApplyActivationToVector(const float* vector, int v_size,
     case kTfLiteActNone:
       return;
     case kTfLiteActRelu:
-      return tflite::tensor_utils::ApplyReluToVector(vector, v_size, result);
+      return tflite_micro::tensor_utils::ApplyReluToVector(vector, v_size, result);
     case kTfLiteActReluN1To1:
-      return tflite::tensor_utils::ApplyRelu1ToVector(vector, v_size, result);
+      return tflite_micro::tensor_utils::ApplyRelu1ToVector(vector, v_size, result);
     case kTfLiteActRelu6:
-      return tflite::tensor_utils::ApplyRelu6ToVector(vector, v_size, result);
+      return tflite_micro::tensor_utils::ApplyRelu6ToVector(vector, v_size, result);
     case kTfLiteActTanh:
       return PortableApplyTanhToVector(vector, v_size, result);
     case kTfLiteActSignBit:
-      return tflite::tensor_utils::ApplySignbitToVector(vector, v_size, result);
+      return tflite_micro::tensor_utils::ApplySignbitToVector(vector, v_size, result);
     case kTfLiteActSigmoid:
       return PortableApplySigmoidToVector(vector, v_size, result);
   }
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

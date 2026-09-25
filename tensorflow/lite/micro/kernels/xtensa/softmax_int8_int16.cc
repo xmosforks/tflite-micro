@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_softmax.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 #if defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
@@ -64,10 +64,10 @@ TfLiteStatus PrepareHifi(TfLiteContext* context, TfLiteNode* node) {
 TfLiteStatus EvalHifi(const XtensaSoftmaxOpData* op_data,
                       const TfLiteEvalTensor* input, TfLiteEvalTensor* output,
                       TfLiteContext* context) {
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-  int16_t* output_data = tflite::micro::GetTensorData<int16_t>(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+  int16_t* output_data = tflite_micro::micro::GetTensorData<int16_t>(output);
   const int trailing_dim = input_shape.DimensionsCount() - 1;
   const int outer_size =
       MatchingFlatSizeSkipDim(input_shape, trailing_dim, output_shape);
@@ -122,8 +122,8 @@ TfLiteStatus XtensaPrepareSoftmax(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus XtensaEvalSoftmaxInt8Int16(TfLiteContext* context,
                                         TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
   TFLITE_DCHECK(node->user_data != nullptr);
 
   if (input->type == kTfLiteInt8 && output->type == kTfLiteInt16) {
@@ -132,23 +132,23 @@ TfLiteStatus XtensaEvalSoftmaxInt8Int16(TfLiteContext* context,
                     output, context);
 #else
     SoftmaxParams op_data = *static_cast<SoftmaxParams*>(node->user_data);
-    tflite::reference_ops::Softmax(
-        op_data, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int8_t>(input),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int16_t>(output));
+    tflite_micro::reference_ops::Softmax(
+        op_data, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int8_t>(input),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int16_t>(output));
     return kTfLiteOk;
 #endif  // defined(HIFI3) || defined(HIFI4) || defined(HIFI5)
   } else {
-    MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+    MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                 input->type);
     return kTfLiteError;
   }
 }
 
 TFLMRegistration Register_SOFTMAX_INT8_INT16() {
-  return tflite::micro::RegisterOp(XtensaInitSoftmax, XtensaPrepareSoftmax,
+  return tflite_micro::micro::RegisterOp(XtensaInitSoftmax, XtensaPrepareSoftmax,
                                    XtensaEvalSoftmaxInt8Int16);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -55,7 +55,7 @@ void TestExp(int* input_dims_data, const float* input_data,
 }
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -70,7 +70,7 @@ TF_LITE_MICRO_TEST(SingleDim) {
     golden[i] = std::exp(input_values[i]);
   }
 
-  tflite::testing::TestExp(input_dims, input_values, golden, output_data);
+  tflite_micro::testing::TestExp(input_dims, input_values, golden, output_data);
 }
 
 TF_LITE_MICRO_TESTS_END

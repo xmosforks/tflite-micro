@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // This is the most generic TFLMRegistration. The actual supported types
 // may still be target dependent. The only requirement is that every
@@ -42,6 +42,6 @@ inline TFLMRegistration Register_UNIDIRECTIONAL_SEQUENCE_LSTM_INT8() {
 }
 #endif
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_UNIDIRECTIONAL_SEQUENCE_LSTM_H_

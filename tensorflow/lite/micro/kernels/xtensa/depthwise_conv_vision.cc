@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_depthwise_conv.h"
 #include "tensorflow/lite/micro/micro_arena_constants.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus DepthwiseConvPrepareVision(TfLiteContext* context,
                                         TfLiteNode* node) {
@@ -124,10 +124,10 @@ TfLiteStatus DepthwiseConvPrepareVision(TfLiteContext* context,
   if (filter->type == kTfLiteInt4) {
     const size_t bytes_unpacked = filter->bytes * 2;
     filter_int8.data.data = micro_context->AllocateTempBuffer(
-        bytes_unpacked, tflite::MicroArenaBufferAlignment());
+        bytes_unpacked, tflite_micro::MicroArenaBufferAlignment());
     filter_int8.dims = filter->dims;
     filter_int8.type = kTfLiteInt8;
-    tflite::tensor_utils::UnpackDenseInt4IntoInt8(
+    tflite_micro::tensor_utils::UnpackDenseInt4IntoInt8(
         GetTensorData<int8_t>(filter), GetTensorShape(filter).FlatSize(),
         GetTensorData<int8_t>(&filter_int8));
 
@@ -167,8 +167,8 @@ TfLiteStatus DepthwiseConvEvalVision(TfLiteContext* context, TfLiteNode* node,
   const int num_channels = filter->dims->data[kDepthwiseConvQuantizedDimension];
   xiDepthwiseConv(
       data.p_context, data.context_size,
-      const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input)),
-      input_size, tflite::micro::GetTensorData<int8_t>(output), output_size,
+      const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input)),
+      input_size, tflite_micro::micro::GetTensorData<int8_t>(output), output_size,
       data.reorder_coefficient_bias, data.reorder_coefficient_bias_size,
       data.reference_op_data.per_channel_output_multiplier,
       data.per_channel_output_shift_int8, num_channels,
@@ -176,5 +176,5 @@ TfLiteStatus DepthwiseConvEvalVision(TfLiteContext* context, TfLiteNode* node,
       data.reference_op_data.padding.height);
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(VISION_P6)

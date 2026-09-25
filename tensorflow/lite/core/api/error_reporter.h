@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <cstdarg>
 
-namespace tflite {
+namespace tflite_micro {
 
 /// A functor that reports error to supporting system. Invoked similar to
 /// printf.
@@ -53,7 +53,7 @@ class ErrorReporter {
   int ReportError(void*, const char* format, ...);
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 // You should not make bare calls to the error reporter, instead use the
 // TF_LITE_REPORT_ERROR macro, since this allows message strings to be
@@ -63,7 +63,7 @@ class ErrorReporter {
 #ifndef TF_LITE_STRIP_ERROR_STRINGS
 #define TF_LITE_REPORT_ERROR(reporter, ...)                               \
   do {                                                                    \
-    static_cast<::tflite::ErrorReporter*>(reporter)->Report(__VA_ARGS__); \
+    static_cast<::tflite_micro::ErrorReporter*>(reporter)->Report(__VA_ARGS__); \
   } while (false)
 #else  // TF_LITE_STRIP_ERROR_STRINGS
 #define TF_LITE_REPORT_ERROR(reporter, ...)

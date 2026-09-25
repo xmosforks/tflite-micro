@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -66,8 +66,8 @@ TfLiteStatus ReshapeOutput(TfLiteContext* context, TfLiteNode* node) {
   }
   if (stretch_dim != -1) {
     TfLiteEvalTensor* output_eval =
-        tflite::micro::GetEvalOutput(context, node, kReshapeOutputTensor);
-    TF_LITE_ENSURE_STATUS(tflite::micro::CreateWritableTensorDimsWithCopy(
+        tflite_micro::micro::GetEvalOutput(context, node, kReshapeOutputTensor);
+    TF_LITE_ENSURE_STATUS(tflite_micro::micro::CreateWritableTensorDimsWithCopy(
         context, output, output_eval));
     output_shape = output->dims;  // output tensor dims were moved
     output_shape->data[stretch_dim] = num_input_elements / num_output_elements;
@@ -91,4 +91,4 @@ TfLiteStatus PrepareReshapeReference(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

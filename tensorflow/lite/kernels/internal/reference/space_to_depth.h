@@ -19,11 +19,11 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 template <typename T>
-inline void SpaceToDepth(const tflite::SpaceToDepthParams& op_params,
+inline void SpaceToDepth(const tflite_micro::SpaceToDepthParams& op_params,
                          const RuntimeShape& unextended_input_shape,
                          const T* input_data,
                          const RuntimeShape& unextended_output_shape,
@@ -75,6 +75,6 @@ inline void SpaceToDepth(const tflite::SpaceToDepthParams& op_params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_SPACE_TO_DEPTH_H_

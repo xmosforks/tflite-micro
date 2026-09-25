@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <limits.h>
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -189,4 +189,4 @@ void init_arc_scratch_buffers(void) {
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro

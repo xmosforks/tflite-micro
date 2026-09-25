@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -32,7 +32,7 @@ void ExecuteLogSoftmaxTest(int tensors_count, TfLiteTensor* tensors) {
   int kOutputArrayData[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_LOG_SOFTMAX();
+  const TFLMRegistration registration = tflite_micro::Register_LOG_SOFTMAX();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -110,7 +110,7 @@ void TestLogSoftmaxQuantized(const TestLogSoftmaxParams<T>& params,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -137,7 +137,7 @@ TF_LITE_MICRO_TEST(FloatActivationsOpTestLogSoftmax) {
 
   constexpr float kTolerance = 1e-5;
 
-  tflite::testing::TestLogSoftmax(kTolerance, kDims1, kInput, kDims1, kExpect1,
+  tflite_micro::testing::TestLogSoftmax(kTolerance, kDims1, kInput, kDims1, kExpect1,
                                   output_data);
 
   // Same input, but a different shape.
@@ -147,7 +147,7 @@ TF_LITE_MICRO_TEST(FloatActivationsOpTestLogSoftmax) {
       -.00671534, -5.00671, -.000123374, -9.00012,
   };
 
-  tflite::testing::TestLogSoftmax(kTolerance, kDims2, kInput, kDims2, kExpect2,
+  tflite_micro::testing::TestLogSoftmax(kTolerance, kDims2, kInput, kDims2, kExpect2,
                                   output_data);
 }
 
@@ -166,7 +166,7 @@ TF_LITE_MICRO_TEST(LogSoftmaxOpTestSimpleTest) {
 
   constexpr float kTolerance = 1e-6;
 
-  tflite::testing::TestLogSoftmax(kTolerance, kDims, kInput, kDims, kExpect,
+  tflite_micro::testing::TestLogSoftmax(kTolerance, kDims, kInput, kDims, kExpect,
                                   output_data);
 }
 
@@ -191,14 +191,14 @@ TF_LITE_MICRO_TEST(QuantizedActivationsOpTestLogSoftmaxInt8) {
   constexpr float kMin = -10;
   constexpr float kMax = 10;
   constexpr float kLogSoftmaxQuantizedTolerance = 0.06355;
-  tflite::testing::TestLogSoftmaxParams<int8_t> params = {};
+  tflite_micro::testing::TestLogSoftmaxParams<int8_t> params = {};
   params.data_min = kMin;
   params.data_max = kMax;
   params.input_data = q_input_data;
   params.output_data = q_output_data;
   params.tolerance = kLogSoftmaxQuantizedTolerance;
 
-  tflite::testing::TestLogSoftmaxQuantized(
+  tflite_micro::testing::TestLogSoftmaxQuantized(
       params, kDims, kInput, kDims, kExpect, kExpectQuantized, output_data);
 }
 
@@ -216,14 +216,14 @@ TF_LITE_MICRO_TEST(ExtraTestLogSoftmaxInt8) {
   constexpr float kMin = -1;
   constexpr float kMax = 1;
   constexpr float kLogSoftmaxQuantizedTolerance = 0.06355;
-  tflite::testing::TestLogSoftmaxParams<int8_t> params = {};
+  tflite_micro::testing::TestLogSoftmaxParams<int8_t> params = {};
   params.data_min = kMin;
   params.data_max = kMax;
   params.input_data = q_input_data;
   params.output_data = q_output_data;
   params.tolerance = kLogSoftmaxQuantizedTolerance;
 
-  tflite::testing::TestLogSoftmaxQuantized(
+  tflite_micro::testing::TestLogSoftmaxQuantized(
       params, kDims, kInput, kDims, kExpect, kExpectQuantized, output_data);
 }
 

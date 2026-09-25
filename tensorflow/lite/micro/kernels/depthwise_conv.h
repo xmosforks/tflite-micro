@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/kernels/conv.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 extern const int kDepthwiseConvInputTensor;
 extern const int kDepthwiseConvWeightsTensor;
@@ -75,6 +75,6 @@ inline TFLMRegistration Register_DEPTHWISE_CONV_2D_INT16() {
 }
 #endif
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_DEPTHWISE_CONV_H_

@@ -35,7 +35,7 @@ limitations under the License.
  * exmaples/person_detection.
  */
 
-namespace tflite {
+namespace tflite_micro {
 
 using PersonDetectionOpResolver = MicroMutableOpResolver<6>;
 using PersonDetectionBenchmarkRunner = MicroBenchmarkRunner<int8_t>;
@@ -57,11 +57,11 @@ PersonDetectionBenchmarkRunner* CreateBenchmarkRunner(MicroProfiler* profiler) {
   // PersonDetectionBenchmarkRunner object.
   PersonDetectionOpResolver* op_resolver =
       new (op_resolver_buffer) PersonDetectionOpResolver();
-  op_resolver->AddFullyConnected(tflite::Register_FULLY_CONNECTED_INT8());
-  op_resolver->AddConv2D(tflite::Register_CONV_2D_INT8REF());
+  op_resolver->AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED_INT8());
+  op_resolver->AddConv2D(tflite_micro::Register_CONV_2D_INT8REF());
   op_resolver->AddDepthwiseConv2D();
   op_resolver->AddSoftmax();
-  op_resolver->AddAveragePool2D(tflite::Register_AVERAGE_POOL_2D_INT8());
+  op_resolver->AddAveragePool2D(tflite_micro::Register_AVERAGE_POOL_2D_INT8());
   op_resolver->AddReshape();
   return new (benchmark_runner_buffer)
       PersonDetectionBenchmarkRunner(g_person_detect_model_data, op_resolver,
@@ -82,38 +82,38 @@ void PersonDetectionNIerations(const int8_t* input, int iterations,
   MicroPrintf("%s took %u ticks (%u ms)", tag, ticks, TicksToMs(ticks));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 int main(int argc, char** argv) {
-  tflite::InitializeTarget();
+  tflite_micro::InitializeTarget();
 
-  tflite::MicroProfiler profiler;
+  tflite_micro::MicroProfiler profiler;
 
   uint32_t event_handle = profiler.BeginEvent("InitializeBenchmarkRunner");
-  tflite::PersonDetectionBenchmarkRunner* benchmark_runner =
+  tflite_micro::PersonDetectionBenchmarkRunner* benchmark_runner =
       CreateBenchmarkRunner(&profiler);
   profiler.EndEvent(event_handle);
   profiler.Log();
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 
-  tflite::PersonDetectionNIerations(
+  tflite_micro::PersonDetectionNIerations(
       reinterpret_cast<const int8_t*>(g_person_image_data), 1,
       "WithPersonDataIterations(1)", *benchmark_runner, profiler);
   profiler.Log();
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 
-  tflite::PersonDetectionNIerations(
+  tflite_micro::PersonDetectionNIerations(
       reinterpret_cast<const int8_t*>(g_no_person_image_data), 1,
       "NoPersonDataIterations(1)", *benchmark_runner, profiler);
   profiler.Log();
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 
-  tflite::PersonDetectionNIerations(
+  tflite_micro::PersonDetectionNIerations(
       reinterpret_cast<const int8_t*>(g_person_image_data), 10,
       "WithPersonDataIterations(10)", *benchmark_runner, profiler);
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 
-  tflite::PersonDetectionNIerations(
+  tflite_micro::PersonDetectionNIerations(
       reinterpret_cast<const int8_t*>(g_no_person_image_data), 10,
       "NoPersonDataIterations(10)", *benchmark_runner, profiler);
   MicroPrintf("");  // null MicroPrintf serves as a newline.

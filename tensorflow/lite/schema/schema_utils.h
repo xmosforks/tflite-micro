@@ -18,7 +18,7 @@ limitations under the License.
 #include "flatbuffers/flatbuffers.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // The following methods are introduced to resolve op builtin code shortage
 // problem. The new builtin operator will be assigned to the extended builtin
@@ -28,6 +28,6 @@ BuiltinOperator GetBuiltinCode(const OperatorCode *op_code);
 
 BuiltinOperator GetBuiltinCode(const OperatorCodeT *op_code);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_SCHEMA_SCHEMA_UTILS_H_

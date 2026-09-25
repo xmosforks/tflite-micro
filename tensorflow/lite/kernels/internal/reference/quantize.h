@@ -24,12 +24,12 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/cppmath.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
 template <typename InputT, typename OutputT>
-inline void AffineQuantize(const tflite::QuantizationParams& op_params,
+inline void AffineQuantize(const tflite_micro::QuantizationParams& op_params,
                            const RuntimeShape& input_shape,
                            const InputT* input_data,
                            const RuntimeShape& output_shape,
@@ -53,7 +53,7 @@ inline void AffineQuantize(const tflite::QuantizationParams& op_params,
 // Quantizes per-channel.
 template <typename InputT, typename OutputT>
 inline void PerChannelQuantize(
-    const tflite::PerChannelQuantizationParams& op_params,
+    const tflite_micro::PerChannelQuantizationParams& op_params,
     const RuntimeShape& input_shape, const InputT* input_data,
     const RuntimeShape& output_shape, OutputT* output_data) {
   // Ensure flat size is same.
@@ -85,5 +85,5 @@ inline void PerChannelQuantize(
 
 }  // namespace reference_ops
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_QUANTIZE_H_

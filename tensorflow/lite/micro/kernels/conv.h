@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 struct OpDataConv {
   TfLitePaddingValues padding;
@@ -112,6 +112,6 @@ inline TFLMRegistration Register_CONV_2D_INT8() { return Register_CONV_2D(); }
 inline TFLMRegistration Register_CONV_2D_INT16() { return Register_CONV_2D(); }
 #endif  // defined(CMSIS_NN) || defined(XTENSA)
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_CONV_H_

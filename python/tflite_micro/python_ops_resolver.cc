@@ -39,28 +39,28 @@ PythonOpsResolver::PythonOpsResolver() {
   AddConv2D();
   AddCos();
   AddCumSum();
-  AddDelay();
+  //AddDelay();
   AddDepthToSpace();
   AddDepthwiseConv2D();
   AddDequantize();
   AddDetectionPostprocess();
   AddDiv();
-  AddEnergy();
+  //AddEnergy();
   AddElu();
   AddEqual();
   AddEthosU();
   AddExp();
   AddExpandDims();
-  AddFftAutoScale();
+  //AddFftAutoScale();
   AddFill();
-  AddFilterBank();
-  AddFilterBankLog();
-  AddFilterBankSquareRoot();
-  AddFilterBankSpectralSubtraction();
+  // AddFilterBank();
+  // AddFilterBankLog();
+  // AddFilterBankSquareRoot();
+  // AddFilterBankSpectralSubtraction();
   AddFloor();
   AddFloorDiv();
   AddFloorMod();
-  AddFramer();
+  //AddFramer();
   AddFullyConnected();
   AddGather();
   AddGatherNd();
@@ -68,7 +68,7 @@ PythonOpsResolver::PythonOpsResolver() {
   AddGreaterEqual();
   AddHardSwish();
   AddIf();
-  AddIrfft();
+  //AddIrfft();
   AddL2Normalization();
   AddL2Pool2D();
   AddLeakyRelu();
@@ -88,11 +88,11 @@ PythonOpsResolver::PythonOpsResolver() {
   AddMul();
   AddNeg();
   AddNotEqual();
-  AddOverlapAdd();
+  //AddOverlapAdd();
   AddPack();
   AddPad();
   AddPadV2();
-  AddPCAN();
+  //AddPCAN();
   AddPrelu();
   AddQuantize();
   AddReadVariable();
@@ -102,7 +102,7 @@ PythonOpsResolver::PythonOpsResolver() {
   AddReshape();
   AddResizeBilinear();
   AddResizeNearestNeighbor();
-  AddRfft();
+  //AddRfft();
   AddRound();
   AddRsqrt();
   AddSelectV2();
@@ -119,7 +119,7 @@ PythonOpsResolver::PythonOpsResolver() {
   AddSquaredDifference();
   AddSqueeze();
   AddStridedSlice();
-  AddStacker();
+  //AddStacker();
   AddSub();
   AddSum();
   AddSvdf();
@@ -130,7 +130,7 @@ PythonOpsResolver::PythonOpsResolver() {
   AddUnpack();
   AddVarHandle();
   AddWhile();
-  AddWindow();
+  //AddWindow();
   AddZerosLike();
 }
 

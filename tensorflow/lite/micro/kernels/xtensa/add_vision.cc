@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa.h"
 #include "tensorflow/lite/micro/kernels/xtensa/xtensa_add.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus AddPrepareVision(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
@@ -111,11 +111,11 @@ TfLiteStatus AddEvalQuantizedVision(TfLiteContext* context, TfLiteNode* node,
   const uint32_t output_size = NumElements(output->dims);
 
   xiAdd(data.p_context, data.context_size,
-        const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input1)),
+        const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input1)),
         input1_size,
-        const_cast<int8_t*>(tflite::micro::GetTensorData<int8_t>(input2)),
-        input2_size, tflite::micro::GetTensorData<int8_t>(output), output_size);
+        const_cast<int8_t*>(tflite_micro::micro::GetTensorData<int8_t>(input2)),
+        input2_size, tflite_micro::micro::GetTensorData<int8_t>(output), output_size);
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // defined(VISION_P6)

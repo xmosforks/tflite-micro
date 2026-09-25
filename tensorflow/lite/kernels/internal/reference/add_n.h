@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 // T is expected to be either float or int.
@@ -81,6 +81,6 @@ inline void AddN(const ArithmeticParams& params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_ADD_N_H_

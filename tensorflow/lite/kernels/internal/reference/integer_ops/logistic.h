@@ -20,7 +20,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_integer_ops {
 
 inline void Logistic(int32_t input_zero_point, int32_t input_range_radius,
@@ -116,6 +116,6 @@ inline void Logistic(int32_t input_multiplier, int32_t input_left_shift,
 }
 
 }  // namespace reference_integer_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_INTEGER_OPS_LOGISTIC_H_

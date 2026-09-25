@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 extern const int kMaxNumberOfAxis;
 extern const int kMaxNumberOfReducedAxis;
@@ -60,6 +60,6 @@ TFLMRegistration Register_MEAN();
 TFLMRegistration Register_REDUCE_MAX();
 TFLMRegistration Register_SUM();
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_REDUCE_H_

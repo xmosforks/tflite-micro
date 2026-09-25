@@ -22,19 +22,19 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/strided_slice_logic.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
 template <typename T>
-inline void StridedSlice(const tflite::StridedSliceParams& op_params,
+inline void StridedSlice(const tflite_micro::StridedSliceParams& op_params,
                          const RuntimeShape& unextended_input_shape,
                          const RuntimeShape& unextended_output_shape,
                          SequentialTensorWriter<T>* writer) {
   ruy::profiler::ScopeLabel label("StridedSlice");
 
   // Note that the output_shape is not used herein.
-  tflite::StridedSliceParams params_copy = op_params;
+  tflite_micro::StridedSliceParams params_copy = op_params;
 
   TFLITE_DCHECK_LE(unextended_input_shape.DimensionsCount(), 5);
   TFLITE_DCHECK_LE(unextended_output_shape.DimensionsCount(), 5);
@@ -120,7 +120,7 @@ inline void StridedSlice(const tflite::StridedSliceParams& op_params,
 }
 
 template <typename T>
-inline void StridedSlice(const tflite::StridedSliceParams& op_params,
+inline void StridedSlice(const tflite_micro::StridedSliceParams& op_params,
                          const RuntimeShape& unextended_input_shape,
                          const T* input_data,
                          const RuntimeShape& unextended_output_shape,
@@ -131,7 +131,7 @@ inline void StridedSlice(const tflite::StridedSliceParams& op_params,
 }
 
 template <typename T>
-inline void StridedSlice(const tflite::StridedSliceParams& op_params,
+inline void StridedSlice(const tflite_micro::StridedSliceParams& op_params,
                          const RuntimeShape& unextended_input_shape,
                          const TfLiteTensor* input,
                          const RuntimeShape& unextended_output_shape,
@@ -142,6 +142,6 @@ inline void StridedSlice(const tflite::StridedSliceParams& op_params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_STRIDED_SLICE_H_

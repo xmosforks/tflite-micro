@@ -33,7 +33,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/ceva/mcps_macros.h"
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* LogisticInit(TfLiteContext* context, const char* buffer, size_t length) {
@@ -43,9 +43,9 @@ void* LogisticInit(TfLiteContext* context, const char* buffer, size_t length) {
 
 TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kLogisticInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kLogisticInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kLogisticOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kLogisticOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   OpDataLogistic* data = static_cast<OpDataLogistic*>(node->user_data);
@@ -55,11 +55,11 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
       case kTfLiteFloat32: {
 #if defined(CEVA_BX1) || defined(CEVA_SP500)
 
-        const float* input_data = tflite::micro::GetTensorData<float>(input);
-        float* output_data = tflite::micro::GetTensorData<float>(output);
+        const float* input_data = tflite_micro::micro::GetTensorData<float>(input);
+        float* output_data = tflite_micro::micro::GetTensorData<float>(output);
         const int flat_size =
-            MatchingFlatSize(tflite::micro::GetTensorShape(input),
-                             tflite::micro::GetTensorShape(output));
+            MatchingFlatSize(tflite_micro::micro::GetTensorShape(input),
+                             tflite_micro::micro::GetTensorShape(output));
 #ifdef MCPS_MEASUREMENT
         MCPS_START_ONE;
 #endif
@@ -70,17 +70,17 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
 #endif
 
 #else
-        reference_ops::Logistic(tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<float>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+        reference_ops::Logistic(tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<float>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
 #endif  // ceva platform
         return kTfLiteOk;
       }
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteInt8) {
@@ -92,8 +92,8 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
         int32_t input_multiplier = data->input_multiplier;
         int32_t input_left_shift = data->input_left_shift;
         int32_t input_size = NumElements(input->dims);
-        const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
-        int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
+        const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
+        int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
 
 #ifdef MCPS_MEASUREMENT
         MCPS_START_ONE;
@@ -110,21 +110,21 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
             data->input_zero_point, data->input_range_radius,
             data->input_multiplier, data->input_left_shift,
             NumElements(input->dims),
-            tflite::micro::GetTensorData<int8_t>(input),
-            tflite::micro::GetTensorData<int8_t>(output));
+            tflite_micro::micro::GetTensorData<int8_t>(input),
+            tflite_micro::micro::GetTensorData<int8_t>(output));
 #endif  // ceva platform
         return kTfLiteOk;
       }
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else {
     MicroPrintf("Input %s, output %s not supported.",
-                TfLiteTypeGetName(input->type),
-                TfLiteTypeGetName(output->type));
+                TfLiteMicroTypeGetName(input->type),
+                TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
   return kTfLiteOk;
@@ -133,6 +133,6 @@ TfLiteStatus LogisticEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_LOGISTIC() {
-  return tflite::micro::RegisterOp(LogisticInit, LogisticPrepare, LogisticEval);
+  return tflite_micro::micro::RegisterOp(LogisticInit, LogisticPrepare, LogisticEval);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

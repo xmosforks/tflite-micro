@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_arena_constants.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 FakeMicroContext::FakeMicroContext(TfLiteTensor* tensors,
                                    SingleArenaBufferAllocator* allocator,
@@ -112,4 +112,4 @@ void* FakeMicroContext::external_context() { return nullptr; }
 
 MicroGraph& FakeMicroContext::graph() { return graph_; }
 
-}  // namespace tflite
+}  // namespace tflite_micro

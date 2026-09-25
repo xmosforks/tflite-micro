@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus CalculatePreluParams(const TfLiteTensor* input,
                                   const TfLiteTensor* alpha,
@@ -34,6 +34,6 @@ void BroadcastPrelu4DSlowFloat(const RuntimeShape& unextended_input1_shape,
 
 TfLiteStatus PreluPrepare(TfLiteContext* context, TfLiteNode* node);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_PRELU_H_

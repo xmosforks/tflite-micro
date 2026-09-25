@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/circular_buffer.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // The CircularBuffer op has one input and one output tensor.
 const int kCircularBufferInputTensor = 0;
@@ -91,4 +91,4 @@ TfLiteStatus CircularBufferPrepare(TfLiteContext* context, TfLiteNode* node) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

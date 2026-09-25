@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <cstring>
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 namespace {
@@ -307,4 +307,4 @@ Create2x3x2X2Int16NodeContents(const float* input_data,
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro

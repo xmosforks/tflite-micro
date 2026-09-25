@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* DequantizeInit(TfLiteContext* context, const char* buffer,
                      size_t length) {
@@ -38,8 +38,8 @@ TfLiteStatus DequantizeEval(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
   DequantizeOpData* data = static_cast<DequantizeOpData*>(node->user_data);
 
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   // Output type ensured to be kTfLiteFloat32 at the Prepare stage
   TFLITE_DCHECK(output->type == kTfLiteFloat32);
@@ -47,29 +47,29 @@ TfLiteStatus DequantizeEval(TfLiteContext* context, TfLiteNode* node) {
   switch (input->type) {
     case kTfLiteInt8:
       reference_ops::Dequantize(data->quantization_params,
-                                tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<int8_t>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+                                tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<int8_t>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
       break;
     case kTfLiteInt16:
       reference_ops::Dequantize(data->quantization_params,
-                                tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<int16_t>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+                                tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<int16_t>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
       break;
     case kTfLiteUInt8:
       reference_ops::Dequantize(data->quantization_params,
-                                tflite::micro::GetTensorShape(input),
-                                tflite::micro::GetTensorData<uint8_t>(input),
-                                tflite::micro::GetTensorShape(output),
-                                tflite::micro::GetTensorData<float>(output));
+                                tflite_micro::micro::GetTensorShape(input),
+                                tflite_micro::micro::GetTensorData<uint8_t>(input),
+                                tflite_micro::micro::GetTensorShape(output),
+                                tflite_micro::micro::GetTensorData<float>(output));
       break;
     default:
       MicroPrintf("Input %s, output %s not supported.",
-                  TfLiteTypeGetName(input->type),
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(input->type),
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
   }
 
@@ -77,8 +77,8 @@ TfLiteStatus DequantizeEval(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TFLMRegistration Register_DEQUANTIZE() {
-  return tflite::micro::RegisterOp(DequantizeInit, DequantizePrepare,
+  return tflite_micro::micro::RegisterOp(DequantizeInit, DequantizePrepare,
                                    DequantizeEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

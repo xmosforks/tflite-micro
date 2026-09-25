@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 SingleArenaBufferAllocator::SingleArenaBufferAllocator(uint8_t* buffer_head,
                                                        uint8_t* buffer_tail)
@@ -196,4 +196,4 @@ uint8_t* SingleArenaBufferAllocator::head() const { return head_; }
 
 uint8_t* SingleArenaBufferAllocator::tail() const { return tail_; }
 
-}  // namespace tflite
+}  // namespace tflite_micro

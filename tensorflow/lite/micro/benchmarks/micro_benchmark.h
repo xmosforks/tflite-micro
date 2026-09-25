@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_time.h"
 #include "tensorflow/lite/micro/recording_micro_interpreter.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 template <typename inputT>
 class MicroBenchmarkRunner {
@@ -33,7 +33,7 @@ class MicroBenchmarkRunner {
   // The lifetimes of model, op_resolver, tensor_arena, profiler must exceed
   // that of the created MicroBenchmarkRunner object.
   MicroBenchmarkRunner(const uint8_t* model,
-                       const tflite::MicroOpResolver* op_resolver,
+                       const tflite_micro::MicroOpResolver* op_resolver,
                        uint8_t* tensor_arena, int tensor_arena_size,
                        MicroProfilerInterface* profiler,
                        int num_resource_variables = 0)
@@ -63,7 +63,7 @@ class MicroBenchmarkRunner {
 
     // Pre-populate input tensor with random values.
     int input_length = input->bytes / sizeof(inputT);
-    inputT* input_values = tflite::GetTensorData<inputT>(input);
+    inputT* input_values = tflite_micro::GetTensorData<inputT>(input);
     for (int i = 0; i < input_length; i++) {
       // Pre-populate input tensor with a random value based on a constant seed.
       input_values[i] = static_cast<inputT>(
@@ -74,7 +74,7 @@ class MicroBenchmarkRunner {
 
   void SetInput(const inputT* custom_input, int input_index = 0) {
     TfLiteTensor* input = interpreter_.input(input_index);
-    inputT* input_buffer = tflite::GetTensorData<inputT>(input);
+    inputT* input_buffer = tflite_micro::GetTensorData<inputT>(input);
     int input_length = input->bytes / sizeof(inputT);
     for (int i = 0; i < input_length; i++) {
       input_buffer[i] = custom_input[i];
@@ -86,10 +86,10 @@ class MicroBenchmarkRunner {
   }
 
  private:
-  tflite::RecordingMicroAllocator* allocator_;
-  tflite::RecordingMicroInterpreter interpreter_;
+  tflite_micro::RecordingMicroAllocator* allocator_;
+  tflite_micro::RecordingMicroInterpreter interpreter_;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_BENCHMARKS_MICRO_BENCHMARK_H_

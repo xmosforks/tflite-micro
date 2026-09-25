@@ -14,15 +14,16 @@ limitations under the License.
 ==============================================================================*/
 
 #include "tensorflow/lite/core/api/tensor_utils.h"
+#include "tensorflow/lite/micro/micro_utils.h"
 
 #include <string.h>
 
 #include "tensorflow/lite/core/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
-TfLiteStatus ResetVariableTensor(TfLiteTensor* tensor) {
-  if (!tensor->is_variable) {
+TfLiteStatus ResetVariableTensor(TfLiteContext* context, TfLiteTensor* tensor) {
+  if (!context->IsVariableTensor(context, tensor)) {
     return kTfLiteOk;
   }
   // TODO(b/115961645): Implement - If a variable tensor has a buffer, reset it
@@ -36,10 +37,10 @@ TfLiteStatus ResetVariableTensor(TfLiteTensor* tensor) {
 #if __ANDROID__ || defined(__x86_64__) || defined(__i386__) || \
     defined(__i386) || defined(__x86__) || defined(__X86__) || \
     defined(_X86_) || defined(_M_IX86) || defined(_M_X64)
-  memset(tensor->data.raw, value, tensor->bytes);
+  memset(tensor->data.raw, value, tflite_micro::EvalTensorBytes((const TfLiteEvalTensor*)tensor));
 #else
   char* raw_ptr = tensor->data.raw;
-  for (size_t i = 0; i < tensor->bytes; ++i) {
+  for (size_t i = 0; i < tflite_micro::EvalTensorBytes((const TfLiteEvalTensor*)tensor); ++i) {
     *raw_ptr = value;
     raw_ptr++;
   }
@@ -47,4 +48,4 @@ TfLiteStatus ResetVariableTensor(TfLiteTensor* tensor) {
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

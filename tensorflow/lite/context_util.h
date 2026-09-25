@@ -23,7 +23,7 @@ limitations under the License.
 
 #include "tensorflow/lite/core/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 /// Provides a range iterable wrapper for TfLiteIntArray* (C lists) that TfLite
 /// C api uses.
@@ -49,6 +49,6 @@ class TfLiteIntArrayView {
   const TfLiteIntArray* int_array_;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_CONTEXT_UTIL_H_

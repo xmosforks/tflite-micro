@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -74,7 +74,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* perm_tensor =
-      tflite::micro::GetEvalInput(context, node, kPermTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kPermTensor);
   const int32_t* perm_data = perm_tensor->data.i32;
   const int size = perm_tensor->dims->data[0];
   TransposeParams params;
@@ -87,27 +87,38 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   // on each cell. It's safe to implement per size of scalar type and this
   // trick keeps the total code size in a reasonable range.
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   switch (input->type) {
+    case kTfLiteInt32:
+      reference_ops::Transpose(params, tflite_micro::micro::GetTensorShape(input),
+                               tflite_micro::micro::GetTensorData<int32_t>(input),
+                               tflite_micro::micro::GetTensorShape(output),
+                               tflite_micro::micro::GetTensorData<int32_t>(output));
     case kTfLiteFloat32:
-      reference_ops::Transpose(params, tflite::micro::GetTensorShape(input),
-                               tflite::micro::GetTensorData<float>(input),
-                               tflite::micro::GetTensorShape(output),
-                               tflite::micro::GetTensorData<float>(output));
+      reference_ops::Transpose(params, tflite_micro::micro::GetTensorShape(input),
+                               tflite_micro::micro::GetTensorData<float>(input),
+                               tflite_micro::micro::GetTensorShape(output),
+                               tflite_micro::micro::GetTensorData<float>(output));
+      break;
+    case kTfLiteInt16:
+      reference_ops::Transpose(params, tflite_micro::micro::GetTensorShape(input),
+                               tflite_micro::micro::GetTensorData<int16_t>(input),
+                               tflite_micro::micro::GetTensorShape(output),
+                               tflite_micro::micro::GetTensorData<int16_t>(output));
       break;
     case kTfLiteInt8:
-      reference_ops::Transpose(params, tflite::micro::GetTensorShape(input),
-                               tflite::micro::GetTensorData<int8_t>(input),
-                               tflite::micro::GetTensorShape(output),
-                               tflite::micro::GetTensorData<int8_t>(output));
+      reference_ops::Transpose(params, tflite_micro::micro::GetTensorShape(input),
+                               tflite_micro::micro::GetTensorData<int8_t>(input),
+                               tflite_micro::micro::GetTensorShape(output),
+                               tflite_micro::micro::GetTensorData<int8_t>(output));
       break;
     default:
       MicroPrintf(
           "Type %s is currently not supported by Transpose. "
           "Only float32 and int8 is supported",
-          TfLiteTypeGetName(input->type));
+          TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
 
@@ -117,6 +128,6 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_TRANSPOSE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
-}  // namespace tflite
+}  // namespace tflite_micro

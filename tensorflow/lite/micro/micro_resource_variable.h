@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_allocator.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 class MicroResourceVariables {
  public:
@@ -84,6 +84,6 @@ class MicroResourceVariables {
   int num_resource_variables_;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TFLITE_MICRO_TENSORFLOW_LITE_MICRO_MICRO_RESOURCE_H_

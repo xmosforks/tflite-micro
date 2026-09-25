@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {}  // namespace
 
@@ -90,9 +90,10 @@ TfLiteStatus MicroResourceVariables::Allocate(int id, TfLiteContext* context,
   MicroResourceVariable& variable = resource_variables_[id];
 
   if (variable.resource_buffer == nullptr) {
-    variable.bytes = tensor->bytes;
+    size_t size = tflite_micro::EvalTensorBytes((const TfLiteEvalTensor *)tensor);
+    variable.bytes = size;
     variable.resource_buffer =
-        context->AllocatePersistentBuffer(context, tensor->bytes);
+        context->AllocatePersistentBuffer(context, size);
     if (variable.resource_buffer == nullptr) {
       MicroPrintf("Failed to allocate resource buffer.");
       return kTfLiteError;
@@ -155,4 +156,4 @@ int MicroResourceVariables::FindId(const char* container,
   return -1;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

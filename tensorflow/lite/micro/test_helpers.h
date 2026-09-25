@@ -30,11 +30,11 @@ limitations under the License.
 #include "tensorflow/lite/portable_type_to_tflitetype.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 constexpr int kOfflinePlannerHeaderSize = 3;
-using TestingOpResolver = tflite::MicroMutableOpResolver<10>;
+using TestingOpResolver = tflite_micro::MicroMutableOpResolver<10>;
 
 struct NodeConnection_ {
   std::initializer_list<int32_t> input;
@@ -224,7 +224,7 @@ TfLiteTensor CreateTensor(const T* data, TfLiteIntArray* dims,
 
   if (type == kTfLiteInt4) {
     result.type = kTfLiteInt4;
-    PackInt4ValuesDenselyInPlace(tflite::GetTensorData<uint8_t>(&result),
+    PackInt4ValuesDenselyInPlace(tflite_micro::GetTensorData<uint8_t>(&result),
                                  ElementCount(*dims));
     result.bytes = ((ElementCount(*dims) + 1) / 2);
   } else {
@@ -254,7 +254,7 @@ TfLiteTensor CreateQuantizedTensor(const float* input, T* quantized,
                                    int zero_point, bool is_variable = false,
                                    TfLiteType type = kTfLiteNoType) {
   int input_size = ElementCount(*dims);
-  tflite::Quantize(input, quantized, input_size, scale, zero_point);
+  tflite_micro::Quantize(input, quantized, input_size, scale, zero_point);
   return CreateQuantizedTensor(quantized, dims, scale, zero_point, is_variable,
                                type);
 }
@@ -297,7 +297,7 @@ TfLiteTensor CreateSymmetricPerChannelQuantizedTensor(
     int quantized_dimension, bool is_variable = false,
     TfLiteType tensor_weight_type = kTfLiteNoType);
 
-// Returns the number of tensors in the default subgraph for a tflite::Model.
+// Returns the number of tensors in the default subgraph for a tflite_micro::Model.
 size_t GetModelTensorCount(const Model* model);
 
 // Derives the asymmetric quantization scaling factor from a min and max range.
@@ -329,6 +329,6 @@ inline int ZeroPointFromMinMax(const float min, const float max) {
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_TEST_HELPERS_H_

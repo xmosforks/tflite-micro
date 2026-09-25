@@ -36,7 +36,7 @@ limitations under the License.
 constexpr size_t kTensorArenaSize = ${arena_size};
 uint8_t tensor_arena[kTensorArenaSize];
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 namespace {
 
@@ -48,7 +48,7 @@ void RunModel(const uint8_t* model,
               const char* name) {
   InitializeTarget();
   MicroProfiler profiler;
-  tflite::MicroMutableOpResolver<kNumberOperators> op_resolver = get_resolver();
+  tflite_micro::MicroMutableOpResolver<kNumberOperators> op_resolver = get_resolver();
 
   MicroInterpreter interpreter(GetModel(model), op_resolver, tensor_arena,
                                kTensorArenaSize,
@@ -74,7 +74,7 @@ void RunModel(const uint8_t* model,
   TfLiteTensor* output_tensor = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(output_tensor->bytes,
                           golden_size * sizeof(int8_t));
-  int8_t* output = ::tflite::GetTensorData<int8_t>(output_tensor);
+  int8_t* output = ::tflite_micro::GetTensorData<int8_t>(output_tensor);
   for (uint32_t i = 0; i < golden_size; i++) {
     // TODO(b/205046520): Better understand why TfLite and TFLM can sometimes be
     // off by 1.
@@ -85,13 +85,13 @@ void RunModel(const uint8_t* model,
 
 }  // namespace
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(gen_micro_mutable_from_${target}_test) {
 #if VERIFY_OUTPUT
-tflite::micro::RunModel(
+tflite_micro::micro::RunModel(
 g_${target}_model_data,
 g_${target}_input0_${input_dtype}_test_data,
 g_${target}_input0_${input_dtype}_test_data_size,
@@ -99,7 +99,7 @@ g_${target}_golden_${output_dtype}_test_data,
 g_${target}_golden_${output_dtype}_test_data_size,
 "${target} test");
 #else
-tflite::micro::RunModel(
+tflite_micro::micro::RunModel(
 g_${target}_model_data,
 nullptr,
 0,

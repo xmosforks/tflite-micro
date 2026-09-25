@@ -27,7 +27,7 @@ limitations under the License.
 #define __restrict__ __restrict
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 
 // Not all backends support CpuBackendContext usage, so forward declare to avoid
 // pulling in its implementation. Use of CpuBackendContext in method
@@ -87,6 +87,6 @@ void UnpackDenseInt4IntoInt8(const int8_t* src_buffer, int num_elements,
 }
 
 }  // namespace tensor_utils
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_TENSOR_UTILS_H_

@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -110,17 +110,17 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* axis_tensor =
-      tflite::micro::GetEvalInput(context, node, kAxisTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kAxisTensor);
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   auto* cs_params = static_cast<TfLiteCumsumParams*>(node->builtin_data);
-  auto input_shape = tflite::micro::GetTensorShape(input);
+  auto input_shape = tflite_micro::micro::GetTensorShape(input);
 
-  int32_t axis = *tflite::micro::GetTensorData<int32_t>(axis_tensor);
+  int32_t axis = *tflite_micro::micro::GetTensorData<int32_t>(axis_tensor);
   if (axis < 0) axis += input_shape.DimensionsCount();
 
   if (axis < 0 || axis >= input_shape.DimensionsCount()) {
@@ -130,10 +130,10 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      reference_ops::CumSum(tflite::micro::GetTensorData<float>(input),
+      reference_ops::CumSum(tflite_micro::micro::GetTensorData<float>(input),
                             input_shape, axis, cs_params->exclusive,
                             cs_params->reverse,
-                            tflite::micro::GetTensorData<float>(output));
+                            tflite_micro::micro::GetTensorData<float>(output));
       return kTfLiteOk;
     } break;
 
@@ -149,16 +149,16 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       params.output_shift = data->output_shift;
       SetActivationParams(data->output_activation_min,
                           data->output_activation_max, &params);
-      reference_ops::CumSum(params, tflite::micro::GetTensorData<int8_t>(input),
+      reference_ops::CumSum(params, tflite_micro::micro::GetTensorData<int8_t>(input),
                             input_shape, axis, cs_params->exclusive,
                             cs_params->reverse,
-                            tflite::micro::GetTensorData<int8_t>(output));
+                            tflite_micro::micro::GetTensorData<int8_t>(output));
       return kTfLiteOk;
     } break;
 
     default: {
       MicroPrintf("CUMSUM only supports FLOAT32 and INT8, got %s.",
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
     }
   }
@@ -169,7 +169,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_CUMSUM() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 // Input/output tensor index.
@@ -78,8 +78,8 @@ TfLiteStatus L2Prepare(TfLiteContext* context, TfLiteNode* node) {
   // is a temporary allocation.  We must therefore relocate the dims
   // from the FlatBuffer to the persistent storage arena.
   TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                  context, output, output_eval));
   output->dims->data[kBatchRank] = batches;
   output->dims->data[kHeightRank] = out_height;
@@ -93,27 +93,27 @@ TfLiteStatus L2Prepare(TfLiteContext* context, TfLiteNode* node) {
 }
 
 void L2EvalFloat(const TfLitePoolParams& params, const TfLiteEvalTensor& input,
-                 tflite::PoolParams* op_params, TfLiteEvalTensor* output) {
+                 tflite_micro::PoolParams* op_params, TfLiteEvalTensor* output) {
   float activation_min, activation_max;
   CalculateActivationRange(params.activation, &activation_min, &activation_max);
 
   op_params->float_activation_min = activation_min;
   op_params->float_activation_max = activation_max;
-  reference_ops::L2Pool(*op_params, tflite::micro::GetTensorShape(&input),
-                        tflite::micro::GetTensorData<float>(&input),
-                        tflite::micro::GetTensorShape(output),
-                        tflite::micro::GetTensorData<float>(output));
+  reference_ops::L2Pool(*op_params, tflite_micro::micro::GetTensorShape(&input),
+                        tflite_micro::micro::GetTensorData<float>(&input),
+                        tflite_micro::micro::GetTensorShape(output),
+                        tflite_micro::micro::GetTensorData<float>(output));
 }
 
 TfLiteStatus L2Eval(TfLiteContext* context, TfLiteNode* node) {
   auto* params = static_cast<const TfLitePoolParams*>(node->builtin_data);
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
 
-  tflite::PoolParams op_params;
+  tflite_micro::PoolParams op_params;
   op_params.stride_height = params->stride_height;
   op_params.stride_width = params->stride_width;
   op_params.filter_height = params->filter_height;
@@ -127,7 +127,7 @@ TfLiteStatus L2Eval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("L2_POOL_2D only supports float32 currently, got %s.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
   return kTfLiteOk;
@@ -136,7 +136,7 @@ TfLiteStatus L2Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_L2_POOL_2D() {
-  return tflite::micro::RegisterOp(nullptr, L2Prepare, L2Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, L2Prepare, L2Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

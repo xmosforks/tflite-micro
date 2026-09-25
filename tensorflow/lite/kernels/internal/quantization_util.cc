@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 #include "tensorflow/lite/kernels/internal/cppmath.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 // These constants are used to manipulate the binary representation of doubles.
@@ -314,8 +314,13 @@ void PreprocessSoftmaxScaling(double beta, double input_scale,
                        max_real_multiplier);
 #endif  // TFLITE_EMULATE_FLOAT
 
-  QuantizeMultiplierGreaterThanOne(input_beta_real_multiplier,
-                                   quantized_multiplier, left_shift);
+  if(input_beta_real_multiplier > 1.) {
+    QuantizeMultiplierGreaterThanOne(input_beta_real_multiplier,
+                                    quantized_multiplier, left_shift);
+  } else {
+    QuantizeMultiplierSmallerThanOneExp(input_beta_real_multiplier,
+                                    quantized_multiplier, left_shift);
+  }
 }
 
 void PreprocessLogSoftmaxScalingExp(double beta, double input_scale,
@@ -330,7 +335,7 @@ void PreprocessLogSoftmaxScalingExp(double beta, double input_scale,
   // Also calculate what amounts to the inverse scaling factor for the input.
   const double real_reverse_scaling_divisor =
       (1 << (31 - *left_shift)) / static_cast<double>(*quantized_multiplier);
-  tflite::QuantizeMultiplierSmallerThanOneExp(real_reverse_scaling_divisor,
+  tflite_micro::QuantizeMultiplierSmallerThanOneExp(real_reverse_scaling_divisor,
                                               reverse_scaling_divisor,
                                               reverse_scaling_left_shift);
 }
@@ -413,4 +418,4 @@ void QuantizeMultiplierArray(const double* effective_scales, size_t size,
   }
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

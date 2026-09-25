@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus PrepareQuantizeReference(TfLiteContext* context,
                                       TfLiteNode* node) {
@@ -93,29 +93,29 @@ TfLiteStatus EvalQuantizeReference(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->user_data != nullptr);
   auto* data = static_cast<OpDataQuantizeReference*>(node->user_data);
 
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   if (input->type == kTfLiteFloat32) {
     switch (output->type) {
       case kTfLiteInt8:
         reference_ops::AffineQuantize(
-            data->quantization_params, tflite::micro::GetTensorShape(input),
-            tflite::micro::GetTensorData<float>(input),
-            tflite::micro::GetTensorShape(output),
-            tflite::micro::GetTensorData<int8_t>(output));
+            data->quantization_params, tflite_micro::micro::GetTensorShape(input),
+            tflite_micro::micro::GetTensorData<float>(input),
+            tflite_micro::micro::GetTensorShape(output),
+            tflite_micro::micro::GetTensorData<int8_t>(output));
         break;
       case kTfLiteInt16:
         reference_ops::AffineQuantize(
-            data->quantization_params, tflite::micro::GetTensorShape(input),
-            tflite::micro::GetTensorData<float>(input),
-            tflite::micro::GetTensorShape(output),
-            tflite::micro::GetTensorData<int16_t>(output));
+            data->quantization_params, tflite_micro::micro::GetTensorShape(input),
+            tflite_micro::micro::GetTensorData<float>(input),
+            tflite_micro::micro::GetTensorShape(output),
+            tflite_micro::micro::GetTensorData<int16_t>(output));
         return kTfLiteOk;
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteInt32) {
@@ -123,22 +123,22 @@ TfLiteStatus EvalQuantizeReference(TfLiteContext* context, TfLiteNode* node) {
     switch (output->type) {
       case kTfLiteInt8:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int32_t>(input), size,
+            tflite_micro::micro::GetTensorData<int32_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int8_t>(output));
+            tflite_micro::micro::GetTensorData<int8_t>(output));
         break;
       case kTfLiteInt16:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int32_t>(input), size,
+            tflite_micro::micro::GetTensorData<int32_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int16_t>(output));
+            tflite_micro::micro::GetTensorData<int16_t>(output));
         break;
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteInt16) {
@@ -146,29 +146,29 @@ TfLiteStatus EvalQuantizeReference(TfLiteContext* context, TfLiteNode* node) {
     switch (output->type) {
       case kTfLiteInt8:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int16_t>(input), size,
+            tflite_micro::micro::GetTensorData<int16_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int8_t>(output));
+            tflite_micro::micro::GetTensorData<int8_t>(output));
         break;
       case kTfLiteInt16:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int16_t>(input), size,
+            tflite_micro::micro::GetTensorData<int16_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int16_t>(output));
+            tflite_micro::micro::GetTensorData<int16_t>(output));
         return kTfLiteOk;
       case kTfLiteInt32:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int16_t>(input), size,
+            tflite_micro::micro::GetTensorData<int16_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int32_t>(output));
+            tflite_micro::micro::GetTensorData<int32_t>(output));
         return kTfLiteOk;
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteInt8) {
@@ -178,36 +178,36 @@ TfLiteStatus EvalQuantizeReference(TfLiteContext* context, TfLiteNode* node) {
     switch (output->type) {
       case kTfLiteInt8:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int8_t>(input), size,
+            tflite_micro::micro::GetTensorData<int8_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int8_t>(output));
+            tflite_micro::micro::GetTensorData<int8_t>(output));
         break;
       case kTfLiteUInt8:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int8_t>(input), size,
+            tflite_micro::micro::GetTensorData<int8_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<uint8_t>(output));
+            tflite_micro::micro::GetTensorData<uint8_t>(output));
         break;
       case kTfLiteInt16:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int8_t>(input), size,
+            tflite_micro::micro::GetTensorData<int8_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int16_t>(output));
+            tflite_micro::micro::GetTensorData<int16_t>(output));
         break;
       case kTfLiteInt32:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<int8_t>(input), size,
+            tflite_micro::micro::GetTensorData<int8_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int32_t>(output));
+            tflite_micro::micro::GetTensorData<int32_t>(output));
         break;
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else if (input->type == kTfLiteUInt8) {
@@ -215,25 +215,25 @@ TfLiteStatus EvalQuantizeReference(TfLiteContext* context, TfLiteNode* node) {
     switch (output->type) {
       case kTfLiteInt8:
         reference_ops::Requantize(
-            tflite::micro::GetTensorData<uint8_t>(input), size,
+            tflite_micro::micro::GetTensorData<uint8_t>(input), size,
             data->requantize_output_multiplier, data->requantize_output_shift,
             data->input_zero_point, data->quantization_params.zero_point,
-            tflite::micro::GetTensorData<int8_t>(output));
+            tflite_micro::micro::GetTensorData<int8_t>(output));
         break;
       default:
         MicroPrintf("Input %s, output %s not supported.",
-                    TfLiteTypeGetName(input->type),
-                    TfLiteTypeGetName(output->type));
+                    TfLiteMicroTypeGetName(input->type),
+                    TfLiteMicroTypeGetName(output->type));
         return kTfLiteError;
     }
   } else {
     MicroPrintf("Input %s, output %s not supported.",
-                TfLiteTypeGetName(input->type),
-                TfLiteTypeGetName(output->type));
+                TfLiteMicroTypeGetName(input->type),
+                TfLiteMicroTypeGetName(output->type));
     return kTfLiteError;
   }
 
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

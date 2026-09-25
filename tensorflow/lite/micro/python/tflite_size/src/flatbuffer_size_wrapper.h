@@ -19,7 +19,7 @@ limitations under the License.
 
 #include <string>
 
-namespace tflite {
+namespace tflite_micro {
 
 class FlatbufferSizeWrapper {
  public:
@@ -29,5 +29,5 @@ class FlatbufferSizeWrapper {
   std::string ConvertToJsonString(const char* in_flatbuffer);
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_MICRO_PYTHON_TFLITE_SIZE_SRC_FLATBUFFERS_SIZE_WRAPPER_H_

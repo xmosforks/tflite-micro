@@ -19,7 +19,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/compatibility.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 template <int N>
 struct Dims {
@@ -163,6 +163,6 @@ inline int Offset(const RuntimeShape& shape, int i0, int i1, int i2, int i3,
          i4;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_RUNTIME_SHAPE_H_

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 void* SoftmaxInit(TfLiteContext* context, const char* buffer, size_t length);
 
@@ -62,6 +62,6 @@ inline TFLMRegistration Register_SOFTMAX_INT8() { return Register_SOFTMAX(); }
 inline TFLMRegistration Register_SOFTMAX_INT16() { return Register_SOFTMAX(); }
 #endif
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_SOFTMAX_H_

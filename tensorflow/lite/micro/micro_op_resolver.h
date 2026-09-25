@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/tflite_bridge/flatbuffer_conversions_bridge.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // This is an interface for the OpResolver for TFLiteMicro. The differences from
 // the TFLite OpResolver base class are to:
@@ -57,6 +57,6 @@ TfLiteStatus GetRegistrationFromOpCode(const OperatorCode* opcode,
                                        const MicroOpResolver& op_resolver,
                                        const TFLMRegistration** registration);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_OP_RESOLVER_H_

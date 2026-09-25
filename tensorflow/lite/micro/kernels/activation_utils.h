@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/max.h"
 #include "tensorflow/lite/kernels/internal/min.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -52,6 +52,6 @@ inline float ActivationValFloat(TfLiteFusedActivation act, float a) {
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_ACTIVATION_UTILS_H_

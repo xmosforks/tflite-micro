@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/reference/tanh.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 LstmTensors::LstmTensors(TfLiteContext* context, TfLiteNode* node) {
   micro_context_ = GetMicroContext(context);
@@ -59,13 +59,13 @@ TfLiteStatus LstmTensors::ValidateTensorStatus(TfLiteContext* context) const {
   // hidden state
   TF_LITE_ENSURE(context, internal_tensors_[kLstmOutputStateTensor] != nullptr);
   TF_LITE_ENSURE(context,
-                 internal_tensors_[kLstmOutputStateTensor]->is_variable);
+                 context->IsVariableTensor(context, internal_tensors_[kLstmOutputStateTensor]));
   // hidden state becomes input so they must have the same type
   TF_LITE_ENSURE_EQ(context, internal_tensors_[kLstmOutputStateTensor]->type,
                     internal_tensors_[kLstmInputTensor]->type);
   // cell state
   TF_LITE_ENSURE(context, internal_tensors_[kLstmCellStateTensor] != nullptr);
-  TF_LITE_ENSURE(context, internal_tensors_[kLstmCellStateTensor]->is_variable);
+  TF_LITE_ENSURE(context, context->IsVariableTensor(context, internal_tensors_[kLstmCellStateTensor]));
   // output
   TF_LITE_ENSURE(context, output_tensor_ != nullptr);
   // output type is the same as the input type (activations)
@@ -133,8 +133,8 @@ void Sigmoid(const RuntimeShape& data_shape, int16_t* data) {
   reference_integer_ops::Logistic(
       0 /*data->input_multiplier*/, 0 /*data->input_left_shift */,
       data_shape.FlatSize() /*NumElements(input->dims)*/,
-      data /* tflite::micro::GetTensorData<int16_t>(input) */,
-      data /*tflite::micro::GetTensorData<int16_t>(output) */);
+      data /* tflite_micro::micro::GetTensorData<int16_t>(input) */,
+      data /*tflite_micro::micro::GetTensorData<int16_t>(output) */);
 }
 
 void Sigmoid(const RuntimeShape& data_shape, float* data) {
@@ -192,7 +192,7 @@ void FullyConnected(const FullyConnectedParams& params,
                     const RuntimeShape& filter_shape, const int8_t* filter_data,
                     const RuntimeShape& bias_shape, const int32_t* bias_data,
                     const RuntimeShape& output_shape, int16_t* output_data) {
-  return tflite::reference_integer_ops::FullyConnected(
+  return tflite_micro::reference_integer_ops::FullyConnected(
       params, input_shape, input_data, filter_shape, filter_data, bias_shape,
       bias_data, output_shape, output_data);
 }
@@ -202,7 +202,7 @@ void FullyConnected(const FullyConnectedParams& params,
                     const RuntimeShape& filter_shape, const int8_t* filter_data,
                     const RuntimeShape& bias_shape, const int64_t* bias_data,
                     const RuntimeShape& output_shape, int16_t* output_data) {
-  return tflite::reference_integer_ops::FullyConnected(
+  return tflite_micro::reference_integer_ops::FullyConnected(
       params, input_shape, input_data, filter_shape, filter_data, bias_shape,
       bias_data, output_shape, output_data);
 }
@@ -212,7 +212,7 @@ void FullyConnected(const FullyConnectedParams& params,
                     const RuntimeShape& filter_shape, const float* filter_data,
                     const RuntimeShape& bias_shape, const float* bias_data,
                     const RuntimeShape& output_shape, float* output_data) {
-  return tflite::reference_ops::FullyConnected(
+  return tflite_micro::reference_ops::FullyConnected(
       params, input_shape, input_data, filter_shape, filter_data, bias_shape,
       bias_data, output_shape, output_data);
 }
@@ -292,4 +292,4 @@ RuntimeShape LstmStepManager::StateShape() const {
 }
 
 }  // namespace lstm_internal
-}  // namespace tflite
+}  // namespace tflite_micro

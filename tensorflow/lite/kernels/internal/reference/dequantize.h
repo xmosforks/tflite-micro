@@ -22,13 +22,13 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
 // Dequantizes into a float without rounding.
 template <typename InputT, typename OutputT>
-inline void Dequantize(const tflite::DequantizationParams& op_params,
+inline void Dequantize(const tflite_micro::DequantizationParams& op_params,
                        const RuntimeShape& input_shape,
                        const InputT* input_data,
                        const RuntimeShape& output_shape, OutputT* output_data) {
@@ -46,7 +46,7 @@ inline void Dequantize(const tflite::DequantizationParams& op_params,
 // Dequantizes per-channel quantized tensor to float.
 template <typename T>
 inline void PerChannelDequantize(
-    const tflite::PerChannelDequantizationParams& op_params,
+    const tflite_micro::PerChannelDequantizationParams& op_params,
     const RuntimeShape& input_shape, const T* input_data,
     const RuntimeShape& output_shape, float* output_data) {
   // Ensure flat size is same.
@@ -74,5 +74,5 @@ inline void PerChannelDequantize(
 
 }  // namespace reference_ops
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_DEQUANTIZE_H_

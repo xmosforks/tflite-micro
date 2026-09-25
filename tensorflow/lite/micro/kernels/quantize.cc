@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -34,8 +34,8 @@ void* Init(TfLiteContext* context, const char* buffer, size_t length) {
 }  // namespace
 
 TFLMRegistration Register_QUANTIZE() {
-  return tflite::micro::RegisterOp(Init, PrepareQuantizeReference,
+  return tflite_micro::micro::RegisterOp(Init, PrepareQuantizeReference,
                                    EvalQuantizeReference);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

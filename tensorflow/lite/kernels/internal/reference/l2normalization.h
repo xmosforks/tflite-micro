@@ -22,11 +22,11 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace reference_ops {
 
-inline void L2Normalization(const tflite::L2NormalizationParams& op_params,
+inline void L2Normalization(const tflite_micro::L2NormalizationParams& op_params,
                             const RuntimeShape& input_shape,
                             const float* input_data,
                             const RuntimeShape& output_shape,
@@ -50,7 +50,7 @@ inline void L2Normalization(const tflite::L2NormalizationParams& op_params,
   }
 }
 
-inline void L2Normalization(const tflite::L2NormalizationParams& op_params,
+inline void L2Normalization(const tflite_micro::L2NormalizationParams& op_params,
                             const RuntimeShape& input_shape,
                             const uint8_t* input_data,
                             const RuntimeShape& output_shape,
@@ -86,5 +86,5 @@ inline void L2Normalization(const tflite::L2NormalizationParams& op_params,
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_L2NORMALIZATION_H_

@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -104,15 +104,15 @@ TfLiteStatus TestSpaceToBatchNdQuantized(
   constexpr int outputs_size = 1;
   constexpr int tensors_size = inputs_size + outputs_size;
   TfLiteTensor tensors[tensors_size] = {
-      tflite::testing::CreateQuantizedTensor(input_data, input_quantized,
+      tflite_micro::testing::CreateQuantizedTensor(input_data, input_quantized,
                                              input_dims, input_scale,
                                              input_zero_point),
-      tflite::testing::CreateTensor(block_shape_data, block_shape_dims),
-      tflite::testing::CreateTensor(crops_data, crops_dims),
-      tflite::testing::CreateQuantizedTensor(output_data, output_dims,
+      tflite_micro::testing::CreateTensor(block_shape_data, block_shape_dims),
+      tflite_micro::testing::CreateTensor(crops_data, crops_dims),
+      tflite_micro::testing::CreateQuantizedTensor(output_data, output_dims,
                                              output_scale, output_zero_point),
   };
-  tflite::Quantize(golden, golden_quantized, ElementCount(*output_dims),
+  tflite_micro::Quantize(golden, golden_quantized, ElementCount(*output_dims),
                    output_scale, output_zero_point);
 
   return ValidateSpaceToBatchNdGoldens(tensors, tensors_size, golden_quantized,
@@ -121,34 +121,34 @@ TfLiteStatus TestSpaceToBatchNdQuantized(
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(SpaceToBatchBasicFloat) {
-  float output[tflite::testing::kBasicInputOutputSize];
+  float output[tflite_micro::testing::kBasicInputOutputSize];
   TF_LITE_MICRO_EXPECT_EQ(
       kTfLiteOk,
-      tflite::testing::TestSpaceToBatchNdFloat(
-          tflite::testing::basic_input_dims, tflite::testing::basic_input,
-          tflite::testing::basic_block_shape_dims,
-          tflite::testing::basic_block_shape, tflite::testing::basic_crops_dims,
-          tflite::testing::basic_crops, tflite::testing::basic_output_dims,
-          tflite::testing::basic_golden, output));
+      tflite_micro::testing::TestSpaceToBatchNdFloat(
+          tflite_micro::testing::basic_input_dims, tflite_micro::testing::basic_input,
+          tflite_micro::testing::basic_block_shape_dims,
+          tflite_micro::testing::basic_block_shape, tflite_micro::testing::basic_crops_dims,
+          tflite_micro::testing::basic_crops, tflite_micro::testing::basic_output_dims,
+          tflite_micro::testing::basic_golden, output));
 }
 
 TF_LITE_MICRO_TEST(SpaceToBatchBasicInt8) {
-  int8_t output[tflite::testing::kBasicInputOutputSize];
-  int8_t input_quantized[tflite::testing::kBasicInputOutputSize];
-  int8_t golden_quantized[tflite::testing::kBasicInputOutputSize];
+  int8_t output[tflite_micro::testing::kBasicInputOutputSize];
+  int8_t input_quantized[tflite_micro::testing::kBasicInputOutputSize];
+  int8_t golden_quantized[tflite_micro::testing::kBasicInputOutputSize];
   TF_LITE_MICRO_EXPECT_EQ(
       kTfLiteOk,
-      tflite::testing::TestSpaceToBatchNdQuantized(
-          tflite::testing::basic_input_dims, tflite::testing::basic_input,
-          input_quantized, 1.0f, 0, tflite::testing::basic_block_shape_dims,
-          tflite::testing::basic_block_shape, tflite::testing::basic_crops_dims,
-          tflite::testing::basic_crops, tflite::testing::basic_output_dims,
-          tflite::testing::basic_golden, golden_quantized, 1.0f, 0, output));
+      tflite_micro::testing::TestSpaceToBatchNdQuantized(
+          tflite_micro::testing::basic_input_dims, tflite_micro::testing::basic_input,
+          input_quantized, 1.0f, 0, tflite_micro::testing::basic_block_shape_dims,
+          tflite_micro::testing::basic_block_shape, tflite_micro::testing::basic_crops_dims,
+          tflite_micro::testing::basic_crops, tflite_micro::testing::basic_output_dims,
+          tflite_micro::testing::basic_golden, golden_quantized, 1.0f, 0, output));
 }
 
 TF_LITE_MICRO_TESTS_END

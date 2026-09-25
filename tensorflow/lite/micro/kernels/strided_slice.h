@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/micro_common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 constexpr int kStridedSliceInputTensor = 0;
 constexpr int kStridedSliceBeginTensor = 1;
@@ -35,6 +35,6 @@ void* StridedSliceInit(TfLiteContext* context, const char* buffer,
 
 TfLiteStatus StridedSlicePrepare(TfLiteContext* context, TfLiteNode* node);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_STRIDED_SLICE_H_

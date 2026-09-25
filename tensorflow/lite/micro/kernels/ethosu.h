@@ -17,12 +17,12 @@ limitations under the License.
 
 #include "tensorflow/lite/c/common.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TFLMRegistration* Register_ETHOSU();
 
 const char* GetString_ETHOSU();
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_ETHOSU_H_

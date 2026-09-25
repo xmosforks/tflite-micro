@@ -25,7 +25,7 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestGetPersistentUsedBytes) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::PersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::PersistentArenaBufferAllocator allocator(arena, arena_size);
 
   const size_t size1 = 10;
   allocator.AllocatePersistentBuffer(size1, 1);
@@ -41,7 +41,7 @@ TF_LITE_MICRO_TEST(TestGetPersistentUsedBytes) {
 TF_LITE_MICRO_TEST(TestAllocatePersistBufferShallFailIfExceedLimit) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::PersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::PersistentArenaBufferAllocator allocator(arena, arena_size);
 
   const size_t size1 = 10;
   uint8_t* persist1 = allocator.AllocatePersistentBuffer(size1, 1);
@@ -57,7 +57,7 @@ TF_LITE_MICRO_TEST(TestAllocatePersistBufferShallFailIfExceedLimit) {
 TF_LITE_MICRO_TEST(TestAllocatePersistBufferShallPassIfWithinLimit) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::PersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::PersistentArenaBufferAllocator allocator(arena, arena_size);
 
   const size_t size1 = 10;
   uint8_t* persist1 = allocator.AllocatePersistentBuffer(size1, 1);
@@ -74,7 +74,7 @@ TF_LITE_MICRO_TEST(TestAllocatePersistBufferShallPassIfWithinLimit) {
 TF_LITE_MICRO_TEST(TestAllocatePersistBufferAligns) {
   constexpr size_t arena_size = 1024;
   uint8_t arena[arena_size];
-  tflite::PersistentArenaBufferAllocator allocator(arena, arena_size);
+  tflite_micro::PersistentArenaBufferAllocator allocator(arena, arena_size);
 
   const size_t size1 = 10;
   const size_t alignment = 16;

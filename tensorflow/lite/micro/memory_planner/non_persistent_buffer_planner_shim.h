@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_planner/memory_plan_struct.h"
 #include "tensorflow/lite/micro/memory_planner/micro_memory_planner.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 /*   This is an experimental feature and subjected to change.
  *
@@ -128,6 +128,6 @@ class NonPersistentMemoryPlannerShim : public MicroMemoryPlanner {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MEMORY_PLANNER_NON_PERSISTENT_MEMORY_PLANNER_SHIM_H__

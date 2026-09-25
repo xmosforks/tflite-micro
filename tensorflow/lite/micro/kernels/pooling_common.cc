@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/pooling.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 const int kPoolingInputTensor = 0;
 const int kPoolingOutputTensor = 0;
@@ -74,7 +74,7 @@ TfLiteStatus PoolingPrepare(TfLiteContext* context, TfLiteNode* node) {
                                       &data->activation_min,
                                       &data->activation_max);
   } else {
-    MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+    MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                 input->type);
     return kTfLiteError;
   }
@@ -100,17 +100,17 @@ void AveragePoolingEvalFloat(const TfLiteContext* context,
   op_params.padding_values.width = data->padding.width;
   op_params.float_activation_min = data->activation_min_f32;
   op_params.float_activation_max = data->activation_max_f32;
-  reference_ops::AveragePool(op_params, tflite::micro::GetTensorShape(input),
-                             tflite::micro::GetTensorData<float>(input),
-                             tflite::micro::GetTensorShape(output),
-                             tflite::micro::GetTensorData<float>(output));
+  reference_ops::AveragePool(op_params, tflite_micro::micro::GetTensorShape(input),
+                             tflite_micro::micro::GetTensorData<float>(input),
+                             tflite_micro::micro::GetTensorShape(output),
+                             tflite_micro::micro::GetTensorData<float>(output));
 }
 
 void MaxPoolingEvalFloat(TfLiteContext* context, TfLiteNode* node,
                          TfLitePoolParams* params, const OpDataPooling* data,
                          const TfLiteEvalTensor* input,
                          TfLiteEvalTensor* output) {
-  tflite::PoolParams op_params;
+  tflite_micro::PoolParams op_params;
   op_params.stride_height = params->stride_height;
   op_params.stride_width = params->stride_width;
   op_params.filter_height = params->filter_height;
@@ -119,10 +119,10 @@ void MaxPoolingEvalFloat(TfLiteContext* context, TfLiteNode* node,
   op_params.padding_values.width = data->padding.width;
   op_params.float_activation_min = data->activation_min_f32;
   op_params.float_activation_max = data->activation_max_f32;
-  reference_ops::MaxPool(op_params, tflite::micro::GetTensorShape(input),
-                         tflite::micro::GetTensorData<float>(input),
-                         tflite::micro::GetTensorShape(output),
-                         tflite::micro::GetTensorData<float>(output));
+  reference_ops::MaxPool(op_params, tflite_micro::micro::GetTensorShape(input),
+                         tflite_micro::micro::GetTensorData<float>(input),
+                         tflite_micro::micro::GetTensorShape(output),
+                         tflite_micro::micro::GetTensorData<float>(output));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

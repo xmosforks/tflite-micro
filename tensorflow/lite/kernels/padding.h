@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/core/c/builtin_op_data.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 inline int ComputePadding(int stride, int dilation_rate, int in_size,
                           int filter_size, int out_size) {
@@ -110,6 +110,6 @@ inline Padding3DValues ComputePadding3DValues(
   padding_values.width_offset = offset;
   return padding_values;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_PADDING_H_

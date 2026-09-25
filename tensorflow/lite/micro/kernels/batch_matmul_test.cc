@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -58,7 +58,7 @@ micro::KernelRunner* GetKernelRunnerInstance(
   static int kOutputArrayData[] = {kNumOutputs, kOutputTensorIndex};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  static const TFLMRegistration registration = tflite::Register_BATCH_MATMUL();
+  static const TFLMRegistration registration = tflite_micro::Register_BATCH_MATMUL();
 
   alignas(micro::KernelRunner) static char
       kernel_runner_buffer[sizeof(micro::KernelRunner)] = {};
@@ -190,14 +190,14 @@ void TestBatchMatMulQuantized(
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Ones) {
   constexpr int kLhsInputDims[] = {4, 3, 2, 1, 4};
   constexpr int kRhsInputDims[] = {4, 3, 1, 4, 1};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 24;
@@ -219,7 +219,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Ones) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -227,7 +227,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Ones) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Flatten) {
   constexpr int kLhsInputDims[] = {4, 3, 2, 2, 4};
   constexpr int kRhsInputDims[] = {4, 3, 1, 4, 1};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 48;
@@ -250,7 +250,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Flatten) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -258,7 +258,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Flatten) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Simple) {
   constexpr int kLhsInputDims[] = {3, 1, 2, 3};
   constexpr int kRhsInputDims[] = {3, 1, 3, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 6;
@@ -280,7 +280,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Simple) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -288,7 +288,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Simple) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_SimpleRHSAdjoint) {
   constexpr int kLhsInputDims[] = {3, 1, 2, 3};
   constexpr int kRhsInputDims[] = {3, 1, 4, 3};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 6;
@@ -308,7 +308,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_SimpleRHSAdjoint) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         kRhsInput, kOutputDims, kExpect,
                                         output_data);
 }
@@ -316,7 +316,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_SimpleRHSAdjoint) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_SimpleLHSAdjoint) {
   constexpr int kLhsInputDims[] = {3, 1, 3, 2};
   constexpr int kRhsInputDims[] = {3, 1, 3, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
   constexpr float kLhsInput[] = {1, 4, 2, 5, 3, 6};
 
@@ -335,7 +335,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_SimpleLHSAdjoint) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -343,7 +343,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_SimpleLHSAdjoint) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BatchSizeTwo) {
   constexpr int kLhsInputDims[] = {3, 2, 2, 3};
   constexpr int kRhsInputDims[] = {3, 2, 3, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
   constexpr size_t kLhsInputSize = 12;
   float lhs_input[kLhsInputSize];
@@ -365,7 +365,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BatchSizeTwo) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -373,7 +373,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BatchSizeTwo) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast) {
   constexpr int kLhsInputDims[] = {3, 2, 2, 3};
   constexpr int kRhsInputDims[] = {2, 3, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
   constexpr size_t kLhsInputSize = 12;
   float lhs_input[kLhsInputSize];
@@ -395,7 +395,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -403,7 +403,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BroadcastLHSAdjoint) {
   constexpr int kLhsInputDims[] = {3, 2, 3, 2};
   constexpr int kRhsInputDims[] = {2, 3, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr float kLhsInput[] = {1, 4, 2, 5, 3, 6, 7, 10, 8, 11, 9, 12};
@@ -424,7 +424,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BroadcastLHSAdjoint) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -432,7 +432,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BroadcastLHSAdjoint) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2) {
   constexpr int kLhsInputDims[] = {4, 2, 1, 3, 2};
   constexpr int kRhsInputDims[] = {3, 3, 2, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 12;
@@ -460,7 +460,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -468,7 +468,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2LHSAdjoint) {
   constexpr int kLhsInputDims[] = {4, 2, 1, 2, 3};
   constexpr int kRhsInputDims[] = {3, 3, 2, 4};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr float kLhsInput[] = {1, 3, 5, 2, 4, 6, 7, 9, 11, 8, 10, 12};
@@ -494,7 +494,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2LHSAdjoint) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -502,7 +502,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2LHSAdjoint) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2RHSAdjoint) {
   constexpr int kLhsInputDims[] = {4, 2, 1, 3, 2};
   constexpr int kRhsInputDims[] = {3, 3, 4, 2};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 12;
@@ -530,7 +530,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2RHSAdjoint) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         kRhsInput, kOutputDims, kExpect,
                                         output_data);
 }
@@ -538,7 +538,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2RHSAdjoint) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2BothAdjoint) {
   constexpr int kLhsInputDims[] = {4, 2, 1, 2, 3};
   constexpr int kRhsInputDims[] = {3, 3, 4, 2};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr float kLhsInput[] = {1, 3, 5, 2, 4, 6, 7, 9, 11, 8, 10, 12};
@@ -564,7 +564,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2BothAdjoint) {
       false  // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
                                         kRhsInput, kOutputDims, kExpect,
                                         output_data);
 }
@@ -572,7 +572,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_Broadcast2BothAdjoint) {
 TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BroadcastFromRHS) {
   constexpr int kLhsInputDims[] = {2, 4, 5};
   constexpr int kRhsInputDims[] = {4, 3, 1, 5, 2};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr size_t kLhsInputSize = 20;
@@ -597,7 +597,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BroadcastFromRHS) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, lhs_input,
                                         rhs_input, kOutputDims, kExpect,
                                         output_data);
 }
@@ -605,7 +605,7 @@ TF_LITE_MICRO_TEST(BatchMatMulOpTestFloat32Test_BroadcastFromRHS) {
 TF_LITE_MICRO_TEST(ConstRHSBatchMatMulOpModelRHSNotAdjoint) {
   constexpr int kLhsInputDims[] = {3, 1, 6, 2};
   constexpr int kRhsInputDims[] = {2, 2, 3};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr float kLhsInput[] = {6, 3, 7, 4, 6, 9, 2, 6, 7, 4, 3, 7};
@@ -624,11 +624,11 @@ TF_LITE_MICRO_TEST(ConstRHSBatchMatMulOpModelRHSNotAdjoint) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
                                         kRhsInput, kOutputDims, kExpect,
                                         output_data, true);
   // Eval twice to make sure constant transposed RHS is persistent.
-  tflite::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
+  tflite_micro::testing::TestBatchMatMulFloat(params, kInputDims, kLhsInput,
                                         kRhsInput, kOutputDims, kExpect,
                                         output_data, true, false);
 }
@@ -636,7 +636,7 @@ TF_LITE_MICRO_TEST(ConstRHSBatchMatMulOpModelRHSNotAdjoint) {
 TF_LITE_MICRO_TEST(QuantizedBatchMatMulOpTestSimpleTestQuantizedInt8) {
   constexpr int kLhsInputDims[] = {2, 2, 10};
   constexpr int kRhsInputDims[] = {2, 10, 3};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr float kLhsInput[] = {
@@ -662,26 +662,26 @@ TF_LITE_MICRO_TEST(QuantizedBatchMatMulOpTestSimpleTestQuantizedInt8) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestQuantizationParams<int8_t, kLhsInputCount>
+  tflite_micro::testing::TestQuantizationParams<int8_t, kLhsInputCount>
       quantization_params_lhs = {0.0f,    // scale
                                  0,       // zero_point
                                  -63.5f,  // data_min
                                  64.0f,   // data_max
                                  {}};
-  tflite::testing::TestQuantizationParams<int8_t, kRhsInputCount>
+  tflite_micro::testing::TestQuantizationParams<int8_t, kRhsInputCount>
       quantization_params_rhs = {0.0f,    // scale
                                  0,       // zero_point
                                  -63.5f,  // data_min
                                  64.0f,   // data_max
                                  {}};
-  tflite::testing::TestQuantizationParams<int8_t, kOutputCount>
+  tflite_micro::testing::TestQuantizationParams<int8_t, kOutputCount>
       quantization_params_output = {0.0f,     // scale
                                     0,        // zero_point
                                     -127.0f,  // data_min
                                     128.0f,   // data_max
                                     {}};
 
-  tflite::testing::TestBatchMatMulQuantized<int8_t>(
+  tflite_micro::testing::TestBatchMatMulQuantized<int8_t>(
       params, &quantization_params_lhs, &quantization_params_rhs,
       &quantization_params_output, kInputDims, kLhsInput, kRhsInput,
       kOutputDims, kExpect, output_data);
@@ -690,7 +690,7 @@ TF_LITE_MICRO_TEST(QuantizedBatchMatMulOpTestSimpleTestQuantizedInt8) {
 TF_LITE_MICRO_TEST(QuantizedBatchMatMulOpTestSimpleTestQuantizedInt16) {
   constexpr int kLhsInputDims[] = {2, 2, 10};
   constexpr int kRhsInputDims[] = {2, 10, 3};
-  const int* kInputDims[tflite::testing::kNumInputs] = {kLhsInputDims,
+  const int* kInputDims[tflite_micro::testing::kNumInputs] = {kLhsInputDims,
                                                         kRhsInputDims};
 
   constexpr float kLhsInput[] = {
@@ -716,18 +716,18 @@ TF_LITE_MICRO_TEST(QuantizedBatchMatMulOpTestSimpleTestQuantizedInt16) {
       false   // asymmetric_quantize_inputs
   };
 
-  tflite::testing::TestQuantizationParams<int16_t, kLhsInputCount>
+  tflite_micro::testing::TestQuantizationParams<int16_t, kLhsInputCount>
       quantization_params_lhs = {};
   quantization_params_lhs.scale = 10.0f / std::numeric_limits<int16_t>::max();
-  tflite::testing::TestQuantizationParams<int16_t, kRhsInputCount>
+  tflite_micro::testing::TestQuantizationParams<int16_t, kRhsInputCount>
       quantization_params_rhs = {};
   quantization_params_rhs.scale = 10.0f / std::numeric_limits<int16_t>::max();
 
-  tflite::testing::TestQuantizationParams<int16_t, kOutputCount>
+  tflite_micro::testing::TestQuantizationParams<int16_t, kOutputCount>
       quantization_params_output = {};
   quantization_params_output.scale = 1.0f;
 
-  tflite::testing::TestBatchMatMulQuantized<int16_t>(
+  tflite_micro::testing::TestBatchMatMulQuantized<int16_t>(
       params, &quantization_params_lhs, &quantization_params_rhs,
       &quantization_params_output, kInputDims, kLhsInput, kRhsInput,
       kOutputDims, kExpect, output_data);

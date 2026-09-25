@@ -35,7 +35,7 @@ limitations under the License.
 // tensorflow/core.
 #define TFLITE_SCHEMA_VERSION (3)
 
-namespace tflite {
+namespace tflite_micro {
 
 class MicroInterpreter {
  public:
@@ -146,6 +146,13 @@ class MicroInterpreter {
     return allocator_.preserves_all_tensor();
   }
 
+  size_t operators_size(int sg) const { return model_->subgraphs()->Get(sg)->operators()->size(); }
+
+  // For debugging only.
+  const NodeAndRegistration node_and_registration(int node_index, int sg)  {
+    return graph_.GetAllocations()[sg].node_and_registrations[node_index];
+  }
+
  protected:
   const MicroAllocator& allocator() const { return allocator_; }
   const TfLiteContext& context() const { return context_; }
@@ -177,6 +184,6 @@ class MicroInterpreter {
   MicroInterpreterContext micro_context_;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_INTERPRETER_H_

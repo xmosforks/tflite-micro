@@ -17,7 +17,7 @@ limitations under the License.
 #define TENSORFLOW_LITE_MICRO_KERNELS_ARC_MLI_SLICERS_H_
 
 #include "mli_api.h"  // NOLINT
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -52,5 +52,5 @@ class TensorSlicer {
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_ARC_MLI_SLICERS_H_

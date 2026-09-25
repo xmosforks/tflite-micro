@@ -21,10 +21,10 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_mutable_op_resolver.h"
 #include "tensorflow/lite/micro/micro_op_resolver.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 inline TfLiteStatus CreateOpResolver(
-    tflite::MicroMutableOpResolver<96>& op_resolver) {
+    tflite_micro::MicroMutableOpResolver<96>& op_resolver) {
   TF_LITE_ENSURE_STATUS(op_resolver.AddFullyConnected());
   TF_LITE_ENSURE_STATUS(op_resolver.AddAdd());
   TF_LITE_ENSURE_STATUS(op_resolver.AddAbs());
@@ -123,5 +123,5 @@ inline TfLiteStatus CreateOpResolver(
   TF_LITE_ENSURE_STATUS(op_resolver.AddMul());
   return kTfLiteOk;
 }
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TFLM_BENCHMARK_OP_RESOLVER_H_

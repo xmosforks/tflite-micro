@@ -21,7 +21,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/kernels/arc_mli/scratch_buffers.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -389,4 +389,4 @@ TfLiteStatus get_arc_scratch_buffer_for_pooling_tensors(
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro

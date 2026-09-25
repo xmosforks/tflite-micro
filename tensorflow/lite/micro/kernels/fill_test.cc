@@ -21,8 +21,8 @@ limitations under the License.
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
 namespace {
-using ::tflite::testing::CreateTensor;
-using ::tflite::testing::IntArrayFromInts;
+using ::tflite_micro::testing::CreateTensor;
+using ::tflite_micro::testing::IntArrayFromInts;
 
 // The layout of tensors is fixed.
 constexpr int kDimsIndex = 0;
@@ -33,7 +33,7 @@ constexpr int kOutputsTensor[] = {1, kOutputIndex};
 
 // This function is NOT thread safe.
 template <typename DimsType, typename ValueType, typename OutputType>
-tflite::micro::KernelRunner CreateFillTestRunner(
+tflite_micro::micro::KernelRunner CreateFillTestRunner(
     int* dims_shape, DimsType* dims_data, int* value_shape,
     ValueType* value_data, int* output_shape, OutputType* output_data) {
   // Some targets do not support dynamic memory (i.e., no malloc or new), thus,
@@ -51,8 +51,8 @@ tflite::micro::KernelRunner CreateFillTestRunner(
   TF_LITE_MICRO_EXPECT_EQ(tensors[kOutputIndex].type,
                           tensors[kValueIndex].type);
 
-  registration = tflite::Register_FILL();
-  tflite::micro::KernelRunner runner = tflite::micro::KernelRunner(
+  registration = tflite_micro::Register_FILL();
+  tflite_micro::micro::KernelRunner runner = tflite_micro::micro::KernelRunner(
       registration, tensors, sizeof(tensors) / sizeof(TfLiteTensor),
       IntArrayFromInts(const_cast<int*>(kInputsTensor)),
       IntArrayFromInts(const_cast<int*>(kOutputsTensor)),
@@ -64,7 +64,7 @@ template <typename DimsType, typename ValueType, typename OutputType>
 void TestFill(int* dims_shape, DimsType* dims_data, int* value_shape,
               ValueType* value_data, int* output_shape,
               OutputType* output_data) {
-  tflite::micro::KernelRunner runner =
+  tflite_micro::micro::KernelRunner runner =
       CreateFillTestRunner(dims_shape, dims_data, value_shape, value_data,
                            output_shape, output_data);
 
@@ -86,7 +86,7 @@ void TestFill(int* dims_shape, DimsType* dims_data, int* value_shape,
   }
 
   // The output elements contain the fill value.
-  const auto elements = tflite::ElementCount(*IntArrayFromInts(output_shape));
+  const auto elements = tflite_micro::ElementCount(*IntArrayFromInts(output_shape));
   for (int i = 0; i < elements; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(output_data[i], value_data[0]);
   }
@@ -226,7 +226,7 @@ TF_LITE_MICRO_TEST(FillInputDimsMismatchWithOutputShallFail) {
   int output_shape[] = {3, kDim1 + 1, kDim2, kDim3};
   int8_t output_data[(kDim1 + 1) * kDim2 * kDim3];
 
-  tflite::micro::KernelRunner runner =
+  tflite_micro::micro::KernelRunner runner =
       CreateFillTestRunner(dims_shape, dims_data, value_shape, value_data,
                            output_shape, output_data);
 

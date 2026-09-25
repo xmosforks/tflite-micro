@@ -17,11 +17,11 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 // We don't declare this in the header since it's not a public interface, but we
 // need to call it to test it, so declare it here instead.
 void ReverseSortInPlace(int* values, int* ids, int size);
-}  // namespace tflite
+}  // namespace tflite_micro
 
 namespace {
 constexpr int kScratchBufferSize = 4096;
@@ -36,7 +36,7 @@ TF_LITE_MICRO_TEST(TestReverseSortInPlace) {
   int a_ids[a_size] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
   const int a_expected_values[a_size] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
   const int a_expected_ids[a_size] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  tflite::ReverseSortInPlace(a_values, a_ids, a_size);
+  tflite_micro::ReverseSortInPlace(a_values, a_ids, a_size);
   for (int i = 0; i < a_size; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(a_expected_values[i], a_values[i]);
     TF_LITE_MICRO_EXPECT_EQ(a_expected_ids[i], a_ids[i]);
@@ -47,7 +47,7 @@ TF_LITE_MICRO_TEST(TestReverseSortInPlace) {
   int b_ids[b_size] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
   const int b_expected_values[b_size] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
   const int b_expected_ids[b_size] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-  tflite::ReverseSortInPlace(b_values, b_ids, b_size);
+  tflite_micro::ReverseSortInPlace(b_values, b_ids, b_size);
   for (int i = 0; i < b_size; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(b_expected_values[i], b_values[i]);
     TF_LITE_MICRO_EXPECT_EQ(b_expected_ids[i], b_ids[i]);
@@ -80,7 +80,7 @@ TF_LITE_MICRO_TEST(TestReverseSortInPlace) {
       14, 24, 34, 44, 54, 64, 74, 84, 94, 3,  13, 23, 33, 43, 53, 63, 73,
       83, 93, 2,  12, 22, 32, 42, 52, 62, 72, 82, 92, 1,  11, 21, 31, 41,
       51, 61, 71, 81, 91, 0,  10, 20, 30, 40, 50, 60, 70, 80, 90};
-  tflite::ReverseSortInPlace(c_values, c_ids, c_size);
+  tflite_micro::ReverseSortInPlace(c_values, c_ids, c_size);
   for (int i = 0; i < c_size; ++i) {
     TF_LITE_MICRO_EXPECT_EQ(c_expected_values[i], c_values[i]);
     TF_LITE_MICRO_EXPECT_EQ(c_expected_ids[i], c_ids[i]);
@@ -88,7 +88,7 @@ TF_LITE_MICRO_TEST(TestReverseSortInPlace) {
 }
 
 TF_LITE_MICRO_TEST(TestGreedyBasics) {
-  tflite::GreedyMemoryPlanner planner;
+  tflite_micro::GreedyMemoryPlanner planner;
   planner.Init(g_scratch_buffer, kScratchBufferSize);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(10, 0, 1));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(20, 2, 3));
@@ -107,7 +107,7 @@ TF_LITE_MICRO_TEST(TestGreedyBasics) {
 }
 
 TF_LITE_MICRO_TEST(TestGreedyMedium) {
-  tflite::GreedyMemoryPlanner planner;
+  tflite_micro::GreedyMemoryPlanner planner;
   planner.Init(g_scratch_buffer, kScratchBufferSize);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(10, 0, 1));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(20, 1, 2));
@@ -140,7 +140,7 @@ TF_LITE_MICRO_TEST(TestGreedyMedium) {
 }
 
 TF_LITE_MICRO_TEST(TestPersonDetectionModel) {
-  tflite::GreedyMemoryPlanner planner;
+  tflite_micro::GreedyMemoryPlanner planner;
   planner.Init(g_scratch_buffer, kScratchBufferSize);
   // These buffer sizes and time ranges are taken from the 250KB MobileNet model
   // used in the person detection example.
@@ -186,7 +186,7 @@ TF_LITE_MICRO_TEST(TestPersonDetectionModel) {
 }
 
 TF_LITE_MICRO_TEST(TestOverlapCase) {
-  tflite::GreedyMemoryPlanner planner;
+  tflite_micro::GreedyMemoryPlanner planner;
   planner.Init(g_scratch_buffer, kScratchBufferSize);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(100, 0, 1));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(50, 2, 3));
@@ -203,7 +203,7 @@ TF_LITE_MICRO_TEST(TestOverlapCase) {
 TF_LITE_MICRO_TEST(TestSmallScratch) {
   constexpr int scratch_buffer_size = 40;
   unsigned char scratch_buffer[scratch_buffer_size];
-  tflite::GreedyMemoryPlanner planner;
+  tflite_micro::GreedyMemoryPlanner planner;
   planner.Init(scratch_buffer, scratch_buffer_size);
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteOk, planner.AddBuffer(100, 0, 1));
   TF_LITE_MICRO_EXPECT_EQ(kTfLiteError, planner.AddBuffer(50, 2, 3));

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -29,7 +29,7 @@ template <typename T>
 TfLiteStatus PackImpl(TfLiteContext* context, TfLiteNode* node,
                       TfLiteEvalTensor* output, int values_count, int axis) {
   const TfLiteEvalTensor* input0 =
-      tflite::micro::GetEvalInput(context, node, 0);
+      tflite_micro::micro::GetEvalInput(context, node, 0);
 
   const int dimensions = output->dims->size;
   const TfLiteIntArray* input_dims = input0->dims;
@@ -53,11 +53,11 @@ TfLiteStatus PackImpl(TfLiteContext* context, TfLiteNode* node,
   }
   TFLITE_DCHECK_EQ(input_size, copy_size * outer_size);
 
-  T* output_data = tflite::micro::GetTensorData<T>(output);
+  T* output_data = tflite_micro::micro::GetTensorData<T>(output);
 
   for (int i = 0; i < values_count; ++i) {
-    const TfLiteEvalTensor* t = tflite::micro::GetEvalInput(context, node, i);
-    const T* input_data = tflite::micro::GetTensorData<T>(t);
+    const TfLiteEvalTensor* t = tflite_micro::micro::GetEvalInput(context, node, i);
+    const T* input_data = tflite_micro::micro::GetTensorData<T>(t);
     for (int k = 0; k < outer_size; ++k) {
       const T* input_ptr = input_data + copy_size * k;
       int loc = k * values_count * copy_size + i * copy_size;
@@ -74,7 +74,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
       reinterpret_cast<TfLitePackParams*>(node->builtin_data);
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   switch (output->type) {
     case kTfLiteFloat32: {
@@ -83,6 +83,10 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     }
     case kTfLiteInt8: {
       return PackImpl<int8_t>(context, node, output, data->values_count,
+                              data->axis);
+    }
+    case kTfLiteInt16: {
+      return PackImpl<int16_t>(context, node, output, data->values_count,
                               data->axis);
     }
     case kTfLiteInt32: {
@@ -95,7 +99,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
     }
     default: {
       MicroPrintf("Type '%s' is not supported by pack.",
-                  TfLiteTypeGetName(output->type));
+                  TfLiteMicroTypeGetName(output->type));
       return kTfLiteError;
     }
   }
@@ -106,7 +110,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_PACK() {
-  return tflite::micro::RegisterOp(nullptr, nullptr, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, nullptr, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

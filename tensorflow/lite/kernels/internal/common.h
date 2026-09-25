@@ -35,7 +35,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/optimized/neon_check.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 constexpr int kReverseShift = -1;
 
@@ -1353,6 +1353,6 @@ void optimized_ops_prefetch_write_l1_keep(const T* ptr) {
 #endif
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_COMMON_H_

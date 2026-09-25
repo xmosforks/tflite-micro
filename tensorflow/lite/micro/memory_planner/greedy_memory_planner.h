@@ -19,9 +19,11 @@ limitations under the License.
 #include "tensorflow/lite/micro/compatibility.h"
 #include "tensorflow/lite/micro/memory_planner/micro_memory_planner.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 constexpr int kOnlinePlannedBuffer = -1;
+// We are using this to mark a buffer explicitly as externally offline allocated 
+constexpr int kXcoreOfflinePlannedBuffer = -111;
 
 // A memory planner that uses a greedy algorithm to arrange buffers in memory
 // to minimize the overall arena size needed.
@@ -112,6 +114,8 @@ class GreedyMemoryPlanner : public MicroMemoryPlanner {
   // that aren't being used during a phase of invocation are overwritten.
   bool preserves_all_tensors() const override { return false; }
 
+  TF_LITE_REMOVE_VIRTUAL_DELETE
+
  private:
   // Whether a buffer is active in a given time range.
   bool DoesEntryOverlapInTime(const ListEntry* entry, const int first_time_used,
@@ -161,10 +165,8 @@ class GreedyMemoryPlanner : public MicroMemoryPlanner {
 
   // Whether buffers have been added since the last plan was calculated.
   bool need_to_calculate_offsets_;
-
-  TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MEMORY_PLANNER_GREEDY_MEMORY_PLANNER_H_

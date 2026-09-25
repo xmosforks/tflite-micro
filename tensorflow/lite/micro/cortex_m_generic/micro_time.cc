@@ -21,7 +21,7 @@ limitations under the License.
 #include CMSIS_DEVICE_ARM_CORTEX_M_XX_HEADER_FILE
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 
 #if defined(PROJECT_GENERATION)
 
@@ -78,4 +78,4 @@ uint32_t GetCurrentTimeTicks() {
 
 #endif  // defined(PROJECT_GENERATION)
 
-}  // namespace tflite
+}  // namespace tflite_micro

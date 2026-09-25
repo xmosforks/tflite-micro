@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/c/builtin_op_data.h"
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/micro/kernels/add.h"
-namespace tflite {
+namespace tflite_micro {
 
 struct XtensaAddOpData {
   OpDataAdd reference_op_data;
@@ -43,6 +43,6 @@ TfLiteStatus AddEvalQuantizedVision(TfLiteContext* context, TfLiteNode* node,
 
 #endif  // VISION_P6
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_ADD_H_

@@ -20,11 +20,11 @@ limitations under the License.
 #include "flatbuffers/flatbuffers.h"
 #include "flatbuffers/util.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 std::string FlatBufferSizeToJsonString(
     const uint8_t* buffer, const flatbuffers::TypeTable* type_table);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_PYTHON_TFLITE_SIZE_SRC_FLATBUFFERS_SIZE_H_

@@ -32,16 +32,16 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/ceva/mcps_macros.h"
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 // Takes a tensor and performs softmax along the last dimension.
 void SoftmaxFloatCEVA(const TfLiteEvalTensor* input, TfLiteEvalTensor* output,
                       const SoftmaxParams& op_data) {
-  const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-  const float* input_data = tflite::micro::GetTensorData<float>(input);
-  const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-  float* output_data = tflite::micro::GetTensorData<float>(output);
+  const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+  const float* input_data = tflite_micro::micro::GetTensorData<float>(input);
+  const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+  float* output_data = tflite_micro::micro::GetTensorData<float>(output);
 
   const float beta = static_cast<float>(op_data.beta);
   const int trailing_dim = input_shape.DimensionsCount() - 1;
@@ -72,17 +72,17 @@ TfLiteStatus SoftmaxQuantizedCEVA(TfLiteContext* context,
                                   const SoftmaxParams& op_data) {
   if (input->type == kTfLiteInt8) {
     if (output->type == kTfLiteInt16) {
-      tflite::reference_ops::Softmax(
-          op_data, tflite::micro::GetTensorShape(input),
-          tflite::micro::GetTensorData<int8_t>(input),
-          tflite::micro::GetTensorShape(output),
-          tflite::micro::GetTensorData<int16_t>(output));
+      tflite_micro::reference_ops::Softmax(
+          op_data, tflite_micro::micro::GetTensorShape(input),
+          tflite_micro::micro::GetTensorData<int8_t>(input),
+          tflite_micro::micro::GetTensorShape(output),
+          tflite_micro::micro::GetTensorData<int16_t>(output));
     } else {
-      const RuntimeShape& input_shape = tflite::micro::GetTensorShape(input);
-      const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
+      const RuntimeShape& input_shape = tflite_micro::micro::GetTensorShape(input);
+      const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
 
-      const RuntimeShape& output_shape = tflite::micro::GetTensorShape(output);
-      int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
+      const RuntimeShape& output_shape = tflite_micro::micro::GetTensorShape(output);
+      int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
 
       const int32_t input_beta_multiplier =
           static_cast<int32_t>(op_data.input_multiplier);
@@ -118,19 +118,19 @@ TfLiteStatus SoftmaxQuantizedCEVA(TfLiteContext* context,
 #endif
     }
   } else {
-    tflite::reference_ops::SoftmaxInt16(
-        op_data, tflite::micro::GetTensorShape(input),
-        tflite::micro::GetTensorData<int16_t>(input),
-        tflite::micro::GetTensorShape(output),
-        tflite::micro::GetTensorData<int16_t>(output));
+    tflite_micro::reference_ops::SoftmaxInt16(
+        op_data, tflite_micro::micro::GetTensorShape(input),
+        tflite_micro::micro::GetTensorData<int16_t>(input),
+        tflite_micro::micro::GetTensorShape(output),
+        tflite_micro::micro::GetTensorData<int16_t>(output));
   }
 
   return kTfLiteOk;
 }
 
 TfLiteStatus SoftmaxEvalCEVA(TfLiteContext* context, TfLiteNode* node) {
-  const TfLiteEvalTensor* input = tflite::micro::GetEvalInput(context, node, 0);
-  TfLiteEvalTensor* output = tflite::micro::GetEvalOutput(context, node, 0);
+  const TfLiteEvalTensor* input = tflite_micro::micro::GetEvalInput(context, node, 0);
+  TfLiteEvalTensor* output = tflite_micro::micro::GetEvalOutput(context, node, 0);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   SoftmaxParams op_data = *static_cast<SoftmaxParams*>(node->user_data);
@@ -145,7 +145,7 @@ TfLiteStatus SoftmaxEvalCEVA(TfLiteContext* context, TfLiteNode* node) {
       return SoftmaxQuantizedCEVA(context, input, output, op_data);
     }
     default:
-      MicroPrintf("Type %s (%d) not supported.", TfLiteTypeGetName(input->type),
+      MicroPrintf("Type %s (%d) not supported.", TfLiteMicroTypeGetName(input->type),
                   input->type);
       return kTfLiteError;
   }
@@ -161,7 +161,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SOFTMAX() {
-  return tflite::micro::RegisterOp(SoftmaxInit, SoftmaxPrepare, Eval);
+  return tflite_micro::micro::RegisterOp(SoftmaxInit, SoftmaxPrepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

@@ -17,12 +17,12 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/system_setup.h"
 
-namespace tflite {
+namespace tflite_micro {
 inline void InitializeTest() { InitializeTarget(); }
-}  // namespace tflite
+}  // namespace tflite_micro
 
 int main(int argc, char** argv) {
-  tflite::InitializeTest();
+  tflite_micro::InitializeTest();
 #ifndef TF_LITE_STRIP_ERROR_STRINGS
   MicroPrintf("Number: %d", 42);
   MicroPrintf("Badly-formed format string %");

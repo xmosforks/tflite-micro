@@ -38,7 +38,7 @@ limitations under the License.
 #include "TargetConditionals.h"
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -124,7 +124,7 @@ TfLiteTensor* GetVariableInput(TfLiteContext* context, const TfLiteNode* node,
                                int index) {
   TfLiteTensor* tensor = GetMutableInput(context, node, index);
   if (tensor == nullptr) return nullptr;
-  return tensor->is_variable ? tensor : nullptr;
+  return context->IsVariableTensor(context, tensor) ? tensor : nullptr;
 }
 
 TfLiteTensor* GetOutput(TfLiteContext* context, const TfLiteNode* node,
@@ -411,7 +411,7 @@ TfLiteStatus CalculateActivationRangeQuantized(TfLiteContext* context,
 }
 
 bool HaveSameShapes(const TfLiteTensor* input1, const TfLiteTensor* input2) {
-  return TfLiteIntArrayEqual(input1->dims, input2->dims);
+  return TfLiteMicroIntArrayEqual(input1->dims, input2->dims);
 }
 
 #ifndef TF_LITE_STATIC_MEMORY
@@ -425,7 +425,7 @@ TfLiteStatus GetOutputShapeFromInput(TfLiteContext* context,
     return kTfLiteError;
   }
   const int output_dims = SizeOfDimension(input, 0);
-  IntArrayUniquePtr shape(TfLiteIntArrayCreate(output_dims));
+  IntArrayUniquePtr shape(TfLiteMicroIntArrayCreate(output_dims));
   for (int i = 0; i < output_dims; i++) {
     shape->data[i] = input->data.i32[i];
   }
@@ -464,7 +464,7 @@ TfLiteStatus CalculateShapeForBroadcast(TfLiteContext* context,
   const int dims2 = NumDimensions(input2);
   const int out_dims = std::max(dims1, dims2);
 
-  IntArrayUniquePtr shape(TfLiteIntArrayCreate(out_dims));
+  IntArrayUniquePtr shape(TfLiteMicroIntArrayCreate(out_dims));
   for (int i = 0; i < out_dims; ++i) {
     const int d1 = i >= dims1 ? 1 : SizeOfDimension(input1, dims1 - i - 1);
     const int d2 = i >= dims2 ? 1 : SizeOfDimension(input2, dims2 - i - 1);
@@ -495,7 +495,7 @@ TfLiteStatus CalculateShapeForBroadcast(TfLiteContext* context,
   const int dims2 = NumDimensions(input2);
   const int dims3 = NumDimensions(input3);
   const int out_dims = std::max(std::max(dims1, dims2), dims3);
-  IntArrayUniquePtr shape(TfLiteIntArrayCreate(out_dims));
+  IntArrayUniquePtr shape(TfLiteMicroIntArrayCreate(out_dims));
   for (int i = 0; i < out_dims; ++i) {
     const int d1 = i >= dims1 ? 1 : SizeOfDimension(input1, dims1 - i - 1);
     const int d2 = i >= dims2 ? 1 : SizeOfDimension(input2, dims2 - i - 1);
@@ -591,4 +591,4 @@ bool HasUnspecifiedDimension(const TfLiteTensor* tensor) {
   return false;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

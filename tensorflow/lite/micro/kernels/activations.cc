@@ -27,7 +27,26 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
+
+template <typename T>
+void ReluQuantized(const ReluOpData& data, const RuntimeShape& input_shape,
+                   const RuntimeShape& output_shape, const T* input_data,
+                   T* output_data) {
+  const int flat_size = MatchingFlatSize(input_shape, output_shape);
+  for (int i = 0; i < flat_size; ++i) {
+    const int32_t val = static_cast<int32_t>(input_data[i]);
+    int32_t clamped =
+        data.params.output_offset +
+        MultiplyByQuantizedMultiplier(val - data.params.input_offset,
+                                      data.params.output_multiplier,
+                                      data.params.output_shift);
+    clamped = std::max(data.params.quantized_activation_min, clamped);
+    clamped = std::min(data.params.quantized_activation_max, clamped);
+    output_data[i] = static_cast<T>(clamped);
+  }
+}
+
 namespace {
 
 void* ReluInit(TfLiteContext* context, const char* buffer, size_t length) {
@@ -40,29 +59,36 @@ TfLiteStatus ReluEval(TfLiteContext* context, TfLiteNode* node) {
   const ReluOpData& data = *(static_cast<const ReluOpData*>(node->user_data));
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kActivationsInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kActivationsInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kActivationsOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kActivationsOutputTensor);
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      ReluFloat(tflite::micro::GetTensorShape(input),
-                tflite::micro::GetTensorData<float>(input),
-                tflite::micro::GetTensorShape(output),
-                tflite::micro::GetTensorData<float>(output));
+      ReluFloat(tflite_micro::micro::GetTensorShape(input),
+                tflite_micro::micro::GetTensorData<float>(input),
+                tflite_micro::micro::GetTensorShape(output),
+                tflite_micro::micro::GetTensorData<float>(output));
 
       return kTfLiteOk;
     }
+    case kTfLiteInt16: {
+      tflite_micro::ReluQuantized<int16_t>(data, tflite_micro::micro::GetTensorShape(input),
+                            tflite_micro::micro::GetTensorShape(output),
+                            tflite_micro::micro::GetTensorData<int16_t>(input),
+                            tflite_micro::micro::GetTensorData<int16_t>(output));
+      return kTfLiteOk;
+    }
     case kTfLiteInt8: {
-      tflite::ReluQuantized(data, tflite::micro::GetTensorShape(input),
-                            tflite::micro::GetTensorShape(output),
-                            tflite::micro::GetTensorData<int8_t>(input),
-                            tflite::micro::GetTensorData<int8_t>(output));
+      tflite_micro::ReluQuantized(data, tflite_micro::micro::GetTensorShape(input),
+                            tflite_micro::micro::GetTensorShape(output),
+                            tflite_micro::micro::GetTensorData<int8_t>(input),
+                            tflite_micro::micro::GetTensorData<int8_t>(output));
       return kTfLiteOk;
     }
     default: {
       MicroPrintf("Only float32 is supported currently, got %s",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -78,30 +104,38 @@ TfLiteStatus Relu6Eval(TfLiteContext* context, TfLiteNode* node) {
   const Relu6OpData& data = *(static_cast<const Relu6OpData*>(node->user_data));
 
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kActivationsInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kActivationsInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kActivationsOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kActivationsOutputTensor);
 
   switch (input->type) {
     case kTfLiteFloat32: {
-      Relu6Float(tflite::micro::GetTensorShape(input),
-                 tflite::micro::GetTensorData<float>(input),
-                 tflite::micro::GetTensorShape(output),
-                 tflite::micro::GetTensorData<float>(output));
+      Relu6Float(tflite_micro::micro::GetTensorShape(input),
+                 tflite_micro::micro::GetTensorData<float>(input),
+                 tflite_micro::micro::GetTensorShape(output),
+                 tflite_micro::micro::GetTensorData<float>(output));
 
       return kTfLiteOk;
     }
     case kTfLiteInt8: {
       Relu6Quantized(data.zero_int8, data.six_int8,
-                     tflite::micro::GetTensorShape(input),
-                     tflite::micro::GetTensorData<int8_t>(input),
-                     tflite::micro::GetTensorShape(output),
-                     tflite::micro::GetTensorData<int8_t>(output));
+                     tflite_micro::micro::GetTensorShape(input),
+                     tflite_micro::micro::GetTensorData<int8_t>(input),
+                     tflite_micro::micro::GetTensorShape(output),
+                     tflite_micro::micro::GetTensorData<int8_t>(output));
+      return kTfLiteOk;
+    }
+    case kTfLiteInt16: {
+      Relu6Quantized(data.zero_int8, data.six_int8,
+                     tflite_micro::micro::GetTensorShape(input),
+                     tflite_micro::micro::GetTensorData<int16_t>(input),
+                     tflite_micro::micro::GetTensorShape(output),
+                     tflite_micro::micro::GetTensorData<int16_t>(output));
       return kTfLiteOk;
     }
     default: {
       MicroPrintf("Only float32 is supported currently, got %s",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
     }
   }
@@ -110,11 +144,11 @@ TfLiteStatus Relu6Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_RELU() {
-  return tflite::micro::RegisterOp(ReluInit, ReluPrepare, ReluEval);
+  return tflite_micro::micro::RegisterOp(ReluInit, ReluPrepare, ReluEval);
 }
 
 TFLMRegistration Register_RELU6() {
-  return tflite::micro::RegisterOp(Relu6Init, Relu6Prepare, Relu6Eval);
+  return tflite_micro::micro::RegisterOp(Relu6Init, Relu6Prepare, Relu6Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

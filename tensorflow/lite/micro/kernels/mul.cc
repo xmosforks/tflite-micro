@@ -26,7 +26,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/memory_helpers.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 TfLiteStatus MulEval(TfLiteContext* context, TfLiteNode* node) {
   TFLITE_DCHECK(node->builtin_data != nullptr);
@@ -36,11 +36,11 @@ TfLiteStatus MulEval(TfLiteContext* context, TfLiteNode* node) {
   const OpDataMul* data = static_cast<const OpDataMul*>(node->user_data);
 
   const TfLiteEvalTensor* input1 =
-      tflite::micro::GetEvalInput(context, node, kMulInput1Tensor);
+      tflite_micro::micro::GetEvalInput(context, node, kMulInput1Tensor);
   const TfLiteEvalTensor* input2 =
-      tflite::micro::GetEvalInput(context, node, kMulInput2Tensor);
+      tflite_micro::micro::GetEvalInput(context, node, kMulInput2Tensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kMulOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kMulOutputTensor);
 
   switch (input1->type) {
     case kTfLiteInt8:
@@ -54,7 +54,7 @@ TfLiteStatus MulEval(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Type %s (%d) not supported.",
-                  TfLiteTypeGetName(input1->type), input1->type);
+                  TfLiteMicroTypeGetName(input1->type), input1->type);
       return kTfLiteError;
   }
 
@@ -62,7 +62,7 @@ TfLiteStatus MulEval(TfLiteContext* context, TfLiteNode* node) {
 }
 
 TFLMRegistration Register_MUL() {
-  return tflite::micro::RegisterOp(MulInit, MulPrepare, MulEval);
+  return tflite_micro::micro::RegisterOp(MulInit, MulPrepare, MulEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

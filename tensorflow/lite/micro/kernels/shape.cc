@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 constexpr int kInputTensor = 0;
@@ -44,15 +44,15 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   if (output->type != kTfLiteInt32) {
     MicroPrintf("Output type %s (%d) not supported.",
-                TfLiteTypeGetName(output->type), output->type);
+                TfLiteMicroTypeGetName(output->type), output->type);
     return kTfLiteError;
   } else {
-    ExtractShape(input, tflite::micro::GetTensorData<int32_t>(output));
+    ExtractShape(input, tflite_micro::micro::GetTensorData<int32_t>(output));
   }
 
   return kTfLiteOk;
@@ -61,7 +61,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_SHAPE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

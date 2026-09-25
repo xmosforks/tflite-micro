@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/common.h"
 #include "tensorflow/lite/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 template <int N>
 void BroadcastImpl(const NdArrayDesc<N>& input_desc, const char* input_data,
@@ -93,5 +93,5 @@ inline void BroadcastTo(const RuntimeShape& unextended_input_shape,
                    last_broadcast_dim, TfLiteTypeGetSize(data_type));
 }
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_KERNELS_INTERNAL_REFERENCE_BROADCAST_TO_H_

@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -52,23 +52,23 @@ void resetZeros(T* out, const int num_elements) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  int flat_size = MatchingFlatSize(tflite::micro::GetTensorShape(input),
-                                   tflite::micro::GetTensorShape(output));
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  int flat_size = MatchingFlatSize(tflite_micro::micro::GetTensorShape(input),
+                                   tflite_micro::micro::GetTensorShape(output));
   switch (input->type) {
     case kTfLiteInt64:
-      resetZeros(tflite::micro::GetTensorData<int64_t>(output), flat_size);
+      resetZeros(tflite_micro::micro::GetTensorData<int64_t>(output), flat_size);
       break;
     case kTfLiteInt32:
-      resetZeros(tflite::micro::GetTensorData<int32_t>(output), flat_size);
+      resetZeros(tflite_micro::micro::GetTensorData<int32_t>(output), flat_size);
       break;
     case kTfLiteInt8:
-      resetZeros(tflite::micro::GetTensorData<int8_t>(output), flat_size);
+      resetZeros(tflite_micro::micro::GetTensorData<int8_t>(output), flat_size);
       break;
     case kTfLiteFloat32:
-      resetZeros(tflite::micro::GetTensorData<float>(output), flat_size);
+      resetZeros(tflite_micro::micro::GetTensorData<float>(output), flat_size);
       break;
     default:
       MicroPrintf(
@@ -82,7 +82,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_ZEROS_LIKE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

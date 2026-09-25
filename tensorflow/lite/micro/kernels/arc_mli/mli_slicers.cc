@@ -17,7 +17,7 @@ limitations under the License.
 
 #include <algorithm>
 
-namespace tflite {
+namespace tflite_micro {
 namespace ops {
 namespace micro {
 
@@ -123,4 +123,4 @@ mli_tensor* TensorSlicer::Sub(void) { return &sub_tensor_; }
 
 }  // namespace micro
 }  // namespace ops
-}  // namespace tflite
+}  // namespace tflite_micro

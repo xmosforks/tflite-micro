@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 // Kernels use flexbuffers::Map to pack their init parameters in a tflite file,
 // with the parameter names as map keys and the parameter values as the
 // corresponding map values.
@@ -60,6 +60,6 @@ TfLiteIntArray* FlatBufferVectorToTfLiteTypeArray(
 TfLiteFloatArray* FlatBufferVectorToTfLiteTypeArray(
     const flatbuffers::Vector<float>* flatbuffer_array);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // THIRD_PARTY_TFLITE_MICRO_TENSORFLOW_LITE_MICRO_FLATBUFFER_UTILS_H_

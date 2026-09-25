@@ -23,7 +23,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/pooling.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -215,7 +215,7 @@ TfLiteStatus AverageEval(TfLiteContext* context, TfLiteNode* node) {
     AverageEvalQuantized(context, node, params, data, input, output);
   } else {
     MicroPrintf("Input type %s is not currently supported",
-                TfLiteTypeGetName(input->type));
+                TfLiteMicroTypeGetName(input->type));
     return kTfLiteError;
   }
 
@@ -276,7 +276,7 @@ TfLiteStatus MaxEval(TfLiteContext* context, TfLiteNode* node) {
     MaxEvalQuantized(context, node, params, data, input, output);
   } else {
     MicroPrintf("Input type %s is not currently supported",
-                TfLiteTypeGetName(input->type));
+                TfLiteMicroTypeGetName(input->type));
     return kTfLiteError;
   }
 
@@ -320,27 +320,27 @@ TfLiteStatus MaxEvalInt16(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_AVERAGE_POOL_2D_INT8() {
-  return tflite::micro::RegisterOp(Init, AveragePrepare, AverageEvalInt8);
+  return tflite_micro::micro::RegisterOp(Init, AveragePrepare, AverageEvalInt8);
 }
 
 TFLMRegistration Register_AVERAGE_POOL_2D_INT16() {
-  return tflite::micro::RegisterOp(Init, AveragePrepare, AverageEvalInt16);
+  return tflite_micro::micro::RegisterOp(Init, AveragePrepare, AverageEvalInt16);
 }
 
 TFLMRegistration Register_AVERAGE_POOL_2D() {
-  return tflite::micro::RegisterOp(Init, AveragePrepare, AverageEval);
+  return tflite_micro::micro::RegisterOp(Init, AveragePrepare, AverageEval);
 }
 
 TFLMRegistration Register_MAX_POOL_2D_INT8() {
-  return tflite::micro::RegisterOp(Init, MaxPrepare, MaxEvalInt8);
+  return tflite_micro::micro::RegisterOp(Init, MaxPrepare, MaxEvalInt8);
 }
 
 TFLMRegistration Register_MAX_POOL_2D_INT16() {
-  return tflite::micro::RegisterOp(Init, MaxPrepare, MaxEvalInt16);
+  return tflite_micro::micro::RegisterOp(Init, MaxPrepare, MaxEvalInt16);
 }
 
 TFLMRegistration Register_MAX_POOL_2D() {
-  return tflite::micro::RegisterOp(Init, MaxPrepare, MaxEval);
+  return tflite_micro::micro::RegisterOp(Init, MaxPrepare, MaxEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

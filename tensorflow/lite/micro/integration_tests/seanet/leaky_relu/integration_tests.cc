@@ -97,7 +97,7 @@ constexpr size_t kTensorArenaSize = 1024 * 100;
 uint8_t tensor_arena[kTensorArenaSize];
 bool print_log = false;
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 namespace {
 
@@ -125,7 +125,7 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
   TfLiteTensor* output_tensor = interpreter.output(0);
   TF_LITE_MICRO_EXPECT_EQ(output_tensor->bytes, golden_size * sizeof(int16_t));
-  int16_t* output = ::tflite::GetTensorData<int16_t>(output_tensor);
+  int16_t* output = ::tflite_micro::GetTensorData<int16_t>(output_tensor);
   for (uint32_t i = 0; i < golden_size; i++) {
     // TODO(b/205046520): Better understand why TfLite and TFLM can sometimes be
     // off by 1.
@@ -135,12 +135,12 @@ void RunModel(const uint8_t* model, const int16_t* input0,
 
 }  // namespace
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(leaky_relu0_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu0_model_data, g_leaky_relu0_input0_int16_test_data,
       g_leaky_relu0_input0_int16_test_data_size,
       g_leaky_relu0_golden_int16_test_data,
@@ -148,7 +148,7 @@ TF_LITE_MICRO_TEST(leaky_relu0_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu1_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu1_model_data, g_leaky_relu1_input0_int16_test_data,
       g_leaky_relu1_input0_int16_test_data_size,
       g_leaky_relu1_golden_int16_test_data,
@@ -156,7 +156,7 @@ TF_LITE_MICRO_TEST(leaky_relu1_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu2_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu2_model_data, g_leaky_relu2_input0_int16_test_data,
       g_leaky_relu2_input0_int16_test_data_size,
       g_leaky_relu2_golden_int16_test_data,
@@ -164,7 +164,7 @@ TF_LITE_MICRO_TEST(leaky_relu2_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu3_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu3_model_data, g_leaky_relu3_input0_int16_test_data,
       g_leaky_relu3_input0_int16_test_data_size,
       g_leaky_relu3_golden_int16_test_data,
@@ -172,7 +172,7 @@ TF_LITE_MICRO_TEST(leaky_relu3_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu4_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu4_model_data, g_leaky_relu4_input0_int16_test_data,
       g_leaky_relu4_input0_int16_test_data_size,
       g_leaky_relu4_golden_int16_test_data,
@@ -180,7 +180,7 @@ TF_LITE_MICRO_TEST(leaky_relu4_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu5_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu5_model_data, g_leaky_relu5_input0_int16_test_data,
       g_leaky_relu5_input0_int16_test_data_size,
       g_leaky_relu5_golden_int16_test_data,
@@ -188,7 +188,7 @@ TF_LITE_MICRO_TEST(leaky_relu5_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu6_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu6_model_data, g_leaky_relu6_input0_int16_test_data,
       g_leaky_relu6_input0_int16_test_data_size,
       g_leaky_relu6_golden_int16_test_data,
@@ -196,7 +196,7 @@ TF_LITE_MICRO_TEST(leaky_relu6_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu7_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu7_model_data, g_leaky_relu7_input0_int16_test_data,
       g_leaky_relu7_input0_int16_test_data_size,
       g_leaky_relu7_golden_int16_test_data,
@@ -204,7 +204,7 @@ TF_LITE_MICRO_TEST(leaky_relu7_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu8_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu8_model_data, g_leaky_relu8_input0_int16_test_data,
       g_leaky_relu8_input0_int16_test_data_size,
       g_leaky_relu8_golden_int16_test_data,
@@ -212,7 +212,7 @@ TF_LITE_MICRO_TEST(leaky_relu8_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu9_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu9_model_data, g_leaky_relu9_input0_int16_test_data,
       g_leaky_relu9_input0_int16_test_data_size,
       g_leaky_relu9_golden_int16_test_data,
@@ -220,7 +220,7 @@ TF_LITE_MICRO_TEST(leaky_relu9_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu10_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu10_model_data, g_leaky_relu10_input0_int16_test_data,
       g_leaky_relu10_input0_int16_test_data_size,
       g_leaky_relu10_golden_int16_test_data,
@@ -228,7 +228,7 @@ TF_LITE_MICRO_TEST(leaky_relu10_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu11_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu11_model_data, g_leaky_relu11_input0_int16_test_data,
       g_leaky_relu11_input0_int16_test_data_size,
       g_leaky_relu11_golden_int16_test_data,
@@ -236,7 +236,7 @@ TF_LITE_MICRO_TEST(leaky_relu11_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu12_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu12_model_data, g_leaky_relu12_input0_int16_test_data,
       g_leaky_relu12_input0_int16_test_data_size,
       g_leaky_relu12_golden_int16_test_data,
@@ -244,7 +244,7 @@ TF_LITE_MICRO_TEST(leaky_relu12_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu13_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu13_model_data, g_leaky_relu13_input0_int16_test_data,
       g_leaky_relu13_input0_int16_test_data_size,
       g_leaky_relu13_golden_int16_test_data,
@@ -252,7 +252,7 @@ TF_LITE_MICRO_TEST(leaky_relu13_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu14_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu14_model_data, g_leaky_relu14_input0_int16_test_data,
       g_leaky_relu14_input0_int16_test_data_size,
       g_leaky_relu14_golden_int16_test_data,
@@ -260,7 +260,7 @@ TF_LITE_MICRO_TEST(leaky_relu14_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu15_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu15_model_data, g_leaky_relu15_input0_int16_test_data,
       g_leaky_relu15_input0_int16_test_data_size,
       g_leaky_relu15_golden_int16_test_data,
@@ -268,7 +268,7 @@ TF_LITE_MICRO_TEST(leaky_relu15_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu16_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu16_model_data, g_leaky_relu16_input0_int16_test_data,
       g_leaky_relu16_input0_int16_test_data_size,
       g_leaky_relu16_golden_int16_test_data,
@@ -276,7 +276,7 @@ TF_LITE_MICRO_TEST(leaky_relu16_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu17_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu17_model_data, g_leaky_relu17_input0_int16_test_data,
       g_leaky_relu17_input0_int16_test_data_size,
       g_leaky_relu17_golden_int16_test_data,
@@ -284,7 +284,7 @@ TF_LITE_MICRO_TEST(leaky_relu17_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu18_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu18_model_data, g_leaky_relu18_input0_int16_test_data,
       g_leaky_relu18_input0_int16_test_data_size,
       g_leaky_relu18_golden_int16_test_data,
@@ -292,7 +292,7 @@ TF_LITE_MICRO_TEST(leaky_relu18_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu19_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu19_model_data, g_leaky_relu19_input0_int16_test_data,
       g_leaky_relu19_input0_int16_test_data_size,
       g_leaky_relu19_golden_int16_test_data,
@@ -300,7 +300,7 @@ TF_LITE_MICRO_TEST(leaky_relu19_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu20_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu20_model_data, g_leaky_relu20_input0_int16_test_data,
       g_leaky_relu20_input0_int16_test_data_size,
       g_leaky_relu20_golden_int16_test_data,
@@ -308,7 +308,7 @@ TF_LITE_MICRO_TEST(leaky_relu20_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu21_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu21_model_data, g_leaky_relu21_input0_int16_test_data,
       g_leaky_relu21_input0_int16_test_data_size,
       g_leaky_relu21_golden_int16_test_data,
@@ -316,7 +316,7 @@ TF_LITE_MICRO_TEST(leaky_relu21_test) {
 }
 
 TF_LITE_MICRO_TEST(leaky_relu22_test) {
-  tflite::micro::RunModel(
+  tflite_micro::micro::RunModel(
       g_leaky_relu22_model_data, g_leaky_relu22_input0_int16_test_data,
       g_leaky_relu22_input0_int16_test_data_size,
       g_leaky_relu22_golden_int16_test_data,

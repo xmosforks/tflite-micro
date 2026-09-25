@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/kernels/depthwise_conv.h"
 
-namespace tflite {
+namespace tflite_micro {
 struct XtensaDepthwiseConvOpData {
   OpDataConv reference_op_data;
 
@@ -69,6 +69,6 @@ TfLiteStatus DepthwiseConvEvalVision(TfLiteContext* context, TfLiteNode* node,
 
 #endif  // VISION_P6
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_XTENSA_XTENSA_DEPTHWISE_CONV_H_

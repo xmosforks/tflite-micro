@@ -29,7 +29,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/micro_ops.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 extern const int kPoolingInputTensor;
 extern const int kPoolingOutputTensor;
@@ -76,10 +76,10 @@ void AveragePoolingEvalQuantized(TfLiteContext* context, const TfLiteNode* node,
   op_params.quantized_activation_max = data->activation_max;
 
   reference_integer_ops::AveragePool(op_params,
-                                     tflite::micro::GetTensorShape(input),
-                                     tflite::micro::GetTensorData<T>(input),
-                                     tflite::micro::GetTensorShape(output),
-                                     tflite::micro::GetTensorData<T>(output));
+                                     tflite_micro::micro::GetTensorShape(input),
+                                     tflite_micro::micro::GetTensorData<T>(input),
+                                     tflite_micro::micro::GetTensorShape(output),
+                                     tflite_micro::micro::GetTensorData<T>(output));
 }
 
 void MaxPoolingEvalFloat(TfLiteContext* context, TfLiteNode* node,
@@ -95,7 +95,7 @@ void MaxPoolingEvalQuantized(TfLiteContext* context, TfLiteNode* node,
                              TfLiteEvalTensor* output) {
   TFLITE_DCHECK(input->type == kTfLiteInt8 || input->type == kTfLiteInt16);
 
-  tflite::PoolParams op_params;
+  tflite_micro::PoolParams op_params;
   op_params.stride_height = params->stride_height;
   op_params.stride_width = params->stride_width;
   op_params.filter_height = params->filter_height;
@@ -106,10 +106,10 @@ void MaxPoolingEvalQuantized(TfLiteContext* context, TfLiteNode* node,
   op_params.quantized_activation_max = data->activation_max;
 
   reference_integer_ops::MaxPool(op_params,
-                                 tflite::micro::GetTensorShape(input),
-                                 tflite::micro::GetTensorData<T>(input),
-                                 tflite::micro::GetTensorShape(output),
-                                 tflite::micro::GetTensorData<T>(output));
+                                 tflite_micro::micro::GetTensorShape(input),
+                                 tflite_micro::micro::GetTensorData<T>(input),
+                                 tflite_micro::micro::GetTensorShape(output),
+                                 tflite_micro::micro::GetTensorData<T>(output));
 }
 
 #if defined(CMSIS_NN) || defined(XTENSA)
@@ -122,21 +122,21 @@ TFLMRegistration Register_AVERAGE_POOL_2D_INT16();
 TFLMRegistration Register_MAX_POOL_2D_INT16();
 #else
 inline TFLMRegistration Register_AVERAGE_POOL_2D_INT8() {
-  return tflite::Register_AVERAGE_POOL_2D();
+  return tflite_micro::Register_AVERAGE_POOL_2D();
 }
 
 inline TFLMRegistration Register_MAX_POOL_2D_INT8() {
-  return tflite::Register_MAX_POOL_2D();
+  return tflite_micro::Register_MAX_POOL_2D();
 }
 
 inline TFLMRegistration Register_AVERAGE_POOL_2D_INT16() {
-  return tflite::Register_AVERAGE_POOL_2D();
+  return tflite_micro::Register_AVERAGE_POOL_2D();
 }
 
 inline TFLMRegistration Register_MAX_POOL_2D_INT16() {
-  return tflite::Register_MAX_POOL_2D();
+  return tflite_micro::Register_MAX_POOL_2D();
 }
 #endif
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_POOLING_H_

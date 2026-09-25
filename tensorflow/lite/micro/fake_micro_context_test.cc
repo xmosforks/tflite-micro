@@ -22,12 +22,12 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
-using ::tflite::testing::CreateTensor;
-using ::tflite::testing::IntArrayFromInts;
+using ::tflite_micro::testing::CreateTensor;
+using ::tflite_micro::testing::IntArrayFromInts;
 
-tflite::FakeMicroContext CreateFakeMicroContext(
+tflite_micro::FakeMicroContext CreateFakeMicroContext(
     SingleArenaBufferAllocator* simple_memory_allocator,
     MicroGraph* micro_graph) {
   // Some targets do not support dynamic memory (i.e., no malloc or new), thus,
@@ -44,24 +44,24 @@ tflite::FakeMicroContext CreateFakeMicroContext(
   tensors[0] = CreateTensor(input_data, IntArrayFromInts(input_shape));
   tensors[1] = CreateTensor(output_data, IntArrayFromInts(output_shape));
 
-  tflite::FakeMicroContext fake_micro_context(tensors, simple_memory_allocator,
+  tflite_micro::FakeMicroContext fake_micro_context(tensors, simple_memory_allocator,
                                               micro_graph);
   return fake_micro_context;
 }
 
 }  // namespace
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
 TF_LITE_MICRO_TEST(TestGetBeforeRequestScratchBufferWouldReturnNull) {
   constexpr size_t kArenaSize = 1024;
   uint8_t arena_buffer[kArenaSize];
-  tflite::SingleArenaBufferAllocator simple_memory_allocator(arena_buffer,
+  tflite_micro::SingleArenaBufferAllocator simple_memory_allocator(arena_buffer,
                                                              kArenaSize);
-  tflite::MockMicroGraph dummy_micro_graph{&simple_memory_allocator};
+  tflite_micro::MockMicroGraph dummy_micro_graph{&simple_memory_allocator};
 
-  tflite::FakeMicroContext micro_context = tflite::CreateFakeMicroContext(
+  tflite_micro::FakeMicroContext micro_context = tflite_micro::CreateFakeMicroContext(
       &simple_memory_allocator, &dummy_micro_graph);
 
   TF_LITE_MICRO_EXPECT(micro_context.GetScratchBuffer(0) == nullptr);
@@ -70,11 +70,11 @@ TF_LITE_MICRO_TEST(TestGetBeforeRequestScratchBufferWouldReturnNull) {
 TF_LITE_MICRO_TEST(TestRequestScratchBufferAndThenGetShouldSucceed) {
   constexpr size_t kArenaSize = 1024;
   uint8_t arena_buffer[kArenaSize];
-  tflite::SingleArenaBufferAllocator simple_memory_allocator(arena_buffer,
+  tflite_micro::SingleArenaBufferAllocator simple_memory_allocator(arena_buffer,
                                                              kArenaSize);
-  tflite::MockMicroGraph dummy_micro_graph{&simple_memory_allocator};
+  tflite_micro::MockMicroGraph dummy_micro_graph{&simple_memory_allocator};
 
-  tflite::FakeMicroContext micro_context = tflite::CreateFakeMicroContext(
+  tflite_micro::FakeMicroContext micro_context = tflite_micro::CreateFakeMicroContext(
       &simple_memory_allocator, &dummy_micro_graph);
 
   constexpr size_t kScratchBufferSize = 16;

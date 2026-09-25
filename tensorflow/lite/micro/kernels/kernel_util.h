@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/kernels/internal/types.h"
 #include "tensorflow/lite/micro/micro_context.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace micro {
 
 TFLMRegistration RegisterOp(
@@ -145,6 +145,6 @@ TfLiteEvalTensor MakeUnpackedInt4Tensor(TfLiteContext* context,
                                         int scratch_buffer_index,
                                         const TfLiteEvalTensor* tensor);
 }  // namespace micro
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_KERNEL_UTIL_H_

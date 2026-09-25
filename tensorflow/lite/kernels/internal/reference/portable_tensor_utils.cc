@@ -29,7 +29,7 @@ limitations under the License.
 #define __restrict__ __restrict
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 namespace tensor_utils {
 
 namespace {
@@ -806,4 +806,4 @@ void PortableTwoGateSaturatingAdd(const int8_t* input, int8_t input_zp,
 }
 
 }  // namespace tensor_utils
-}  // namespace tflite
+}  // namespace tflite_micro

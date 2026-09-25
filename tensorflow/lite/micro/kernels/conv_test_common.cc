@@ -15,7 +15,7 @@ limitations under the License.
 
 #include "tensorflow/lite/micro/kernels/conv_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 template <typename T>
@@ -177,7 +177,7 @@ TfLiteStatus TestConvQuantizedPerChannel(
       output_tensor,
   };
 
-  tflite::Quantize(expected_output_data, expected_output_data_quantized,
+  tflite_micro::Quantize(expected_output_data, expected_output_data_quantized,
                    output_dims_count, output_scale, output_zero_point);
   return ValidateConvGoldens(
       tensors, tensors_size, expected_output_data_quantized, output_dims_count,
@@ -244,4 +244,4 @@ TfLiteStatus TestConvQuantizedPerChannel(
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro

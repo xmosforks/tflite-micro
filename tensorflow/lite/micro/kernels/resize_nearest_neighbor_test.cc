@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -71,7 +71,7 @@ void TestResizeNearestNeighbor(int* input_dims_data, const T* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -83,7 +83,7 @@ TF_LITE_MICRO_TEST(HorizontalResize) {
   int output_dims[] = {4, 1, 1, 3, 1};
   float output_data[3];
 
-  tflite::testing::TestResizeNearestNeighbor<float>(
+  tflite_micro::testing::TestResizeNearestNeighbor<float>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -96,7 +96,7 @@ TF_LITE_MICRO_TEST(HorizontalResizeInt8) {
   int output_dims[] = {4, 1, 1, 3, 1};
   int8_t output_data[3];
 
-  tflite::testing::TestResizeNearestNeighbor<int8_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -109,7 +109,7 @@ TF_LITE_MICRO_TEST(HorizontalResizeInt16) {
   int output_dims[] = {4, 1, 1, 3, 1};
   int16_t output_data[3];
 
-  tflite::testing::TestResizeNearestNeighbor<int16_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int16_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -122,7 +122,7 @@ TF_LITE_MICRO_TEST(VerticalResize) {
   int output_dims[] = {4, 1, 3, 1, 1};
   float output_data[3];
 
-  tflite::testing::TestResizeNearestNeighbor<float>(
+  tflite_micro::testing::TestResizeNearestNeighbor<float>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -135,7 +135,7 @@ TF_LITE_MICRO_TEST(VerticalResizeInt8) {
   int output_dims[] = {4, 1, 3, 1, 1};
   int8_t output_data[3];
 
-  tflite::testing::TestResizeNearestNeighbor<int8_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -148,7 +148,7 @@ TF_LITE_MICRO_TEST(VerticalResizeInt16) {
   int output_dims[] = {4, 1, 3, 1, 1};
   int16_t output_data[3];
 
-  tflite::testing::TestResizeNearestNeighbor<int16_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int16_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -169,7 +169,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResize) {
   int output_dims[] = {4, 1, 3, 3, 1};
   float output_data[9];
 
-  tflite::testing::TestResizeNearestNeighbor<float>(
+  tflite_micro::testing::TestResizeNearestNeighbor<float>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -189,7 +189,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeInt8) {
   int output_dims[] = {4, 1, 3, 3, 1};
   int8_t output_data[9];
 
-  tflite::testing::TestResizeNearestNeighbor<int8_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -209,7 +209,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeInt16) {
   int output_dims[] = {4, 1, 3, 3, 1};
   int16_t output_data[9];
 
-  tflite::testing::TestResizeNearestNeighbor<int16_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int16_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -234,7 +234,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeWithTwoBatches) {
   int output_dims[] = {4, 2, 3, 3, 1};
   float output_data[18];
 
-  tflite::testing::TestResizeNearestNeighbor<float>(
+  tflite_micro::testing::TestResizeNearestNeighbor<float>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -259,7 +259,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeWithTwoBatchesInt8) {
   int output_dims[] = {4, 2, 3, 3, 1};
   int8_t output_data[18];
 
-  tflite::testing::TestResizeNearestNeighbor<int8_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -284,7 +284,7 @@ TF_LITE_MICRO_TEST(TwoDimensionalResizeWithTwoBatchesInt16) {
   int output_dims[] = {4, 2, 3, 3, 1};
   int16_t output_data[18];
 
-  tflite::testing::TestResizeNearestNeighbor<int16_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int16_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -304,7 +304,7 @@ TF_LITE_MICRO_TEST(ThreeDimensionalResize) {
   int output_dims[] = {4, 1, 3, 3, 2};
   float output_data[18];
 
-  tflite::testing::TestResizeNearestNeighbor<float>(
+  tflite_micro::testing::TestResizeNearestNeighbor<float>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -324,7 +324,7 @@ TF_LITE_MICRO_TEST(ThreeDimensionalResizeInt8) {
   int output_dims[] = {4, 1, 3, 3, 2};
   int8_t output_data[18];
 
-  tflite::testing::TestResizeNearestNeighbor<int8_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int8_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }
@@ -344,7 +344,7 @@ TF_LITE_MICRO_TEST(ThreeDimensionalResizeInt16) {
   int output_dims[] = {4, 1, 3, 3, 2};
   int16_t output_data[18];
 
-  tflite::testing::TestResizeNearestNeighbor<int16_t>(
+  tflite_micro::testing::TestResizeNearestNeighbor<int16_t>(
       input_dims, input_data, expected_size_data, expected_output_data,
       output_dims, output_data);
 }

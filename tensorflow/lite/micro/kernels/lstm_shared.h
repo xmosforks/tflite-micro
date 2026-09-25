@@ -18,7 +18,7 @@ limitations under the License.
 #include "tensorflow/lite/c/builtin_op_data.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // Input Tensors of size {n_batch, n_input}
 constexpr int kLstmInputTensor = 0;
@@ -146,5 +146,5 @@ struct LSTMBuffers {
   CellType* buffer3;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_LSTM_SHARED_H_

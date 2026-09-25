@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -61,7 +61,7 @@ void TestLogicalOp(const TFLMRegistration& registration, int* input1_dims_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -71,7 +71,7 @@ TF_LITE_MICRO_TEST(LogicalOr) {
   const bool input2[] = {true, false, true, false};
   const bool golden[] = {true, false, true, true};
   bool output_data[4];
-  tflite::testing::TestLogicalOp(tflite::Register_LOGICAL_OR(), shape, input1,
+  tflite_micro::testing::TestLogicalOp(tflite_micro::Register_LOGICAL_OR(), shape, input1,
                                  shape, input2, shape, golden, output_data);
 }
 
@@ -82,7 +82,7 @@ TF_LITE_MICRO_TEST(BroadcastLogicalOr) {
   const bool input2[] = {false};
   const bool golden[] = {true, false, false, true};
   bool output_data[4];
-  tflite::testing::TestLogicalOp(tflite::Register_LOGICAL_OR(), input1_shape,
+  tflite_micro::testing::TestLogicalOp(tflite_micro::Register_LOGICAL_OR(), input1_shape,
                                  input1, input2_shape, input2, input1_shape,
                                  golden, output_data);
 }
@@ -93,7 +93,7 @@ TF_LITE_MICRO_TEST(LogicalAnd) {
   const bool input2[] = {true, false, true, false};
   const bool golden[] = {true, false, false, false};
   bool output_data[4];
-  tflite::testing::TestLogicalOp(tflite::Register_LOGICAL_AND(), shape, input1,
+  tflite_micro::testing::TestLogicalOp(tflite_micro::Register_LOGICAL_AND(), shape, input1,
                                  shape, input2, shape, golden, output_data);
 }
 
@@ -104,7 +104,7 @@ TF_LITE_MICRO_TEST(BroadcastLogicalAnd) {
   const bool input2[] = {true};
   const bool golden[] = {true, false, false, true};
   bool output_data[4];
-  tflite::testing::TestLogicalOp(tflite::Register_LOGICAL_AND(), input1_shape,
+  tflite_micro::testing::TestLogicalOp(tflite_micro::Register_LOGICAL_AND(), input1_shape,
                                  input1, input2_shape, input2, input1_shape,
                                  golden, output_data);
 }

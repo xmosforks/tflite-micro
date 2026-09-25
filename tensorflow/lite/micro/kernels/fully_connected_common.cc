@@ -24,7 +24,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/fully_connected.h"
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 const int kFullyConnectedInputTensor = 0;
 const int kFullyConnectedWeightsTensor = 1;
@@ -81,4 +81,4 @@ TfLiteStatus CalculateOpDataFullyConnected(
   return kTfLiteOk;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

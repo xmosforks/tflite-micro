@@ -15,7 +15,7 @@ limitations under the License.
 
 #include "tensorflow/lite/kernels/internal/reference/comparisons.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace reference_ops {
 
 BroadcastComparison4DSlowCommon BroadcastComparison4DSlowPreprocess(
@@ -34,4 +34,4 @@ BroadcastComparison4DSlowCommon BroadcastComparison4DSlowPreprocess(
 }
 
 }  // namespace reference_ops
-}  // namespace tflite
+}  // namespace tflite_micro

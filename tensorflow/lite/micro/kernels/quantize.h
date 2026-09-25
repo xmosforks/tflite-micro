@@ -18,10 +18,10 @@ limitations under the License.
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/types.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 struct OpDataQuantizeReference {
-  tflite::QuantizationParams quantization_params;
+  tflite_micro::QuantizationParams quantization_params;
   // The scaling factor from input to output (aka the 'real multiplier') can
   // be represented as a fixed point multiplier plus a left shift.
   int32_t requantize_output_multiplier;
@@ -32,6 +32,6 @@ struct OpDataQuantizeReference {
 
 TfLiteStatus EvalQuantizeReference(TfLiteContext* context, TfLiteNode* node);
 TfLiteStatus PrepareQuantizeReference(TfLiteContext* context, TfLiteNode* node);
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_QUANTIZE_H_

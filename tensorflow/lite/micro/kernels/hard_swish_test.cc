@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -104,7 +104,7 @@ void TestHardSwishQuantized(int size, const T* output_data,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_HARD_SWISH();
+  const TFLMRegistration registration = tflite_micro::Register_HARD_SWISH();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -182,7 +182,7 @@ void TestHardSwishQuantizedBias(const int size, const T* output_data,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_HARD_SWISH();
+  const TFLMRegistration registration = tflite_micro::Register_HARD_SWISH();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -233,7 +233,7 @@ void TestHardSwishFloat(const int size, float* output_data,
   int outputs_array_data[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(outputs_array_data);
 
-  const TFLMRegistration registration = tflite::Register_HARD_SWISH();
+  const TFLMRegistration registration = tflite_micro::Register_HARD_SWISH();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array, /*builtin_data=*/nullptr);
 
@@ -248,7 +248,7 @@ void TestHardSwishFloat(const int size, float* output_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -259,7 +259,7 @@ TF_LITE_MICRO_TEST(SimpleHardSwishTestFloat) {
   float input_values[size] = {0.f};
   float output_values[size] = {0.f};
 
-  tflite::testing::TestHardSwishFloat(size, output_data, &random_engine,
+  tflite_micro::testing::TestHardSwishFloat(size, output_data, &random_engine,
                                       input_values, output_values);
 }
 
@@ -282,7 +282,7 @@ TF_LITE_MICRO_TEST(SimpleHardSwishTestInt8) {
       float output_min = minmax_pairs[y][0];
       float output_max = minmax_pairs[y][1];
 
-      tflite::testing::TestHardSwishQuantized<int8_t>(
+      tflite_micro::testing::TestHardSwishQuantized<int8_t>(
           size, output_data, input_data_quantized, dequantized_output,
           input_min, input_max, output_min, output_max, &random_engine,
           input_values, output_values);

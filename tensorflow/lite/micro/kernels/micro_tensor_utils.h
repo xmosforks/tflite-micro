@@ -34,7 +34,7 @@ limitations under the License.
 #define __restrict__ __restrict
 #endif
 
-namespace tflite {
+namespace tflite_micro {
 
 // Not all backends support CpuBackendContext usage, so forward declare to avoid
 // pulling in its implementation.
@@ -51,6 +51,6 @@ void PortableApplyActivationToVector(const float* vector, int v_size,
                                      TfLiteFusedActivation activation,
                                      float* result);
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_KERNELS_MICRO_TENSOR_UTILS_H_

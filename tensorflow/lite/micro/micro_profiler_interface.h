@@ -18,7 +18,7 @@ limitations under the License.
 
 #include <cstdint>
 
-namespace tflite {
+namespace tflite_micro {
 
 // Interface class that the TFLM framework relies on for profiling.
 class MicroProfilerInterface {
@@ -33,6 +33,6 @@ class MicroProfilerInterface {
   virtual void EndEvent(uint32_t event_handle) = 0;
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_PROFILER_INTERFACE_H_

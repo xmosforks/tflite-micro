@@ -33,7 +33,7 @@ limitations under the License.
  * weights and parameters are not representative of the original model.
  */
 
-namespace tflite {
+namespace tflite_micro {
 
 using KeywordBenchmarkRunner = MicroBenchmarkRunner<int16_t>;
 using KeywordOpResolver = MicroMutableOpResolver<6>;
@@ -53,10 +53,10 @@ KeywordBenchmarkRunner* CreateBenchmarkRunner(MicroProfiler* profiler) {
   // We allocate the KeywordOpResolver from a global buffer because the object's
   // lifetime must exceed that of the KeywordBenchmarkRunner object.
   KeywordOpResolver* op_resolver = new (op_resolver_buffer) KeywordOpResolver();
-  op_resolver->AddFullyConnected(tflite::Register_FULLY_CONNECTED_INT8());
+  op_resolver->AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED_INT8());
   op_resolver->AddQuantize();
-  op_resolver->AddSoftmax(tflite::Register_SOFTMAX_INT8_INT16());
-  op_resolver->AddSvdf(tflite::Register_SVDF_INT8());
+  op_resolver->AddSoftmax(tflite_micro::Register_SOFTMAX_INT8_INT16());
+  op_resolver->AddSvdf(tflite_micro::Register_SVDF_INT8());
 
   return new (benchmark_runner_buffer)
       KeywordBenchmarkRunner(g_keyword_scrambled_8bit_model_data, op_resolver,
@@ -76,25 +76,25 @@ void KeywordRunNIerations(int iterations, const char* tag,
   MicroPrintf("%s took %d ticks (%d ms)", tag, ticks, TicksToMs(ticks));
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 int main(int argc, char** argv) {
-  tflite::InitializeTarget();
-  tflite::MicroProfiler profiler;
+  tflite_micro::InitializeTarget();
+  tflite_micro::MicroProfiler profiler;
 
   uint32_t event_handle = profiler.BeginEvent("InitializeKeywordRunner");
-  tflite::KeywordBenchmarkRunner* benchmark_runner =
+  tflite_micro::KeywordBenchmarkRunner* benchmark_runner =
       CreateBenchmarkRunner(&profiler);
   profiler.EndEvent(event_handle);
   profiler.Log();
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 
-  tflite::KeywordRunNIerations(1, "KeywordRunNIerations(1)", *benchmark_runner,
+  tflite_micro::KeywordRunNIerations(1, "KeywordRunNIerations(1)", *benchmark_runner,
                                profiler);
   profiler.Log();
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 
-  tflite::KeywordRunNIerations(10, "KeywordRunNIerations(10)",
+  tflite_micro::KeywordRunNIerations(10, "KeywordRunNIerations(10)",
                                *benchmark_runner, profiler);
   MicroPrintf("");  // null MicroPrintf serves as a newline.
 

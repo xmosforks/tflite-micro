@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -165,7 +165,7 @@ void TestPadQuantized(int* input_dims_data, const float* input_data,
   // Pad tensor must be constant.
   tensors[1].allocation_type = kTfLiteMmapRo;
 
-  tflite::Quantize(golden, golden_quantized, output_dims_count, output_scale,
+  tflite_micro::Quantize(golden, golden_quantized, output_dims_count, output_scale,
                    output_zero_point);
   TF_LITE_MICRO_EXPECT_EQ(
       expected_status,
@@ -205,7 +205,7 @@ void TestPadV2Quantized(
   tensors[2].params.scale = pad_value_scale;
   tensors[3].params.scale = output_scale;
 
-  tflite::Quantize(golden, golden_quantized, output_dims_count, output_scale,
+  tflite_micro::Quantize(golden, golden_quantized, output_dims_count, output_scale,
                    output_zero_point);
   TF_LITE_MICRO_EXPECT_EQ(
       expected_status,
@@ -215,7 +215,7 @@ void TestPadV2Quantized(
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -229,7 +229,7 @@ TF_LITE_MICRO_TEST(Test2DFloat) {
                           0, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   float output_data[24];
 
-  tflite::testing::TestPadFloat(input_dims, input_values, pad_dims, pad_values,
+  tflite_micro::testing::TestPadFloat(input_dims, input_values, pad_dims, pad_values,
                                 output_dims, golden, output_data);
 }
 
@@ -247,7 +247,7 @@ TF_LITE_MICRO_TEST(Test4DFloat) {
   golden[40] = 42;
   float output_data[kOutputLen];
 
-  tflite::testing::TestPadFloat(input_dims, input_values, pad_dims, pad_values,
+  tflite_micro::testing::TestPadFloat(input_dims, input_values, pad_dims, pad_values,
                                 output_dims, const_cast<const float*>(golden),
                                 output_data);
 }
@@ -263,7 +263,7 @@ TF_LITE_MICRO_TEST(Test2DFloatV2) {
                           42, 3,  4,  42, 42, 42, 42, 42, 42, 42, 42, 42};
   float output_data[24];
 
-  tflite::testing::TestPadV2Float(input_dims, input_values, pad_dims,
+  tflite_micro::testing::TestPadV2Float(input_dims, input_values, pad_dims,
                                   pad_values, pad_value, output_dims, golden,
                                   output_data);
 }
@@ -284,7 +284,7 @@ TF_LITE_MICRO_TEST(Test2DInt8) {
   int8_t input_quantized[4];
   int8_t golden_quantized[24];
 
-  tflite::testing::TestPadQuantized(
+  tflite_micro::testing::TestPadQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, output_dims, golden, golden_quantized, output_scale,
       output_zero_point, output_data);
@@ -306,7 +306,7 @@ TF_LITE_MICRO_TEST(Test2DInt16) {
   int16_t input_quantized[4];
   int16_t golden_quantized[24];
 
-  tflite::testing::TestPadQuantized(
+  tflite_micro::testing::TestPadQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, output_dims, golden, golden_quantized, output_scale,
       output_zero_point, output_data);
@@ -328,7 +328,7 @@ TF_LITE_MICRO_TEST(Test2DInt32) {
   int32_t input_quantized[4];
   int32_t golden_quantized[24];
 
-  tflite::testing::TestPadQuantized(
+  tflite_micro::testing::TestPadQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, output_dims, golden, golden_quantized, output_scale,
       output_zero_point, output_data);
@@ -353,7 +353,7 @@ TF_LITE_MICRO_TEST(Test2DInt8V2) {
   int8_t input_quantized[4];
   int8_t golden_quantized[24];
 
-  tflite::testing::TestPadV2Quantized(
+  tflite_micro::testing::TestPadV2Quantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, pad_value, pad_value_scale, pad_value_zero_point,
       output_dims, golden, golden_quantized, output_scale, output_zero_point,
@@ -379,7 +379,7 @@ TF_LITE_MICRO_TEST(Test2DInt16V2) {
   int16_t input_quantized[4];
   int16_t golden_quantized[24];
 
-  tflite::testing::TestPadV2Quantized(
+  tflite_micro::testing::TestPadV2Quantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, pad_value, pad_value_scale, pad_value_zero_point,
       output_dims, golden, golden_quantized, output_scale, output_zero_point,
@@ -405,7 +405,7 @@ TF_LITE_MICRO_TEST(Test2DInt32V2) {
   int32_t input_quantized[4];
   int32_t golden_quantized[24];
 
-  tflite::testing::TestPadV2Quantized(
+  tflite_micro::testing::TestPadV2Quantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, pad_value, pad_value_scale, pad_value_zero_point,
       output_dims, golden, golden_quantized, output_scale, output_zero_point,
@@ -433,7 +433,7 @@ TF_LITE_MICRO_TEST(Test2DInt8V2ExpectFailurePadValueQuantizationMismatch) {
   int8_t input_quantized[4];
   int8_t golden_quantized[24];
 
-  tflite::testing::TestPadV2Quantized(
+  tflite_micro::testing::TestPadV2Quantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, pad_value, pad_value_scale, pad_value_zero_point,
       output_dims, golden, golden_quantized, output_scale, output_zero_point,
@@ -461,7 +461,7 @@ TF_LITE_MICRO_TEST(Test2DInt8V2ExpectFailurePadValueQuantizationMismatch) {
   int8_t input_quantized[4];
   int8_t golden_quantized[24];
 
-  tflite::testing::TestPadV2Quantized(
+  tflite_micro::testing::TestPadV2Quantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, pad_value, pad_value_scale, pad_value_zero_point,
       output_dims, golden, golden_quantized, output_scale, output_zero_point,
@@ -485,7 +485,7 @@ TF_LITE_MICRO_TEST(Test2DInt8ExpectFailureQuantizationRangeExcludesZero) {
   int8_t input_quantized[4];
   int8_t golden_quantized[24];
 
-  tflite::testing::TestPadQuantized(
+  tflite_micro::testing::TestPadQuantized(
       input_dims, input_values, input_quantized, input_scale, input_zero_point,
       pad_dims, pad_values, output_dims, golden, golden_quantized, output_scale,
       output_zero_point, output_data, kTfLiteError);

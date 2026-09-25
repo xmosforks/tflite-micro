@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -59,7 +59,7 @@ void ExecuteEluTest(TfLiteTensor* tensors, int tensors_count) {
   int kOutputArrayData[] = {1, 1};
   TfLiteIntArray* outputs_array = IntArrayFromInts(kOutputArrayData);
 
-  const TFLMRegistration registration = tflite::Register_ELU();
+  const TFLMRegistration registration = tflite_micro::Register_ELU();
   micro::KernelRunner runner(registration, tensors, tensors_count, inputs_array,
                              outputs_array, nullptr);
 
@@ -117,7 +117,7 @@ void TestEluQuantized(const TestEluParams<T>& params, int* input_dims_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -134,7 +134,7 @@ TF_LITE_MICRO_TEST(FloatActivationsOpTestElu) {
   constexpr int kOutputCount = std::extent<decltype(kExpect)>::value;
   float output_data[kOutputCount];
 
-  tflite::testing::TestElu(kDims, kInput, kDims, kExpect, output_data);
+  tflite_micro::testing::TestElu(kDims, kInput, kDims, kExpect, output_data);
 }
 
 TF_LITE_MICRO_TEST(QuantizedActivationsOpTestEluInt8) {
@@ -155,14 +155,14 @@ TF_LITE_MICRO_TEST(QuantizedActivationsOpTestEluInt8) {
   int8_t q_input_data[kOutputCount];
   constexpr float kMin = -1;
   constexpr float kMax = 127.f / 128.f;
-  tflite::testing::TestEluParams<int8_t> params = {};
+  tflite_micro::testing::TestEluParams<int8_t> params = {};
   params.data_min = 8 * kMin;
   params.data_max = 8 * kMax;
   params.input_data = q_input_data;
   params.output_data = q_output_data;
-  params.tolerance = tflite::testing::kQuantizedTolerance;
+  params.tolerance = tflite_micro::testing::kQuantizedTolerance;
 
-  tflite::testing::TestEluQuantized(params, kDims, kInput, kDims, kExpect,
+  tflite_micro::testing::TestEluQuantized(params, kDims, kInput, kDims, kExpect,
                                     output_data);
 }
 

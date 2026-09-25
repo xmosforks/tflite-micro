@@ -19,7 +19,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 namespace {
 
@@ -74,7 +74,7 @@ void TestL2Normalization(int* input_dims_data, const T* input_data,
       .activation = kTfLiteActNone,
   };
 
-  const TFLMRegistration registration = tflite::Register_L2_NORMALIZATION();
+  const TFLMRegistration registration = tflite_micro::Register_L2_NORMALIZATION();
   micro::KernelRunner runner(registration, tensors, tensors_size, inputs_array,
                              outputs_array,
                              reinterpret_cast<void*>(&builtin_data));
@@ -89,7 +89,7 @@ void TestL2Normalization(int* input_dims_data, const T* input_data,
 
 }  // namespace
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -101,7 +101,7 @@ TF_LITE_MICRO_TEST(SimpleFloatTest) {
                                                    0.6,   -0.35, 0.05};
   float output_data[data_length];
 
-  tflite::testing::TestL2Normalization<float>(
+  tflite_micro::testing::TestL2Normalization<float>(
       input_dims, input_data, expected_output_data, output_data);
 }
 
@@ -112,7 +112,7 @@ TF_LITE_MICRO_TEST(ZerosVectorFloatTest) {
   const float expected_output_data[data_length] = {0, 0, 0, 0, 0, 0};
   float output_data[data_length];
 
-  tflite::testing::TestL2Normalization<float>(
+  tflite_micro::testing::TestL2Normalization<float>(
       input_dims, input_data, expected_output_data, output_data);
 }
 
@@ -124,7 +124,7 @@ TF_LITE_MICRO_TEST(SimpleFloatWithRankLessThanFourTest) {
                                                    0.6,   -0.35, 0.05};
   float output_data[data_length];
 
-  tflite::testing::TestL2Normalization<float>(
+  tflite_micro::testing::TestL2Normalization<float>(
       input_dims, input_data, expected_output_data, output_data);
 }
 
@@ -143,7 +143,7 @@ TF_LITE_MICRO_TEST(MultipleBatchFloatTest) {
   };
   float output_data[data_length];
 
-  tflite::testing::TestL2Normalization<float>(
+  tflite_micro::testing::TestL2Normalization<float>(
       input_dims, input_data, expected_output_data, output_data);
 }
 
@@ -154,7 +154,7 @@ TF_LITE_MICRO_TEST(SimpleInt8Test) {
   const int8_t expected_output[data_length] = {-70, 38, 45, 77, -45, 6};
   int8_t output_data[data_length];
 
-  tflite::testing::TestL2Normalization<int8_t>(input_dims, input_data,
+  tflite_micro::testing::TestL2Normalization<int8_t>(input_dims, input_data,
                                                expected_output, output_data);
 }
 
@@ -165,7 +165,7 @@ TF_LITE_MICRO_TEST(ZerosVectorInt8Test) {
   const int8_t expected_output[data_length] = {0, 0, 0, 0, 0, 0};
   int8_t output_data[data_length];
 
-  tflite::testing::TestL2Normalization<int8_t>(input_dims, input_data,
+  tflite_micro::testing::TestL2Normalization<int8_t>(input_dims, input_data,
                                                expected_output, output_data);
 }
 
@@ -184,7 +184,7 @@ TF_LITE_MICRO_TEST(MultipleBatchInt8Test) {
   };
   int8_t output_data[data_length];
 
-  tflite::testing::TestL2Normalization<int8_t>(input_dims, input_data,
+  tflite_micro::testing::TestL2Normalization<int8_t>(input_dims, input_data,
                                                expected_output, output_data);
 }
 

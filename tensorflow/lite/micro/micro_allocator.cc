@@ -36,7 +36,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/tflite_bridge/flatbuffer_conversions_bridge.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -184,7 +184,7 @@ namespace internal {
 // Returns a pointer to any buffer associated with the flatbuffer tensor. Can
 // return nullptr if no buffer is found.
 void* GetFlatbufferTensorBuffer(
-    const tflite::Tensor& flatbuffer_tensor,
+    const tflite_micro::Tensor& flatbuffer_tensor,
     const flatbuffers::Vector<flatbuffers::Offset<Buffer>>* buffers) {
   // We need to figure out where the actual contents of this tensor are stored
   // in memory. We'll check to see if there's a serialized buffer (pretty much
@@ -216,7 +216,7 @@ void* GetFlatbufferTensorBuffer(
 TfLiteStatus InitializeTfLiteTensorFromFlatbuffer(
     IPersistentBufferAllocator* persistent_buffer_allocator,
     INonPersistentBufferAllocator* non_persistent_buffer_allocator,
-    bool allocate_temp, const tflite::Tensor& flatbuffer_tensor,
+    bool allocate_temp, const tflite_micro::Tensor& flatbuffer_tensor,
     const flatbuffers::Vector<flatbuffers::Offset<Buffer>>* buffers,
     TfLiteTensor* result) {
   TFLITE_DCHECK(result != nullptr);
@@ -225,7 +225,7 @@ TfLiteStatus InitializeTfLiteTensorFromFlatbuffer(
   // Make sure the serialized type is one we know how to deal with, and convert
   // it from a flatbuffer enum into a constant used by the kernel C API.
   TF_LITE_ENSURE_STATUS(
-      tflite::ConvertTensorType(flatbuffer_tensor.type(), &result->type));
+      tflite_micro::ConvertTensorType(flatbuffer_tensor.type(), &result->type));
   // Make sure we remember if the serialized tensor is designated as a variable.
   result->is_variable = flatbuffer_tensor.is_variable();
 
@@ -300,11 +300,11 @@ TfLiteStatus InitializeTfLiteTensorFromFlatbuffer(
         allocate_temp
             ? reinterpret_cast<TfLiteIntArray*>(
                   non_persistent_buffer_allocator->AllocateTemp(
-                      TfLiteIntArrayGetSizeInBytes(channels),
+                      TfLiteMicroIntArrayGetSizeInBytes(channels),
                       alignof(TfLiteIntArray)))
             : reinterpret_cast<TfLiteIntArray*>(
                   persistent_buffer_allocator->AllocatePersistentBuffer(
-                      TfLiteIntArrayGetSizeInBytes(channels),
+                      TfLiteMicroIntArrayGetSizeInBytes(channels),
                       alignof(TfLiteIntArray)));
     if (quantization->zero_point == nullptr) {
       MicroPrintf("Unable to allocate quantization->zero_point.\n");
@@ -334,14 +334,14 @@ TfLiteStatus InitializeTfLiteTensorFromFlatbuffer(
 }
 
 TfLiteStatus InitializeTfLiteEvalTensorFromFlatbuffer(
-    const tflite::Tensor& flatbuffer_tensor,
+    const tflite_micro::Tensor& flatbuffer_tensor,
     const flatbuffers::Vector<flatbuffers::Offset<Buffer>>* buffers,
     TfLiteEvalTensor* result) {
   *result = {};
   // Make sure the serialized type is one we know how to deal with, and convert
   // it from a flatbuffer enum into a constant used by the kernel C API.
   TF_LITE_ENSURE_STATUS(
-      tflite::ConvertTensorType(flatbuffer_tensor.type(), &result->type));
+      tflite_micro::ConvertTensorType(flatbuffer_tensor.type(), &result->type));
 
   result->data.data = GetFlatbufferTensorBuffer(flatbuffer_tensor, buffers);
 
@@ -981,4 +981,4 @@ TfLiteBridgeBuiltinDataAllocator* MicroAllocator::GetBuiltinDataAllocator() {
   return builtin_data_allocator_;
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

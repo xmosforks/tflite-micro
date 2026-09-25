@@ -22,7 +22,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_interpreter_graph.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 // A full implementation of the MicroContext, to be used by the
 // MicroInterpreter. Kernels should not depend on this directly. Instead they
@@ -67,6 +67,7 @@ class MicroInterpreterContext : public MicroContext {
   // Returns a temporary TfLiteTensor struct for a given index.
   // Virtual so that it can be faked for kernel tests.
   virtual TfLiteTensor* AllocateTempTfLiteTensor(int tensor_idx) override;
+  virtual TfLiteTensor* AllocateTempTfLiteTensor(int tensor_idx, int sg) override;
 
   // Deallocates a temp TfLiteTensor.
   // Virtual so that it can be faked for kernel tests.
@@ -85,6 +86,7 @@ class MicroInterpreterContext : public MicroContext {
   // Returns a TfLiteEvalTensor struct for a given index.
   // Virtual so that it can be faked for kernel tests.
   virtual TfLiteEvalTensor* GetEvalTensor(int tensor_idx) override;
+  virtual TfLiteEvalTensor* GetEvalTensor(int tensor_idx, int sg) override;
 
   // Sets the State of MemoryPlanning MicroInterpreterContext
   void SetInterpreterState(InterpreterState state);
@@ -118,6 +120,6 @@ class MicroInterpreterContext : public MicroContext {
   TF_LITE_REMOVE_VIRTUAL_DELETE
 };
 
-}  // namespace tflite
+}  // namespace tflite_micro
 
 #endif  // TENSORFLOW_LITE_MICRO_MICRO_INTERPRETER_CONTEXT_H_

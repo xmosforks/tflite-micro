@@ -20,7 +20,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/test_helpers.h"
 #include "tensorflow/lite/micro/testing/micro_test.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace testing {
 
 template <typename T>
@@ -175,7 +175,7 @@ void TestPackTwoInputsQuantized32(
 }
 
 }  // namespace testing
-}  // namespace tflite
+}  // namespace tflite_micro
 
 TF_LITE_MICRO_TESTS_BEGIN
 
@@ -190,7 +190,7 @@ TF_LITE_MICRO_TEST(PackFloatThreeInputs) {
   constexpr int output_dims_count = 6;
   float output_data[output_dims_count];
 
-  tflite::testing::TestPackThreeInputsFloat(
+  tflite_micro::testing::TestPackThreeInputsFloat(
       input_shape, input1_values, input_shape, input2_values, input_shape,
       input3_values, axis, output_shape, golden, output_data);
 }
@@ -206,7 +206,7 @@ TF_LITE_MICRO_TEST(PackFloatThreeInputsDifferentAxis) {
   constexpr int output_dims_count = 6;
   float output_data[output_dims_count];
 
-  tflite::testing::TestPackThreeInputsFloat(
+  tflite_micro::testing::TestPackThreeInputsFloat(
       input_shape, input1_values, input_shape, input2_values, input_shape,
       input3_values, axis, output_shape, golden, output_data);
 }
@@ -222,7 +222,7 @@ TF_LITE_MICRO_TEST(PackFloatThreeInputsNegativeAxis) {
   constexpr int output_dims_count = 6;
   float output_data[output_dims_count];
 
-  tflite::testing::TestPackThreeInputsFloat(
+  tflite_micro::testing::TestPackThreeInputsFloat(
       input_shape, input1_values, input_shape, input2_values, input_shape,
       input3_values, axis, output_shape, golden, output_data);
 }
@@ -237,7 +237,7 @@ TF_LITE_MICRO_TEST(PackFloatMultilDimensions) {
   constexpr int output_dims_count = 12;
   float output_data[output_dims_count];
 
-  tflite::testing::TestPackTwoInputsFloat(input_shape, input1_values,
+  tflite_micro::testing::TestPackTwoInputsFloat(input_shape, input1_values,
                                           input_shape, input2_values, axis,
                                           output_shape, golden, output_data);
 }
@@ -252,7 +252,7 @@ TF_LITE_MICRO_TEST(PackQuantizedMultilDimensions) {
   constexpr int output_dims_count = 12;
   int8_t output_data[output_dims_count];
 
-  tflite::testing::TestPackTwoInputsQuantized(
+  tflite_micro::testing::TestPackTwoInputsQuantized(
       input_shape, input1_values, input_shape, input2_values, axis,
       output_shape, golden, output_data);
 }
@@ -267,7 +267,7 @@ TF_LITE_MICRO_TEST(PackQuantized32MultilDimensions) {
   constexpr int output_dims_count = 12;
   int32_t output_data[output_dims_count];
 
-  tflite::testing::TestPackTwoInputsQuantized32(
+  tflite_micro::testing::TestPackTwoInputsQuantized32(
       input_shape, input1_values, input_shape, input2_values, axis,
       output_shape, golden, output_data);
 }

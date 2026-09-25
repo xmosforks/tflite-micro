@@ -21,7 +21,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_log.h"
 #include "tensorflow/lite/micro/micro_utils.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 constexpr int kInputTensor = 0;
@@ -32,9 +32,9 @@ template <typename InputT, typename CoordsT = int32_t>
 TfLiteStatus Gather(const TfLiteGatherParams* params,
                     const TfLiteEvalTensor* input,
                     const TfLiteEvalTensor* coords, TfLiteEvalTensor* output) {
-  const InputT* input_data = tflite::micro::GetTensorData<InputT>(input);
-  const CoordsT* coords_data = tflite::micro::GetTensorData<CoordsT>(coords);
-  InputT* output_data = tflite::micro::GetTensorData<InputT>(output);
+  const InputT* input_data = tflite_micro::micro::GetTensorData<InputT>(input);
+  const CoordsT* coords_data = tflite_micro::micro::GetTensorData<CoordsT>(coords);
+  InputT* output_data = tflite_micro::micro::GetTensorData<InputT>(output);
   const TfLiteIntArray* input_dims = input->dims;
   const int input_dims_size = input_dims->size;
   int axis = params->axis;
@@ -120,7 +120,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Positions of type '%s' are not supported by gather.",
-                  TfLiteTypeGetName(coords->type));
+                  TfLiteMicroTypeGetName(coords->type));
       return kTfLiteError;
       break;
   }
@@ -135,7 +135,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
       break;
     default:
       MicroPrintf("Type '%s' is not supported by gather.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
       break;
   }
@@ -163,8 +163,8 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   // MicroInterpreter is a temporary allocation. We must therefore relocate the
   // dims from the FlatBuffer to the persistent storage arena.
   TfLiteEvalTensor* output_eval =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
-  TF_LITE_ENSURE_OK(context, tflite::micro::CreateWritableTensorDimsWithCopy(
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
+  TF_LITE_ENSURE_OK(context, tflite_micro::micro::CreateWritableTensorDimsWithCopy(
                                  context, output, output_eval));
 
   TfLiteIntArray* output_shape = output->dims;
@@ -192,11 +192,11 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const auto* params =
       reinterpret_cast<const TfLiteGatherParams*>(node->builtin_data);
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   const TfLiteEvalTensor* coords =
-      tflite::micro::GetEvalInput(context, node, kInputPositions);
+      tflite_micro::micro::GetEvalInput(context, node, kInputPositions);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   if (coords->type == kTfLiteInt32) {
     switch (input->type) {
@@ -208,7 +208,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
         break;
       default:
         MicroPrintf("Type '%s' is not supported by gather.",
-                    TfLiteTypeGetName(input->type));
+                    TfLiteMicroTypeGetName(input->type));
         return kTfLiteError;
         break;
     }
@@ -218,7 +218,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_GATHER() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

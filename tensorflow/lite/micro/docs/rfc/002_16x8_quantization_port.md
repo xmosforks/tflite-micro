@@ -87,11 +87,11 @@ For example, the following could be registered:
 
 ```
 // Support for all datatypes
-op_resolver->AddFullyConnected(tflite::Register_FULLY_CONNECTED);
+op_resolver->AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED);
 // Support for 8 bit quantized models
-op_resolver->AddFullyConnected(tflite::Register_FULLY_CONNECTED_INT8);
+op_resolver->AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED_INT8);
 // Support for 16x8 quantized models
-op_resolver->AddFullyConnected(tflite::Register_FULLY_CONNECTED_INT16X8());
+op_resolver->AddFullyConnected(tflite_micro::Register_FULLY_CONNECTED_INT16X8());
 ```
 
 This means that kernels not currently using this registration API will need to be refactored to use it. Currently only **FullyConnected** uses the API.

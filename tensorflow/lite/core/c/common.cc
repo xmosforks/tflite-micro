@@ -106,78 +106,78 @@ void TfLiteVarArrayFree(T* a) {
 
 extern "C" {
 
-size_t TfLiteIntArrayGetSizeInBytes(int size) {
+size_t TfLiteMicroIntArrayGetSizeInBytes(int size) {
   return TfLiteVarArrayGetSizeInBytes<TfLiteIntArray>(size);
 }
 
-int TfLiteIntArrayEqual(const TfLiteIntArray* a, const TfLiteIntArray* b) {
+int TfLiteMicroIntArrayEqual(const TfLiteIntArray* a, const TfLiteIntArray* b) {
   return TfLiteVarArrayEqual(a, b);
 }
 
-int TfLiteIntArrayEqualsArray(const TfLiteIntArray* a, int b_size,
+int TfLiteMicroIntArrayEqualsArray(const TfLiteIntArray* a, int b_size,
                               const int b_data[]) {
   return TfLiteVarArrayEqualsArray(a, b_size, b_data);
 }
 
 #ifndef TF_LITE_STATIC_MEMORY
 
-TfLiteIntArray* TfLiteIntArrayCreate(int size) {
+TfLiteIntArray* TfLiteMicroIntArrayCreate(int size) {
   return TfLiteVarArrayCreate<TfLiteIntArray>(size);
 }
 
-TfLiteIntArray* TfLiteIntArrayCopy(const TfLiteIntArray* src) {
+TfLiteIntArray* TfliteMicroIntArrayCopy(const TfLiteIntArray* src) {
   return TfLiteVarArrayCopy(src);
 }
 
-void TfLiteIntArrayFree(TfLiteIntArray* a) { TfLiteVarArrayFree(a); }
+void TfLiteMicroIntArrayFree(TfLiteIntArray* a) { TfLiteVarArrayFree(a); }
 
 #endif  // TF_LITE_STATIC_MEMORY
 
-int TfLiteFloatArrayGetSizeInBytes(int size) {
+int TfliteMicroFloatArrayGetSizeInBytes(int size) {
   return TfLiteVarArrayGetSizeInBytes<TfLiteFloatArray>(size);
 }
 
 #ifndef TF_LITE_STATIC_MEMORY
 
-TfLiteFloatArray* TfLiteFloatArrayCreate(int size) {
+TfLiteFloatArray* TfliteMicroFloatArrayCreate(int size) {
   return TfLiteVarArrayCreate<TfLiteFloatArray>(size);
 }
 
-TfLiteFloatArray* TfLiteFloatArrayCopy(const TfLiteFloatArray* src) {
+TfLiteFloatArray* TfliteMicroFloatArrayCopy(const TfLiteFloatArray* src) {
   return TfLiteVarArrayCopy(src);
 }
 
-void TfLiteFloatArrayFree(TfLiteFloatArray* a) { TfLiteVarArrayFree(a); }
+void TfLiteMicroFloatArrayFree(TfLiteFloatArray* a) { TfLiteVarArrayFree(a); }
 
-void TfLiteTensorDataFree(TfLiteTensor* t) {
+void TfliteMicroTensorDataFree(TfLiteTensor* t) {
   if (t->allocation_type == kTfLiteVariantObject && t->data.data) {
     delete static_cast<VariantData*>(t->data.data);
   } else if (t->allocation_type == kTfLiteDynamic ||
              t->allocation_type == kTfLitePersistentRo) {
     if (t->data.raw) {
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-      tflite::PauseHeapMonitoring(/*pause=*/true);
-      tflite::OnTfLiteTensorDealloc(t);
+      tflite_micro::PauseHeapMonitoring(/*pause=*/true);
+      tflite_micro::OnTfLiteTensorDealloc(t);
 #endif
       free(t->data.raw);
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-      tflite::PauseHeapMonitoring(/*pause=*/false);
+      tflite_micro::PauseHeapMonitoring(/*pause=*/false);
 #endif
     }
   }
   t->data.raw = nullptr;
 }
 
-void TfLiteQuantizationFree(TfLiteQuantization* quantization) {
+void TfLiteMicroQuantizationFree(TfLiteQuantization* quantization) {
   if (quantization->type == kTfLiteAffineQuantization) {
     TfLiteAffineQuantization* q_params =
         (TfLiteAffineQuantization*)(quantization->params);
     if (q_params->scale) {
-      TfLiteFloatArrayFree(q_params->scale);
+      TfLiteMicroFloatArrayFree(q_params->scale);
       q_params->scale = nullptr;
     }
     if (q_params->zero_point) {
-      TfLiteIntArrayFree(q_params->zero_point);
+      TfLiteMicroIntArrayFree(q_params->zero_point);
       q_params->zero_point = nullptr;
     }
     free(q_params);
@@ -186,18 +186,18 @@ void TfLiteQuantizationFree(TfLiteQuantization* quantization) {
   quantization->type = kTfLiteNoQuantization;
 }
 
-void TfLiteSparsityFree(TfLiteSparsity* sparsity) {
+void TfLiteMicroSparsityFree(TfLiteSparsity* sparsity) {
   if (sparsity == nullptr) {
     return;
   }
 
   if (sparsity->traversal_order) {
-    TfLiteIntArrayFree(sparsity->traversal_order);
+    TfLiteMicroIntArrayFree(sparsity->traversal_order);
     sparsity->traversal_order = nullptr;
   }
 
   if (sparsity->block_map) {
-    TfLiteIntArrayFree(sparsity->block_map);
+    TfLiteMicroIntArrayFree(sparsity->block_map);
     sparsity->block_map = nullptr;
   }
 
@@ -206,9 +206,9 @@ void TfLiteSparsityFree(TfLiteSparsity* sparsity) {
     for (; i < sparsity->dim_metadata_size; i++) {
       TfLiteDimensionMetadata metadata = sparsity->dim_metadata[i];
       if (metadata.format == kTfLiteDimSparseCSR) {
-        TfLiteIntArrayFree(metadata.array_segments);
+        TfLiteMicroIntArrayFree(metadata.array_segments);
         metadata.array_segments = nullptr;
-        TfLiteIntArrayFree(metadata.array_indices);
+        TfLiteMicroIntArrayFree(metadata.array_indices);
         metadata.array_indices = nullptr;
       }
     }
@@ -219,27 +219,27 @@ void TfLiteSparsityFree(TfLiteSparsity* sparsity) {
   free(sparsity);
 }
 
-void TfLiteTensorFree(TfLiteTensor* t) {
-  TfLiteTensorDataFree(t);
-  if (t->dims) TfLiteIntArrayFree(t->dims);
+void TfliteMicroTensorFree(TfLiteTensor* t) {
+  TfliteMicroTensorDataFree(t);
+  if (t->dims) TfLiteMicroIntArrayFree(t->dims);
   t->dims = nullptr;
 
   if (t->dims_signature) {
-    TfLiteIntArrayFree((TfLiteIntArray*)t->dims_signature);
+    TfLiteMicroIntArrayFree((TfLiteIntArray*)t->dims_signature);
   }
   t->dims_signature = nullptr;
 
-  TfLiteQuantizationFree(&t->quantization);
-  TfLiteSparsityFree(t->sparsity);
+  TfLiteMicroQuantizationFree(&t->quantization);
+  TfLiteMicroSparsityFree(t->sparsity);
   t->sparsity = nullptr;
 }
 
-void TfLiteTensorReset(TfLiteType type, const char* name, TfLiteIntArray* dims,
+void TfliteMicroTensorReset(TfLiteType type, const char* name, TfLiteIntArray* dims,
                        TfLiteQuantizationParams quantization, char* buffer,
                        size_t size, TfLiteAllocationType allocation_type,
                        const void* allocation, bool is_variable,
                        TfLiteTensor* tensor) {
-  TfLiteTensorFree(tensor);
+  TfliteMicroTensorFree(tensor);
   tensor->type = type;
   tensor->name = name;
   tensor->dims = dims;
@@ -254,19 +254,19 @@ void TfLiteTensorReset(TfLiteType type, const char* name, TfLiteIntArray* dims,
   tensor->quantization.params = nullptr;
 }
 
-TfLiteStatus TfLiteTensorCopy(const TfLiteTensor* src, TfLiteTensor* dst) {
+TfLiteStatus TfliteMicroTensorCopy(const TfLiteTensor* src, TfLiteTensor* dst) {
   if (!src || !dst) return kTfLiteOk;
   if (src->bytes != dst->bytes) return kTfLiteError;
   if (src == dst) return kTfLiteOk;
   dst->type = src->type;
-  if (dst->dims) TfLiteIntArrayFree(dst->dims);
-  dst->dims = TfLiteIntArrayCopy(src->dims);
+  if (dst->dims) TfLiteMicroIntArrayFree(dst->dims);
+  dst->dims = TfliteMicroIntArrayCopy(src->dims);
   if (src->allocation_type == kTfLiteVariantObject) {
     // An edge case exists in control flow ops when they copy inputs to outputs
     // before invoking any body, in this case the `dst` will not have its
     // `allocation_type` set properly, so we handle here for now.
     if (dst->allocation_type != kTfLiteVariantObject) {
-      TfLiteTensorDataFree(dst);
+      TfliteMicroTensorDataFree(dst);
       dst->allocation_type = kTfLiteVariantObject;
     }
     auto* dst_vd = static_cast<VariantData*>(dst->data.data);
@@ -286,14 +286,14 @@ TfLiteStatus TfLiteTensorCopy(const TfLiteTensor* src, TfLiteTensor* dst) {
   return kTfLiteOk;
 }
 
-TfLiteStatus TfLiteTensorResizeMaybeCopy(size_t num_bytes, TfLiteTensor* tensor,
+TfLiteStatus TfliteMicroTensorResizeMaybeCopy(size_t num_bytes, TfLiteTensor* tensor,
                                          bool preserve_data) {
   if (tensor->allocation_type != kTfLiteDynamic &&
       tensor->allocation_type != kTfLitePersistentRo) {
     return kTfLiteOk;
   }
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-  tflite::PauseHeapMonitoring(/*pause=*/true);
+  tflite_micro::PauseHeapMonitoring(/*pause=*/true);
 #endif
   size_t alloc_bytes = num_bytes;
   // TODO(b/145340303): Tensor data should be aligned.
@@ -303,11 +303,11 @@ TfLiteStatus TfLiteTensorResizeMaybeCopy(size_t num_bytes, TfLiteTensor* tensor,
   if (!tensor->data.data) {
     tensor->data.data = (char*)malloc(alloc_bytes);
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-    tflite::OnTfLiteTensorAlloc(tensor, alloc_bytes);
+    tflite_micro::OnTfLiteTensorAlloc(tensor, alloc_bytes);
 #endif
   } else if (num_bytes > tensor->bytes) {
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-    tflite::OnTfLiteTensorDealloc(tensor);
+    tflite_micro::OnTfLiteTensorDealloc(tensor);
 #endif
     if (preserve_data) {
       tensor->data.data = (char*)realloc(tensor->data.data, alloc_bytes);
@@ -318,11 +318,11 @@ TfLiteStatus TfLiteTensorResizeMaybeCopy(size_t num_bytes, TfLiteTensor* tensor,
       tensor->data.data = (char*)malloc(alloc_bytes);
     }
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-    tflite::OnTfLiteTensorAlloc(tensor, alloc_bytes);
+    tflite_micro::OnTfLiteTensorAlloc(tensor, alloc_bytes);
 #endif
   }
 #ifdef TF_LITE_TENSORFLOW_PROFILER
-  tflite::PauseHeapMonitoring(/*pause=*/false);
+  tflite_micro::PauseHeapMonitoring(/*pause=*/false);
 #endif
   tensor->bytes = num_bytes;
   if (tensor->data.data == nullptr && num_bytes != 0) {
@@ -333,12 +333,12 @@ TfLiteStatus TfLiteTensorResizeMaybeCopy(size_t num_bytes, TfLiteTensor* tensor,
   return kTfLiteOk;
 }
 
-TfLiteStatus TfLiteTensorRealloc(size_t num_bytes, TfLiteTensor* tensor) {
-  return TfLiteTensorResizeMaybeCopy(num_bytes, tensor, true);
+TfLiteStatus TfliteMicroTensorRealloc(size_t num_bytes, TfLiteTensor* tensor) {
+  return TfliteMicroTensorResizeMaybeCopy(num_bytes, tensor, true);
 }
 #endif  // TF_LITE_STATIC_MEMORY
 
-const char* TfLiteTypeGetName(TfLiteType type) {
+const char* TfLiteMicroTypeGetName(TfLiteType type) {
   switch (type) {
     case kTfLiteNoType:
       return "NOTYPE";
@@ -382,10 +382,10 @@ const char* TfLiteTypeGetName(TfLiteType type) {
   return "Unknown type";
 }
 
-TfLiteDelegate TfLiteDelegateCreate() { return TfLiteDelegate{}; }
+TfLiteDelegate TfLiteMicroDelegateCreate() { return TfLiteDelegate{}; }
 
 #ifndef TF_LITE_STATIC_MEMORY
-TfLiteOpaqueDelegate* TfLiteOpaqueDelegateCreate(
+TfLiteOpaqueDelegate* TfliteMicroOpaqueDelegateCreate(
     const TfLiteOpaqueDelegateBuilder* opaque_delegate_builder) {
   if (!opaque_delegate_builder) return nullptr;
 
@@ -396,7 +396,7 @@ TfLiteOpaqueDelegate* TfLiteOpaqueDelegateCreate(
   return reinterpret_cast<TfLiteOpaqueDelegate*>(result);
 }
 
-void TfLiteOpaqueDelegateDelete(TfLiteOpaqueDelegate* opaque_delegate) {
+void TfliteMicroOpaqueDelegateDelete(TfLiteOpaqueDelegate* opaque_delegate) {
   if (!opaque_delegate) return;
 
   const TfLiteDelegate* tflite_delegate =
@@ -406,7 +406,7 @@ void TfLiteOpaqueDelegateDelete(TfLiteOpaqueDelegate* opaque_delegate) {
 }
 #endif  // TF_LITE_STATIC_MEMORY
 
-void* TfLiteOpaqueDelegateGetData(const TfLiteOpaqueDelegate* delegate) {
+void* TfliteMicroOpaqueDelegateGetData(const TfLiteOpaqueDelegate* delegate) {
   if (!delegate) return nullptr;
 
   // The following cast is safe only because this code is part of the
@@ -421,73 +421,76 @@ void* TfLiteOpaqueDelegateGetData(const TfLiteOpaqueDelegate* delegate) {
 }
 
 // Returns a tensor data allocation strategy.
-TfLiteAllocationStrategy TfLiteTensorGetAllocationStrategy(
+TfLiteAllocationStrategy TfliteMicroTensorGetAllocationStrategy(
     const TfLiteTensor* const t) {
-  switch (t->allocation_type) {
-    case kTfLiteMemNone:
-      return kTfLiteAllocationStrategyNone;
-    case kTfLiteMmapRo:
-      return kTfLiteAllocationStrategyMMap;
-    case kTfLiteArenaRw:
-      return kTfLiteAllocationStrategyArena;
-    case kTfLiteArenaRwPersistent:
-      return kTfLiteAllocationStrategyArena;
-    case kTfLiteDynamic:
-      return kTfLiteAllocationStrategyMalloc;
-    case kTfLitePersistentRo:
-      return kTfLiteAllocationStrategyUnknown;
-    case kTfLiteCustom:
-      return kTfLiteAllocationStrategyUnknown;
-    case kTfLiteVariantObject:
-      return kTfLiteAllocationStrategyNew;
-  }
+  assert(false && "Disabled function!");
+  // switch (t->allocation_type) {
+  //   case kTfLiteMemNone:
+  //     return kTfLiteAllocationStrategyNone;
+  //   case kTfLiteMmapRo:
+  //     return kTfLiteAllocationStrategyMMap;
+  //   case kTfLiteArenaRw:
+  //     return kTfLiteAllocationStrategyArena;
+  //   case kTfLiteArenaRwPersistent:
+  //     return kTfLiteAllocationStrategyArena;
+  //   case kTfLiteDynamic:
+  //     return kTfLiteAllocationStrategyMalloc;
+  //   case kTfLitePersistentRo:
+  //     return kTfLiteAllocationStrategyUnknown;
+  //   case kTfLiteCustom:
+  //     return kTfLiteAllocationStrategyUnknown;
+  //   case kTfLiteVariantObject:
+  //     return kTfLiteAllocationStrategyNew;
+  // }
   return kTfLiteAllocationStrategyUnknown;
 }
 
 // Returns how stable a tensor data buffer address is across runs.
-TfLiteRunStability TfLiteTensorGetBufferAddressStability(
+TfLiteRunStability TfliteMicroTensorGetBufferAddressStability(
     const TfLiteTensor* const t) {
-  switch (t->allocation_type) {
-    case kTfLiteMemNone:
-      return kTfLiteRunStabilityAcrossRuns;
-    case kTfLiteMmapRo:
-      return kTfLiteRunStabilityAcrossRuns;
-    case kTfLiteArenaRw:
-      return kTfLiteRunStabilityUnstable;
-    case kTfLiteArenaRwPersistent:
-      return kTfLiteRunStabilityUnstable;
-    case kTfLiteDynamic:
-      return kTfLiteRunStabilitySingleRun;
-    case kTfLitePersistentRo:
-      return kTfLiteRunStabilitySingleRun;
-    case kTfLiteCustom:
-      return kTfLiteRunStabilityUnknown;
-    case kTfLiteVariantObject:
-      return kTfLiteRunStabilityAcrossRuns;
-  }
+  assert(false && "Disabled function!");
+  // switch (t->allocation_type) {
+  //   case kTfLiteMemNone:
+  //     return kTfLiteRunStabilityAcrossRuns;
+  //   case kTfLiteMmapRo:
+  //     return kTfLiteRunStabilityAcrossRuns;
+  //   case kTfLiteArenaRw:
+  //     return kTfLiteRunStabilityUnstable;
+  //   case kTfLiteArenaRwPersistent:
+  //     return kTfLiteRunStabilityUnstable;
+  //   case kTfLiteDynamic:
+  //     return kTfLiteRunStabilitySingleRun;
+  //   case kTfLitePersistentRo:
+  //     return kTfLiteRunStabilitySingleRun;
+  //   case kTfLiteCustom:
+  //     return kTfLiteRunStabilityUnknown;
+  //   case kTfLiteVariantObject:
+  //     return kTfLiteRunStabilityAcrossRuns;
+  // }
   return kTfLiteRunStabilityUnknown;
 }
 
 // Returns how stable a tensor data values are across runs.
-TfLiteRunStability TfLiteTensorGetDataStability(const TfLiteTensor* const t) {
-  switch (t->allocation_type) {
-    case kTfLiteMemNone:
-      return kTfLiteRunStabilityAcrossRuns;
-    case kTfLiteMmapRo:
-      return kTfLiteRunStabilityAcrossRuns;
-    case kTfLiteArenaRw:
-      return kTfLiteRunStabilitySingleRun;
-    case kTfLiteArenaRwPersistent:
-      return kTfLiteRunStabilityAcrossRuns;
-    case kTfLiteDynamic:
-      return kTfLiteRunStabilitySingleRun;
-    case kTfLitePersistentRo:
-      return kTfLiteRunStabilitySingleRun;
-    case kTfLiteCustom:
-      return kTfLiteRunStabilityUnknown;
-    case kTfLiteVariantObject:
-      return kTfLiteRunStabilitySingleRun;
-  }
+TfLiteRunStability TfliteMicroTensorGetDataStability(const TfLiteTensor* const t) {
+  assert(false && "Disabled function!");
+  // switch (t->allocation_type) {
+  //   case kTfLiteMemNone:
+  //     return kTfLiteRunStabilityAcrossRuns;
+  //   case kTfLiteMmapRo:
+  //     return kTfLiteRunStabilityAcrossRuns;
+  //   case kTfLiteArenaRw:
+  //     return kTfLiteRunStabilitySingleRun;
+  //   case kTfLiteArenaRwPersistent:
+  //     return kTfLiteRunStabilityAcrossRuns;
+  //   case kTfLiteDynamic:
+  //     return kTfLiteRunStabilitySingleRun;
+  //   case kTfLitePersistentRo:
+  //     return kTfLiteRunStabilitySingleRun;
+  //   case kTfLiteCustom:
+  //     return kTfLiteRunStabilityUnknown;
+  //   case kTfLiteVariantObject:
+  //     return kTfLiteRunStabilitySingleRun;
+  // }
   return kTfLiteRunStabilityUnknown;
 }
 
@@ -495,25 +498,26 @@ TfLiteRunStability TfLiteTensorGetDataStability(const TfLiteTensor* const t) {
 //
 // Some operations can precompute their results before the evaluation step. This
 // makes the data available earlier for subsequent operations.
-TfLiteRunStep TfLiteTensorGetDataKnownStep(const TfLiteTensor* t) {
-  switch (t->allocation_type) {
-    case kTfLiteMemNone:
-      return kTfLiteRunStepInit;
-    case kTfLiteMmapRo:
-      return kTfLiteRunStepInit;
-    case kTfLiteArenaRw:
-      return kTfLiteRunStepEval;
-    case kTfLiteArenaRwPersistent:
-      return kTfLiteRunStepEval;
-    case kTfLiteDynamic:
-      return kTfLiteRunStepEval;
-    case kTfLitePersistentRo:
-      return kTfLiteRunStepPrepare;
-    case kTfLiteCustom:
-      return kTfLiteRunStepUnknown;
-    case kTfLiteVariantObject:
-      return kTfLiteRunStepEval;
-  }
+TfLiteRunStep TfliteMicroTensorGetDataKnownStep(const TfLiteTensor* t) {
+  assert(false && "Disabled function!");
+  // switch (t->allocation_type) {
+  //   case kTfLiteMemNone:
+  //     return kTfLiteRunStepInit;
+  //   case kTfLiteMmapRo:
+  //     return kTfLiteRunStepInit;
+  //   case kTfLiteArenaRw:
+  //     return kTfLiteRunStepEval;
+  //   case kTfLiteArenaRwPersistent:
+  //     return kTfLiteRunStepEval;
+  //   case kTfLiteDynamic:
+  //     return kTfLiteRunStepEval;
+  //   case kTfLitePersistentRo:
+  //     return kTfLiteRunStepPrepare;
+  //   case kTfLiteCustom:
+  //     return kTfLiteRunStepUnknown;
+  //   case kTfLiteVariantObject:
+  //     return kTfLiteRunStepEval;
+  // }
   return kTfLiteRunStepUnknown;
 }
 
@@ -522,25 +526,26 @@ TfLiteRunStep TfLiteTensorGetDataKnownStep(const TfLiteTensor* t) {
 // Some operations can precompute the shape of their results before the
 // evaluation step. This makes the shape available earlier for subsequent
 // operations.
-TfLiteRunStep TfLiteTensorGetShapeKnownStep(const TfLiteTensor* t) {
-  switch (t->allocation_type) {
-    case kTfLiteMemNone:
-      return kTfLiteRunStepInit;
-    case kTfLiteMmapRo:
-      return kTfLiteRunStepInit;
-    case kTfLiteArenaRw:
-      return kTfLiteRunStepPrepare;
-    case kTfLiteArenaRwPersistent:
-      return kTfLiteRunStepPrepare;
-    case kTfLiteDynamic:
-      return kTfLiteRunStepEval;
-    case kTfLitePersistentRo:
-      return kTfLiteRunStepPrepare;
-    case kTfLiteCustom:
-      return kTfLiteRunStepUnknown;
-    case kTfLiteVariantObject:
-      return kTfLiteRunStepEval;
-  }
+TfLiteRunStep TfliteMicroTensorGetShapeKnownStep(const TfLiteTensor* t) {
+  assert(false && "Disabled function!");
+  // switch (t->allocation_type) {
+  //   case kTfLiteMemNone:
+  //     return kTfLiteRunStepInit;
+  //   case kTfLiteMmapRo:
+  //     return kTfLiteRunStepInit;
+  //   case kTfLiteArenaRw:
+  //     return kTfLiteRunStepPrepare;
+  //   case kTfLiteArenaRwPersistent:
+  //     return kTfLiteRunStepPrepare;
+  //   case kTfLiteDynamic:
+  //     return kTfLiteRunStepEval;
+  //   case kTfLitePersistentRo:
+  //     return kTfLiteRunStepPrepare;
+  //   case kTfLiteCustom:
+  //     return kTfLiteRunStepUnknown;
+  //   case kTfLiteVariantObject:
+  //     return kTfLiteRunStepEval;
+  // }
   return kTfLiteRunStepUnknown;
 }
 

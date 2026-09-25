@@ -37,7 +37,7 @@ TF_LITE_MICRO_TESTS_BEGIN
 TF_LITE_MICRO_TEST(TestInvoke) {
   // Map the model into a usable data structure. This doesn't involve any
   // copying or parsing, it's a very lightweight operation.
-  const tflite::Model* model = ::tflite::GetModel(g_person_detect_model_data);
+  const tflite_micro::Model* model = ::tflite_micro::GetModel(g_person_detect_model_data);
   if (model->version() != TFLITE_SCHEMA_VERSION) {
     MicroPrintf(
         "Model provided is schema version %d not equal "
@@ -50,16 +50,16 @@ TF_LITE_MICRO_TEST(TestInvoke) {
   // An easier approach is to just use the AllOpsResolver, but this will
   // incur some penalty in code space for op implementations that are not
   // needed by this graph.
-  tflite::MicroMutableOpResolver<5> micro_op_resolver;
-  micro_op_resolver.AddAveragePool2D(tflite::Register_AVERAGE_POOL_2D_INT8());
-  micro_op_resolver.AddConv2D(tflite::Register_CONV_2D_INT8());
+  tflite_micro::MicroMutableOpResolver<5> micro_op_resolver;
+  micro_op_resolver.AddAveragePool2D(tflite_micro::Register_AVERAGE_POOL_2D_INT8());
+  micro_op_resolver.AddConv2D(tflite_micro::Register_CONV_2D_INT8());
   micro_op_resolver.AddDepthwiseConv2D(
-      tflite::Register_DEPTHWISE_CONV_2D_INT8());
+      tflite_micro::Register_DEPTHWISE_CONV_2D_INT8());
   micro_op_resolver.AddReshape();
-  micro_op_resolver.AddSoftmax(tflite::Register_SOFTMAX_INT8());
+  micro_op_resolver.AddSoftmax(tflite_micro::Register_SOFTMAX_INT8());
 
   // Build an interpreter to run the model with.
-  tflite::MicroInterpreter interpreter(model, micro_op_resolver, tensor_arena,
+  tflite_micro::MicroInterpreter interpreter(model, micro_op_resolver, tensor_arena,
                                        tensor_arena_size);
   interpreter.AllocateTensors();
 

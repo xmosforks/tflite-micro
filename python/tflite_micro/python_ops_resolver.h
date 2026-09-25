@@ -23,7 +23,7 @@ namespace tflite {
 // PythonOpsResolver is used to register all the Ops for the TFLM Python
 // interpreter. This is ok since code size is not a concern from Python and
 // the goal is to be able to run any model supported by TFLM in a flexible way
-class PythonOpsResolver : public MicroMutableOpResolver<200> {
+class PythonOpsResolver : public tflite_micro::MicroMutableOpResolver<200> {
  public:
   PythonOpsResolver();
 

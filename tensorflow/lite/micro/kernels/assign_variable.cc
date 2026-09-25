@@ -28,7 +28,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/micro_resource_variable.h"
 #include "tensorflow/lite/schema/schema_generated.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
@@ -46,13 +46,13 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   // init/prepare, and VAR_HANDLE Prepare() references its own op_data in the
   // TfLiteEvalTensor, so reading the ID here is valid.
   const TfLiteEvalTensor* input_resource_id_tensor =
-      tflite::micro::GetEvalInput(context, node, kInputVariableId);
+      tflite_micro::micro::GetEvalInput(context, node, kInputVariableId);
   TFLITE_DCHECK(input_resource_id_tensor != nullptr);
   TF_LITE_ENSURE(context, (input_resource_id_tensor->type == kTfLiteResource ||
                            input_resource_id_tensor->type == kTfLiteInt32));
   TF_LITE_ENSURE_EQ(context, NumElements(input_resource_id_tensor->dims), 1);
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   TfLiteTensor* input_value =
       micro_context->AllocateTempInputTensor(node, kInputValue);
   TFLITE_DCHECK(input_value != nullptr);
@@ -76,14 +76,14 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input_id =
-      tflite::micro::GetEvalInput(context, node, kInputVariableId);
+      tflite_micro::micro::GetEvalInput(context, node, kInputVariableId);
   TFLITE_DCHECK(input_id != nullptr);
 
   const TfLiteEvalTensor* input_value =
-      tflite::micro::GetEvalInput(context, node, kInputValue);
+      tflite_micro::micro::GetEvalInput(context, node, kInputValue);
   TFLITE_DCHECK(input_value != nullptr);
 
-  tflite::MicroContext* micro_context = tflite::GetMicroContext(context);
+  tflite_micro::MicroContext* micro_context = tflite_micro::GetMicroContext(context);
   MicroGraph& graph_info = micro_context->graph();
 
   MicroResourceVariables* resources = graph_info.GetResourceVariables();
@@ -101,7 +101,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace.
 
 TFLMRegistration Register_ASSIGN_VARIABLE() {
-  return tflite::micro::RegisterOp(nullptr, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(nullptr, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

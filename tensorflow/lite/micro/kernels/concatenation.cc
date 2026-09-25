@@ -24,11 +24,11 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 
 namespace {
 
-constexpr int kMaxInputNum = 10;  // Maximum number of input tensors
+constexpr int kMaxInputNum = 40;  // Maximum number of input tensors
 constexpr int kOutputTensor = 0;
 
 struct OpData {
@@ -55,8 +55,8 @@ inline void GetAllInputTensorShapes(const TfLiteContext* context,
   TFLITE_DCHECK(context != nullptr);
   TFLITE_DCHECK(node != nullptr);
   for (int i = 0; i < node->inputs->size; ++i) {
-    const TfLiteEvalTensor* t = tflite::micro::GetEvalInput(context, node, i);
-    RuntimeShape shape = tflite::micro::GetTensorShape(t);
+    const TfLiteEvalTensor* t = tflite_micro::micro::GetEvalInput(context, node, i);
+    RuntimeShape shape = tflite_micro::micro::GetTensorShape(t);
     all_shapes[i].ReplaceWith(shape.DimensionsCount(), shape.DimsData());
   }
 }
@@ -77,8 +77,8 @@ inline void GetAllInputTensorData(const TfLiteContext* context,
   TFLITE_DCHECK(context != nullptr);
   TFLITE_DCHECK(node != nullptr);
   for (int i = 0; i < node->inputs->size; ++i) {
-    const TfLiteEvalTensor* t = tflite::micro::GetEvalInput(context, node, i);
-    all_data[i] = tflite::micro::GetTensorData<T>(t);
+    const TfLiteEvalTensor* t = tflite_micro::micro::GetEvalInput(context, node, i);
+    all_data[i] = tflite_micro::micro::GetTensorData<T>(t);
   }
 }
 
@@ -93,14 +93,14 @@ void EvalUnquantized(TfLiteContext* context, TfLiteNode* node) {
   GetAllInputTensorData(context, node, inputs_data);
 
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
 
   TFLITE_DCHECK(node->user_data != nullptr);
   const OpData* data = static_cast<const OpData*>(node->user_data);
 
   reference_ops::Concatenation(data->params, inputs_shape_ptr, inputs_data,
-                               tflite::micro::GetTensorShape(output),
-                               tflite::micro::GetTensorData<data_type>(output));
+                               tflite_micro::micro::GetTensorShape(output),
+                               tflite_micro::micro::GetTensorData<data_type>(output));
 }
 
 void* Init(TfLiteContext* context, const char* buffer, size_t length) {
@@ -205,7 +205,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
     }
     default:
       MicroPrintf("Op Concatenation does not currently support Type '%s'.",
-                  TfLiteTypeGetName(output_type));
+                  TfLiteMicroTypeGetName(output_type));
       return kTfLiteError;
   }
 
@@ -216,7 +216,7 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* output_tensor =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   TF_LITE_ENSURE(context, output_tensor != nullptr);
   TfLiteType output_type = output_tensor->type;
 
@@ -242,7 +242,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 
     default:
       MicroPrintf("Op Concatenation does not currently support Type '%s'.",
-                  TfLiteTypeGetName(output_type));
+                  TfLiteMicroTypeGetName(output_type));
       return kTfLiteError;
   }
 
@@ -252,7 +252,7 @@ TfLiteStatus Eval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_CONCATENATION() {
-  return tflite::micro::RegisterOp(Init, Prepare, Eval);
+  return tflite_micro::micro::RegisterOp(Init, Prepare, Eval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

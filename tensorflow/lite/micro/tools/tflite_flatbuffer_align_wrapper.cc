@@ -28,15 +28,15 @@ void align_tflite_model(const char* input_file_name,
   flatbuffers::LoadFile(input_file_name, false, &model_file);
   // Parse the string into a C++ class.  Model is the root object of a tflite
   // flatbuffer file.
-  const tflite::Model* model = tflite::GetModel(model_file.c_str());
+  const tflite_micro::Model* model = tflite_micro::GetModel(model_file.c_str());
   // A packed model is basically the file format mmaped into memory.
   // Unpacking it and then packing it with the C++ API should yield
   // a file with the force_align attributes respected.
   // ModelT is just the unpacked version of the model file.
-  tflite::ModelT* unpacked_model = model->UnPack();
+  tflite_micro::ModelT* unpacked_model = model->UnPack();
   flatbuffers::FlatBufferBuilder fbb;
-  auto new_model = tflite::Model::Pack(fbb, unpacked_model);
-  fbb.Finish(new_model, tflite::ModelIdentifier());
+  auto new_model = tflite_micro::Model::Pack(fbb, unpacked_model);
+  fbb.Finish(new_model, tflite_micro::ModelIdentifier());
   flatbuffers::SaveFile(output_file_name,
                         reinterpret_cast<char*>(fbb.GetBufferPointer()),
                         fbb.GetSize(), /*binary*/ true);

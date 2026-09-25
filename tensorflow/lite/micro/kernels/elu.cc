@@ -27,7 +27,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/micro_log.h"
 
-namespace tflite {
+namespace tflite_micro {
 namespace {
 
 // Input/output tensor index.
@@ -69,10 +69,10 @@ void PopulateLookupTable(const TfLiteTensor* input, const TfLiteTensor* output,
 // OLD-TODO(b/143696793): move this to optimized_ops.
 void EvalUsingLookupTable(const OpData* data, const TfLiteEvalTensor* input,
                           TfLiteEvalTensor* output) {
-  const int size = MatchingFlatSize(tflite::micro::GetTensorShape(input),
-                                    tflite::micro::GetTensorShape(output));
-  int8_t* output_data = tflite::micro::GetTensorData<int8_t>(output);
-  const int8_t* input_data = tflite::micro::GetTensorData<int8_t>(input);
+  const int size = MatchingFlatSize(tflite_micro::micro::GetTensorShape(input),
+                                    tflite_micro::micro::GetTensorShape(output));
+  int8_t* output_data = tflite_micro::micro::GetTensorData<int8_t>(output);
+  const int8_t* input_data = tflite_micro::micro::GetTensorData<int8_t>(input);
 
   for (int i = 0; i < size; ++i) {
     output_data[i] = data->table[static_cast<uint8_t>(input_data[i])];
@@ -119,15 +119,15 @@ TfLiteStatus EluPrepare(TfLiteContext* context, TfLiteNode* node) {
 
 TfLiteStatus EluEval(TfLiteContext* context, TfLiteNode* node) {
   const TfLiteEvalTensor* input =
-      tflite::micro::GetEvalInput(context, node, kInputTensor);
+      tflite_micro::micro::GetEvalInput(context, node, kInputTensor);
   TfLiteEvalTensor* output =
-      tflite::micro::GetEvalOutput(context, node, kOutputTensor);
+      tflite_micro::micro::GetEvalOutput(context, node, kOutputTensor);
   switch (input->type) {
     case kTfLiteFloat32: {
-      reference_ops::Elu(tflite::micro::GetTensorShape(input),
-                         tflite::micro::GetTensorData<float>(input),
-                         tflite::micro::GetTensorShape(output),
-                         tflite::micro::GetTensorData<float>(output));
+      reference_ops::Elu(tflite_micro::micro::GetTensorShape(input),
+                         tflite_micro::micro::GetTensorData<float>(input),
+                         tflite_micro::micro::GetTensorShape(output),
+                         tflite_micro::micro::GetTensorData<float>(output));
       return kTfLiteOk;
     }
     case kTfLiteInt8: {
@@ -137,7 +137,7 @@ TfLiteStatus EluEval(TfLiteContext* context, TfLiteNode* node) {
     }
     default:
       MicroPrintf("ELU only supports float32 and int8 currently, got %s.",
-                  TfLiteTypeGetName(input->type));
+                  TfLiteMicroTypeGetName(input->type));
       return kTfLiteError;
   }
 }
@@ -145,7 +145,7 @@ TfLiteStatus EluEval(TfLiteContext* context, TfLiteNode* node) {
 }  // namespace
 
 TFLMRegistration Register_ELU() {
-  return tflite::micro::RegisterOp(EluInit, EluPrepare, EluEval);
+  return tflite_micro::micro::RegisterOp(EluInit, EluPrepare, EluEval);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro

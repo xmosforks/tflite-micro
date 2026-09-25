@@ -25,7 +25,7 @@ limitations under the License.
 #include "tensorflow/lite/micro/kernels/kernel_util.h"
 #include "tensorflow/lite/micro/kernels/logistic.h"
 
-namespace tflite {
+namespace tflite_micro {
 const int kLogisticInputTensor = 0;
 const int kLogisticOutputTensor = 0;
 
@@ -116,4 +116,4 @@ TfLiteStatus LogisticPrepare(TfLiteContext* context, TfLiteNode* node) {
   return CalculateArithmeticOpDataLogistic(context, node, data);
 }
 
-}  // namespace tflite
+}  // namespace tflite_micro
