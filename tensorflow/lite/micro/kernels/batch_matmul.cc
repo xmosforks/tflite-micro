@@ -157,7 +157,7 @@ TfLiteEvalTensor* AllocInitTransposeTensorFromTfLiteTensor(
     TfLiteContext* context, const TfLiteTensor& tensor) {
   MicroContext* micro_context = GetMicroContext(context);
   TfLiteEvalTensor* eval_tensor = static_cast<TfLiteEvalTensor*>(
-      micro_context->AllocatePersistentBuffer(sizeof(TfLiteEvalTensor)));
+      context->AllocatePersistentBuffer(context, sizeof(TfLiteEvalTensor)));
   if (eval_tensor == nullptr) {
     return nullptr;
   }
@@ -167,7 +167,7 @@ TfLiteEvalTensor* AllocInitTransposeTensorFromTfLiteTensor(
   const int tensor_rank = NumDimensions(&tensor);
   const size_t eval_dims_size = TfLiteMicroIntArrayGetSizeInBytes(tensor_rank);
   eval_tensor->dims = static_cast<TfLiteIntArray*>(
-      micro_context->AllocatePersistentBuffer(eval_dims_size));
+      context->AllocatePersistentBuffer(context, eval_dims_size));
   if (eval_tensor->dims == nullptr) {
     return nullptr;
   }
@@ -182,7 +182,7 @@ TfLiteEvalTensor* AllocInitTransposeTensorFromTfLiteTensor(
   const size_t eval_data_size = static_cast<size_t>(NumElements(&tensor)) *
                                 TfLiteTypeGetSize(tensor.type);
   eval_tensor->data.data =
-      micro_context->AllocatePersistentBuffer(eval_data_size);
+      context->AllocatePersistentBuffer(context, eval_data_size);
   if (eval_tensor->data.data == nullptr) {
     return nullptr;
   }
@@ -206,8 +206,8 @@ TfLiteStatus InitializeTemporaries(TfLiteContext* context, TfLiteNode* node,
 
   if (lhs->type == kTfLiteInt8 || lhs->type == kTfLiteInt16) {
     op_data->quantization = static_cast<decltype(op_data->quantization)>(
-        micro_context->AllocatePersistentBuffer(
-            sizeof(*op_data->quantization)));
+        context->AllocatePersistentBuffer(
+            context, sizeof(*op_data->quantization)));
     TF_LITE_ENSURE(context, op_data->quantization != nullptr);
   }
 
@@ -285,7 +285,7 @@ void* Init(TfLiteContext* context, const char* buffer, size_t length) {
   // Eval().
   TFLITE_DCHECK(context->AllocatePersistentBuffer != nullptr);
   MicroContext* micro_context = GetMicroContext(context);
-  return micro_context->AllocatePersistentBuffer(sizeof(OpData));
+  return context->AllocatePersistentBuffer(context, sizeof(OpData));
 }
 
 TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
@@ -325,8 +325,8 @@ TfLiteStatus Prepare(TfLiteContext* context, TfLiteNode* node) {
   OpData* op_data = op_context.op_data;
   // If the RHS is constant, we only transpose once.
   op_data->rhs_is_transposed = false;
-  op_data->lhs_is_constant_tensor = IsConstantTensor(context, lhs_data);
-  op_data->rhs_is_constant_tensor = IsConstantTensor(context, rhs_data);
+  op_data->lhs_is_constant_tensor = IsConstantTensor(context, const_cast<TfLiteTensor*>(lhs_data));
+  op_data->rhs_is_constant_tensor = IsConstantTensor(context, const_cast<TfLiteTensor*>(rhs_data));
 
   // Note that quantized inference requires that all tensors have their
   // parameters set. This is usually done during quantized training.
