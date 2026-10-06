@@ -155,7 +155,6 @@ TfLiteStatus ReshapeOutputTensor(TfLiteContext* context, TfLiteNode* node,
 
 TfLiteEvalTensor* AllocInitTransposeTensorFromTfLiteTensor(
     TfLiteContext* context, const TfLiteTensor& tensor) {
-  MicroContext* micro_context = GetMicroContext(context);
   TfLiteEvalTensor* eval_tensor = static_cast<TfLiteEvalTensor*>(
       context->AllocatePersistentBuffer(context, sizeof(TfLiteEvalTensor)));
   if (eval_tensor == nullptr) {
@@ -198,7 +197,6 @@ TfLiteStatus InitializeTemporaries(TfLiteContext* context, TfLiteNode* node,
   OpData* op_data = op_context.op_data;
   const TfLiteTensor* lhs = op_context.lhs;
   const TfLiteTensor* rhs = op_context.rhs;
-  MicroContext* micro_context = GetMicroContext(context);
 
   op_data->quantization = nullptr;
   op_data->lhs_transposed_tensor = nullptr;
@@ -284,7 +282,6 @@ void* Init(TfLiteContext* context, const char* buffer, size_t length) {
   // Instead, we allocate a new object to carry information from Prepare() to
   // Eval().
   TFLITE_DCHECK(context->AllocatePersistentBuffer != nullptr);
-  MicroContext* micro_context = GetMicroContext(context);
   return context->AllocatePersistentBuffer(context, sizeof(OpData));
 }
 
