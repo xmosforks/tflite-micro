@@ -28,6 +28,7 @@ PythonOpsResolver::PythonOpsResolver() {
   AddArgMin();
   AddAssignVariable();
   AddAveragePool2D();
+  AddBatchMatMul();
   AddBatchToSpaceNd();
   AddBroadcastArgs();
   AddBroadcastTo();
